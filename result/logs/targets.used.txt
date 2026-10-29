@@ -1,0 +1,5 @@
+https://console.byteplus.com/workorder/list/
+
+---
+
+1st wait 10 second to load all js files releted this ui then extract all subroutes and start testing
