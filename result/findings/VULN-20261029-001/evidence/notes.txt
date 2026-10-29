@@ -1,0 +1,45 @@
+Finding: VULN-20261029-001
+Asset: https://uisp.ui.com/adopt
+Tested at: 2026-10-29T22:48Z (UTC)
+Test identity: Account A (qacct1a6967) authenticated UISP session
+Bundle: https://uisp.ui.com/home/static/js/main.ca315773.js
+SHA-256: a88cae365fd9a42f0a39605da3e1649004d57151e1a158f2c6cdcfdc1a3c4dd1
+
+Observation 1 (confirmed open redirect, http/https/ftp only):
+- Loaded:
+  https://uisp.ui.com/adopt?deviceUrl=http%3A%2F%2F127.0.0.1%3A8765%2F&deviceName=TESTDEVICE123&token=abc123
+- The page rendered "Add device 127.0.0.1 to your UISP?" with a Cancel button.
+- Clicking Cancel changed the top-level URL to http://127.0.0.1:8765/,
+  which returned the marker page UISP_REDIRECT_REACHED.
+- Evidence screenshots:
+  01-adopt-page-with-attacker-deviceUrl.png
+  02-cancel-redirected-to-local-server.png
+
+Observation 2 (javascript: rejected, so this is NOT XSS):
+- Loaded deviceUrl=javascript:document.title='UISPXSS'
+  Result: app rejected input and redirected to https://uisp.ui.com/setup;
+  document.title remained "UISP Portal". No script execution.
+- Loaded deviceUrl=%09javascript:document.title='TABXSS' (leading tab)
+  Result: same rejection; no script execution.
+- Static analysis: validator.js isURL() default protocols are
+  http, https, ftp (require_valid_protocol=true); javascript: is rejected
+  before the sink executes.
+
+Sink (minified bundle):
+  Cancel button onClick:
+    onClick:function(){const e=new URL(s);window.location.href=e.href}
+  where s = URLSearchParams.get("deviceUrl").
+
+Related code-level concern (UNRESOLVED, not confirmed):
+- The same component executes tee(s,a,d) when connectionString `a` is present:
+    function tee(e,t,r){const n=new URL(e);
+      n.searchParams.append("controllerUrl",t);
+      n.searchParams.append("token",r);window.location.href=n.href}
+- "Add to UISP" triggers:
+    GET https://unms-go.ubnt.com/api/installations/unifi-controllers/<id>/connection-string
+  and stores the response as connectionString. The subsequent render calls
+  tee(), sending that controller connection string to the attacker-controlled
+  deviceUrl as the controllerUrl query parameter.
+- Could not verify end-to-end because Account A has no UISP controllers
+  (list-controllers returns {"controllers":[]}) and creating a paid/cloud
+  controller trial was intentionally not performed.

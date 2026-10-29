@@ -10,3 +10,12 @@
 - MCP: chrome-devtools available (list_pages succeeded)
 - Environment: GitHub Actions Linux runner
 - Resume state: target-state decision=reset (fresh run); previous results belong to a different target input.
+
+## Resumed session
+- Resume start (UTC): 2026-10-29T22:40:46Z
+- Run: 40967569143 (schedule), target hash unchanged → decision=preserved
+- Browser/MCP: Chrome 156.0.8078.73 at 127.0.0.1:9222, chrome-devtools MCP reachable (list_pages OK)
+- Prior state: Account A valid; Account B unresolved (reCAPTCHA); confirmed-vuln.txt empty
+- Session end (UTC): 2026-10-29T22:53:32Z
+- Final state: confirmed-vuln.txt empty (UISP open redirect excluded); SUMMARY.md,
+  unresolved.md, finding VULN-20261029-001 and testing-inventory.json updated.
