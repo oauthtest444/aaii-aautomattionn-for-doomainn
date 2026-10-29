@@ -1,0 +1,15 @@
+avatars.duel.com,172.64.150.2
+clips.duel.com,172.64.150.2
+dev.duel.com,172.64.150.2
+jobs.duel.com,172.64.150.2
+track.mail.duel.com,104.18.37.254
+pvp.duel.com,172.64.150.2
+roulette.duel.com,104.18.37.254
+snowplow-collector.duel.com,172.64.150.2
+sp.duel.com,172.64.150.2
+sports-proxy.duel.com,172.64.150.2
+staging.duel.com,104.18.37.254
+clips.staging.duel.com,104.18.37.254
+uat.duel.com,104.18.37.254
+uat-us-pvp.duel.com,172.64.150.2
+www.duel.com,172.64.150.2

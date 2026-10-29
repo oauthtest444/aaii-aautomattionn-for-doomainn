@@ -1,47 +1,38 @@
-# Scope
+# Scope and Authorization
 
-## User Instructions (from data/targets.txt)
+## Target Entries
+- `data/targets.txt`: `duel.com` (domain-only target).
 
-The target file contains:
-
-> https://console.byteplus.com/workorder/list/$
->
-> ---
->
-> 1st wait 10 second to load all js files releted this ui then extract all subroutes and start testing
-
-Effect on test plan:
-- Authorized entry point is `https://console.byteplus.com/workorder/list/`.
-- Wait ~10 seconds for the route to load all JavaScript before analysis.
-- Enumerate sub-routes reachable under `/workorder/` on the same origin and test
-  each one for client-side issues first, then server-side.
-- Do not expand scope to unrelated routes or other byteplus.com subdomains.
+## User Instructions (verbatim intent)
+- Identify valid/interesting subdomains of duel.com; save them to a text file; test each discovered subdomain individually.
+- For each subdomain, discover UI routes and API endpoints, then test client-side and server-side vulnerabilities.
+- Create two test accounts on the target subdomain and save credentials for testing; if account creation is impossible, test unauthenticated endpoints only.
+- Do not ask questions; decide independently; focus on valid, impactful, reportable vulnerabilities.
+- Authorized scope per operator note: `duel.com` and its subdomains.
 
 ## Authorization Source / Assumptions
+- `data/targets.txt` is the authorization source. Subdomains of duel.com are explicitly authorized by the operator note.
+- No third-party origins, sibling domains, CDNs, or acquisition systems are tested. Origin assets required to exercise in-scope routes (same-origin JS/API) are in scope.
+- Program policy not provided beyond `data/`; stricter safety rules from `skills/AGENT.md` apply. No destructive/DoS/brute-force/social-engineering testing.
 
-- Authorization derived solely from `data/targets.txt`.
-- Target classified as **URL-list** rooted at host `console.byteplus.com`.
-- In scope: the listed workorder route, its sub-routes on the same origin, and
-  same-origin JavaScript/API components required to exercise them.
+## In-Scope Components (discovered)
+- https://duel.com (main SPA, API under /api/v2)
+- https://pvp.duel.com (PvP games SPA)
+- https://uat-us-pvp.duel.com (same PvP app)
+- https://sp.duel.com (public S3-style bucket `duel-snowplow-js`)
+- https://avatars.duel.com
+- https://sports-proxy.duel.com
+- https://clips.duel.com
+- https://roulette.duel.com
+- https://jobs.duel.com
+- https://staging.duel.com / uat.duel.com / dev.duel.com (behind Cloudflare Access - no credentials; recorded unresolved)
+- https://snowplow-collector.duel.com, https://track.mail.duel.com
 
-## In-Scope Components
-
-- `https://console.byteplus.com/workorder/...` routes (list, detail, create,
-  and any sub-route discovered from the workorder UI).
-- Same-origin JS bundles, inline scripts, workers, source maps, and API
-  endpoints loaded by / used by those routes.
-- `https://console.byteplus.com/auth/login/` only as the authentication flow
-  needed to reach the workorder surface.
-
-## Explicitly Out-of-Scope
-
-- Other console.byteplus.com top-level routes (waf, finance, user, beian,
-  message) except as required navigation for authentication.
-- Any other byteplus.com subdomain, third-party CDN/analytics, partner systems.
-- Destructive actions, real-user data, mass/fuzzing/DoS.
+## Out of Scope
+- Third-party hosts referenced by the app (clarity.ms, cookiebot.com, google-analytics, intercom, braze, etc.) are NOT tested.
+- Non-duel sibling domains (duel.ag, duel.net, duel.vip, duelnews.com, cprx.online, seondnsresolve.com, etc.) are NOT in scope unless independently discovered as duel.com subdomains.
+- Cloudflare infrastructure endpoints are not tested.
 
 ## Program Restrictions
-
-- None stated beyond the route list.
-- Standard AGENT.md safety rules: test-owned data only, no destructive writes,
-  no real-user data, low request volume, harmless payloads.
+- Gambling site; do not create real-money deposits or wagers. Test-owned only.
+- No destructive or high-volume testing.
