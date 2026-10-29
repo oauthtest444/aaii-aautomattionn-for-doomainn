@@ -1,0 +1,15 @@
+try{let e=typeof window<`u`?window:typeof global<`u`?global:typeof globalThis<`u`?globalThis:typeof self<`u`?self:{},t=new e.Error().stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=`4466b94f-6506-4cb4-aeaf-220984c213c4`,e._sentryDebugIdIdentifier=`sentry-dbid-4466b94f-6506-4cb4-aeaf-220984c213c4`)}catch{}import{q as e,y as t}from"./react-C9EcEEoD.js";import{a as n}from"./rolldown-runtime-Bqsl3lKq.js";import{U as r,it as i,t as a}from"./Flex-Cep2f4HR.js";import"./src-DfQgNQkU.js";import{Di as o,Ei as s}from"./src-D838am2T.js";import{t as c}from"./Main-CsQWeTOx.js";import{n as l}from"./config-Butb-XBt.js";import{t as u}from"./clipboard-CIcRkUVP.js";import{i as d,r as f}from"./developer-Djh2TR1F.js";var p=n(e()),m=t(),h=(0,p.memo)(()=>{let{t:e}=l(),t=o(),[n,s]=(0,p.useState)([]),h=f(),v=d(),y=(0,p.useCallback)((e,t)=>u.copy(JSON.stringify(e&&e[t],null,2)),[]);return(0,m.jsxs)(m.Fragment,{children:[(0,m.jsx)(c.Topnav,{}),(0,m.jsx)(c.Developer,{loading:h.isFetching||v.isPending,children:(0,m.jsx)(c.Section,{wrap:!0,center:!0,children:h.data&&(0,m.jsx)(a,{column:!0,gap:`xl`,style:{width:`100%`,padding:`0 12px`},children:h.data.keys.map(o=>(0,m.jsxs)(a,{column:!0,children:[(0,m.jsx)(r,{size:`xlarge-2`,children:o}),(0,m.jsxs)(`div`,{style:{background:t.designer.motif[`desktop-color-neutral-01`]},children:[(0,m.jsxs)(g,{children:[(0,m.jsxs)(a,{full:!0,justifyBetween:!0,alignCenter:!0,children:[(0,m.jsx)(r,{size:`large`,children:e({id:`sections.developer.caches.tab.redis`})}),(0,m.jsxs)(a,{gap:`m`,children:[(0,m.jsx)(i,{variant:`destructive`,size:`medium`,onPress:()=>v.mutate(o),children:e({id:`commons.clear`})}),(0,m.jsx)(i,{variant:`emphasis`,size:`medium`,onPress:()=>y(h.data.caches.redis,o),children:e({id:`commons.copy`})})]})]}),(0,m.jsxs)(a,{full:!0,justifyBetween:!0,alignCenter:!0,children:[(0,m.jsx)(r,{size:`large`,children:e({id:`sections.developer.caches.tab.memory`})}),(0,m.jsx)(i,{variant:`emphasis`,size:`medium`,onPress:()=>y(h.data.caches.memory,o),children:e({id:`commons.copy`})})]})]}),(0,m.jsxs)(g,{children:[!n.includes(o)&&(0,m.jsxs)(a,{alignCenter:!0,column:!0,full:!0,gap:`l`,children:[(0,m.jsx)(r,{color:`text-3`,children:e({id:`sections.developer.caches.hiddenCache`})}),!n.includes(o)&&(0,m.jsx)(i,{variant:`secondary-emphasis`,size:`medium`,onPress:()=>s(e=>[...e,o]),style:{margin:`0 auto`},children:e({id:`commons.show`})})]}),n.includes(o)&&(0,m.jsx)(_,{children:JSON.stringify(h.data.caches.redis&&h.data.caches.redis[o],null,2)}),n.includes(o)&&(0,m.jsx)(_,{children:JSON.stringify(h.data.caches.memory&&h.data.caches.memory[o],null,2)})]})]})]},o))})})})]})}),g=s.div`
+  display: flex;
+  width: 100%;
+  max-height: 400px;
+  padding: 16px 40px;
+  overflow-y: auto;
+  gap: 50px;
+`,_=s.pre`
+  margin: 0;
+  width: 100%;
+  white-space: pre-wrap;
+  line-height: 1.2;
+  color: ${({theme:e})=>e.designer.motif[`desktop-color-text-0`]};
+`;export{h as Component};
+//# sourceMappingURL=DeveloperCachesPage-Big1MvV2.js.map

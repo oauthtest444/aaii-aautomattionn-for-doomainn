@@ -1,0 +1,9 @@
+result/logs/agent-exit-code.txt 51 bytes
+result/logs/opencode.log 818774 bytes
+result/logs/opencode/40922888469/chrome-mcp.log 5638 bytes
+result/logs/opencode/40922888469/diagnostics-index.txt 0 bytes
+result/logs/opencode/40922888469/opencode.log 541566 bytes
+result/logs/session.md 572 bytes
+result/logs/target-state.txt 249 bytes
+result/logs/targets.sha256 65 bytes
+result/logs/targets.used.txt 995 bytes

@@ -1,0 +1,7 @@
+import{j as e,e as t}from"./react-DGhZhtub.js";import{e8 as d,aZ as o,C as n,bq as c,bD as m,eB as p}from"./AppWrapper-Dv2SOsTr.js";import"./sentry-DYy3Ltx-.js";import{a0 as f}from"./index-BEhlHXuB.js";import{k as h}from"./lodash-cGhQZeSM.js";import{T as l,R as x,V as g}from"./VerticalTimelinePlaceholder-BFwCXCsE.js";(function(){try{var s=typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{},a=new s.Error().stack;a&&(s._sentryDebugIds=s._sentryDebugIds||{},s._sentryDebugIds[a]="2e172d9b-0fe9-4172-95f5-9877139de180",s._sentryDebugIdIdentifier="sentry-dbid-2e172d9b-0fe9-4172-95f5-9877139de180")}catch{}})();const j=({title:s})=>e.jsx(d,{title:s,children:h(1).map(a=>e.jsx("div",{className:o("flex items-center",{"mt-15":a!==0}),children:e.jsx("span",{className:"bg-placeholder h-30 w-full"})},a))}),i=t.div`
+  padding: 0;
+  ${f} {
+    padding: 1rem;
+  }
+`,w=({isEmployee:s})=>e.jsx(i,{children:e.jsx(n,{padding:0,sidebarItems:[e.jsx(d,{children:s&&e.jsx(c,{})},"first"),e.jsx(j,{},"versions")],children:e.jsx(l,{})})}),R=({isRepliesLoader:s})=>e.jsx(i,{children:e.jsx(n,{padding:0,noBackground:!0,sidebarItems:[e.jsx(g,{},"vertical-timeline")],children:s?e.jsx(m,{d:"v",gap:"desktop-spacing-small",style:{transform:"translateY(-16px)"},children:Array.from({length:p}).map((a,r)=>e.jsx(x,{},r))}):e.jsx(l,{})})});export{R as I,w as R};
+//# sourceMappingURL=Placeholder-BlxzfTA3.js.map

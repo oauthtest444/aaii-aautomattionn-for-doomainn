@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- OneTrust Cookies Consent Notice start for ui.com -->
+    <script
+      type="text/javascript"
+      src="https://cdn.cookielaw.org/consent/224b28b6-c7e2-45ef-9c82-fe34c2648b5a/OtAutoBlock.js"
+    ></script>
+    <script
+      src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+      data-document-language="true"
+      type="text/javascript"
+      charset="UTF-8"
+      data-domain-script="224b28b6-c7e2-45ef-9c82-fe34c2648b5a"
+    ></script>
+    <script type="text/javascript">
+      function OptanonWrapper() {
+        window.dispatchEvent(new CustomEvent("oneTrustConsentChanged"));
+      }
+    </script>
+    <!-- OneTrust Cookies Consent Notice end for ui.com -->
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0, viewport-fit=cover"
+    />
+
+    <link rel="preconnect" href="https://design.svc.ui.com" />
+
+    <link rel="shortcut icon" href="/favicon.ico?build=1792756773840" />
+    <link rel="icon" href="/favicon.ico?build=1792756773840" />
+
+    <!-- When you update font version, do the same in Designer package - UISansFontLoader, preview-head.html -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.svc.ui.com/inter-all.css"
+      crossorigin="anonymous"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+
+    <title>UniFi Design Center</title>
+    <meta
+      name="description"
+      content="Simulate a complete UniFi system with our powerful visualization and planning tool."
+    />
+    <!-- Google Analytics — blocked until OneTrust "Performance" (C0002) consent -->
+    <script
+      type="text/plain"
+      class="optanon-category-C0002"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-RMB3GLH2RD"
+    ></script>
+    <script type="text/plain" class="optanon-category-C0002">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-RMB3GLH2RD");
+    </script>
+    <style>
+      #share-loader {
+        position: fixed;
+        top: 8px;
+        left: 50%;
+        width: 96px;
+        height: 3px;
+        transform: translateX(-50%);
+        border-radius: 16px;
+        background: hsla(214, 8%, 96%, 1);
+      }
+      #share-loader::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 5%;
+        border-radius: inherit;
+        background: hsla(214, 8%, 78%, 1);
+        animation: share-loader 2s 50ms cubic-bezier(0.51, 0.27, 0.33, 0.74) forwards;
+      }
+      #share-loader.share-loader-dark {
+        background: hsla(214, 8%, 14%, 1);
+      }
+      #share-loader.share-loader-dark::before {
+        background: hsla(214, 8%, 38%, 1);
+      }
+      @keyframes share-loader {
+        to {
+          width: 90%;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-4v77K6HY.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-C9EcEEoD.js">
+    <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-Bqsl3lKq.js">
+    <link rel="modulepreload" crossorigin href="/assets/translations-CE3C_7Er.js">
+    <link rel="modulepreload" crossorigin href="/assets/config-Butb-XBt.js">
+    <link rel="modulepreload" crossorigin href="/assets/three-BhPyDYUp.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-D838am2T.js">
+    <link rel="modulepreload" crossorigin href="/assets/polygonClipping-D46iLzNV.js">
+    <link rel="modulepreload" crossorigin href="/assets/Outlines-lGVeKKRf.js">
+    <link rel="modulepreload" crossorigin href="/assets/wallGeometry-D32C-giu.js">
+    <link rel="modulepreload" crossorigin href="/assets/number-Db8Fra9I.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-DXktLzRI.js">
+    <link rel="modulepreload" crossorigin href="/assets/sentry-Dl7ijBz9.js">
+    <link rel="modulepreload" crossorigin href="/assets/zod-D-GeTGlK.js">
+    <link rel="modulepreload" crossorigin href="/assets/SemanticIndicator_Default-9HMTQx0X.js">
+    <link rel="modulepreload" crossorigin href="/assets/useSafeTimeout-DOw82_hg.js">
+    <link rel="modulepreload" crossorigin href="/assets/CollapseArrow-DpCye5Fa.js">
+    <link rel="modulepreload" crossorigin href="/assets/product-DDygbo97.js">
+    <link rel="modulepreload" crossorigin href="/assets/Map_Default-8Dfy7ha4.js">
+    <link rel="modulepreload" crossorigin href="/assets/Flex-Cep2f4HR.js">
+    <link rel="modulepreload" crossorigin href="/assets/ShimmerText-C6CzBzDG.js">
+    <link rel="modulepreload" crossorigin href="/assets/Floater-CgQFind1.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-DfQgNQkU.js">
+    <link rel="modulepreload" crossorigin href="/assets/schema-Bxvg5UjO.js">
+    <link rel="modulepreload" crossorigin href="/assets/useDesignerActions-BUrzEVC8.js">
+    <link rel="modulepreload" crossorigin href="/assets/AssistantTrigger-Bc0VhrYS.js">
+    <link rel="modulepreload" crossorigin href="/assets/date-CuJ6v5yE.js">
+    <link rel="modulepreload" crossorigin href="/assets/collaborators-CKrbhQYE.js">
+    <link rel="modulepreload" crossorigin href="/assets/presence-x0Q8YKUG.js">
+    <link rel="modulepreload" crossorigin href="/assets/Avatar_Default-BXr-Pamd.js">
+    <link rel="modulepreload" crossorigin href="/assets/Main-CsQWeTOx.js">
+    <link rel="modulepreload" crossorigin href="/assets/ShareLoader-8HwRgrf_.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-1MY77d_E.css">
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" data-build="1792756773840"></div>
+    <script>
+      if (/^\/(?:fabric\/)?(?:share|fabric-share)(?:\/|$)/.test(window.location.pathname)) {
+        var root = document.getElementById("root");
+        if (root) {
+          var loader = document.createElement("div");
+          loader.id = "share-loader";
+          if (window.location.search.indexOf("theme=dark") !== -1) {
+            loader.className = "share-loader-dark";
+          }
+          root.appendChild(loader);
+        }
+      }
+    </script>
+  </body>
+</html>

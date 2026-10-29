@@ -1,5 +1,5 @@
 Target:
-duel.com
+ui.com
 
 First, identify all valid and potentially interesting subdomains and save them in a text file.
 Test each discovered subdomain individually.

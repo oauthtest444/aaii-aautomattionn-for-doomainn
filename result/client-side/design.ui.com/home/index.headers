@@ -1,0 +1,19 @@
+HTTP/2 200 
+content-type: text/html
+content-length: 6272
+date: Thu, 29 Oct 2026 17:49:31 GMT
+accept-ranges: bytes
+server: nginx
+last-modified: Fri, 23 Oct 2026 11:59:40 GMT
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0
+x-content-type-options: nosniff
+permissions-policy: interest-cohort=()
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' blob: https://unpkg.com https://www.gstatic.com https://*.googletagmanager.com https://cdn.cookielaw.org; media-src 'self' *.ui.com https://design.dev.ui.com https://design-prof.dev.ui.com https://design.stg.ui.com https://design.ui.com; style-src 'self' 'unsafe-inline' https://fonts.svc.ui.com https://cdn.cookielaw.org; img-src 'self' data: blob: *.ui.com https://*.google-analytics.com https://*.googletagmanager.com https://cdn.cookielaw.org; font-src 'self' https://fonts.svc.ui.com; connect-src 'self' *.ui.com wss://*.amazonaws.com wss://proto-unifi-gpt.dev.svc.ui.com wss://prod-unifi-gpt.svc.ui.com *.amazonaws.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://sentry.io https://stats.g.doubleclick.net https://cdn.cookielaw.org https://geolocation.onetrust.com https://privacyportal.onetrust.com https://api.maptiler.com https://unpkg.com https://www.gstatic.com data: blob: wss://bot.svc.ui.com https://design.dev.svc.ui.com https://design-prof.dev.svc.ui.com https://design.stg.svc.ui.com https://design.svc.ui.com wss://design.dev.svc.ui.com wss://design-prof.dev.svc.ui.com wss://design.stg.svc.ui.com wss://design.svc.ui.com; frame-src 'self' *.ui.com blob: https://design.dev.svc.ui.com https://design-prof.dev.svc.ui.com https://design.stg.svc.ui.com https://design.svc.ui.com; worker-src 'self' blob:; object-src 'self' blob:; frame-ancestors 'self' https://*.ui.com
+x-cache: Miss from cloudfront
+via: 1.1 f188ca73d9e145b3d0110205c91c9006.cloudfront.net (CloudFront)
+x-amz-cf-pop: ORD58-P15
+x-amz-cf-id: I_MywG5nldEzVgd014YLu0ZQJZ52atbkEEzDyAqCv-eX5ebhsi4bbw==
+x-xss-protection: 1; mode=block
+

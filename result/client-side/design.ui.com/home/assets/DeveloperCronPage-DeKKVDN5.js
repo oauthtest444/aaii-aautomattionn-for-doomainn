@@ -1,0 +1,7 @@
+try{let e=typeof window<`u`?window:typeof global<`u`?global:typeof globalThis<`u`?globalThis:typeof self<`u`?self:{},t=new e.Error().stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=`2e1d1900-2196-4982-a4a8-b46cc0d51fa9`,e._sentryDebugIdIdentifier=`sentry-dbid-2e1d1900-2196-4982-a4a8-b46cc0d51fa9`)}catch{}import{q as e,y as t}from"./react-C9EcEEoD.js";import{a as n}from"./rolldown-runtime-Bqsl3lKq.js";import{a as r}from"./useSafeTimeout-DOw82_hg.js";import{Ei as i}from"./src-D838am2T.js";import{t as a}from"./Main-CsQWeTOx.js";import{n as o,t as s}from"./config-Butb-XBt.js";import{f as c}from"./developer-Djh2TR1F.js";var l=n(e()),u=t(),d=(0,l.memo)(()=>{let{t:e}=o(),t=(0,l.useRef)(null),n=c(),i=(0,l.useCallback)(()=>{t.current&&t.current.contentWindow&&(t.current.src=t.current.src)},[t]),d=(0,l.useCallback)(()=>{n.mutate(void 0,{onSettled:i})},[n,i]);return(0,u.jsxs)(u.Fragment,{children:[(0,u.jsxs)(a.Topnav,{justifyBetween:!1,justifyEnd:!0,gap:`m`,children:[(0,u.jsx)(r,{type:`button`,variant:`primary`,size:`medium`,onClick:i,children:e({id:`commons.refresh`})}),(0,u.jsx)(r,{type:`button`,variant:`danger`,size:`medium`,onClick:d,children:e({id:`commons.restart`})})]}),(0,u.jsx)(a.Developer,{loading:n.isPending,children:(0,u.jsx)(f,{ref:t,title:`CRON`,src:s.API_URL.origin+`/developer/queue/dash`})})]})}),f=i.iframe`
+  border: none;
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;export{d as Component};
+//# sourceMappingURL=DeveloperCronPage-DeKKVDN5.js.map

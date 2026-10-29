@@ -1,0 +1,77 @@
+beta.community.ui.com	000|https://beta.community.ui.com/||0			
+artifacts.ui.com	302|https://artifacts.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fartifacts.ui.com%2F
+aus.store.ui.com	302|https://aus.store.ui.com/|text/html; charset=utf-8|0	server: cloudflare		location: https://aus.store.ui.com/password
+analytics.ui.com	403|https://analytics.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+ca.store.ui.com	307|https://ca.store.ui.com/||29			location: https://ca.store.ui.com/ca/en
+account.ui.com	200|https://account.ui.com/|text/html|1634	server: AmazonS3	Ubiquiti Account	
+br.store.ui.com	307|https://br.store.ui.com/||29			location: https://br.store.ui.com/br/pt
+community.status.ui.com	000|https://community.status.ui.com/||0			
+community.ui.com	200|https://community.ui.com/|text/html; charset=utf-8|46101		Ubiquiti Community	
+cn.store.ui.com	307|https://cn.store.ui.com/||29			location: https://cn.store.ui.com/cn/zh
+critical.ui.com	301|https://critical.ui.com/|text/html|162	server: nginx	301 Moved Permanently	location: https://community.ui.com/tracker/
+blog.ui.com	200|https://blog.ui.com/|text/html; charset=utf-8|961300	Server: CloudFront	Ubiquiti - Blog	
+customer.ui.com	403|https://customer.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+datasheets-api.ui.com	404|https://datasheets-api.ui.com/|application/json; charset=utf-8|26			
+datasheets.ui.com	403|https://datasheets.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+design.ui.com	200|https://design.ui.com/|text/html|6272	server: nginx	UniFi Design Center	
+dev-training.ui.com	302|https://dev-training.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fdev-training.ui.com%2F
+careers.ui.com	200|https://careers.ui.com/|text/html; charset=utf-8|1887340		Ubiquiti - Careers	
+dev.ui.com	403|https://dev.ui.com/|text/html|919	server: CloudFront	ERROR: The request could not be satisfied	
+df.ui.com	403|https://df.ui.com/|text/html|3535	server: CloudFront		
+dev-store.ui.com	302|https://dev-store.ui.com/|text/html; charset=utf-8|0	server: cloudflare		location: https://dev-store.ui.com/password
+dl.ui.com	301|https://dl.ui.com/||0	server: CloudFront		location: https://techspecs.ui.com
+dev.store.ui.com	302|https://dev.store.ui.com/|text/html; charset=utf-8|0	server: cloudflare		location: https://dev.store.ui.com/password
+docker-beta.dl.ui.com	000|https://docker-beta.dl.ui.com/||0			
+docker-alpha.dl.ui.com	000|https://docker-alpha.dl.ui.com/||0			
+directrma.ui.com	200|https://directrma.ui.com/|text/html|850	server: nginx	Ubiquiti	
+docker.dl.ui.com	000|https://docker.dl.ui.com/||0			
+gdpr.ui.com	302|https://gdpr.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fgdpr.ui.com%2F
+eu.store.ui.com	307|https://eu.store.ui.com/||29			location: https://eu.store.ui.com/eu/en
+faq.ui.com	302|https://faq.ui.com/|text/html|138	server: nginx	302 Found	location: https://ui.com
+fae.ui.com	403|https://fae.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+inventory.ui.com	403|https://inventory.ui.com/|text/html|919	server: CloudFront	ERROR: The request could not be satisfied	
+help.ui.com	302|https://help.ui.com/|text/html; charset=utf-8|0	server: cloudflare		location: https://help.ui.com/hc
+in.store.ui.com	307|https://in.store.ui.com/||29			location: https://in.store.ui.com/in/en
+jp.ui.com	302|https://jp.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fjp.ui.com%2F
+jp.store.ui.com	307|https://jp.store.ui.com/||29			location: https://jp.store.ui.com/jp/ja
+microsites.ui.com	302|https://microsites.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fmicrosites.ui.com%2F
+help.tw.ui.com	403|https://help.tw.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+nca.ui.com	302|https://nca.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fnca.ui.com%2F
+me.store.ui.com	307|https://me.store.ui.com/||29			location: https://me.store.ui.com/me/en
+material.ui.com	200|https://material.ui.com/|text/html|780	server: nginx	Ubiquiti	
+mx.store.ui.com	307|https://mx.store.ui.com/||29			location: https://mx.store.ui.com/mx/es
+plm.ui.com	301|https://plm.ui.com/|text/html|134	server: awselb/2.0	301 Moved Permanently	location: https://material.ui.com:443/
+rma1.ui.com	302|https://rma1.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Frma1.ui.com%2F
+security.community.ui.com	000|https://security.community.ui.com/||0			
+scoreboard.ui.com	302|https://scoreboard.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fscoreboard.ui.com%2F
+pro.ui.com	403|https://pro.ui.com/|text/html|118	server: awselb/2.0	403 Forbidden	
+shared-ui.ui.com	302|https://shared-ui.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fshared-ui.ui.com%2F
+rma.ui.com	200|https://rma.ui.com/|text/html|1085	server: nginx	Ubiquiti	
+ru.store.ui.com	302|https://ru.store.ui.com/|text/html; charset=utf-8|0	server: cloudflare		location: https://ru.store.ui.com/password
+stg.store.ui.com	000|https://stg.store.ui.com/||0			
+sg.store.ui.com	307|https://sg.store.ui.com/||29			location: https://sg.store.ui.com/sg/en
+stg.ui.com	403|https://stg.ui.com/|text/html|919	server: CloudFront	ERROR: The request could not be satisfied	
+sso.ui.com	404|https://sso.ui.com/|text/html; charset=utf-8|179	server: nginx	Not Found	
+store.ui.com	307|https://store.ui.com/||26			location: https://store.ui.com/us/en
+status.ui.com	200|https://status.ui.com/|text/html; charset=utf-8|125453	server: AtlassianEdge	Ubiquiti System Status	
+sunmax.ui.com	301|https://sunmax.ui.com/|text/html|162	server: nginx	301 Moved Permanently	location: https://solar.ui.com
+triage.ui.com	302|https://triage.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Ftriage.ui.com%2F
+supplier.ui.com	200|https://supplier.ui.com/|text/html|780	server: nginx	Ubiquiti	
+tw.ui.com	403|https://tw.ui.com/|text/html|919	server: CloudFront	ERROR: The request could not be satisfied	
+training.ui.com	200|https://training.ui.com/|text/html; charset=utf-8|26934	server: green-banana	Home | Ubiquiti-Academy	
+ui.com	200|https://ui.com/|text/html|420549	server: AmazonS3	UniFi - Rethinking IT - Ubiquiti	
+uid1.ui.com	302|https://uid1.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Fuid1.ui.com%2F
+tw.store.ui.com	307|https://tw.store.ui.com/||32			location: https://tw.store.ui.com/tw/zh-tw
+unifi.ui.com	302|https://unifi.ui.com/||0	server: CloudFront		location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+www.blog.ui.com	000|https://www.blog.ui.com/||0			
+www.dl.ui.com	000|https://www.dl.ui.com/||0			
+uisp.ui.com	200|https://uisp.ui.com/|text/html; charset=utf-8|1529	server: nginx	UISP Portal	
+unms.ui.com	301|https://unms.ui.com/|text/html|162	server: nginx	301 Moved Permanently	location: https://unms.com
+var.ui.com	200|https://var.ui.com/|text/html|834	server: nginx	Ubiquiti	
+www.docker-alpha.dl.ui.com	000|https://www.docker-alpha.dl.ui.com/||0			
+www.docker-beta.dl.ui.com	000|https://www.docker-beta.dl.ui.com/||0			
+www.docker.dl.ui.com	000|https://www.docker.dl.ui.com/||0			
+www.tw.ui.com	000|https://www.tw.ui.com/||0			
+www.ui.com	200|https://www.ui.com/|text/html|420549	server: AmazonS3	UniFi - Rethinking IT - Ubiquiti	
+za.store.ui.com	307|https://za.store.ui.com/||29			location: https://za.store.ui.com/za/en
+crm.trunking.ui.com	000|https://crm.trunking.ui.com/||0			

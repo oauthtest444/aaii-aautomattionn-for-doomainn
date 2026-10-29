@@ -1,0 +1,26 @@
+HTTP/2 405 
+content-type: application/json
+content-length: 71
+date: Thu, 29 Oct 2026 17:48:19 GMT
+set-cookie: UBIC_AUTH=eyJhbGciOiJSUzI1NiIsImtpZCI6Ik1lU1hTck1EeDhXb3dqSDZWVjNDWGJoa2JmTktSNmMxbThfVVNfZEFKX0kiLCJ0eXAiOiJKV1QifQ.eyJVVUlEIjoiMzE0ZjgyZTEtOGU2OC00ODhhLWFkOTQtOTZlMWMyNTI5OTBiIiwiZXhwaXJ5IjoxNzk1ODg4MDk5LCJpc192ZXJpZmllZCI6dHJ1ZSwic2Vzc2lvbiI6IjM1NGU4YzMyLTE0YmYtNDgxZS05MmJiLTE5ODdlZDIxZmRjYSIsInR0bF9zZWNvbmRzIjoyNTkyMDAwLCJzdWIiOiIzMTRmODJlMS04ZTY4LTQ4OGEtYWQ5NC05NmUxYzI1Mjk5MGIiLCJpc3MiOiJodHRwczovL3Nzby51aS5jb20iLCJleHAiOjE3OTU4ODgwOTksIkwyIjoxNzkzMjk2Mjg5fQ.FTCbbetvqoYZKMXlQtnxX6B-Li43_byUX4FERXDKu6D-o9Vvid0sCF6DSWJ-K8ykIDm_Wyrkh61KQo8W83TZotZp2yavaPy2gQUdjIn-emr_ul_k9M51C92J57CDJuAuNDuLXnTOnn3ld1C2GcrAgTeHZSnhr6Ab_Jpkd42sRVCBvkTiwraEAwXhfSs35btPg4tOubfVP0pyXojOMyY3d3N6qPeutpUbXDOHtQn1phma3_ZlUGGTx-9MZQyQM33LB1GYehLuGq30FjWhcf64lg7VIjEVA0Rr9VvYgRp_GshN-AUiYyXOhauBXm6rxn0za4N1c6ly8iAUUY-Riuk6DAkm3LMiDtqjocG-ojJxQIbCxHGdCswwObFdPG1RiNoVr_3lP8uqLAYkwiJUHLC927kUKZ6NlSzhE449IhJrf9QlzS864BovMnxS8bC_LtmkAlODqVH8Ed9wg3tZi6R53MeT47y_T9TpPhCUm7rufgMVeCkIv1NcC3qwxSCbGb4mk17wtmdtWZPPYBaVguujv2TBpNf89lIC_0_XTs1F9qKogooVT5bzme-FG697Ri15yhajXj0pXXJcZauLnCkxb5iGjnl9lgjjO6ZGZrmR6SRkZlF7sBF561cQrtkNrAiZjkVl_L7dLo3VG5BnPFjqxrWrZOVh9NrE6ljknj55HtM; Domain=.ui.com; expires=Sat, 28 Nov 2026 17:48:19 GMT; HttpOnly; Max-Age=2592000; Path=/; SameSite=lax; Secure; Version=1
+server: nginx
+allow: OPTIONS, DELETE, GET, PUT
+pragma: no-cache
+expires: 0
+cache-control: private, max-age=0, no-cache
+x-frame-options: DENY
+vary: origin
+strict-transport-security: max-age=315360000
+x-content-type-options: nosniff
+referrer-policy: same-origin
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' *.googleapis.com *.google.com www.gstatic.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.gstatic.com; font-src  'self' *.googleapis.com *.gstatic.com; frame-src  'self' *.google.com; img-src 'self' data:;
+x-cache: Error from cloudfront
+via: 1.1 601276bd38cdbe9713797097fe2c4598.cloudfront.net (CloudFront)
+x-amz-cf-pop: ORD56-P17
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: sGdcn6KAIG94pmfnmMioKnoEBJSujw1ofTqSDxB8K5lUpy7lC4XNBw==
+x-robots-tag: noindex
+access-control-allow-credentials: true
+access-control-allow-origin: https://account.ui.com
+vary: Origin
+
