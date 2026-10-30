@@ -1,5 +1,5 @@
 Target:
-account.ui.com
+in.store.ui.com
 
 For this subdomain First discover all intresting and unique UI routes and API endpoints. 
 
