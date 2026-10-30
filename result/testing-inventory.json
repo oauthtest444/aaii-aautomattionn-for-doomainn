@@ -1,0 +1,55 @@
+{
+  "target": "account.ui.com",
+  "mode": "domain-only",
+  "generated_at": "2026-10-30T06:24:00Z",
+  "assets": [
+    {
+      "type": "javascript",
+      "url": "https://account.ui.com/assets/index-D5t7M7xo.js",
+      "sha256": "ce9950c975a42cac66f5c2ea759d655e96c441d34df6a6b8190b09d60ea1c468",
+      "size": 7121868,
+      "saved": "result/client-side/account.ui.com/_app/javascript/index-D5t7M7xo.js",
+      "status": "tested"
+    }
+  ],
+  "routes": [
+    {"route": "/login", "auth": "public", "status": "tested", "notes": "no open redirect; login_hint rendered only as escaped input value"},
+    {"route": "/register", "auth": "public", "status": "blocked-recaptcha"},
+    {"route": "/reset-password", "auth": "public", "status": "tested", "notes": "form; no API on load"},
+    {"route": "/reset-password/password-reset-uuid/:uuid", "auth": "token", "status": "source", "notes": "form only; needs valid uuid"},
+    {"route": "/verify", "auth": "public", "status": "tested", "notes": "requires router state; redirects /login"},
+    {"route": "/verify/verification-code/:uuid", "auth": "token", "status": "tested", "notes": "auto PUT verify; invalid uuid 404 then /login"},
+    {"route": "/verify/success", "auth": "public", "status": "tested", "notes": "404 not a route"},
+    {"route": "/idp/login-result", "auth": "callback", "status": "tested", "notes": "400 STATE_MISSING; no redirect"},
+    {"route": "/msp/idp/setup-result", "auth": "private", "status": "tested", "notes": "unauth redirect /login?innerRedirect=%2Faccount"},
+    {"route": "/supportform", "auth": "redirect", "status": "tested", "notes": "redirects /requests"},
+    {"route": "/supportform-uisp", "auth": "redirect", "status": "tested", "notes": "redirects /login?innerRedirect=%2Fsupportform-uisp"},
+    {"route": "/supportform-umr", "auth": "redirect", "status": "source", "notes": "redirects /requests"},
+    {"route": "/switch", "auth": "auth", "status": "tested", "notes": "invalid redirect dropped by MC; login_hint carried"},
+    {"route": "/security/suspicious/confirm", "auth": "token", "status": "tested", "notes": "invalid token inspect 400; auto-confirm gated"},
+    {"route": "/activate", "auth": "public", "status": "tested", "notes": "fixed redirect to activate.ui.com"},
+    {"route": "/payments/3ds", "auth": "callback", "status": "source", "notes": "return_url allowlisted"}
+  ],
+  "authenticated_routes": {
+    "count": 28,
+    "status": "unresolved-no-account",
+    "reason": "registration blocked by reCAPTCHA Enterprise; email verification also required"
+  },
+  "candidates": [
+    {
+      "id": "CAND-001",
+      "title": "Suspicious-login confirmation auto-executes decision=yes via URL",
+      "class": "CSRF / one-click state change",
+      "status": "unresolved",
+      "blocker": "requires a valid confirm_token"
+    },
+    {
+      "id": "CAND-002",
+      "title": "Zendesk comment html_body rendered by html-react-parser without sanitizer",
+      "class": "stored XSS",
+      "status": "unresolved",
+      "blocker": "requires authenticated ticket comment"
+    }
+  ],
+  "confirmed_findings": []
+}

@@ -1,0 +1,15 @@
+Timestamp: 2026-10-30T06:02Z
+URL: https://account.ui.com/security/suspicious/confirm?token=OPENCODE_INVALID_TOKEN_12345&decision=yes
+
+Observed network (Chrome DevTools MCP):
+POST https://sso.ui.com/api/sso/v1/suspicious/confirm/inspect
+Content-Type: application/json
+Body: {"confirm_token":"OPENCODE_INVALID_TOKEN_12345"}
+Status: 400
+Response: {"detail":"Invalid token","error_code":"invalid_token","error":"INVALID_CONFIRMATION_TOKEN"}
+
+No POST to /api/sso/v1/suspicious/confirm was observed.
+Page text: "Invalid link / This confirmation link is invalid. / Continue / Terms of Service / Privacy Policy"
+
+Conclusion: auto-confirm (decision=yes) only fires after a successful inspect,
+i.e. it requires a valid confirm_token. Not exploitable without a token.

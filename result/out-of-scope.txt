@@ -1,0 +1,43 @@
+# Out-of-Scope Assets Observed (not actively tested)
+
+Authorization: `data/targets.txt` = `account.ui.com` (domain-only).
+
+AGENT.md Section 2.2: do not move to sibling domains or subdomains "because they
+are related". The account.ui.com SPA is a static CloudFront/S3 app whose APIs are
+all on other hosts. Active testing of the hosts below was therefore DEFERRED and
+NOT performed; they were only observed as normal application traffic or read
+from the client JavaScript configuration.
+
+## Observed API / asset hosts (do not actively test)
+
+| Host | Purpose / evidence |
+|------|--------------------|
+| sso.ui.com | `/api/sso/v1/...`, `/api/sso/v2/users`; login/registration backend; CSP/siteverify observed |
+| sso.ubnt.com | `/api/sso/v1/*` login, self, 2FA, roles |
+| account.svc.ui.com | Zendesk user/ticket/comment APIs |
+| fabric.svc.ui.com | MSP / IdP configuration APIs |
+| billing.svc.ui.com | subscriptions, customers, payment methods, invoices |
+| enterprise.svc.ui.com | organizations list |
+| geo.svc.ui.com | `/geo` geolocation |
+| megaphone.svc.ui.com | announcements |
+| storage.svc.ui.com | cloud storage subscriptions |
+| ues.svc.ui.com | site support subscriptions |
+| lte-api.svc.ui.com, u5g-api.svc.ui.com, trunking.svc.ui.com | ISP/Talk APIs |
+| cloudaccess.svc.ui.com | NCA credentials/backups/devices |
+| umr.svc.ui.com, cap.svc.ui.com | UMR / CAP integrations |
+| ips.svc.ui.com | CyberSecure |
+| feedback.svc.ui.com | feedback |
+| ecomm.svc.ui.com | store GraphQL |
+| help.ui.com, activate.ui.com, status.ui.com, store.ui.com, unifi.ui.com | external UI |
+| config.ubnt.com, static.ui.com | config / fingerprint assets |
+| viacep.com.br | BR postal-code lookup (connect-src) |
+| uic.uidev.tools, *.uic.uidev.tools | allowed in `frame-ancestors`; wildcard DNS to CloudFront, all probes 403 (not shown attacker-controllable) |
+| Third-party: Google Analytics, Sentry (`o21767.ingest.sentry.io`), Stripe (`m.stripe.com`, `js.stripe.com`), TapPay, Ada, Zendesk, SendSafely, Ironclad, reCAPTCHA | third-party services |
+| console.byteplus.com | unrelated; credentials in creds/ are NOT used against it |
+
+## Impact of this decision
+
+- Server-side/API testing on the target is effectively blocked by strict scope
+  interpretation. The registration endpoint is also on `sso.ui.com`.
+- Unauthenticated client-side testing of account.ui.com routes continues.
+- Any candidate requiring API mutation is recorded as **Unresolved**, not tested.

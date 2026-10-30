@@ -1,49 +1,54 @@
 # UI Route Inventory (account.ui.com)
 
 Source: `assets/index-D5t7M7xo.js` route table (sha256 `ce9950c9…c468`), Chrome MCP navigation.
+39 real route paths + catch-all `*` (plus `/verify/success`, which is only a
+navigation target and returns 404). External API paths that resemble routes
+(`/devices`, `/sso/account`, `/sso/installs`, `/sso/cancel_subscription`) are
+NOT app routes and are excluded.
+
+Status key: tested = runtime + source; source = source-only; blocked = environment
+blocker; unresolved = needs auth/valid token; pending = not started.
 
 | # | Route | Auth expected | Reachability (unauth) | Status |
 |---|-------|---------------|-----------------------|--------|
-| 1 | `/login` | public | 200 | in progress |
-| 2 | `/register` | public | 200 | in progress |
-| 3 | `/reset-password` | public | pending | pending |
-| 4 | `/reset-password/password-reset-uuid/:uuid` | token | pending | pending |
-| 5 | `/verify` | public | pending | pending |
-| 6 | `/verify/verification-code/:uuid` | token | pending | pending |
-| 7 | `/verify/success` | public | pending | pending |
-| 8 | `/idp/login-result` | public callback | pending | pending |
-| 9 | `/msp/idp/setup-result` | public callback | pending | pending |
-| 10 | `/supportform` | likely public | pending | pending |
-| 11 | `/supportform-uisp` | likely public | pending | pending |
-| 12 | `/supportform-umr` | likely public | pending | pending |
-| 13 | `/switch` | auth | pending | pending |
-| 14 | `/profile` | auth | pending | pending |
-| 15 | `/account` | auth | pending | pending |
-| 16 | `/security` | auth | pending | pending |
-| 17 | `/security/suspicious/confirm` | token | pending | pending |
-| 18 | `/devices` | auth | pending | pending |
-| 19 | `/subscriptions` | auth | pending | pending |
-| 20 | `/subscriptions/:service` | auth | pending | pending |
-| 21 | `/subscriptions/cloud-storage/subscribe` | auth | pending | pending |
-| 22 | `/subscriptions/site-support/subscribe` | auth | pending | pending |
-| 23 | `/billing` | auth | pending | pending |
-| 24 | `/billing/:orgId` | auth | pending | pending |
-| 25 | `/payments` | auth | pending | pending |
-| 26 | `/payments/3ds` | callback | pending | pending |
-| 27 | `/invoices` | auth | pending | pending |
-| 28 | `/invoices/:invoiceId` | auth | pending | pending |
-| 29 | `/requests` | auth | pending | pending |
-| 30 | `/requests/:ticketId` | auth | pending | pending |
-| 31 | `/mysupport` | auth | pending | pending |
-| 32 | `/backups` | auth | pending | pending |
-| 33 | `/logout` | auth | pending | pending |
-| 34 | `/login/mfa` | auth step | pending | pending |
-| 35 | `/login/trust-device` | auth step | pending | pending |
-| 36 | `/login/create-passkey` | auth step | pending | pending |
-| 37 | `/login/change-email` | auth step | pending | pending |
-| 38 | `/login/change-email/confirm` | auth step | pending | pending |
-| 39 | `/subscribe` | auth | pending | pending |
-| 40 | `/activate` | public? | pending | pending |
-| 41 | `/sso/account` | auth | pending | pending |
-| 42 | `/sso/installs` | auth | pending | pending |
-| 43 | `/sso/cancel_subscription` | auth | pending | pending |
+| 1 | `/` | private | redirects `/login` | tested (private layout) |
+| 2 | `/login` | public | 200 | tested (no open redirect; allowlist `MC`) |
+| 3 | `/login/mfa` | auth step | login redirect | unresolved (no account) |
+| 4 | `/login/trust-device` | auth step | login redirect | unresolved (no account) |
+| 5 | `/login/create-passkey` | auth step | login redirect | unresolved (no account) |
+| 6 | `/login/change-email` | auth step | login redirect | unresolved (no account) |
+| 7 | `/login/change-email/confirm` | auth step | login redirect | unresolved (no account) |
+| 8 | `/register` | public | 200 | blocked (reCAPTCHA Enterprise) |
+| 9 | `/reset-password` | public | 200 | tested (form; no API on load) |
+| 10 | `/reset-password/password-reset-uuid/:uuid` | token | 200 form | tested (arbitrary uuid renders form; no API until submit) |
+| 11 | `/verify` | public | redirects `/login` | tested (requires router state) |
+| 12 | `/verify/verification-code/:uuid` | token | auto `PUT` | tested (invalid uuid -> API 404) |
+| — | `/verify/success` | n/a | 200 SPA catch-all | tested (not a registered route; renders in-app "Page not Found") |
+| 13 | `/idp/login-result` | public callback | 200 | tested (400 STATE_MISSING; no redirect) |
+| 14 | `/logout` | auth | login redirect | unresolved (no account) |
+| 15 | `/security` | auth | login redirect | unresolved (no account) |
+| 16 | `/security/suspicious/confirm` | token | 200 | tested (invalid token -> inspect 400; gated) |
+| 17 | `/billing` | auth | login redirect | unresolved (no account) |
+| 18 | `/billing/:orgId` | auth | login redirect | unresolved (no account) |
+| 19 | `/account` | auth | login redirect | unresolved (no account) |
+| 20 | `/profile` | auth | login redirect | unresolved (no account) |
+| 21 | `/switch` | auth | `/login?login_hint=...` | tested (invalid `redirect` dropped by `MC`) |
+| 22 | `/payments` | auth | login redirect | unresolved (no account) |
+| 23 | `/payments/3ds` | private | login redirect | tested (unauth -> `/login`; `return_url` allowlist in source) |
+| 24 | `/subscriptions` | auth | login redirect | unresolved (no account) |
+| 25 | `/subscriptions/:service` | auth | login redirect | unresolved (no account) |
+| 26 | `/subscriptions/site-support/subscribe` | auth | login redirect | unresolved (no account) |
+| 27 | `/subscriptions/cloud-storage/subscribe` | auth | login redirect | unresolved (no account) |
+| 28 | `/subscribe` | auth | login redirect | unresolved (no account) |
+| 29 | `/invoices` | auth | login redirect | unresolved (no account) |
+| 30 | `/invoices/:invoiceId` | auth | login redirect | unresolved (no account) |
+| 31 | `/backups` | auth | login redirect | unresolved (no account) |
+| 32 | `/requests` | auth | login redirect | unresolved (no account) |
+| 33 | `/requests/:ticketId` | auth | login redirect | unresolved (no account; candidate stored XSS) |
+| 34 | `/mysupport` | redirect | redirects `/requests` | tested |
+| 35 | `/supportform` | redirect | redirects `/requests` -> login | tested |
+| 36 | `/supportform-uisp` | redirect | `/login?innerRedirect=%2Fsupportform-uisp` | tested |
+| 37 | `/supportform-umr` | redirect | `/login?innerRedirect=%2Frequests` | tested |
+| 38 | `/activate` | public? | redirects `https://activate.ui.com/` | tested (fixed external redirect) |
+| 39 | `/msp/idp/setup-result` | private callback | `/login?innerRedirect=%2Faccount` | tested (same-origin postMessage only) |
+| * | catch-all `*` | public | renders "Page not Found" | tested (via `/verify/success`) |

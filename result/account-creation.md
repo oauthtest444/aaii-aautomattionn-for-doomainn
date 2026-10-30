@@ -18,6 +18,24 @@ Status: **Blocked (Unresolved)** — reCAPTCHA Enterprise challenge prevents reg
 
 3. Direct API with action `SUBMIT` (case variant) also returned 403.
 
+## New source finding (2026-10-30T06:20Z) — likely cause of the 403
+
+The registration component uses two different reCAPTCHA Enterprise site keys:
+
+- Initial submit: `Jzt = GOOGLE_RECAPTCHA_SECRET_SCORE` =
+  `6LfGZXojAAAAAEtQpgRueRxoFwnjwe58b1exZGsS`, action `submit`.
+- On `CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`, the UI renders the `X5` challenge
+  widget and resubmits with `site_key: qzt = GOOGLE_RECAPTCHA_SECRET_CHALLENGE` =
+  `6LdWhNglAAAAAJB_RK6EWYVnSVyrohxdwy9WEkP8` (see offsets @6530807, @6542161,
+  @6545443).
+
+Attempts 2–3 used the SCORE key only, so a 403 challenge response is expected.
+A future run should obtain a token from the **CHALLENGE** site key via the
+rendered widget / `grecaptcha.enterprise.execute('6LdWhNgl…',{action:'submit'})`
+and submit it with `site_key=6LdWhNgl…`. Even then, email verification is
+required before login (`is_verified`), so a reachable test mailbox is also
+needed. No further attempts were made this run (avoids email side effects).
+
 ## Decision
 
 Per operator instructions ("if you are still unable to create accounts ... test only unauthenticated endpoints"), authenticated-only routes are marked **Unresolved** and testing proceeds on unauthenticated surface.
