@@ -17,3 +17,9 @@
 ## MCP
 
 - chrome-devtools MCP reachable (list_pages returned about:blank).
+
+## Continuation run 41056940053
+- Start time (UTC): 2026-10-30T12:40:00Z
+- Target state decision: preserved (same target hash)
+- Chrome DevTools endpoint: http://127.0.0.1:9222 (Chrome 156.0.8078.73)
+- Resuming from PROGRESS.md/testing-inventory.json; 7 routes tested, ~24 pending.
