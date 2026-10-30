@@ -13,11 +13,11 @@ blocker; unresolved = needs auth/valid token; pending = not started.
 |---|-------|---------------|-----------------------|--------|
 | 1 | `/` | private | redirects `/login` | tested (private layout) |
 | 2 | `/login` | public | 200 | tested (no open redirect; allowlist `MC`) |
-| 3 | `/login/mfa` | auth step | login redirect | unresolved (no account) |
-| 4 | `/login/trust-device` | auth step | login redirect | unresolved (no account) |
-| 5 | `/login/create-passkey` | auth step | login redirect | unresolved (no account) |
-| 6 | `/login/change-email` | auth step | login redirect | unresolved (no account) |
-| 7 | `/login/change-email/confirm` | auth step | login redirect | unresolved (no account) |
+| 3 | `/login/mfa` | auth step | login redirect | tested (email MFA login completed) |
+| 4 | `/login/trust-device` | auth step | login redirect | tested (chose "Not now") |
+| 5 | `/login/create-passkey` | auth step | login redirect | unresolved (not exercised) |
+| 6 | `/login/change-email` | auth step | login redirect | source (verified accounts; unverified-only flow) |
+| 7 | `/login/change-email/confirm` | auth step | login redirect | source (OTP confirm UI) |
 | 8 | `/register` | public | 200 | blocked (reCAPTCHA Enterprise) |
 | 9 | `/reset-password` | public | 200 | tested (form; no API on load) |
 | 10 | `/reset-password/password-reset-uuid/:uuid` | token | 200 form | tested (arbitrary uuid renders form; no API until submit) |
@@ -25,26 +25,26 @@ blocker; unresolved = needs auth/valid token; pending = not started.
 | 12 | `/verify/verification-code/:uuid` | token | auto `PUT` | tested (invalid uuid -> API 404) |
 | — | `/verify/success` | n/a | 200 SPA catch-all | tested (not a registered route; renders in-app "Page not Found") |
 | 13 | `/idp/login-result` | public callback | 200 | tested (400 STATE_MISSING; no redirect) |
-| 14 | `/logout` | auth | login redirect | unresolved (no account) |
-| 15 | `/security` | auth | login redirect | unresolved (no account) |
+| 14 | `/logout` | auth | login redirect | source (POST logout; not exercised) |
+| 15 | `/security` | auth | login redirect | tested (MFA/sessions/devices/activity; AAL2 enforced) |
 | 16 | `/security/suspicious/confirm` | token | 200 | tested (invalid token -> inspect 400; gated) |
-| 17 | `/billing` | auth | login redirect | unresolved (no account) |
-| 18 | `/billing/:orgId` | auth | login redirect | unresolved (no account) |
-| 19 | `/account` | auth | login redirect | unresolved (no account) |
-| 20 | `/profile` | auth | login redirect | unresolved (no account) |
+| 17 | `/billing` | auth | login redirect | tested (empty subscriptions/invoices; Services nav) |
+| 18 | `/billing/:orgId` | auth | login redirect | unresolved (no org membership) |
+| 19 | `/account` | auth | login redirect | tested (profile/email; uniqueness; AAL2) |
+| 20 | `/profile` | auth | login redirect | source (same profile components as `/account`) |
 | 21 | `/switch` | auth | `/login?login_hint=...` | tested (invalid `redirect` dropped by `MC`) |
-| 22 | `/payments` | auth | login redirect | unresolved (no account) |
+| 22 | `/payments` | auth | login redirect | unresolved (no payment methods) |
 | 23 | `/payments/3ds` | private | login redirect | tested (unauth -> `/login`; `return_url` allowlist in source) |
-| 24 | `/subscriptions` | auth | login redirect | unresolved (no account) |
+| 24 | `/subscriptions` | auth | login redirect | tested (empty state via Services/billing) |
 | 25 | `/subscriptions/:service` | auth | login redirect | unresolved (no account) |
 | 26 | `/subscriptions/site-support/subscribe` | auth | login redirect | unresolved (no account) |
 | 27 | `/subscriptions/cloud-storage/subscribe` | auth | login redirect | unresolved (no account) |
 | 28 | `/subscribe` | auth | login redirect | unresolved (no account) |
-| 29 | `/invoices` | auth | login redirect | unresolved (no account) |
-| 30 | `/invoices/:invoiceId` | auth | login redirect | unresolved (no account) |
+| 29 | `/invoices` | auth | login redirect | tested (empty invoice list) |
+| 30 | `/invoices/:invoiceId` | auth | login redirect | unresolved (no invoice) |
 | 31 | `/backups` | auth | login redirect | unresolved (no account) |
-| 32 | `/requests` | auth | login redirect | unresolved (no account) |
-| 33 | `/requests/:ticketId` | auth | login redirect | unresolved (no account; candidate stored XSS) |
+| 32 | `/requests` | auth | login redirect | tested (0 tickets) |
+| 33 | `/requests/:ticketId` | auth | login redirect | tested (API ownership; no tickets; stored-XSS candidate blocked) |
 | 34 | `/mysupport` | redirect | redirects `/requests` | tested |
 | 35 | `/supportform` | redirect | redirects `/requests` -> login | tested |
 | 36 | `/supportform-uisp` | redirect | `/login?innerRedirect=%2Fsupportform-uisp` | tested |

@@ -58,3 +58,60 @@
   token leak via Referer); `x-robots-tag: noindex`.
 - Scope re-checked: AGENT.md 464-470 says stay on the domain, do not pivot to
   sibling subdomains -> API host testing remains deferred.
+
+## Continuation 2026-10-30T06:30Z
+
+- Resumed from preserved state (target hash unchanged).
+- Re-read AGENT.md, client/server skills, inventory, findings, scope.
+- KEY CORRECTION: creds/test-account.txt targets https://account.ui.com/login and
+  provides Test Account A/B; prior session incorrectly treated them as
+  console.byteplus.com credentials. Will attempt authenticated testing.
+
+## Continuation 2026-10-30T06:30Z–06:58Z (authenticated testing)
+
+- Logged in Account A (`tan.tiger5564@maildrop.cc`, uuid
+  `d8946fad-2b8e-4cf0-82c5-5d955b57b829`) and Account B
+  (`overrated.chinchilla337@maildrop.cc`, uuid
+  `7c5aab2b-e568-40de-a7a5-ec27df1db94b`); both email-MFA verified.
+- Nav sweep: **Services -> `https://account.ui.com/billing`**. Subscriptions and
+  Invoices pages render empty states ("Your subscription list is empty",
+  "Your invoice list is empty"); Order History / Payment Methods empty.
+- Recovered endpoint map from bundle (`index-D5t7M7xo.js`): reset, email verify,
+  legacy email OTP, account-chooser, roles/beta, Zendesk comments/tickets on
+  `account.svc.ui.com`.
+- Password reset remains blocked: `POST /api/sso/v1/password/{email}` -> 400
+  `VALIDATION_ERROR` requiring `_ubiquiti_private_key`, `captcha`,
+  `apple_devicecheck_token`; UI reCAPTCHA Enterprise challenge cannot be solved
+  in headless Chrome.
+- Account chooser: `GET /api/sso/v1/account-chooser` -> 200 with remembered A
+  account (`opaque_id`, username, email, `remembered_at`). `ACCOUNT_CHOOSER`
+  cookie is `HttpOnly`, `Secure`, `SameSite=Strict`, `Domain=.sso.ui.com`;
+  value `~20250930|b64|b64|b64|b64` (opaque/encrypted; not decodable/tamperable).
+- Cross-account authorization checks (A session targeting B ids):
+  - `GET /api/sso/v1/user/{B_uuid}` -> 403 `mismatching UUID`.
+  - `GET /user/{B_uuid}/{mfa,sessions,trusted_devices,activity,settings}` -> 404.
+  - `POST /api/sso/v2/user/self/mfa/email/{B_mfa_id}/send` -> 404
+    `No EmailAuthenticator matches the given query`.
+  - `GET /user/self/...?uuid={B_uuid}` -> ignored, returns A's own data.
+  - Zendesk comment IDOR: id 2 -> 403, other ids -> 404 (ownership enforced).
+- AAL2 (recent-password) enforcement verified server-side, not just in client:
+  B at level 1 (`{"level":1,"time_left_seconds":0}`) receives
+  `499 L2_REQUIRED` for:
+  `DELETE /user/self/sessions/{id}`, `PUT /user/self {password}`,
+  `POST /user/self/email/verify/send`, `POST /user/self/2fa/backup`,
+  `POST /user/self/login/level/refresh` (cannot self-upgrade level).
+  Server also returned 405 for `GET /2fa/backup` (endpoint is POST-only).
+- Uniqueness: `PUT /user/self {username:"test-account-b"}` and uppercase
+  `"TEST-ACCOUNT-B"` -> 409 `fields_non_unique`; email change to B's email ->
+  400 `{"email":["This field must be unique."]}`. No duplicate-identifier ATO.
+- Email change flow (A): `POST /user/self/email/verify/send {probe email}` ->
+  204 with no password prompt (AAL2 was satisfied at level 2); 6-digit code
+  mailed to the new address; `PUT /user/self {email, email_change_verification_code}`
+  -> 204 and `GET /user/self` reflects the new address. Reverted A to its
+  original email via the same OTP flow (code `995682`). Judged intended:
+  completion requires possession of the new mailbox; server enforces AAL2 on
+  the send step.
+- Login MFA client sends only `{token: <6-digit code>}` (no authenticator id),
+  so no client-controlled cross-account MFA-id confusion path.
+- No confirmed vulnerability. Remaining candidates still blocked on captcha/
+  valid tokens (Zendesk stored XSS, suspicious-confirm).

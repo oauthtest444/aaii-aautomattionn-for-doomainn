@@ -1,0 +1,25 @@
+HTTP/2 400 
+content-type: application/json
+content-length: 190
+date: Fri, 30 Oct 2026 06:38:08 GMT
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' *.googleapis.com *.google.com www.gstatic.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.gstatic.com; font-src  'self' *.googleapis.com *.gstatic.com; frame-src  'self' *.google.com; img-src 'self' data:;
+server: nginx
+allow: POST, OPTIONS
+pragma: no-cache
+expires: 0
+cache-control: private, max-age=0, no-cache
+x-frame-options: DENY
+vary: origin, Cookie
+strict-transport-security: max-age=315360000
+x-content-type-options: nosniff
+referrer-policy: same-origin
+x-cache: Error from cloudfront
+via: 1.1 465cef450966675b27b4ad66793ef70c.cloudfront.net (CloudFront)
+x-amz-cf-pop: ORD56-P17
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: ENDKhnsJv0ce4qRZwzv-8Gu55y5ehucZwatH-nFAWVji3VtIjRxU-Q==
+x-robots-tag: noindex
+access-control-allow-credentials: true
+access-control-allow-origin: https://account.ui.com
+vary: Origin
+
