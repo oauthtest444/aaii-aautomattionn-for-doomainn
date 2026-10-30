@@ -1,16 +1,13 @@
-byteplus console test login creds
+Email service provider 
+https://maildrop.cc/inbox/?mailbox=tan.tiger5564
 
-https://console.byteplus.com/auth/login/
+Target 
+https://account.ui.com/login
 
-test account a
-
-```
-adoringjepsen1@fearlessmails.com
-Acd3423@#345566
-```
-
-test account b
-```
-testt456
+Test Account A
+tan.tiger5564@maildrop.cc
 Acd3423@#345
-```
+
+Test Account B
+overrated.chinchilla337@maildrop.cc
+Acd3423@#345
