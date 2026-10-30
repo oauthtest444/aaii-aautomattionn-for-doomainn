@@ -23,3 +23,16 @@
 - Target state decision: preserved (same target hash)
 - Chrome DevTools endpoint: http://127.0.0.1:9222 (Chrome 156.0.8078.73)
 - Resuming from PROGRESS.md/testing-inventory.json; 7 routes tested, ~24 pending.
+
+## Continuation run 41060194849
+- Start time (UTC): 2026-10-30T13:05:19Z
+- Target state decision: preserved (same target hash)
+- Chrome DevTools MCP reachable: list_pages -> about:blank
+- Resuming from PROGRESS.md/testing-inventory.json; 7 routes tested, ~24 pending.
+
+## Checkpoint 2026-10-30T13:25:00Z
+- Reviewed product (`ucg-ultra`, `u6-pro`) and category (`all-wifi`) pages; no XSS (marker only in analytics URLs; `dangerouslySetInnerHTML` source is server label; `window.open` server-built).
+- postMessage scan: only same-origin BroadcastChannel and PagBrasil listener validating iframe source — no weak handler.
+- GraphQL: introspection blocked. `CreateCheckout` + `UpdateCheckout` explored with test checkout `5258ecf2-4feb-4c1f-8b39-d95035531fcc` (no order placed).
+- Strict input validation blocks price/tax/customer mass assignment (generic 500). No secret bypass for writes. Wrong-secret read returns cloned cart without email/address (no PII).
+- Next: resume route-by-route testing of remaining public routes (product/category/collection/faq/app-embedded, search) and update inventory.

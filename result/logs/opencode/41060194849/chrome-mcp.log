@@ -1,0 +1,35 @@
+[2740:2766:1030/130449.863993:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2766:1030/130449.864433:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2766:1030/130449.864460:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2766:1030/130449.868511:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2766:1030/130449.893211:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+
+DevTools listening on ws://127.0.0.1:9222/devtools/browser/3cc09ceb-23d8-49a9-9f00-4e91b66a6a29
+[2740:2740:1030/130449.989230:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2740:1030/130449.989389:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2766:1030/130449.989389:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2766:1030/130449.989471:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2740:1030/130449.993842:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2740:1030/130449.996581:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2766:1030/130449.997114:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2740:1030/130450.036960:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2740:1030/130450.037233:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2766:1030/130450.039158:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2740:1030/130450.041008:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2740:1030/130450.066877:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2766:1030/130450.067048:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2740:1030/130450.067078:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[2740:2740:1030/130450.080783:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2740:2766:1030/130450.080902:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2740:2740:1030/130450.099547:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Created TensorFlow Lite XNNPACK delegate for CPU.
+[2784:2784:1030/130553.648294:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2784:2784:1030/130553.833833:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2784:2784:1030/130554.695739:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x514001ac800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2784:2784:1030/130555.798804:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x514001ac800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2784:2784:1030/130556.045609:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x514001ac800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[2784:2784:1030/130556.294755:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x514001ac800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+[2784:2784:1030/130622.463261:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2784:2784:1030/130622.575883:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2784:2784:1030/130812.602388:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2784:2784:1030/130812.770041:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1269] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.

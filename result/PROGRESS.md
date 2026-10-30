@@ -1,6 +1,6 @@
 # Progress
 
-Updated: 2026-10-30T08:15:00Z
+Updated: 2026-10-30T13:25:00Z
 Start: 2026-10-30T07:57:35Z
 
 - Total UI routes discovered: 35
@@ -19,7 +19,18 @@ Start: 2026-10-30T07:57:35Z
 | /in/en/my-lists + /{listId} | - | wishlist CRUD/add IDOR held | result/server-side/in.store.ui.com/my-lists/report.md |
 
 ## Current task
-Search route (GetSearchProducts/GetCollectionsMetadata captured). Then product/category/collection routes, country-picker dynamic redirect check, then order/checkout surfaces.
+Checkout/cart GraphQL negatives recorded in `result/server-side/in.store.ui.com/checkout/report.md`. Search route loads normally for plain terms; angle-bracket payload yields WAF `403 Forbidden` (no reflection). Remaining: product/category/collection/faq/app-embedded variants and country-picker dynamic redirect check.
+
+## Checkout / GraphQL investigation (2026-10-30T13:05-13:25Z)
+- Created test checkout via `CreateCheckout` (`input:{storeId,language,items:[{storeProductVariantId,quantity}]}`); in-stock variant `e1e25a23-9869-463a-bcab-50cab0196115` (USW-Ultra-210W-EU, 2105400 INR). Other India products SoldOut.
+- Working checkout `5258ecf2-4feb-4c1f-8b39-d95035531fcc` / secret `5bd406a6...` (test-owned). No order placed.
+- Valid `UpdateCheckout` minimal document (unused-variable rejection was the earlier 400 cause):
+  `mutation UpdateCheckout($input:StorefrontUpdateCheckoutInput!){storefrontUpdateCheckout(input:$input){checkout{id email items{id sku quantity}totals{summary{total{amount currency}}}}}}`
+- Input validation is strict: unknown top-level fields (`items`, `totals`, `orderId`, `taxCalculated`, `hasCustomer`, item `price`) → generic `500 INTERNAL_SERVER_ERROR`, state unchanged. No mass assignment.
+- `updateItems` quantity 0/-1 → 500; quantity 129 accepted server-side despite UI "order 21 max" (no stock cap at checkout update; order creation not attempted).
+- `discountCode` invalid/empty → 500; no coupon bypass established.
+- Checkout secret is enforced for writes. `GetCheckout`/`UpdateCheckout` with a valid checkout UUID + wrong secret returns a NEW checkout (new id/secret) cloned with same items; email/shipping set on the original are NOT copied. No PII/IDOR impact; UUID alone yields only a fresh cart clone.
+- `storefrontUpdateCheckout` input spreads checkout object client-side, but server rejects non-schema fields → no price/tax override.
 
 ## Notable non-vuln notes
 - Address-ID existence oracle (FORBIDDEN vs null) — excluded, low impact.
