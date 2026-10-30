@@ -1,1 +1,0 @@
-https://account.ui.com/security/suspicious/confirm?token=OPENCODE_INVALID_TOKEN_12345&decision=yes

@@ -1,0 +1,17 @@
+Source: https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/base.js
+SHA-256: a92670e0d9f1c98ec9a53866b68b0ac57e79ceb7d77eafa7ac7297b3564d242e
+Offset ~787903 (BaseLoginController.login):
+
+  ...var e=t.redirect?decodeURIComponent(t.redirect):void 0;
+  return e&&!e.includes("/fatal/")?(n.url(e),!0)
+  :o._appRedirect().then(function(){e&&a.remove("redirect")})...
+
+where `n` is AngularJS `$location`.
+
+Runtime test (authenticated Account A):
+  GET https://network.unifi.ui.com/6.1.71.0/unifi/login?redirect=https%3A%2F%2Fexample.com%2F
+  -> final URL https://network.unifi.ui.com/6.1.71.0/unifi/
+
+No external navigation occurred. `$location.url()` sets a same-origin path, so
+`https://example.com/`, `//example.com`, and `javascript:` values cannot change
+origin or execute in this sink.

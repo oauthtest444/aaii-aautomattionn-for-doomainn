@@ -1,0 +1,21 @@
+Source: https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/app.js
+SHA-256: 295a5f03193ba058db715949967db4a2dad741897d14bb194505444dc95b476c
+
+module 1448 (postMessage service), offset ~3082635:
+  ...terListener=function(e){t.push(e)},this.getListeners=function(){return t},
+  this.unregisterListener=function(e){var n=t.indexOf(e);-1!==n&&t.splice(n,1)},
+  this.send=function(e,t){e.postMessage(t,"*")},
+  e.onmessage=function(e){t.forEach(function(t){t.call(t,e.data)})}...
+
+module 494 (unifiIframePostMessage directive), offset ~1503586:
+  ...tion(e){return{scope:{model:"=unifiIframePostMessage"},link:function(t,n){
+  var i=n[0].contentWindow,r=function(n){!0===n.appLoaded&&e.send(i,t.model)};
+  e.registerListener(r),t.$watch("model",function(t){e.send(i,t)},!0),
+  t.$on("$destroy",function(){e.unregisterListener(r)})}}}])...
+
+Observations:
+- The global window "message" handler does not check event.origin or event.source.
+- The only registered listener sends the bound model to the directive's own
+  iframe contentWindow, with target origin "*".
+- The directive is used on a hotspot portal preview route that requires
+  controller data and admin settings; unreachable in this run.

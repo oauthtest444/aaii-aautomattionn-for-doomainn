@@ -1,19 +1,62 @@
 # Unresolved Items
 
-Items that could not be validated with the available authorization, accounts, or
-tokens. None are claimed as vulnerabilities.
+## Primary blocker — no active UniFi console for either test account
 
-| ID | Item | Why unresolved | What would confirm/deny |
-|----|------|----------------|--------------------------|
-| U-01 | Authenticated routes | **Resolved for the test accounts** (2026-10-30): `/`, `/account`, `/security`, `/login/mfa`, `/login/trust-device`, `/billing`, `/subscriptions`, `/invoices`, `/requests` exercised. Still unexercised: org-scoped billing, payment methods, subscribe, backups, ticket detail (test accounts lack that data). | Provide an account with org/payment/subscription data |
-| U-02 | Server-side/API testing of the SPA's backend hosts | **Decision (2026-10-30): exercised only the endpoints the authorized SPA calls**, with the provided test accounts; no unrelated-host pivoting or real customer data. | Revisit only if the program clarifies API-host scope |
-| U-03 | Suspicious-login auto-confirm (`/security/suspicious/confirm?decision=yes`) | `inspect` requires a valid `confirm_token`; invalid token -> 400, no confirm call | A valid token for a test account's own suspicious-login event |
-| U-04 | Zendesk ticket comment stored XSS via `html-react-parser` | Source shows ticket `create` sends `comment.body` without an `x-captcha-token`, but `comment`/`search` require the header, and no ticket was created because that would notify support (external side effect) and the sink would only render the attacker's own comment (self-XSS). Test accounts have 0 tickets. | A captcha token or an existing HTML comment on our own ticket (only if a non-support delivery path exists) |
-| U-05 | Clickjacking via `frame-ancestors 'self' *.ui.com uic.uidev.tools *.uic.uidev.tools` | `uic.uidev.tools` wildcard resolves to CloudFront and returns 403 on all probes; no evidence attacker can host content there | Proof that an attacker-controlled host on that domain/suffix can serve a frame |
-| U-06 | reCAPTCHA registration breakage (CSP `connect-src` lacks `www.google.com`; only `recaptcha.net` allowed) | Functional/availability issue, not a security impact; no account created | Server-side confirmation of token issuance failure |
-| U-07 | `uic.uidev.tools` wildcard DNS / possible subdomain takeover | Not enough evidence of dangling origin | DNS/CNAME takeover proof |
-| U-08 | Email change completes without a password (OTP to new address) | `POST /user/self/email/verify/send` and the `PUT /user/self` completion worked at AAL2 level; at level 1 the send step returns `499 L2_REQUIRED`. Completion requires reading the new mailbox. | Judged intended; only revisit if a code can be replayed for a different address (binding not broken) |
-| U-09 | Unauthenticated account enumeration via `GET /search/email/{email}` and `/search/username/{name}` | Existing -> 204, missing -> 404 (rate-limited after a few probes) | Low-value observation; most programs treat registration/login enumeration as accepted |
-| U-10 | Cross-account MFA OTP send via `/api/sso/v2/user/self/mfa/email/{id}/send` | Tested A session with B's authenticator id -> 404 `No EmailAuthenticator matches the given query` | Negative; no cross-account send |
-| U-11 | Remaining authenticated routes (`/billing/:orgId`, `/payments`, `/subscriptions/:service`, `/subscribe`, `/backups`, `/invoices/:invoiceId`, `/requests/:ticketId`) | Backing APIs return `404 Customer not found`, empty lists, or `no_msp_membership` for the test accounts; no org/payment/subscription/invoice/backup/ticket exists to exercise. | An account with those objects, or a seeded test org |
-| U-12 | `roles/beta` self opt-in persisted on Test Account A | Authorized self-service call; cross-account write is blocked (403). No removal endpoint found. | Low-impact side effect, not a vulnerability; delete/recreate the test account if a clean state is required |
+Both disposable test accounts can authenticate to UI SSO, but the cloud UniFi
+Network application cannot establish a controller session.
+
+Observed on Account A (`tan.tiger5564@maildrop.cc`) and Account B
+(`overrated.chinchilla337@maildrop.cc`):
+
+- The app loads the shell, then shows `Establishing Remote Connection` and
+  `Connection failed.`
+- Browser console: `Option 'deviceId' is required.` (twice) and
+  `Uncaught (in promise) Object`.
+- `window.webrtc.webRtcDevice.getActiveDevice()` returns `undefined`; the
+  device object has no enumerable state.
+- The startup path calls `webrtc.unifiWebRtcConnector.connect(getActiveDevice())`
+  before Angular routing; with no active device the promise rejects and every
+  data route is unreachable.
+- `POST https://cloudaccess.svc.ui.com/create-credentials` returns HTTP 200 with
+  ephemeral AWS/TURN credentials and `roles:["BETA"]`; it does not provide a
+  console.
+
+Impact on testing:
+
+- All `/site/:site/*`, `/sites-overview`, `/account`, `/home`, hotspot, and
+  settings routes are **Unresolved** because their resolvers require controller
+  data and the app never reaches them.
+- Server-side API testing through the UI is **Unresolved**. The app's cloud
+  controller API is only reachable through the WebRTC session; direct HTTP
+  requests to `/api/*`, `/v2/api/*`, `/status`, and `/proxy/network` return
+  `502 Bad Gateway` from `awselb/2.0`.
+
+## Account creation
+
+- The target file asked to create two test accounts. Two disposable accounts were
+  already provided in `creds/test-account.txt` and both authenticate successfully.
+  No additional accounts were created on the production service because it was
+  unnecessary and would create external side effects.
+- Account A and Account B SSO sessions were established in separate browser
+  contexts. Neither account has an active console.
+
+## Routes reached but not fully testable
+
+- `/login?redirect=...`: authenticated visit discarded the external redirect and
+  navigated to `/6.1.71.0/unifi/`; unauthenticated visit stalls at the cloud
+  access/SSO step. No open redirect observed. Not Vulnerable for the tested
+  `http(s)` redirect; deeper login flow belongs to `account.ui.com` (out of
+  scope).
+- `/account/verify?email=...&t=...`: app bootstrap fails before the verify branch
+  runs; no reflection or execution observed. Unresolved.
+- `/sso_login/:sso_token/:ubic_uuid/:site_id` with dummy values: bootstrap fails
+  with `deviceId required` / `$stateChangeError`. No token reflection observed.
+  Unresolved.
+- `/forgotpassword`: redirected to `/6.1.71.0/unifi/` and connection failure.
+  Unresolved.
+- `/fatal/:error`: navigated to `unifi.ubnt.com` (out of scope). Not tested.
+
+## Environment
+
+- Chrome DevTools MCP is connected and works; this is not a tool failure.
+- The blocker is the target account/controller state, not MCP availability.

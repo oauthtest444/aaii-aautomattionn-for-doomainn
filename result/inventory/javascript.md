@@ -1,69 +1,17 @@
-# JavaScript Inventory — account.ui.com
+# JavaScript Inventory
 
-## Main bundle
+Route context: `https://network.unifi.ui.com/6.1.71.0/unifi/site/default/dashboard`
+(app shell / `manage` module). All files are same-origin and in scope.
 
-| Field | Value |
-|-------|-------|
-| URL | `https://account.ui.com/assets/index-D5t7M7xo.js` |
-| Saved | `result/client-side/account.ui.com/_app/javascript/index-D5t7M7xo.js` |
-| Size | 7,121,868 bytes (6,872,370 chars, 6302 lines) |
-| SHA-256 | `ce9950c975a42cac66f5c2ea759d655e96c441d34df6a6b8190b09d60ea1c468` |
-| Retrieved | 2026-10-30T05:54Z (session 1) |
-| Framework | React 19.3.1 + React Router + TanStack Query + styled-components/stitches |
-| Source maps | none observed |
+| File | URL | SHA-256 | Size (bytes) | Tested |
+|------|-----|---------|--------------|--------|
+| index.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/index.js | b1f7b878e6f46b0f7985c69f5f096800dacb865b0540baee5a9150bf24bca509 | 67574 | Yes (static) |
+| initial.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/initial.js | d4b29cfd00f00cc09929034e0ceee503288eb8e081b2f8eb4f23def1a5da0e9d | 355063 | Yes (static) |
+| components.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/components.js | 72d18913a9f87367c7d36a2ec8f03b4c73e753b900a9a95c7d4b9d092121b8d5 | 1514409 | Yes (static) |
+| base.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/base.js | a92670e0d9f1c98ec9a53866b68b0ac57e79ceb7d77eafa7ac7297b3564d242e | 1315819 | Yes (static) |
+| dynamic.settings.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/dynamic.settings.js | 86fd6406702e333619a52934123cc42173ae2037ec03a95cb5f428304aac1a46 | 936248 | Yes (static) |
+| dynamic.dpi.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/dynamic.dpi.js | 640302c0b93bce39a62731f0a25d6aa9e679acbc8ff931feb8c715b643505f53 | 97015 | Yes (static) |
+| app.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/app.js | 295a5f03193ba058db715949967db4a2dad741897d14bb194505444dc95b476c | 4072955 | Yes (static) |
+| dynamic.maps.js | https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/dynamic.maps.js | (loaded during sso_login probe; not downloaded) | - | No (runtime only) |
 
-Note: `result/client-side/account.ui.com/_app/javascript/manifest.json` is saved
-SPA HTML (1634 bytes), not a JSON manifest.
-
-## Notable dependencies (from embedded version list @4182106)
-
-`axios@1.20.0`, `html-react-parser@6.1.9`, `lodash-es@4.18.1`,
-`luxon@3.7.2`, `qrcode.react@4.2.0`, `country-flag-icons@1.6.20`,
-`is-mobile@5.0.0`, `aws4fetch@1.0.20`.
-
-## Secrets / keys found in the bundle (verified PUBLIC-BY-DESIGN or restricted)
-
-| Name | Value (partial) | Assessment |
-|------|-----------------|------------|
-| GOOGLE_MAPS_SECRET | `AIzaSyBE3JpOF...Pr0-w` | Google Maps JS key. Geocoding with no referer -> `REQUEST_DENIED: API keys with referer restrictions`. Public key, referer-restricted. Not a finding. |
-| GOOGLE_RECAPTCHA_SECRET_HIGH_RISK_TEST / MEDIUM_RISK_TEST / SCORE / CHALLENGE | `6LdaPy4j...`, `6LfKMy4...`, `6LfGZXo...`, `6LdWhNg...` | Despite the name, these are used client-side as reCAPTCHA Enterprise **site keys** (`j5(siteKey)` -> `grecaptcha.enterprise.render/execute`). Public by design. Not a finding. |
-| RECAPTCHA_ACCOUNT_BACKEND_SITE_KEY_ID / RECAPTCHA_FEEDBACK_SITE_KEY_ID | `6LfyUkw...`, `6Lds3SI...` | reCAPTCHA site keys. Public. |
-| STRIPE_PUBLISHABLE_KEYS (per-region) | `pk_live_...` | Stripe publishable keys. Public by design. |
-| TAPPAY_PUBLISHABLE_KEYS | appId 156757, appKey `app_...` | TapPay publishable app key. Public by design. |
-| SEND_SAFELY_DZ_ID | `ffj-Vz...` | SendSafely dropzone id. Public. |
-| ZENDESK_FALLBACK_FORM_KEY | `31131542026135` | Zendesk form id. Public. |
-| IRONCLAD_CYBERSECURE / ESIM / SITE_SUPPORT / CLOUD_STORAGE | accessId + groupKey | Ironclad embedded widget ids. Public. |
-| GOOGLE_ANALYTICS_KEY | `G-ET365PNYN5`, `G-RV9R9H7W4C` | Public. |
-
-Conclusion: a manual "SECRET"-named scan produced no real secret exposure.
-
-## Redirect / navigation helpers
-
-- `MC(e)` — allowlist: URL parses; protocol http/https; registrable last two
-  labels in `['ubnt.com','ui.com','uisp.com']` (any subdomain).
-- `$he(e)` — `e.startsWith('https://') && MC(e)`.
-- `Wpe(e)` — `innerRedirect` allowlist against internal path list; rejects
-  `//` prefix and backslash.
-- `CQ` post-login: `i = redirect ?? redirect`; `i ? location.replace(i) : nav(innerRedirect||'/')`;
-  redirect comes from `DQ(location.href)` validated by `MC`.
-- `KC` -> `fme` -> external if http/https and origin != location.origin; else
-  internal router. Inputs found are validated/server-provided.
-- `Hw(e)` external `window.open`; `tge(e)` requires origin under fixed
-  `externalUrls` targets; else plain `window.open(e,'_blank','noopener')`.
-- `IGt` -> `location.replace(activate.ui.com)` fixed.
-
-No unvalidated user-controlled client-side open redirect found.
-
-## Sinks of interest (source -> sink)
-
-See `sinks.md`. Key conclusion: no `eval`, `new Function`, `document.write`,
-`insertAdjacentHTML`, `srcdoc`. `innerHTML` uses are React internals, GTM,
-SendSafely, and screen-reader logs (not user-controlled).
-
-`html-react-parser@6.1.9` is used at `yLt(i)` to render Zendesk ticket comment
-`html_body` (`CLt` component) with no DOMPurify -> candidate stored XSS requiring
-authentication + a ticket comment (Unresolved).
-
-## postMessage
-
-See `listeners.md`.
+Source maps: `app.js.map`, `index.js.map` return HTTP 403 (not exposed).

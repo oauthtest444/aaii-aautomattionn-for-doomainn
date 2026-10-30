@@ -1,89 +1,947 @@
 {
-  "target": "account.ui.com",
-  "mode": "domain-only",
-  "generated_at": "2026-10-30T06:24:00Z",
-  "assets": [
-    {
-      "type": "javascript",
-      "url": "https://account.ui.com/assets/index-D5t7M7xo.js",
-      "sha256": "ce9950c975a42cac66f5c2ea759d655e96c441d34df6a6b8190b09d60ea1c468",
-      "size": 7121868,
-      "saved": "result/client-side/account.ui.com/_app/javascript/index-D5t7M7xo.js",
-      "status": "tested"
-    }
+  "targets": [
+    "https://network.unifi.ui.com/6.1.71.0/unifi/site/default/dashboard"
   ],
+  "route_count": 120,
   "routes": [
-    {"route": "/login", "auth": "public", "status": "tested", "notes": "no open redirect; login_hint rendered only as escaped input value"},
-    {"route": "/register", "auth": "public", "status": "blocked-recaptcha"},
-    {"route": "/reset-password", "auth": "public", "status": "tested", "notes": "form; no API on load"},
-    {"route": "/reset-password/password-reset-uuid/:uuid", "auth": "token", "status": "source", "notes": "form only; needs valid uuid"},
-    {"route": "/verify", "auth": "public", "status": "tested", "notes": "requires router state; redirects /login"},
-    {"route": "/verify/verification-code/:uuid", "auth": "token", "status": "tested", "notes": "auto PUT verify; invalid uuid 404 then /login"},
-    {"route": "/verify/success", "auth": "public", "status": "tested", "notes": "404 not a route"},
-    {"route": "/idp/login-result", "auth": "callback", "status": "tested", "notes": "400 STATE_MISSING; no redirect"},
-    {"route": "/msp/idp/setup-result", "auth": "private", "status": "tested", "notes": "unauth redirect /login?innerRedirect=%2Faccount"},
-    {"route": "/supportform", "auth": "redirect", "status": "tested", "notes": "redirects /requests"},
-    {"route": "/supportform-uisp", "auth": "redirect", "status": "tested", "notes": "redirects /login?innerRedirect=%2Fsupportform-uisp"},
-    {"route": "/supportform-umr", "auth": "redirect", "status": "source", "notes": "redirects /requests"},
-    {"route": "/switch", "auth": "auth", "status": "tested", "notes": "invalid redirect dropped by MC; login_hint carried"},
-    {"route": "/security/suspicious/confirm", "auth": "token", "status": "tested", "notes": "invalid token inspect 400; auto-confirm gated"},
-    {"route": "/activate", "auth": "public", "status": "tested", "notes": "fixed redirect to activate.ui.com"},
-    {"route": "/payments/3ds", "auth": "callback", "status": "source", "notes": "return_url allowlisted"}
-  ],
-  "authenticated_routes": {
-    "count": 28,
-    "status": "partially-tested-test-accounts",
-    "reason": "Provided Test Accounts A/B are logged in and exercised. Remaining authenticated routes are blocked by missing data (no organization, payment method, subscription, invoice, backup, or ticket), not by lack of an account.",
-    "data_blocked": [
-      "/billing/:orgId",
-      "/payments",
-      "/subscriptions/:service",
-      "/subscriptions/site-support/subscribe",
-      "/subscriptions/cloud-storage/subscribe",
-      "/subscribe",
-      "/backups",
-      "/invoices/:invoiceId",
-      "/requests/:ticketId"
-    ],
-    "device_or_token_blocked": [
-      "/login/create-passkey",
-      "/login/change-email",
-      "/login/change-email/confirm",
-      "/reset-password/password-reset-uuid/:uuid"
-    ]
-  },
-  "server_side_continuation": {
-    "date": "2026-10-30",
-    "ledger": "result/server-side/account.ui.com/test-ledger.md",
-    "tests": 26,
-    "not_vulnerable": 18,
-    "blocked_no_data": 7,
-    "unresolved": 1,
-    "confirmed": [],
-    "highlights": [
-      "mass assignment on PUT /user/self ignored twofa_enabled, is_verified, roles, organization, tenant",
-      "address create/update forces owner to caller; cross-account address read/update/delete -> 405/404/403",
-      "cross-account session revoke and MFA delete -> 404",
-      "self roles/beta opt-in -> 204 (self-service); other user's uuid -> 403",
-      "passwordless_enabled is a user-controlled preference; restored to true",
-      "Zendesk comment XSS remains unresolved (requires x-captcha-token; no ticket created)"
-    ]
-  },
-  "candidates": [
     {
-      "id": "CAND-001",
-      "title": "Suspicious-login confirmation auto-executes decision=yes via URL",
-      "class": "CSRF / one-click state change",
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/",
+      "state": "manage",
       "status": "unresolved",
-      "blocker": "requires a valid confirm_token"
+      "notes": "Unresolved"
     },
     {
-      "id": "CAND-002",
-      "title": "Zendesk comment html_body rendered by html-react-parser without sanitizer",
-      "class": "stored XSS",
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/",
+      "state": "manage.home",
       "status": "unresolved",
-      "blocker": "requires authenticated ticket comment"
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/account",
+      "state": "manage.account",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login?redirect",
+      "state": "manage.account.login",
+      "status": "not-vulnerable",
+      "notes": "Not Vulnerable (no open redirect observed)"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login/2fa?redirect",
+      "state": "manage.account.2fa",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/verify?email&t",
+      "state": "manage.account.verify",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/forgotpassword",
+      "state": "manage.account.forgotpassword",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/oauth?redirect",
+      "state": "manage.oauthlogin",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/sso_login/:sso_token/:ubic_uuid/:site_id",
+      "state": "manage.ssologin",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/site/:site",
+      "state": "manage.site",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/director",
+      "state": "manage.site.director",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dashboard/{action:view\\|edit}/{id:[0-9a-f]{24}}/{panel:dashboards\\|none}",
+      "state": "manage.site.dashboard",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/statistics",
+      "state": "manage.site.statistics",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/systemstats/:granularity/:startOrPreset/:end",
+      "state": "manage.site.statistics.overview",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dpi/{view}/{categoryId}/{applicationId}/{userId}",
+      "state": "manage.site.statistics.dpi",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/performance/:deviceId/:granularity/:startOrPreset/:end",
+      "state": "manage.site.statistics.performance",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/client/:clientId/:granularity/:startOrPreset/:end",
+      "state": "manage.site.statistics.client",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/switch/:switchId/:granularity/:startOrPreset/:end",
+      "state": "manage.site.statistics.switch",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/speedtest/:startOrPreset/:end",
+      "state": "manage.site.statistics.speedtest",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/debugging",
+      "state": "manage.site.statistics.debugging",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ips",
+      "state": "manage.site.ips",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/overview/:startOrPreset/{end}",
+      "state": "manage.site.ips.overview",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/list/:startOrPreset/{end}/{country}/{severity}/{ip}",
+      "state": "manage.site.ips.list",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/maps",
+      "state": "manage.site.maps",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/physical/:mapId/:deviceId",
+      "state": "manage.site.maps.physical",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/topology",
+      "state": "manage.site.maps.topology",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/devices",
+      "state": "manage.site.devices",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/{layout}/{page}/{pageSize}/:type/:view",
+      "state": "manage.site.devices.paginated",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/clients",
+      "state": "manage.site.clients",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/{layout}/{page}/{pageSize}/{wired}/{guest}/{radio}/{active}",
+      "state": "manage.site.clients.paginated",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/insights",
+      "state": "manage.site.insights",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dynamicdns/{page}/{pageSize}",
+      "state": "manage.site.insights.dynamicdns",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/clienthistory/{page}/{pageSize}/{within}/{wired}/{guest}/{configuration}/{blocked}/{noted}/{fixedIp}",
+      "state": "manage.site.insights.knownclients",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/neighboraps/{page}/{pageSize}/{within}/{radioType}",
+      "state": "manage.site.insights.neighboringaps",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/pastconnections/{page}/{pageSize}/:startOrPreset/:end/{guest}",
+      "state": "manage.site.insights.pastconnections",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/pastguests/{page}/{pageSize}/:startOrPreset/:end",
+      "state": "manage.site.insights.pastguests",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/portforwardstats/{page}/{pageSize}/{view}",
+      "state": "manage.site.insights.portforwardstats",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/staticrouting/{page}/{pageSize}",
+      "state": "manage.site.insights.staticrouting",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/streams/{page}/{pageSize}/{stream}",
+      "state": "manage.site.insights.streams",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/switchstats/{page}/{pageSize}/{device}/{linkStatus}/{view}",
+      "state": "manage.site.insights.switchstats",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/remoteuservpn/{page}/{pageSize}",
+      "state": "manage.site.insights.remoteuservpn",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/logs/",
+      "state": "manage.site.insights.logs",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/events",
+      "state": "manage.site.events",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/alerts",
+      "state": "manage.site.alerts",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/settings",
+      "state": "manage.site.settings",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/v2",
+      "state": "manage.site.ufsdn",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/wifiman{path:any}",
+      "state": "manage.site.ufsdn.wifiman",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ips/{path:any}",
+      "state": "manage.site.ufsdn.ips",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/backup",
+      "state": "manage.site.settings.backup",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/site",
+      "state": "manage.site.settings.site",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/wlans/{action}/:id",
+      "state": "manage.site.settings.wlans",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/networks/{action}/:id",
+      "state": "manage.site.settings.networks",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/routing/{action}/:id",
+      "state": "manage.site.settings.routingAndFirewall",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/routing/{action}/:id",
+      "state": "manage.site.settings.routingAndFirewall.routing",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/firewall",
+      "state": "manage.site.settings.routingAndFirewall.firewall",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/rules/ipv4/{action}/:ruleset/:id",
+      "state": "manage.site.settings.routingAndFirewall.firewall.rulesIpv4",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/rules/ipv6/{action}/:ruleset/:id",
+      "state": "manage.site.settings.routingAndFirewall.firewall.rulesIpv6",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/groups/{action}/:id",
+      "state": "manage.site.settings.routingAndFirewall.firewall.groups",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/settings",
+      "state": "manage.site.settings.routingAndFirewall.firewall.settings",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/portforward/{action}/:id",
+      "state": "manage.site.settings.routingAndFirewall.portforward",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/geoipfiltering",
+      "state": "manage.site.settings.routingAndFirewall.geoipfiltering",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/guestcontrol",
+      "state": "manage.site.settings.guestcontrol",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/services",
+      "state": "manage.site.settings.services",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/radius",
+      "state": "manage.site.settings.services.radius",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/users/{action}/:id",
+      "state": "manage.site.settings.services.radius.users",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/server",
+      "state": "manage.site.settings.services.radius.server",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/hotspot2/{action}/:id",
+      "state": "manage.site.settings.services.hotspot2",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dhcp",
+      "state": "manage.site.settings.services.dhcp",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/options/{action}/:id",
+      "state": "manage.site.settings.services.dhcp.dhcpOptions",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/relay",
+      "state": "manage.site.settings.services.dhcp.dhcpRelay",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/server",
+      "state": "manage.site.settings.services.dhcp.dhcpServer",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dynamicdns/{action}/:id",
+      "state": "manage.site.settings.services.dynamicdns",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/sip",
+      "state": "manage.site.settings.services.sip",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/settings",
+      "state": "manage.site.settings.services.sip.settings",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/endpoints/{action}/:id",
+      "state": "manage.site.settings.services.sip.endpoints",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/snmp",
+      "state": "manage.site.settings.services.snmp",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/upnp",
+      "state": "manage.site.settings.services.upnp",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/mdns",
+      "state": "manage.site.settings.services.mdns",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ntp",
+      "state": "manage.site.settings.services.ntp",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/upgrades/{action}/:id",
+      "state": "manage.site.settings.services.upgrades",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/profiles",
+      "state": "manage.site.settings.profiles",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/radius/{action}/:id",
+      "state": "manage.site.settings.profiles.radius",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ports/{action}/:id",
+      "state": "manage.site.settings.profiles.ports",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/admins/{action}/:id",
+      "state": "manage.site.settings.admins",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/usergroups/{action}/:id",
+      "state": "manage.site.settings.usergroups",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/dpi",
+      "state": "manage.site.settings.dpi",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/settings",
+      "state": "manage.site.settings.dpi.settings",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/restrictions",
+      "state": "manage.site.settings.dpi.restrictions",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/groups",
+      "state": "manage.site.settings.dpi.restrictions.groups",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/assignments",
+      "state": "manage.site.settings.dpi.restrictions.assignments",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/controller",
+      "state": "manage.site.settings.controller",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ips",
+      "state": "manage.site.settings.ips",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/cloudaccess",
+      "state": "manage.site.settings.cloudaccess",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/elitedevice",
+      "state": "manage.site.settings.elitedevice",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/maintenance",
+      "state": "manage.site.settings.maintenance",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/ui",
+      "state": "manage.site.settings.ui",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/fatal/:error",
+      "state": "manage.fatal",
+      "status": "out-of-scope",
+      "notes": "Out of Scope (redirected to unifi.ubnt.com)"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/sites-overview",
+      "state": "manage.overview",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/home",
+      "state": "manage.overview.base",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/home",
+      "state": "manage.overview.base.home",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/sites",
+      "state": "manage.overview.base.sites",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/admins",
+      "state": "manage.overview.base.admins",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/account",
+      "state": "manage.overview.account",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login?redirect",
+      "state": "manage.overview.account.login",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login/{site}/2fa?redirect",
+      "state": "manage.overview.account.2fa",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/forgotpassword",
+      "state": "manage.overview.account.forgotpassword",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/fatal/:error",
+      "state": "manage.overview.fatal",
+      "status": "out-of-scope",
+      "notes": "Out of Scope (redirected to unifi.ubnt.com)"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/hotspot?d",
+      "state": "manage.hotspot_redirect",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/hotspot-manager?d",
+      "state": "manage.hotspot",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/home",
+      "state": "manage.hotspot.home",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/account",
+      "state": "manage.hotspot.account",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login/{site}?redirect",
+      "state": "manage.hotspot.account.login",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/login/{site}/2fa?redirect",
+      "state": "manage.hotspot.account.2fa",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/site/:site",
+      "state": "manage.hotspot.site",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/analytics/:start/:end/:currency",
+      "state": "manage.hotspot.site.analytics",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/guests/{within}/{page}/{pageSize}",
+      "state": "manage.hotspot.site.guests",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/operators/{page}/{pageSize}",
+      "state": "manage.hotspot.site.operators",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/transactions/{within}/{page}/{pageSize}/:transactionType",
+      "state": "manage.hotspot.site.transactions",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/vouchers/{page}/{pageSize}",
+      "state": "manage.hotspot.site.vouchers",
+      "status": "unresolved",
+      "notes": "Unresolved"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/fatal/:error",
+      "state": "manage.hotspot.fatal",
+      "status": "out-of-scope",
+      "notes": "Out of Scope (redirected to unifi.ubnt.com)"
     }
   ],
-  "confirmed_findings": []
+  "javascript": [
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/index.js",
+      "sha256": "b1f7b878e6f46b0f7985c69f5f096800dacb865b0540baee5a9150bf24bca509",
+      "bytes": 67574,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/index.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/initial.js",
+      "sha256": "d4b29cfd00f00cc09929034e0ceee503288eb8e081b2f8eb4f23def1a5da0e9d",
+      "bytes": 355063,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/initial.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/components.js",
+      "sha256": "72d18913a9f87367c7d36a2ec8f03b4c73e753b900a9a95c7d4b9d092121b8d5",
+      "bytes": 1514409,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/components.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/base.js",
+      "sha256": "a92670e0d9f1c98ec9a53866b68b0ac57e79ceb7d77eafa7ac7297b3564d242e",
+      "bytes": 1315819,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/base.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/dynamic.settings.js",
+      "sha256": "86fd6406702e333619a52934123cc42173ae2037ec03a95cb5f428304aac1a46",
+      "bytes": 936248,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/dynamic.settings.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/dynamic.dpi.js",
+      "sha256": "640302c0b93bce39a62731f0a25d6aa9e679acbc8ff931feb8c715b643505f53",
+      "bytes": 97015,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/dynamic.dpi.js"
+    },
+    {
+      "url": "https://network.unifi.ui.com/6.1.71.0/unifi/angular/js/app.js",
+      "sha256": "295a5f03193ba058db715949967db4a2dad741897d14bb194505444dc95b476c",
+      "bytes": 4072955,
+      "tested": true,
+      "local": "result/client-side/network.unifi.ui.com/site-default-dashboard/javascript/raw/app.js"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F-01",
+      "source": "redirect query param",
+      "sink": "$location.url()",
+      "file": "base.js BaseLoginController",
+      "status": "not-vulnerable",
+      "evidence": "result/findings/VULN-20261030-004/"
+    },
+    {
+      "id": "F-02",
+      "source": "redirect query param (OAuth)",
+      "sink": "$location.url()",
+      "file": "app.js OAuthLoginController",
+      "status": "not-vulnerable",
+      "evidence": "result/findings/VULN-20261030-004/"
+    },
+    {
+      "id": "F-03",
+      "source": "email + t query params",
+      "sink": "POST /api/verify (WebRTC)",
+      "file": "index.js startup",
+      "status": "unresolved",
+      "evidence": "result/unresolved.md"
+    },
+    {
+      "id": "F-04",
+      "source": "sso_token/ubic_uuid/site_id path params",
+      "sink": "resolveSsoLogin",
+      "file": "app.js manage.ssologin",
+      "status": "unresolved",
+      "evidence": "result/unresolved.md"
+    },
+    {
+      "id": "F-05",
+      "source": "error path param",
+      "sink": "{{fatalCtrl.errorCode}}",
+      "file": "app.js FatalController",
+      "status": "out-of-scope",
+      "evidence": "result/out-of-scope.txt"
+    },
+    {
+      "id": "F-06",
+      "source": "window message event.data",
+      "sink": "listener dispatch",
+      "file": "app.js module 1448",
+      "status": "unresolved",
+      "evidence": "result/findings/VULN-20261030-003/"
+    },
+    {
+      "id": "F-07",
+      "source": "window message {appLoaded:true}",
+      "sink": "postMessage(model,'*')",
+      "file": "app.js module 494",
+      "status": "unresolved",
+      "evidence": "result/findings/VULN-20261030-003/"
+    },
+    {
+      "id": "F-08",
+      "source": "full verify URL",
+      "sink": "Google Analytics dl parameter",
+      "file": "index.js GA init",
+      "status": "unresolved",
+      "evidence": "result/findings/VULN-20261030-002/"
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/self",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/status",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/self",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sso/v1/user/self",
+      "auth": "sso",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/api/airos/v1/unifi/devices/",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/api/self",
+      "auth": "unauth",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "POST",
+      "path": "/api/verify",
+      "auth": "unauth",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/auth",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/get_token",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/files",
+      "auth": "controller",
+      "variants": [],
+      "status": "unresolved"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v2/settings/{section}",
+      "auth": "user",
+      "variants": [],
+      "status": "unresolved"
+    }
+  ],
+  "listeners": [
+    {
+      "location": "app.js module 1448",
+      "handler": "$window.onmessage -> listeners",
+      "originCheck": false,
+      "status": "unresolved",
+      "evidence": "result/findings/VULN-20261030-003/"
+    },
+    {
+      "location": "app.js module 494",
+      "handler": "unifiIframePostMessage",
+      "originCheck": false,
+      "status": "unresolved",
+      "evidence": "result/findings/VULN-20261030-003/"
+    },
+    {
+      "location": "components.js",
+      "handler": "zero-timeout-message",
+      "originCheck": true,
+      "status": "not-vulnerable",
+      "evidence": ""
+    }
+  ]
 }

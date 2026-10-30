@@ -1,0 +1,10 @@
+result/logs/agent-exit-code.txt 51 bytes
+result/logs/evidence/connection-failed-accountA.png 20158 bytes
+result/logs/opencode.log 281807 bytes
+result/logs/opencode/41020096449/chrome-mcp.log 4317 bytes
+result/logs/opencode/41020096449/diagnostics-index.txt 0 bytes
+result/logs/opencode/41020096449/opencode.log 383924 bytes
+result/logs/session.md 755 bytes
+result/logs/target-state.txt 249 bytes
+result/logs/targets.sha256 65 bytes
+result/logs/targets.used.txt 3299 bytes

@@ -1,3 +1,0 @@
-time=2026-10-30T05:55:48Z
-reason=no output for 120s after OpenCode reinstall
-run_id=41008688507

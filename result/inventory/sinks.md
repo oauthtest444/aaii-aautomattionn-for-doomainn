@@ -1,57 +1,45 @@
-# Source-to-Sink Inventory — account.ui.com SPA
+# Sink Inventory (static analysis, route-related JS)
 
-All line/offset references are character offsets in
-`index-D5t7M7xo.js` (sha256 `ce9950c9…c468`).
+Scope: the seven same-origin bundles listed in `inventory/javascript.md`.
+Counts are raw matches across the bundles and include third-party libraries.
 
-## Dangerous sink scan
+| Sink | Count | Notes / reachability |
+|------|-------|----------------------|
+| `innerHTML` | 45 | Mostly vendor/library + template strings; no user-controlled source reached at runtime |
+| `outerHTML` | 5 | Same |
+| `insertAdjacentHTML` | 0 | - |
+| `document.write` | 0 | - |
+| `eval(` | 88 | AngularJS/lodash/vendor; no user-controlled input reached at runtime |
+| `new Function` | 10 | Vendor/library |
+| `$sce.trustAsHtml` / `trustAsHtml` | 1 | `pascalprecht.translate` sanitization strategy; not attacker-controlled |
+| `ng-bind-html` | 40 | Bindings use translation strings, model fields, and icons; no URL-controlled value reached |
+| `srcdoc` | 3 | Library/preview templates; unreachable |
+| `document.createElement("iframe"/"script")` | 1 / 8 | Vendor/dynamic loader |
+| `location.href =` | multiple | See `flows.md`; redirect targets are fixed hosts or Angular `$location` |
 
-| Sink | Count | Result |
-|------|-------|--------|
-| `eval(` | 0 | none |
-| `new Function(` | 0 | none |
-| `document.write` | 0 | none |
-| `insertAdjacentHTML` | 0 | none |
-| `outerHTML =` | 0 | none |
-| `srcdoc` | 0 | none |
-| `innerHTML =` | 16 | React internals (`@301929`,`@359454`,`@362372`), GTM (`@409752`+), screen-reader logs (`@2657653`), jQuery-style `html()` (`@3465614`+), SendSafely dropzone (`@4985802`,`@4987484`), template helpers (`@6368506`+). No user/URL-controlled source found. |
-| `dangerouslySetInnerHTML` | 18 | React internals + one static radix scrollbar `<style>` (`@3393236`). No user source. |
-| `window.open` | 7 | `mme`/`Hw` (`@2594777`,`@776401`), MSP consent popup (`@5476558`), billing link builder (`@6016762`), passkey blank window (`@6349117`), Ada support (`@6357287`). Inputs validated/static. |
-| `location.assign` | 5 | Router internals, `Hw` self-target, `enforcedIdpRedirectUrl` (server), `idp.loginUrl` (server). |
-| `location.replace` | 7 | `mme`, post-login redirect (`@4778200`, validated by `MC`), 3DS (`@5634611`, validated by `MC`), idp login-result (`@6441039`, next from server), MSP result (`@6516196`), switch (`@6853317`, validated), activate (`@6871446`, fixed). |
-| `location.href =` | 11 | Router internals, MSP popup reuse (`@5476521`), Stripe/TapPay redirect URLs (from payment provider), passkey blank window, 3DS `return_url` (validated by `MC`), MFA `setup_uri`/`provisioning_uri` (server), billing redirect (server). |
+## Notable source/sink candidates reviewed
 
-## Unique data flows
+1. **Login redirect** — `base.js` `BaseLoginController.login()`:
+   `redirect = decodeURIComponent($stateParams.redirect)` then
+   `$location.url(redirect)`; only rejects strings containing `/fatal/`.
+   - Tested with `?redirect=https://example.com/` while authenticated.
+   - Result: app navigated to `/6.1.71.0/unifi/` (redirect discarded), no
+     external navigation. `$location.url()` cannot change origin.
+   - Status: Not Vulnerable (open redirect not observed).
 
-1. **Post-login redirect** — source: `redirect` query/hash via `DQ(location.href)` ->
-   `MC` allowlist -> `location.replace`. Status: Not Vulnerable (allowlist).
-2. **innerRedirect** — source: query -> `Wpe` internal-path allowlist (rejects
-   `//`, `\`) -> router. Status: Not Vulnerable.
-3. **IDP login result** — source: `code`,`state` query -> API -> `next` from
-   server -> `location.replace` unvalidated. Runtime: server binds `state` to
-   `sso_idp_state` cookie; invalid state -> 400, no redirect. Status: Not
-   Vulnerable in practice (Unresolved only if server can be made to return
-   attacker URL; out-of-scope API).
-4. **Suspicious login confirm** — source: `token`,`decision` query. `decision=yes`
-   auto-fires `POST /suspicious/confirm` on mount (`oUt`), gated on a successful
-   inspect of a valid token. Candidate CSRF/one-click state change requiring a
-   valid token; invalid token -> inspect 400 -> no confirm call (verified).
-   Status: Unresolved (needs valid token; API out-of-scope).
-5. **MSP IdP setup result** — source: `status`,`idpId`,`message` query ->
-   `postMessage({type:'msp-idp-setup-result',...}, location.origin)` to opener ->
-   opener listener shows toast. No `dangerouslySetInnerHTML`; React escapes.
-   Status: Not Vulnerable (needs same-origin opener).
-6. **Megaphone/announcement org select** — `postMessage` listener t1 requires
-   `e.source === window.parent` and `$he(e.origin)` (https + *.ui.com/ubnt.com/
-   uisp.com) and zod schema. Status: Not Vulnerable / limited by allowlist.
-7. **Zendesk ticket comment HTML** — source: stored Zendesk `html_body` ->
-   `html-react-parser` `yLt(i)` in `CLt` with no sanitizer. Candidate stored XSS
-   requiring auth + comment. Status: Unresolved.
-8. **3DS return** — source: `return_url` query -> `MC` -> `location.href` on
-   success. Allowlist only, so not external. Status: Not Vulnerable.
-9. **Switch account** — source: `redirect`,`login_hint` query -> `MC` / email
-   match -> `location.replace` / login. Status: Not Vulnerable.
+2. **OAuth login redirect** — `app.js` `OAuthLoginController.login()` uses the
+   same `$location.url()` pattern. Same conclusion.
 
-## Client-side result
+3. **`manage.ssologin` path parameters** — `:sso_token/:ubic_uuid/:site_id`.
+   Dummy values produced a `$stateChangeError` after `deviceId required`; no
+   reflection into DOM. Unresolved due to controller requirement.
 
-No confirmed client-side vulnerability. Two candidates remain Unresolved and are
-blocked by missing valid token / authentication. No XSS execution was observed.
+4. **`unifiIframePostMessage`** — model is posted with target origin `"*"` to the
+   directive's own iframe. The iframe URL comes from
+   `getPortalPreviewUrl()` (hotspot portal preview), which requires controller
+   settings and admin access. Unresolved.
+
+5. **Fatal error template** — `{{fatalCtrl.errorCode}}` is interpolated
+   (Angular auto-escapes). The `/fatal/:error` route redirected to
+   `unifi.ubnt.com` (out of scope) during testing. Not Vulnerable in observed
+   behavior.

@@ -1,0 +1,18 @@
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+content-length: 1302
+date: Fri, 30 Oct 2026 07:39:57 GMT
+cache-control: max-age=31536000
+cache-control: public
+server: nginx
+last-modified: Mon, 22 Mar 2021 15:37:34 GMT
+etag: "b824b8b1f0593a1329a91d90c1ad310f"
+x-amz-version-id: pcY8.wVImcjDLRNUPDESfNFCXsaxFO6H
+accept-ranges: bytes
+expires: Sat, 30 Oct 2027 07:39:57 GMT
+vary: Accept-Encoding
+x-cache: Miss from cloudfront
+via: 1.1 0459f0f7053eeb224fd9fe0f5db5970a.cloudfront.net (CloudFront)
+x-amz-cf-pop: IAD89-P2
+x-amz-cf-id: yFKymlzFv0ZDYsHKthCvYQsQnYc2Vg1cDf9AZggvl8EeKjtHS6_pdA==
+

@@ -1,0 +1,18 @@
+Observed request (2026-10-30T07:47:52Z), Chrome DevTools reqid=271:
+
+POST https://www.google-analytics.com/j/collect?v=1&_v=j102&aip=1&a=212184420&t=event&_s=1
+  &dl=https%3A%2F%2Fnetwork.unifi.ui.com%2F6.1.71.0%2Funifi%2Faccount%2Fverify
+      %3Femail%3Dsecurity-test%2540example.com%26t%3DDUMMYTOKEN_ABC123
+  &dp=%2F6.1.71.0%2Funifi%2Faccount%2Fverify
+  &ul=en-us&dt=UniFi%20Network&sr=800x600&vp=780x437
+  &ec=Cloud%20Access&ea=Cloud%20Access%20-%20Error%3A%20ERROR_ESTABLISH_CONNECTION
+  &tid=UA-2432820-25
+
+Decoded `dl` value:
+  https://network.unifi.ui.com/6.1.71.0/unifi/account/verify?email=security-test%40example.com&t=DUMMYTOKEN_ABC123
+
+The navigated page URL (dummy values, no real token):
+  https://network.unifi.ui.com/6.1.71.0/unifi/account/verify?email=security-test%40example.com&t=DUMMYTOKEN_ABC123
+
+Second GA4 request (reqid=274) also fired to
+https://www.google-analytics.com/g/collect (G-4Q63NBBG87) after the same load.
