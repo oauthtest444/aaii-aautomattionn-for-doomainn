@@ -56,3 +56,25 @@ See `result/unresolved.md`. Main blockers:
   authenticated API/auth surface remains untested.
 - CloudFront/SigV4/third-party hosts inaccessible or outside intended app
   surface.
+
+## 2026-10-30 design.ui.com revalidation
+
+- Corrected the design session model: `ui|design-center|sid` + `UBIC_AUTH` +
+  AWSALB stickiness, with a persistent cookie jar (`/tmp/jarA.txt`). Prior
+  “temp users always 401” note was a harness artifact.
+- Role escalation: Account A `PATCH /user/314f82e1-.../role` with
+  `{"role":"admin"}` returned 401 `errors.user.access`; `/user/me` still
+  `role:"nobody"`.
+- Privileged endpoints `GET /user`, `POST /export/user`, `GET /admin/stats`
+  returned 401 for Account A.
+- Cross-tenant checks with a temp identity were denied: project share/invites
+  403, plan copy/update 403, project export of A's project 403, socket room
+  joins produced no events (A positive control received
+  `PROJECT_UPDATE_SOCKET`).
+- Invite flow requires a secret token; temp users cannot confirm/decline.
+  A test invite to the owned test inbox was created and removed.
+- Export test: A's own `/project/export` token was not retrievable via
+  `/export/:exportId` (401); temp B request for A's project denied 403.
+- Community writes remain blocked by `VPN_FORBIDDEN` (no content created).
+  `CreateQuestionInput.content` is a `ContentInput` block array, not a string.
+- No new confirmed finding.

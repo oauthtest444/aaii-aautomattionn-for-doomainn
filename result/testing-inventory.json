@@ -469,6 +469,68 @@
    ],
    "status": "unresolved",
    "notes": "Returns connectionString; client forwards it to deviceUrl. See UISP-ADOPT-CONNSTRING-LEAD."
+  },
+  {
+   "method": "PATCH",
+   "path": "https://design.svc.ui.com/user/{ssoId}/role",
+   "auth": "user",
+   "variants": [
+    "own-uuid-admin"
+   ],
+   "status": "not-vulnerable",
+   "notes": "401 errors.user.access; /user/me role stayed nobody"
+  },
+  {
+   "method": "POST",
+   "path": "https://design.svc.ui.com/project/{projectId}/plan/{planId}/copy",
+   "auth": "user",
+   "variants": [
+    "cross-project-temp-user"
+   ],
+   "status": "not-vulnerable",
+   "notes": "403 errors.plan.access No access to plan"
+  },
+  {
+   "method": "PATCH",
+   "path": "https://design.svc.ui.com/project/{projectId}/plan/{planId}",
+   "auth": "user",
+   "variants": [
+    "cross-project-temp-user"
+   ],
+   "status": "not-vulnerable",
+   "notes": "403 errors.plan.access No access to plan"
+  },
+  {
+   "method": "POST",
+   "path": "https://design.svc.ui.com/project/export",
+   "auth": "user",
+   "variants": [
+    "cross-project-temp-user",
+    "own-export-token-fetch"
+   ],
+   "status": "not-vulnerable",
+   "notes": "403 errors.project.access for temp user; /export/{id} 401 for owner token"
+  },
+  {
+   "method": "POST",
+   "path": "https://design.svc.ui.com/project/{projectId}/invite/{inviteId}/confirm",
+   "auth": "user",
+   "variants": [
+    "temp-user",
+    "missing-token"
+   ],
+   "status": "not-vulnerable",
+   "notes": "400 token Required; temp-user confirm path blocked"
+  },
+  {
+   "method": "WSS",
+   "path": "wss://design.svc.ui.com/projects",
+   "auth": "user",
+   "variants": [
+    "cross-room-join"
+   ],
+   "status": "not-vulnerable",
+   "notes": "Temp user joined victim room but received no events; owner positive control received PROJECT_UPDATE_SOCKET"
   }
  ],
  "listeners": []
