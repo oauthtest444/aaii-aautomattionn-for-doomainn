@@ -1,19 +1,4 @@
-# Out-of-Scope Assets Discovered
+# Out of Scope
 
-- https://unifi.ubnt.com/6.1.71.0/unifi/fatal
-  - Discovered when requesting https://network.unifi.ui.com/6.1.71.0/unifi/fatal/404.
-    The in-scope app issued a navigation to the `unifi.ubnt.com` origin.
-  - Not tested. Different origin from the authorized target.
-- https://account.ui.com/*
-  - Used only as the SSO identity provider to authenticate to the in-scope app.
-    Not tested as a target.
-- https://sso.ui.com/*
-  - SSO API host observed in app traffic. Not tested as a target.
-- https://cloudaccess.svc.ui.com/*
-  - Cloud access / TURN credential broker used by the app. Not tested as a target.
-- https://config.ubnt.com/*, https://www.google-analytics.com/*,
-  https://googletagmanager.com/*, https://js.stripe.com/*,
-  https://m.stripe.network/*, https://static.ada.support/*,
-  https://o21767.ingest.sentry.io/*, https://fonts.googleapis.com/*,
-  https://fonts.gstatic.com/*
-  - Third-party dependencies observed in traffic. Not tested.
+Assets discovered but not authorized.
+

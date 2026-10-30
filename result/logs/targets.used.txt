@@ -1,5 +1,8 @@
 Target:
-https://network.unifi.ui.com/6.1.71.0/unifi/site/default/dashboard
+in.store.ui.com
+
+working url
+https://in.store.ui.com/in/en?s=in&l=en
 
 For this subdomain First discover all intresting and unique UI routes and API endpoints. 
 

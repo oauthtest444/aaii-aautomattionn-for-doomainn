@@ -1,64 +1,28 @@
-# Route Testing Progress
+# Progress
 
-Last updated: 2026-10-30T07:50:00Z
-Run ID: 41020096449
+Updated: 2026-10-30T08:15:00Z
+Start: 2026-10-30T07:57:35Z
 
-## Summary
+- Total UI routes discovered: 35
+- Fully tested: 7 (home [client-side], account, account/address/new, account/address/{id}, my-lists, my-lists/{listId}, search)
+- Partially tested / unresolved: checkout, order status/payment/returns, country-picker dynamic, protected-asset/tax-exemption
+- Not yet tested: ~24 (public product/category/collection/faq/app-embedded variants)
+- Confirmed vulnerabilities: 0
+- Accounts: A logged in (customer 95b6d3ee-354c-47b6-a187-b80959d58f79); B logged in (isolated context), both via maildrop MFA.
 
-- Total UI state routes discovered: **120**
-- Routes fully tested: **0**
-- Runtime attempts / candidate checks: **7** (dashboard, `/sites-overview`,
-  `/login?redirect`, `/account/verify`, `/sso_login/...`, `/forgotpassword`,
-  `/fatal/:error`)
-- Route outcomes: **116 Unresolved**, **1 Not Vulnerable**, **3 Out of Scope**
-- Confirmed high-impact findings: **0**
+## Tested (no confirmed vuln)
+| Route | Client-side | Server-side | Report |
+|---|---|---|---|
+| /in/en | reviewed 35 chunks, no confirmed sink | GetCoreData, geo-ip, megaphone | result/client-side/in.store.ui.com/home/ |
+| /in/en/account | account chunks scanned | address CRUD IDOR/BAC/mass-assignment held | result/server-side/in.store.ui.com/account/report.md |
+| /account/address/new + /{id} | address chunk | Create/Update/Delete/Get authz held | same |
+| /in/en/my-lists + /{listId} | - | wishlist CRUD/add IDOR held | result/server-side/in.store.ui.com/my-lists/report.md |
 
-The authoritative full route list with per-route status is
-`result/inventory/routes.md` and `result/testing-inventory.json`.
+## Current task
+Search route (GetSearchProducts/GetCollectionsMetadata captured). Then product/category/collection routes, country-picker dynamic redirect check, then order/checkout surfaces.
 
-## Why everything is Unresolved
-
-Both disposable test accounts authenticate through UI SSO, but neither has an
-active UniFi console. The app calls
-`webrtc.unifiWebRtcConnector.connect(getActiveDevice())` before Angular routing;
-`getActiveDevice()` is `undefined`, and the console logs
-`Option 'deviceId' is required.` All data/settings routes therefore fail before
-their resolvers run. See `result/unresolved.md`.
-
-## Route Status by Group
-
-| Group | Routes | Status |
-|-------|--------|--------|
-| `manage.site.settings.*` | 49 | Unresolved |
-| `manage.hotspot.*` | 13 | Unresolved |
-| `manage.site.insights.*` | 12 | Unresolved |
-| `manage.overview.*` / `manage.account.*` / fatal | 10 | 1 Not Vulnerable, 3 Out of Scope, 6 Unresolved |
-| `manage.site.statistics.*` | 8 | Unresolved |
-| `manage.site.*` other (dashboard, devices, clients, maps, etc.) | 17 | Unresolved |
-| `manage.site.ufsdn.*` | 3 | Unresolved |
-
-## Runtime-Tested Route Attempts
-
-| Route | Client-side | Server-side | Status | Report |
-|-------|-------------|-------------|--------|--------|
-| `/site/default/dashboard` | Static analysis + authenticated load | API probe (502) | Unresolved | `result/client-side/network.unifi.ui.com/site-default-dashboard/route-report.md` |
-| `/sites-overview` | Authenticated load | API probe (502) | Unresolved | `result/server-side/network.unifi.ui.com/` |
-| `/login?redirect=https://example.com/` | External redirect discarded | n/a | Not Vulnerable | `result/findings/VULN-20261030-004/report.md` |
-| `/account/verify?email=&t=` | URL leaked to GA; no XSS | `/api/verify` 502 | Unresolved | `result/findings/VULN-20261030-002/report.md` |
-| `/sso_login/DUMMY/0000.../default` | `$stateChangeError`; no reflection | n/a | Unresolved | `result/unresolved.md` |
-| `/fatal/404` | Redirected to `unifi.ubnt.com` | n/a | Out of Scope | `result/out-of-scope.txt` |
-| `/forgotpassword` | Redirected to app root; connection failed | n/a | Unresolved | `result/unresolved.md` |
-
-## Pending Routes
-
-All 116 Unresolved routes are listed in `result/inventory/routes.md`. They are
-blocked by the same `deviceId required` bootstrap failure. The three
-`manage.fatal` / `manage.overview.fatal` / `manage.hotspot.fatal` routes are
-Out of Scope because the app redirects to `unifi.ubnt.com`.
-
-## Next Session
-
-1. Obtain a test account with an active UniFi console.
-2. Resume at `manage.site.dashboard` and work through `routes.md` in order.
-3. Capture WebRTC controller API traffic and test create/edit endpoints for mass
-   assignment and cross-account IDOR/BOLA.
+## Notable non-vuln notes
+- Address-ID existence oracle (FORBIDDEN vs null) — excluded, low impact.
+- GraphQL unknown-input-field returns generic 500 — robustness only.
+- CORS on ecomm.svc.ui.com does not reflect foreign origins (verified with curl).
+- No cache headers on storefront HTML (`private, no-store`); X-Forwarded-Host triggers canonical 307 to real host, not reflected.
