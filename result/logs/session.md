@@ -1,21 +1,10 @@
-# Session metadata
+# Session Metadata
 
-- Start time (UTC): 2026-10-29T17:37:02Z
-- Target(s): ui.com (domain-only; operator notes request subdomain discovery and per-subdomain testing)
-- Agent/model: opencode / opencode/deepseek-v4.1-flash-free
-- OpenCode: 1.19.5
-- Node: v22.23.4
-- Python: 3.14.4
-- Chrome: Google Chrome 156.0.8078.73 (headless, remote debugging on 127.0.0.1:9222)
-- MCP: chrome-devtools available (list_pages succeeded)
-- Environment: GitHub Actions Linux runner
-- Resume state: target-state decision=reset (fresh run); previous results belong to a different target input.
-
-## Resumed session
-- Resume start (UTC): 2026-10-29T22:40:46Z
-- Run: 40967569143 (schedule), target hash unchanged → decision=preserved
-- Browser/MCP: Chrome 156.0.8078.73 at 127.0.0.1:9222, chrome-devtools MCP reachable (list_pages OK)
-- Prior state: Account A valid; Account B unresolved (reCAPTCHA); confirmed-vuln.txt empty
-- Session end (UTC): 2026-10-29T22:53:32Z
-- Final state: confirmed-vuln.txt empty (UISP open redirect excluded); SUMMARY.md,
-  unresolved.md, finding VULN-20261029-001 and testing-inventory.json updated.
+- Start (UTC): 2026-10-30T05:30:04Z
+- Target: account.ui.com (domain-only)
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Chrome DevTools MCP: connected (about:blank, port 9222)
+- Tool versions: opencode 1.x, node v22.23.4, npx 10.9.9, python 3.14.4, curl, git
+- Chrome: /usr/bin/google-chrome-stable (headless)
+- Prior state: decision=reset (target hash changed), starting fresh
+- Environment: GitHub Actions runner, linux

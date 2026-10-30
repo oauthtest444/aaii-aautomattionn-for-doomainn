@@ -1,2 +1,0 @@
-try{let e=typeof window<`u`?window:typeof global<`u`?global:typeof globalThis<`u`?globalThis:typeof self<`u`?self:{},t=new e.Error().stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=`eaf6a87d-7f1f-487f-8f3f-007d5460f827`,e._sentryDebugIdIdentifier=`sentry-dbid-eaf6a87d-7f1f-487f-8f3f-007d5460f827`)}catch{}function e(e){return e.scrollWidth-e.offsetWidth>1||e.scrollHeight-e.offsetHeight>1}export{e as t};
-//# sourceMappingURL=isElementTruncated-zs6niKIP.js.map

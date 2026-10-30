@@ -1,2 +1,0 @@
-deviceUrl=javascript:document.title='UISPXSS'   -> rejected, app redirected to /setup
-deviceUrl=\tjavascript:document.title='TABXSS'  -> rejected, app redirected to /setup

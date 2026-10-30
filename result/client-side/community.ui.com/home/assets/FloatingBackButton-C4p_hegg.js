@@ -1,2 +1,0 @@
-import"./sentry-DYy3Ltx-.js";(function(){try{var e=typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{},d=new e.Error().stack;d&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[d]="c106ae73-8f5d-4a6d-90d1-86f4ceecf4b3",e._sentryDebugIdIdentifier="sentry-dbid-c106ae73-8f5d-4a6d-90d1-86f4ceecf4b3")}catch{}})();const f=()=>null;export{f as F};
-//# sourceMappingURL=FloatingBackButton-C4p_hegg.js.map

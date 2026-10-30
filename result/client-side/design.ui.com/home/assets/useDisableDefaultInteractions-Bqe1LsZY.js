@@ -1,7 +1,0 @@
-try{let e=typeof window<`u`?window:typeof global<`u`?global:typeof globalThis<`u`?globalThis:typeof self<`u`?self:{},t=new e.Error().stack;t&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[t]=`5b7c31c6-0631-4e28-b988-5e3d5cfa6039`,e._sentryDebugIdIdentifier=`sentry-dbid-5b7c31c6-0631-4e28-b988-5e3d5cfa6039`)}catch{}import{q as e}from"./react-C9EcEEoD.js";import{a as t}from"./rolldown-runtime-Bqsl3lKq.js";var n=t(e()),r=()=>{(0,n.useEffect)(()=>{let e=`share-page-touch-action`,t=document.createElement(`style`);t.id=e,t.textContent=`
-      html,
-      body {
-        touch-action: pan-x pan-y;
-      }
-    `,document.head.appendChild(t);let n=e=>{e.touches.length>1&&e.preventDefault()},r=e=>{e.preventDefault()};return document.addEventListener(`touchstart`,n,{passive:!1}),document.addEventListener(`touchmove`,n,{passive:!1}),document.addEventListener(`gesturestart`,r,{passive:!1}),document.addEventListener(`gesturechange`,r,{passive:!1}),document.addEventListener(`gestureend`,r,{passive:!1}),()=>{let t=document.getElementById(e);t&&t.remove(),document.removeEventListener(`touchstart`,n),document.removeEventListener(`touchmove`,n),document.removeEventListener(`gesturestart`,r),document.removeEventListener(`gesturechange`,r),document.removeEventListener(`gestureend`,r)}},[])};export{r as t};
-//# sourceMappingURL=useDisableDefaultInteractions-Bqe1LsZY.js.map

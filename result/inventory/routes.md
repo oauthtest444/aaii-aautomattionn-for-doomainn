@@ -1,40 +1,49 @@
-# Route Inventory
+# UI Route Inventory (account.ui.com)
 
-## Authorized target: ui.com (domain-only)
+Source: `assets/index-D5t7M7xo.js` route table (sha256 `ce9950c9…c468`), Chrome MCP navigation.
 
-Recon: certificate transparency (`crt.sh`) + DNS resolution + single HTTPS GET per host.
-Raw CT names: `result/recon/ct-raw-names.txt`. Live hosts: `result/recon/live-subdomains.txt`.
-HTTP probe results: `result/recon/http-probe.tsv`, `result/recon/http-probe.json`.
-
-## Live subdomains (status at first probe, 2026-10-29)
-
-### Public application / login surfaces (priority)
-| Host | Probe | Notes |
-|---|---|---|
-| account.ui.com | 200 | Ubiquiti Account (login/signup/SSO); redirect= param |
-| unifi.ui.com | 302 -> account login | UniFi cloud portal |
-| uid1.ui.com | 302 -> account login | Identity app |
-| shared-ui.ui.com | 302 -> account login | Shared UI app |
-| nca.ui.com | 302 -> account login | Network app |
-| scoreboard.ui.com | 302 -> account login | |
-| rma1.ui.com | 302 -> account login | |
-| jp.ui.com | 302 -> account login | |
-| microsites.ui.com | 302 -> account login | |
-| gdpr.ui.com | 302 -> account login | |
-| artifacts.ui.com | 302 -> account login | |
-| triage.ui.com | 302 -> account login | |
-| community.ui.com | 200 | Public community (UGC) |
-| design.ui.com | 200 | UniFi Design Center |
-| uisp.ui.com | 200 | UISP Portal login |
-| training.ui.com | 200 | Ubiquiti Academy |
-| status.ui.com | 200 | Atlassian Statuspage (third-party) |
-| store.ui.com and regional store hosts | 307 | Shopify storefronts (third-party platform) |
-
-### Small nginx apps
-directrma.ui.com, rma.ui.com, material.ui.com, supplier.ui.com, var.ui.com, sso.ui.com
-
-### Marketing / static / redirects
-ui.com, www.ui.com, blog.ui.com, careers.ui.com, help.ui.com, faq.ui.com, dl.ui.com, sunmax.ui.com, unms.ui.com, critical.ui.com, plm.ui.com, community.status.ui.com
-
-### Unreachable / 000 on probe (recorded, not tested)
-beta.community.ui.com, community.status.ui.com, security.community.ui.com, docker*.dl.ui.com, www.* mirror hosts, stg.store.ui.com, crm.trunking.ui.com
+| # | Route | Auth expected | Reachability (unauth) | Status |
+|---|-------|---------------|-----------------------|--------|
+| 1 | `/login` | public | 200 | in progress |
+| 2 | `/register` | public | 200 | in progress |
+| 3 | `/reset-password` | public | pending | pending |
+| 4 | `/reset-password/password-reset-uuid/:uuid` | token | pending | pending |
+| 5 | `/verify` | public | pending | pending |
+| 6 | `/verify/verification-code/:uuid` | token | pending | pending |
+| 7 | `/verify/success` | public | pending | pending |
+| 8 | `/idp/login-result` | public callback | pending | pending |
+| 9 | `/msp/idp/setup-result` | public callback | pending | pending |
+| 10 | `/supportform` | likely public | pending | pending |
+| 11 | `/supportform-uisp` | likely public | pending | pending |
+| 12 | `/supportform-umr` | likely public | pending | pending |
+| 13 | `/switch` | auth | pending | pending |
+| 14 | `/profile` | auth | pending | pending |
+| 15 | `/account` | auth | pending | pending |
+| 16 | `/security` | auth | pending | pending |
+| 17 | `/security/suspicious/confirm` | token | pending | pending |
+| 18 | `/devices` | auth | pending | pending |
+| 19 | `/subscriptions` | auth | pending | pending |
+| 20 | `/subscriptions/:service` | auth | pending | pending |
+| 21 | `/subscriptions/cloud-storage/subscribe` | auth | pending | pending |
+| 22 | `/subscriptions/site-support/subscribe` | auth | pending | pending |
+| 23 | `/billing` | auth | pending | pending |
+| 24 | `/billing/:orgId` | auth | pending | pending |
+| 25 | `/payments` | auth | pending | pending |
+| 26 | `/payments/3ds` | callback | pending | pending |
+| 27 | `/invoices` | auth | pending | pending |
+| 28 | `/invoices/:invoiceId` | auth | pending | pending |
+| 29 | `/requests` | auth | pending | pending |
+| 30 | `/requests/:ticketId` | auth | pending | pending |
+| 31 | `/mysupport` | auth | pending | pending |
+| 32 | `/backups` | auth | pending | pending |
+| 33 | `/logout` | auth | pending | pending |
+| 34 | `/login/mfa` | auth step | pending | pending |
+| 35 | `/login/trust-device` | auth step | pending | pending |
+| 36 | `/login/create-passkey` | auth step | pending | pending |
+| 37 | `/login/change-email` | auth step | pending | pending |
+| 38 | `/login/change-email/confirm` | auth step | pending | pending |
+| 39 | `/subscribe` | auth | pending | pending |
+| 40 | `/activate` | public? | pending | pending |
+| 41 | `/sso/account` | auth | pending | pending |
+| 42 | `/sso/installs` | auth | pending | pending |
+| 43 | `/sso/cancel_subscription` | auth | pending | pending |

@@ -1,43 +1,35 @@
 # Scope
 
-## Target entries and classification
+## Target Entries
 
-- `ui.com` — domain-only target (from `data/targets.txt`).
-- Operator notes explicitly request: enumerate valid/interesting subdomains, save them to a text file, then test each discovered subdomain individually for UI routes, API endpoints, client-side and server-side issues.
+| Entry | Type | In-scope components |
+|-------|------|---------------------|
+| account.ui.com | domain-only | account.ui.com and same-origin components needed to exercise its routes |
 
-## User Instructions
+## User Instructions (from data/targets.txt)
 
-Restated from `data/targets.txt`:
+- Discover interesting/unique UI routes and API endpoints on account.ui.com using Chrome MCP.
+- Visit each route one by one; wait 5-10 seconds per route for JS to load.
+- For each route perform complete client-side then server-side testing, document, then move on.
+- Maintain a progress report (total routes, tested, pending, which).
+- Read the client-side and server-side skill files before testing each route.
+- Create two test accounts on the target and save credentials; if impossible, test unauthenticated endpoints only.
+- If a confirmed vulnerability is found, send a Discord notification to the webhook in the note.
+- Do not ask questions; decide independently.
 
-1. Identify valid and potentially interesting subdomains of ui.com and save them in a text file.
-2. Test each discovered subdomain individually.
-3. For each subdomain, discover all UI routes and API endpoints first.
-4. Then test for both client-side and server-side vulnerabilities.
-5. Do not ask questions; make reasonable independent decisions.
-6. First try to create two test accounts on the target subdomain and save their credentials in a file for testing. If account creation is not possible, test only unauthenticated endpoints.
-7. Final goal: identify valid, impactful, reportable vulnerabilities.
+## Authorization Source / Assumptions
 
-These notes are followed only within the safe, authorized interpretation below.
+- `data/targets.txt` authorizes account.ui.com and its explicitly approved components.
+- Same-origin JS and API endpoints required to exercise in-scope routes are in scope.
+- No sibling/related subdomains outside account.ui.com are in scope.
+- Credentials in `creds/` reference console.byteplus.com; that host is NOT in scope, so those accounts are not used against it. Account creation will be attempted only on account.ui.com if its own flow permits.
 
-## Authorization source / assumptions
+## Out-of-Scope
 
-- Authorized scope comes from `data/targets.txt` (`ui.com`).
-- Subdomains of `ui.com` are treated as explicitly approved components because the operator notes explicitly instruct subdomain discovery and per-subdomain testing.
-- Scope does NOT extend to sibling/registrable domains, third-party services, CDNs, partner systems, or unrelated origins. Any discovered asset not under `ui.com` is recorded in `result/out-of-scope.txt` and not tested.
-- `creds/test-account.txt` contains BytePlus console credentials for `console.byteplus.com`, which is NOT in `data/`. They are out of scope and are not used on ui.com.
+- All other subdomains of ui.com, console.byteplus.com, third-party/CDN origins not required to render account.ui.com routes.
+- Real user data, destructive testing, DoS, brute force.
 
-## In-scope components
+## Program Restrictions
 
-- `ui.com` and discovered subdomains resolving under `ui.com`, subject to the safety rules in `skills/AGENT.md` Section 2.
-
-## Explicitly out-of-scope components
-
-- Any non-`ui.com` domain (including byteplus.com and console.byteplus.com).
-- Third-party CDNs/analytics/payment providers and their origins.
-- Anything requiring destructive testing, real-user data, DoS, brute force, or high-volume fuzzing.
-
-## Program restrictions discovered
-
-- No formal program policy file was provided in `data/` or `vulnebleti/`.
-- Binding safety restrictions from `skills/AGENT.md`: test-owned data only, no destructive/disruptive tests, respect rate limits, no real-user harm, no account creation where prohibited, practical evidence only.
-- Account creation will only be attempted through normal public signup using disposable test identities if such a flow exists and behaves safely; otherwise unauthenticated testing only.
+- Follow AGENT.md Sections 2 and 9: no destructive tests, test-owned data only, practical evidence only.
+- Discord notification only after a genuinely confirmed finding; never fabricate.

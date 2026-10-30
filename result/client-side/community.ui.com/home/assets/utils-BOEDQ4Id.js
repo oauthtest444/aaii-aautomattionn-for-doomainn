@@ -1,2 +1,0 @@
-import"./sentry-DYy3Ltx-.js";(function(){try{var e=typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{},n=new e.Error().stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="984194fe-2132-438e-87bb-6d97160452ff",e._sentryDebugIdIdentifier="sentry-dbid-984194fe-2132-438e-87bb-6d97160452ff")}catch{}})();const d=e=>{switch(e){case"Release":return"releases";default:return"questions"}};export{d as p};
-//# sourceMappingURL=utils-BOEDQ4Id.js.map
