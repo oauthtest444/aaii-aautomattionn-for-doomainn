@@ -1,0 +1,7 @@
+2026-10-30T22:12:18Z run_start=2026-10-30T22:12:00Z
+2026-10-30T22:16Z /in/en/products/uap-ac-hd tested: no controllable source->sink; query marker only in __NEXT_DATA__.
+2026-10-30T22:17Z /in/en/category/all-wifi tested: sort/tag/view/page only in __NEXT_DATA__; search propagated URL-encoded into product hrefs then client-redirects to /search where it is escaped text. No source->sink.
+2026-10-30T22:17Z /in/en/search (actual ?search= param) rechecked: reflected only as escaped input value/span text; no HTML sink; WAF blocks angle/quote payloads.
+2026-10-30T22:24Z /in/en/app/order: app view enabled via appview=true cookie (UI gating only). Route chunk only sink window.open(statusPageUrl) from server order data; no DOM HTML/script sinks.
+2026-10-30T22:28Z /in/en/app/compare tested: compare list from client state, no URL source; query markers only double-encoded in third-party affiliate getParams; no sink.
+2026-10-30T22:33Z /in/en/country-picker tested: redirectUri parsed then store route helper replaces host; https://example.com -> ca.store.ui.com (same-family), no open redirect. No HTML sink.

@@ -1,102 +1,169 @@
 {
-  "targets": [
-    "in.store.ui.com"
-  ],
-  "routes": [
-    {
-      "url": "https://in.store.ui.com/in/en",
-      "status": "tested",
-      "javascript": [
-        "/tmp/js/home-*.js (35 chunks)"
-      ],
-      "notes": "Home client-side reviewed; no confirmed sink. See result/client-side/in.store.ui.com/home/."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/account",
-      "status": "tested",
-      "javascript": [
-        "account-f3612c21311fed72.js"
-      ],
-      "notes": "Address IDOR/BAC/mass-assignment tested A vs B; authz held. See result/server-side/in.store.ui.com/account/report.md."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/account/address/new",
-      "status": "tested",
-      "javascript": [
-        "pages/.../account/address/new-81d64688eb4e09aa.js"
-      ],
-      "notes": "CreateCustomerAddress shape captured; unknown-field 500 robustness only."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/account/address/{id}",
-      "status": "tested",
-      "javascript": [],
-      "notes": "Update/Delete/Get by addressId across accounts => FORBIDDEN/null. Not vulnerable."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/my-lists",
-      "status": "tested",
-      "javascript": [],
-      "notes": "Wishlist IDOR read/update/delete/add tested A vs B; authz held. See my-lists/report.md."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/my-lists/{listId}",
-      "status": "tested",
-      "javascript": [],
-      "notes": "API-level cross-account access tested; null/FORBIDDEN."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/search?q=camera",
-      "status": "in progress",
-      "javascript": [],
-      "notes": "Captured GetSearchProducts/GetCollectionsMetadata/GetBackInStockSubscribed traffic; client-side pending."
-    },
-    {
-      "url": "https://in.store.ui.com/in/en/country-picker",
-      "status": "in progress",
-      "javascript": [
-        "home-21.js"
-      ],
-      "notes": "redirectUri host discarded in code; dynamic confirmation pending."
-    }
-  ],
-  "javascript": [],
-  "flows": [],
-  "endpoints": [
-    {
-      "method": "POST",
-      "path": "https://ecomm.svc.ui.com/graphql",
-      "operations": [
-        "GetCoreData",
-        "GetCustomerAddresses",
-        "GetCustomerAddress",
-        "CreateCustomerAddress",
-        "UpdateCustomerAddress",
-        "DeleteCustomerAddress",
-        "GetCustomerOrders",
-        "GetCustomerHistoricalOrders",
-        "GetTaxExemptionData",
-        "GetWishlists",
-        "GetWishlist",
-        "CreateWishlist",
-        "UpdateWishlist",
-        "DeleteWishlist",
-        "AddWishlistItem",
-        "AddWishlistItems",
-        "GetSearchProducts",
-        "GetCollectionsMetadata",
-        "GetBackInStockSubscribed"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "https://api.maildrop.cc/graphql",
-      "operations": [
-        "inbox",
-        "message"
-      ],
-      "notes": "Disposable mailbox used only for MFA of test accounts."
-    }
-  ],
-  "listeners": []
+ "targets": [
+  "in.store.ui.com"
+ ],
+ "routes": [
+  {
+   "url": "https://in.store.ui.com/in/en",
+   "status": "tested",
+   "javascript": [
+    "/tmp/js/home-*.js (35 chunks)"
+   ],
+   "notes": "Home client-side reviewed; no confirmed sink. See result/client-side/in.store.ui.com/home/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/account",
+   "status": "tested",
+   "javascript": [
+    "account-f3612c21311fed72.js"
+   ],
+   "notes": "Address IDOR/BAC/mass-assignment tested A vs B; authz held. See result/server-side/in.store.ui.com/account/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/account/address/new",
+   "status": "tested",
+   "javascript": [
+    "pages/.../account/address/new-81d64688eb4e09aa.js"
+   ],
+   "notes": "CreateCustomerAddress shape captured; unknown-field 500 robustness only."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/account/address/{id}",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Update/Delete/Get by addressId across accounts => FORBIDDEN/null. Not vulnerable."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/my-lists",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Wishlist IDOR read/update/delete/add tested A vs B; authz held. See my-lists/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/my-lists/{listId}",
+   "status": "tested",
+   "javascript": [],
+   "notes": "API-level cross-account access tested; null/FORBIDDEN."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/search?search=camera",
+   "status": "tested",
+   "javascript": [
+    "pages/.../search-e19b7977e3a030a7.js",
+    "8934.js"
+   ],
+   "notes": "Actual param is ?search= (not q). Search term rendered only as escaped text/input value; no HTML sink. Angle/quote payloads WAF 403. See result/client-side/in.store.ui.com/search/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/country-picker",
+   "status": "in progress",
+   "javascript": [
+    "home-21.js"
+   ],
+   "notes": "redirectUri host discarded in code; dynamic confirmation pending."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/products/uap-ac-hd",
+   "status": "tested",
+   "javascript": [
+    "products/[product]-1aa3db2e833aa703.js",
+    "8179",
+    "690",
+    "4104",
+    "7096"
+   ],
+   "notes": "Product page: query params variant/linked-variant/embed only variant selection/Next data; all HTML sinks server product content. Public GraphQL catalog ops. No vuln. See result/client-side/in.store.ui.com/products-uap-ac-hd/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/category/all-wifi",
+   "status": "tested",
+   "javascript": [
+    "[category]-38d7bb10c8b79213.js",
+    "5298",
+    "1778",
+    "5404",
+    "8888",
+    "8934"
+   ],
+   "notes": "Category listing: query sort/tag/view/page only in __NEXT_DATA__; search is propagated URL-encoded into product links then client-redirects to /search (escaped). No controllable source->sink. See result/client-side/in.store.ui.com/category-all-wifi/ and server-side .../category-all-wifi/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/order",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/order-5f1b384e0261c2cc.js"
+   ],
+   "notes": "App view entered via appview= true cookie (UI gating only). GetCustomerOrders/GetCustomerHistoricalOrders scoped by UBIC_AUTH, no owner param; Account A has 0 orders. Only sink window.open(statusPageUrl) server order data. No vuln. See result/client-side/.../app-order/ and server-side/.../app-order/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/country-picker",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/country-picker-fc95131ab38660c2.js",
+    "9743-d742265011a9f86d.js"
+   ],
+   "notes": "redirectUri parsed with new URL then host replaced by selected store route; tested https://example.com -> ca.store.ui.com, no open redirect. No DOM HTML sink. See result/client-side/.../country-picker/ and server-side/.../country-picker/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/compare",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/compare-bfd688ff4b6f7304.js"
+   ],
+   "notes": "App view; compare list from client state not URL; no sinks. Query markers only double-encoded in third-party affiliate script URL. No vuln. See result/client-side/.../app-compare/ and server-side/.../app-compare/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/tags/{tag}",
+   "status": "partial",
+   "javascript": [],
+   "notes": "Unknown tag marker -> 404 page; marker only in third-party analytics URLs, not text/HTML. Valid tag slug not yet discovered."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/collections/{collection}",
+   "status": "partial",
+   "javascript": [],
+   "notes": "Guessed collection slug wifi-flagship -> 404. Valid collection slugs from GetCollectionsMetadata not yet enumerated."
+  }
+ ],
+ "javascript": [],
+ "flows": [],
+ "endpoints": [
+  {
+   "method": "POST",
+   "path": "https://ecomm.svc.ui.com/graphql",
+   "operations": [
+    "GetCoreData",
+    "GetCustomerAddresses",
+    "GetCustomerAddress",
+    "CreateCustomerAddress",
+    "UpdateCustomerAddress",
+    "DeleteCustomerAddress",
+    "GetCustomerOrders",
+    "GetCustomerHistoricalOrders",
+    "GetTaxExemptionData",
+    "GetWishlists",
+    "GetWishlist",
+    "CreateWishlist",
+    "UpdateWishlist",
+    "DeleteWishlist",
+    "AddWishlistItem",
+    "AddWishlistItems",
+    "GetSearchProducts",
+    "GetCollectionsMetadata",
+    "GetBackInStockSubscribed"
+   ]
+  },
+  {
+   "method": "POST",
+   "path": "https://api.maildrop.cc/graphql",
+   "operations": [
+    "inbox",
+    "message",
+    "GetCustomerOrders",
+    "GetCustomerHistoricalOrders"
+   ],
+   "notes": "Disposable mailbox used only for MFA of test accounts."
+  }
+ ],
+ "listeners": []
 }

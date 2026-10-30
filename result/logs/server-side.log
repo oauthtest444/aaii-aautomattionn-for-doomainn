@@ -1,0 +1,6 @@
+2026-10-30T22:12:18Z run_start=2026-10-30T22:12:00Z
+2026-10-30T22:16Z /in/en/products/uap-ac-hd: GetCoreData, GetProductFaqs, GetCountryTaxRate, GetRelatedProductsByIds - public catalog only; no vuln.
+2026-10-30T22:17Z /in/en/category/all-wifi: SSR catalog; GetCoreData + GetCountryTaxRate only (public). Query ignored except search link propagation; CRLF stays percent-encoded; unknown category -> 307 /404; XSS probes WAF 403. No vuln.
+2026-10-30T22:24Z /in/en/app/order: GetCustomerOrders + GetCustomerHistoricalOrders scoped by UBIC_AUTH (no owner param), Account A total=0 for both; GetCoreData confirms customer 95b6d3ee / sso d8946fad, activeStoreCheckout null. No vuln.
+2026-10-30T22:28Z /in/en/app/compare: GetCoreData + GetCountryTaxRate only (public); no owner/ID parameter. No vuln.
+2026-10-30T22:33Z /in/en/country-picker: GetCoreData + public _next/data category JSON preloads; redirectUri not reflected server-side. No vuln.

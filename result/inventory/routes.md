@@ -6,14 +6,14 @@ Store prefix is `/{store}/{language}`; authorized store is `in/en`.
 | Route pattern | Notes | Status |
 |---|---|---|
 | `/{store}/{language}` | Home / landing (tested: home) | in progress |
-| `/{store}/{language}/category/{category}` | Category listing (supports filter/sort/page/search/view/tag/compare query) | pending |
+| `/{store}/{language}/category/{category}` | Category listing (supports filter/sort/page/search/view/tag/compare query) | tested (not vulnerable; all-wifi) |
 | `/{store}/{language}/category/{category}/collections/{collection}` | Category collection | pending |
 | `/{store}/{language}/category/{category}/products/{product}` | Product under category | pending |
 | `/{store}/{language}/category/{category}/collections/{collection}/products/{product}` | Product under category+collection | pending |
 | `/{store}/{language}/collections/{collection}` | Collection | pending |
 | `/{store}/{language}/collections/{collection}/products/{product}` | Collection product | pending |
-| `/{store}/{language}/products/{product}` | Product | pending |
-| `/{store}/{language}/search` | Search (`q`) | tested (not vulnerable) |
+| `/{store}/{language}/products/{product}` | Product | tested (not vulnerable; uap-ac-hd) |
+| `/{store}/{language}/search` | Search (`search`) | tested (not vulnerable) |
 | `/{store}/{language}/top-10-accessories` | Accessory collection landing | pending |
 | `/{store}/{language}/tags/{tag}` | Tag listing | pending |
 | `/{store}/{language}/faq` | FAQ | pending |
