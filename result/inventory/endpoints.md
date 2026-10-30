@@ -117,3 +117,28 @@ for completeness and for understanding client-side behavior only.
 - `GET https://geo.svc.ui.com/geo` -> 200
 - `POST https://sso.ui.com/api/sso/v1/idp/login-result` `{code,state}` -> 400 STATE_MISSING
 - `POST https://sso.ui.com/api/sso/v1/suspicious/confirm/inspect` `{confirm_token}` -> 400 INVALID_CONFIRMATION_TOKEN (invalid token)
+
+## Continuation 2026-10-30 07:14–07:22Z (authenticated A/B)
+
+| Method | Path | Auth | Variants tested | Status |
+|--------|------|------|-----------------|--------|
+| PUT | `/api/sso/v1/user/self` | A L2 | `twofa_enabled`, `is_verified`, `roles`, `organization`, `tenant` | Not Vulnerable (ignored) |
+| PATCH | `/api/sso/v1/user/self/settings` | A L2 | `suspicious_detection`, `passwordless_enabled` | Not Vulnerable (first ignored; second is user preference, restored) |
+| POST | `/api/sso/v1/user/self/addresses` | A L2 | create with `user:<B>` | Not Vulnerable (owner forced to caller) |
+| PUT | `/api/sso/v1/user/self/addresses/{id}` | A L2 | own object + `user:<B>` | Not Vulnerable (ownership unchanged) |
+| GET/PUT/DELETE | `/api/sso/v1/user/self/addresses/{B_id}` | A L2 | BOLA | Not Vulnerable (405/404; B delete 404) |
+| GET | `/api/sso/v1/user/{B_uuid}/addresses` | A L2 | UUID swap | Not Vulnerable (403) |
+| DELETE | `/api/sso/v1/user/self/sessions/{B_id}` | A L2 | BOLA | Not Vulnerable (404) |
+| DELETE | `/api/sso/v1/user/self/mfa/email/{B_id}` | A L2 | BOLA | Not Vulnerable (404) |
+| DELETE | `/api/sso/v1/user/self/mfa/webauthn/{B_id}` | A L2 | BOLA | Not Vulnerable (404) |
+| POST | `/api/sso/v1/user/{uuid}/roles/beta` | A L2 | self and B uuid | Self 204 (opt-in); B 403 |
+| GET | `billing.svc.ui.com /api/v2/customers/self{,/subscriptions,/invoices}` | A | read | Blocked: 404 Customer not found |
+| GET | `billing.svc.ui.com /api/v2/customers/self/payment-methods` | A | read | Blocked: needs `type` (422) |
+| GET | `enterprise.svc.ui.com /api/v1/organizations` | A | read | Empty |
+| GET | `account.svc.ui.com /zendesk/tickets{,/closed}`, `/zendesk/user` | A | read | 0 tickets; own user |
+| GET | `fabric.svc.ui.com /api/fabrics/base/msp/v1/msp` | A | read | 403 no_msp_membership |
+| GET | `storage.svc.ui.com /v1/users/self/subscriptions` | A | read | 404 |
+| GET | `ues.svc.ui.com /api/v1/subscriptions` | A | read | Empty |
+| GET | `/api/sso/v1/user/self/addresses` | A | read | Empty (cleanup verified) |
+| GET | `/api/sso/v1/user/self/activity` | A | read | Own activity only |
+| POST | `account.svc.ui.com /zendesk/comment/{id}` | A | comment HTML | Unresolved (requires `x-captcha-token`) |

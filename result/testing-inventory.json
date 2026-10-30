@@ -32,8 +32,42 @@
   ],
   "authenticated_routes": {
     "count": 28,
-    "status": "unresolved-no-account",
-    "reason": "registration blocked by reCAPTCHA Enterprise; email verification also required"
+    "status": "partially-tested-test-accounts",
+    "reason": "Provided Test Accounts A/B are logged in and exercised. Remaining authenticated routes are blocked by missing data (no organization, payment method, subscription, invoice, backup, or ticket), not by lack of an account.",
+    "data_blocked": [
+      "/billing/:orgId",
+      "/payments",
+      "/subscriptions/:service",
+      "/subscriptions/site-support/subscribe",
+      "/subscriptions/cloud-storage/subscribe",
+      "/subscribe",
+      "/backups",
+      "/invoices/:invoiceId",
+      "/requests/:ticketId"
+    ],
+    "device_or_token_blocked": [
+      "/login/create-passkey",
+      "/login/change-email",
+      "/login/change-email/confirm",
+      "/reset-password/password-reset-uuid/:uuid"
+    ]
+  },
+  "server_side_continuation": {
+    "date": "2026-10-30",
+    "ledger": "result/server-side/account.ui.com/test-ledger.md",
+    "tests": 26,
+    "not_vulnerable": 18,
+    "blocked_no_data": 7,
+    "unresolved": 1,
+    "confirmed": [],
+    "highlights": [
+      "mass assignment on PUT /user/self ignored twofa_enabled, is_verified, roles, organization, tenant",
+      "address create/update forces owner to caller; cross-account address read/update/delete -> 405/404/403",
+      "cross-account session revoke and MFA delete -> 404",
+      "self roles/beta opt-in -> 204 (self-service); other user's uuid -> 403",
+      "passwordless_enabled is a user-controlled preference; restored to true",
+      "Zendesk comment XSS remains unresolved (requires x-captcha-token; no ticket created)"
+    ]
   },
   "candidates": [
     {

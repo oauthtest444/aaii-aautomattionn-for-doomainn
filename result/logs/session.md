@@ -115,3 +115,44 @@
   so no client-controlled cross-account MFA-id confusion path.
 - No confirmed vulnerability. Remaining candidates still blocked on captcha/
   valid tokens (Zendesk stored XSS, suspicious-confirm).
+
+## Continuation 2026-10-30T07:13Z
+
+- Start (UTC): 2026-10-30T07:13:00Z
+- Resume: target hash unchanged (preserved), decision=preserved.
+- Read AGENT.md, both skills, prior findings/inventory/scope/summary.
+- Chrome DevTools MCP connected (about:blank).
+- Plan: continue remaining authenticated routes and prioritize mass-assignment
+  on profile self-update; finish pending route reports.
+- End (UTC): 2026-10-30T07:26:00Z
+- Browser: A session at account.ui.com; B in isolated context `account-b`;
+  maildrop pages for both mailboxes. Both accounts at AAL2.
+- Server-side continuation (26 tests; ledger:
+  `result/server-side/account.ui.com/test-ledger.md`):
+  - `PUT /user/self` mass assignment: `twofa_enabled`, `is_verified`, `roles`,
+    `organization`, `tenant` ignored (persisted values unchanged).
+  - `PATCH /user/self/settings`: `suspicious_detection` ignored;
+    `passwordless_enabled` is a user preference (set false then restored true).
+  - Addresses: create/update force owner to caller; cross-account
+    GET/PUT/DELETE -> 405/404; `/user/{B}/addresses` -> 403. Test addresses
+    created for A/B then deleted; both lists empty.
+  - `DELETE /user/self/sessions/{B}` -> 404; `DELETE /user/self/mfa/email/{B}`
+    and `.../webauthn/{B}` -> 404.
+  - `POST /user/{A}/roles/beta` -> 204 (self-service opt-in persisted on A);
+    `POST /user/{B}/roles/beta` -> 403 `mismatching UUID`.
+  - Empty/blocked reads: billing customers/self, subscriptions, invoices
+    (404 no customer); payment-methods (422 needs type); enterprise orgs
+    (empty); Zendesk tickets (empty, own user); fabric MSP 403;
+    storage subscriptions 404; UES subscriptions empty; sso addresses empty,
+    activity own-only.
+  - CAND-002: source shows ticket `create` lacks `x-captcha-token`, but
+    `comment`/`search` require it. No ticket created (external side effect);
+    still unresolved, no execution claimed.
+- Documentation updated: `server-side/.../notes.md`, `test-ledger.{md,json}`,
+  `traffic/continuation-20261030-early.txt`, `inventory/endpoints.md`,
+  `inventory/routes.md`, `inventory/route-progress.md`, `SUMMARY.md`,
+  `unresolved.md` (U-04 clarified, U-11/U-12 added), `testing-inventory.json`.
+- Confirmed vulnerabilities: 0. Target state unchanged.
+- Stop reason: remaining authenticated routes are blocked by missing account
+  data (org/payment/subscription/invoice/backup/ticket); no further in-scope
+  server-side tests available without creating external side effects.

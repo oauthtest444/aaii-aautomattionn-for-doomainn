@@ -1,6 +1,6 @@
 # Summary — account.ui.com
 
-Last updated: 2026-10-30T07:00Z
+Last updated: 2026-10-30T07:26Z
 Agent/model: opencode / deepseek-v4.1-flash-free
 
 ## Scope
@@ -20,10 +20,12 @@ Agent/model: opencode / deepseek-v4.1-flash-free
 | UI routes discovered | 39 + catch-all `*` (see `inventory/routes.md`) |
 | Routes with runtime or source testing | 21 (public routes above + authenticated `/`, `/account`, `/security`, `/billing`, `/subscriptions`, `/invoices`, `/requests`, login MFA/trust-device steps) |
 | Routes logged in / source-reviewed | 21 |
-| Authenticated routes still unexercised | org-scoped billing, payment methods, subscribe, backups, ticket detail |
+| Authenticated routes data-blocked | 9 (org billing, payments, subscriptions/subscribe, backups, invoice detail, ticket detail) |
+| Authenticated routes device/token-blocked | 4 (create-passkey, change-email, change-email/confirm, reset-password token) |
 | Pending public/token routes | `/reset-password/password-reset-uuid/:uuid` (valid token only) |
 | JS bundles analyzed | 1 (7.12 MB, sha256 ce9950c9…c468) |
-| API endpoints catalogued | ~100; authenticated endpoints exercised for profile, MFA, sessions, trusted devices, activity, account chooser, email change, Zendesk read |
+| API endpoints catalogued | ~100; authenticated endpoints exercised for profile, addresses, settings, roles/beta, MFA, sessions, trusted devices, activity, account chooser, email change, Zendesk/billing/enterprise/fabric/storage/ues reads |
+| Server-side ledger (continuation) | 26 tests: 18 not vulnerable, 7 blocked-no-data, 1 unresolved (`server-side/account.ui.com/test-ledger.md`) |
 | Confirmed vulnerabilities | 0 |
 | Unresolved candidates | 2 (stored-XSS, suspicious-confirm) |
 
@@ -77,6 +79,25 @@ Authenticated (Test Accounts A/B):
 21. `/api/sso/v2/user/self/mfa/email/{id}/send` — A using B's authenticator id
     -> 404, so no cross-account OTP send / MFA confusion.
 
+Continuation 2026-10-30 07:13–07:25Z (A and B both logged in, AAL2; evidence in
+`server-side/account.ui.com/traffic/continuation-20261030-early.txt`):
+
+22. `PUT /user/self` — `twofa_enabled`, `is_verified`, `roles`, `organization`,
+    `tenant` are ignored by the serializer; persisted values unchanged.
+23. `PATCH /user/self/settings` — `suspicious_detection` ignored;
+    `passwordless_enabled` is a user-facing preference (changed then restored).
+24. `/user/self/addresses` — create/update forces `user` to the caller; cross-
+    account read/update/delete -> 405/404; `/user/{B}/addresses` -> 403.
+25. `/user/self/sessions/{B}` — A cannot revoke B's session (404).
+26. `/user/self/mfa/{email,webauthn}/{B}` — A cannot delete B's authenticators
+    (404 each).
+27. `/user/{uuid}/roles/beta` — self opt-in 204; B's uuid 403 `mismatching UUID`.
+28. Read-only empty surfaces for the test accounts: billing `customers/self`,
+    subscriptions/invoices (404 no customer), payment-methods (422 needs type),
+    enterprise organizations (empty), Zendesk tickets (empty, own user),
+    fabric MSP (403 no membership), storage subscriptions (404), UES
+    subscriptions (empty), sso addresses/activity (empty/own only).
+
 ## Client-side analysis
 - Full sink scan: no `eval`/`new Function`/`document.write`/`insertAdjacentHTML`/
   `srcdoc`; `innerHTML`/`dangerouslySetInnerHTML` not fed by user input.
@@ -121,6 +142,16 @@ None. `result/confirmed-vuln.txt` intentionally unchanged.
   oracle in 403-vs-404.
 - No client-controlled authenticator id in `/login/2fa` (body is `{token: code}`
   only), so cross-account MFA-id confusion is not reachable.
+- Profile/settings mass assignment: protected fields (`twofa_enabled`,
+  `is_verified`, `roles`, `organization`, `tenant`, `suspicious_detection`)
+  are ignored; `passwordless_enabled` is a legitimate user preference.
+- Address BOLA and ownership override: create/update cannot assign another
+  user; cross-account object access -> 405/404/403. All test addresses deleted.
+- Cross-account session revocation and MFA authenticator deletion -> 404.
+- `roles/beta` cross-account write -> 403; self opt-in is self-service and was
+  left applied on Test Account A only.
+- Billing/payment/subscription/invoice/backup/ticket-detail routes remain
+  untestable because the test accounts have no such data (not a security gap).
 
 ## Unresolved
 See `result/unresolved.md` (U-01 … U-10; U-08–U-10 are observed/negative notes).

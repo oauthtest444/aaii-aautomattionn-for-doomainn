@@ -52,3 +52,23 @@ blocker; unresolved = needs auth/valid token; pending = not started.
 | 38 | `/activate` | public? | redirects `https://activate.ui.com/` | tested (fixed external redirect) |
 | 39 | `/msp/idp/setup-result` | private callback | `/login?innerRedirect=%2Faccount` | tested (same-origin postMessage only) |
 | * | catch-all `*` | public | renders "Page not Found" | tested (via `/verify/success`) |
+
+## Continuation note (2026-10-30 07:13Z)
+
+Authenticated continuation re-logged in A and B and re-tested the API surface
+behind the remaining private routes. Routes still marked unresolved are blocked
+by missing account data (no org, payment method, subscription, invoice, backup,
+or ticket), not by lack of testing effort:
+
+- `/billing/:orgId`, `/payments`, `/subscriptions/:service`,
+  `/subscriptions/site-support/subscribe`, `/subscriptions/cloud-storage/subscribe`,
+  `/subscribe`, `/backups`, `/invoices/:invoiceId` -> their backing APIs return
+  `404 Customer not found` / empty lists / `no_msp_membership` for the test
+  accounts.
+- `/requests/:ticketId` -> account has 0 Zendesk tickets; comment creation still
+  requires `x-captcha-token` (CAND-002 unresolved).
+- `/login/create-passkey`, `/login/change-email`, `/login/change-email/confirm`
+  -> require an unverified account / WebAuthn device; not reachable with the
+  verified test accounts.
+- `/profile` -> same profile component as `/account` (already tested).
+
