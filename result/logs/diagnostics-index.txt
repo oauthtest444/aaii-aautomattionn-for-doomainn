@@ -2,7 +2,7 @@ result/logs/agent-exit-code.txt 472 bytes
 result/logs/agent-watchdog.txt 454 bytes
 result/logs/auto-restart-requested.txt 96 bytes
 result/logs/client-side.log 3508 bytes
-result/logs/diagnostics-index.txt 1479 bytes
+result/logs/diagnostics-index.txt 1663 bytes
 result/logs/opencode-reinstall-20261030T130150Z.log 1132 bytes
 result/logs/opencode-reinstall-20261031T053649Z.log 1052 bytes
 result/logs/opencode.log 2068047 bytes
@@ -22,8 +22,10 @@ result/logs/opencode/41171793013/chrome-mcp.log 5098 bytes
 result/logs/opencode/41171793013/diagnostics-index.txt 1479 bytes
 result/logs/opencode/41171793013/opencode.log 5715 bytes
 result/logs/opencode/41173458501/chrome-mcp.log 4317 bytes
-result/logs/opencode/41173458501/diagnostics-index.txt 0 bytes
+result/logs/opencode/41173458501/diagnostics-index.txt 1663 bytes
 result/logs/opencode/41173458501/opencode.log 412075 bytes
+result/logs/opencode/41199621346/diagnostics-index.txt 0 bytes
+result/logs/opencode/41199621346/opencode.log 4604 bytes
 result/logs/server-side.log 3141 bytes
 result/logs/session.md 7304 bytes
 result/logs/target-state.txt 1487 bytes
