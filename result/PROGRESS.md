@@ -62,3 +62,17 @@ country-picker, maintenance, services, checkout/order flows.
 - GraphQL unknown-input-field returns generic 500 — robustness only.
 - CORS on ecomm.svc.ui.com does not reflect foreign origins (verified with curl).
 - No cache headers on storefront HTML (`private, no-store`); X-Forwarded-Host triggers canonical 307 to real host, not reflected.
+
+## Continuation run (2026-10-31T05:40Z)
+- Re-authenticated Account A (customer 95b6d3ee) and Account B (customer a038a8ec, isolated context) via SSO + maildrop MFA; trusted devices set.
+- Completed `/in/en/app/checkout/pay-by-invoice/edit`: no client source/sink; metadata CRUD is session-scoped. Cross-account update/delete by A's metadata id as B => `NOT_FOUND`; create with `customerId` => 400; unauthenticated => `FORBIDDEN`; own create/update/delete baseline succeeded. No vuln. Reports written.
+- Confirmed vulnerabilities remain: 0.
+- Next pending: app/checkout/pay-by-invoice/select, app/checkout/address/{billing,shipping,address-picker}, app/modals/services/*, app/skeletons/*, app/order/{id}/status, product-under-category/collection aliases, tags valid slug.
+
+## Continuation run (2026-10-31T05:57Z)
+- Completed `/in/en/app/checkout/pay-by-invoice/select` (session-scoped metadata; `selectedId` preselect only), `/in/en/app/checkout/address-picker` (B with A addressId sees only own list), `/in/en/tags/feature:wifi-6` (valid slug `namespace:value`; no source/sink), product aliases under category/collection (shared product view), app skeletons (`category`,`products`,`my-lists-detail`), app service modals (`cybersecure`,`ui-care`), and app checkout `address/billing` + `address/shipping` (app shell; address authz held). All Not Vulnerable.
+- Stored-XSS probe: wishlist name `<img src=x onerror=window.__xss=1>` rendered as escaped text on `/my-lists` (`window.__xss` undefined, no `img[src=x]`); test wishlist `a41af555-2e46-4576-a984-e665e29298bd` deleted. Not vulnerable.
+- API probes: `/api/opensearch` public cache but keyed by query string (no poisoning); `/api/app/categories-products-count-lookup` JSON-escaped error, WAF blocks script; `has-ui-care`/`geo-ip` private. Not vulnerable.
+- Confirmed vulnerabilities remain: 0.
+- Remaining unresolved (all require a test-owned order/active checkout): `checkout/{id}`, `checkout/{id}/payment`, `order/{id}/status|payment|returns/create`, `app/order/{id}/status`. Deliberately not creating an order to avoid fulfillment side effects.
+- Discord notification not sent (no confirmed vuln).

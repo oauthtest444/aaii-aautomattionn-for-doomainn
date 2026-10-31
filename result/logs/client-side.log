@@ -17,3 +17,11 @@
 - 2026-10-31T05:25Z /in/en/app/search: fixed same-origin 307 to web search. No vuln.
 - 2026-10-31T05:26Z /in/en/app/checkout/tax-exemption: app shell; GetTaxExemptionData own empty list + public CA/US config; IN no form; no request/upload mutations sent. No vuln; mutation authz untested.
 - 2026-10-31T05:26Z /in/en/previous-purchase: x dropped from Next query; no order data (0 previous purchases); no client sink. No vuln.
+2026-10-31T05:47Z /in/en/app/checkout/pay-by-invoice/edit: route chunk has no location/URL source and no HTML/navigation/postMessage sink; form goes to GraphQL only. No vuln.
+2026-10-31T05:57Z pay-by-invoice/select: no URL source/sink. NOT VULN.
+2026-10-31T05:57Z address-picker: B with A addressId no leak; no sink. NOT VULN.
+2026-10-31T05:57Z tags/feature:wifi-6: no source/sink. NOT VULN.
+2026-10-31T05:57Z product aliases: shared product view. NOT VULN.
+2026-10-31T05:57Z app skeletons + service modals: static. NOT VULN.
+2026-10-31T05:57Z checkout address billing/shipping: shell, no sink. NOT VULN.
+2026-10-31T05:57Z stored-XSS wishlist name: React-escaped; test deleted. NOT VULN.

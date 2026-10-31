@@ -52,3 +52,18 @@ None. `result/confirmed-vuln.txt` contains no entries.
 - `result/server-side/in.store.ui.com/account/report.md`, `.../my-lists/report.md`.
 - `result/client-side/in.store.ui.com/{home,account,search}/javascript/raw/` — saved JS.
 - `result/unresolved.md`, `result/scope.md`, `result/logs/session.md`.
+
+## Latest route coverage (2026-10-31T05:47Z)
+- `/in/en/app/checkout/pay-by-invoice/edit`: pay-by-invoice metadata editor. Client chunk has no URL source and no HTML/navigation/postMessage sink. Metadata list/create/update/delete are session-scoped: Account B update/delete of Account A's metadata id returned `NOT_FOUND`; create with `customerId` of A returned generic 400 and did not persist; unauthenticated calls returned `FORBIDDEN`; B's own create/update/delete baseline succeeded. No vuln. Reports: `result/client-side/in.store.ui.com/app-checkout-pay-by-invoice-edit/route-report.md`, `result/server-side/in.store.ui.com/app-checkout-pay-by-invoice-edit/report.md`.
+
+## Latest route coverage (2026-10-31T05:57Z)
+- `/in/en/app/checkout/pay-by-invoice/select`: session-scoped metadata picker; `selectedId` only preselects the caller's own list; no sink/write. Not vulnerable.
+- `/in/en/app/checkout/address-picker`: Account B opening Account A's `addressId` rendered only B's empty list; address authorization held. Not vulnerable.
+- `/in/en/tags/feature:wifi-6`: valid tag slug is `namespace:value`; SSR catalog listing only; route chunk has no URL source/sink. Not vulnerable.
+- Product aliases (`category/.../products/{p}`, `collections/.../products/{p}`, `category/.../collections/.../products/{p}`): 200, shared already-tested product view; no new API/sink. Not vulnerable.
+- App skeletons (`category`, `products`, `my-lists-detail`) and service modals (`cybersecure`, `ui-care`): static components; no source/sink/write. Not vulnerable.
+- App checkout `address/billing` and `address/shipping`: app shell without active checkout; shared address authorization held; no sink. Not vulnerable (full submit flow unresolved).
+- Stored-XSS probe: created a wishlist named `<img src=x onerror=window.__xss=1>` (id `a41af555-2e46-4576-a984-e665e29298bd`), reloaded `/in/en/my-lists`: React rendered it as escaped text (`img[src=x]` count 0, `window.__xss` undefined). Test wishlist deleted; list empty. Not vulnerable.
+- `/api/opensearch` is `public, max-age=86400` but varies by query string (`store`), so no cache poisoning; unknown store maps to US template. Not vulnerable.
+- `/api/app/categories-products-count-lookup` expects `storeId`+`productLine`; invalid `productLine` reflected only in JSON error (escaped); `<script>` blocked by WAF 403. Not vulnerable.
+- `/api/has-ui-care` and `/api/geo-ip` are `private`/non-cacheable; XFF trust is low impact. Not vulnerable.

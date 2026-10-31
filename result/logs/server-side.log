@@ -16,3 +16,10 @@
 - 2026-10-31T05:25Z GET /in/en/app/search 307 -> /in/en/search; query preserved. No vuln.
 - 2026-10-31T05:26Z GET /in/en/app/checkout/tax-exemption 200; GetTaxExemptionData own empty + public config; no write. No vuln.
 - 2026-10-31T05:26Z GET /in/en/previous-purchase 200; GetProductsForHomepagePro hasPreviousPurchase:true total 0; reads only. No vuln.
+2026-10-31T05:47Z /in/en/app/checkout/pay-by-invoice/edit: GetCustomerPayByInvoiceMetadata session-scoped; B update/delete A metadata id => NOT_FOUND; create with customerId => 400; unauth => FORBIDDEN; own CRUD baseline OK. No vuln.
+2026-10-31T05:57Z pay-by-invoice/select: GetCustomerPayByInvoiceMetadata session-scoped. NOT VULN.
+2026-10-31T05:57Z address-picker: address authz held (B sees own list only). NOT VULN.
+2026-10-31T05:57Z tags: public catalog reads only. NOT VULN.
+2026-10-31T05:57Z api/opensearch: public cache but query-keyed; no poisoning. NOT VULN.
+2026-10-31T05:57Z api/count-lookup: JSON-escaped error; WAF blocks script. NOT VULN.
+2026-10-31T05:57Z stored-XSS wishlist: create/read/delete own only; React escapes. NOT VULN.

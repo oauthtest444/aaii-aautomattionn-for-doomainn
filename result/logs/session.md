@@ -74,3 +74,16 @@
 - Completed /in/en/app/checkout/tax-exemption: app shell; GetTaxExemptionData returned Account A's empty exemption list plus public CA/US config; India exposes no form fields; RequestCustomerTaxExemption and UploadProtectedAsset not invoked. No vuln.
 - Completed /in/en/previous-purchase: arbitrary x parameter dropped from __NEXT_DATA__.query; GetProductsForHomepagePro(hasPreviousPurchase:true) session-scoped and returned total 0; no client sink or write. No vuln.
 - Inventory now 25 routes: 24 tested, 1 partial (/tags/{tag}).
+
+## Continuation run (2026-10-31T05:40Z, manual workflow_dispatch)
+- Start time (UTC): 2026-10-31T05:40:00Z
+- Target state decision: preserved (same target hash 575c39e0…)
+- Chrome DevTools MCP reachable: list_pages -> about:blank; endpoint 127.0.0.1:9222
+- Resuming from PROGRESS.md/testing-inventory.json; prior confirmed findings: 0
+- Next: complete partially-downloaded /in/en/app/checkout/pay-by-invoice/edit, then remaining app checkout/address/modals/skeleton routes.
+
+## 2026-10-31T05:57Z — final route batch
+- Tested: pay-by-invoice/select, address-picker, tags/feature:wifi-6, product aliases, app skeletons, app service modals, app checkout address billing/shipping.
+- Stored-XSS probe on wishlist name (`<img src=x onerror=...>`): escaped by React; test wishlist deleted.
+- API header/reflection probes: opensearch (public but query-keyed), count-lookup (JSON-escaped), has-ui-care (private), geo-ip (private).
+- All results Not Vulnerable. No confirmed finding; Discord notification not sent.

@@ -219,6 +219,109 @@
     "pages/[store]/[language]/previous-purchase-5b993962938e5f4c.js"
    ],
    "notes": "Previously Purchased view; arbitrary x dropped from Next query; GetProductsForHomepagePro hasPreviousPurchase:true scoped to auth, total 0; no write/owner param. No vuln. See result/.../previous-purchase/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/pay-by-invoice/edit",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/checkout/pay-by-invoice/edit-3ca59a7394a4ed06.js",
+    "400-876a998c59a2fad0.js",
+    "_app-061d1aa423d330d2.js"
+   ],
+   "notes": "Pay-by-invoice metadata editor. No client source/sink. Metadata CRUD session-scoped: B update/delete A id => NOT_FOUND; create with customerId => 400; unauth => FORBIDDEN. No vuln. See result/client-side/.../app-checkout-pay-by-invoice-edit/ and result/server-side/.../app-checkout-pay-by-invoice-edit/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/pay-by-invoice/select",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/checkout/pay-by-invoice/select-dcce54051795c0d3.js",
+    "2564-2f4e6349660584d6.js"
+   ],
+   "notes": "Session-scoped metadata picker; selectedId only preselects own list; no sink/write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/address-picker",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/checkout/address-picker-71bcad70dbb6494b.js"
+   ],
+   "notes": "B with A addressId saw only own empty list; address authz held; no sink. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/tags/feature:wifi-6",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/tags/[tag]-3bbf8006f11cf7fa.js"
+   ],
+   "notes": "Valid tag format namespace:value; SSR catalog listing; no source/sink/write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/skeletons/category",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/skeletons/category-3ef7c647259657d6.js"
+   ],
+   "notes": "Static skeleton; no source/sink/write. products and my-lists-detail same family. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/modals/services/cybersecure",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/modals/services/cybersecure-490a194fc62e5542.js"
+   ],
+   "notes": "Static marketing modal; no source/sink/write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/modals/services/ui-care",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/modals/services/ui-care-885f704d6457244b.js"
+   ],
+   "notes": "Static marketing modal; no source/sink/write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/address/billing",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/checkout/address/billing-f707356d400dc83d.js"
+   ],
+   "notes": "App shell without active checkout; shared address authz verified; no sink. Shipping same component. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/address/shipping",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Same shared checkout-address component as billing; address authz held. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/category/all-wifi/products/uap-ac-hd",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Alias of tested product view; 200; no new API/sink. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/collections/top10-cables/products/unifi-ethernet-patch-cable-with-bendable-booted-rj45",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Alias of tested product/collection view; 200; no new API/sink. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/category/all-wifi/collections/top10-cables/products/unifi-ethernet-patch-cable-with-bendable-booted-rj45",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Alias of tested product/category/collection view; 200; no new API/sink. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Fixed same-origin 307 to /checkout?appview=true. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/order/00000000-0000-0000-0000-000000000000/payment/address/billing",
+   "status": "tested",
+   "javascript": [],
+   "notes": "Random order id -> 404; no leak/redirect. No vuln."
   }
  ],
  "javascript": [],
@@ -246,7 +349,11 @@
     "AddWishlistItems",
     "GetSearchProducts",
     "GetCollectionsMetadata",
-    "GetBackInStockSubscribed"
+    "GetBackInStockSubscribed",
+    "GetCustomerPayByInvoiceMetadata",
+    "CreateCustomerPayByInvoiceMetadata",
+    "UpdateCustomerPayByInvoiceMetadata",
+    "DeleteCustomerPayByInvoiceMetadata"
    ]
   },
   {
