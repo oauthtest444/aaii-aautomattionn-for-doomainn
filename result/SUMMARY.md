@@ -1,6 +1,6 @@
 # Summary — in.store.ui.com authorized test
 
-Run: 2026-10-30T07:57:35Z (start). Build: `8729322f82`.
+Run: current continuation started 2026-10-31T05:15:00Z; cumulative testing began 2026-10-30T07:57:35Z. Build: `8729322f82`.
 Scope: `in.store.ui.com` only (domain-only authorization). `account.ui.com` used solely for SSO login/MFA of the disposable test accounts; no security testing performed there. `ecomm.svc.ui.com/graphql` tested only as the storefront's own API backend.
 
 ## Confirmed findings
@@ -24,11 +24,22 @@ None. `result/confirmed-vuln.txt` contains no entries.
 - GraphQL unknown/extra input fields or invalid selection sets return generic `400 INTERNAL_SERVER_ERROR` instead of validation errors. Robustness issue only; no data/state impact observed.
 - `window.open` in account order UI uses server-provided `statusPageUrl`, not user input.
 
+
+## Latest route coverage (2026-10-31)
+- `/in/en/faq`, `/in/en/services/ui-care`, `/in/en/services/cybersecure`: static/local-state pages; no URL-controlled HTML or redirect sink; no write requests. No vuln.
+- `/in/en/maintenance`: null-rendering client redirect; `redirect_uri` origin must equal `window.location.origin`; external host rejected, same-origin target accepted. Server 200, marker only in request query, no reflection. No vuln.
+- `/in/en/app/faq`: fixed same-origin 307 to `/in/en/faq`; shared FAQ component. No vuln.
+- `/in/en/top-10-accessories`: `collection` strict-matched to fixed/historical slugs; no sink; static preloaded data. No vuln.
+- `/in/en/collections/top10-cables` and `/in/en/category/all-wifi/collections/top10-cables`: shared collection/product view; fixed server-selected product; query markers only in Next data; public GraphQL reads only. No vuln.
+- `/in/en/app/search`: fixed same-origin 307 to `/in/en/search` with search query preserved; no open redirect. No vuln.
+- `/in/en/app/checkout/tax-exemption`: app shell; Account A own exemption list empty; India rendered no form fields; only `GetTaxExemptionData` and baseline reads. Request/upload mutations not invoked to avoid external side effects. No vuln.
+- `/in/en/previous-purchase`: arbitrary `x` dropped from Next query; `GetProductsForHomepagePro(hasPreviousPurchase:true)` session-scoped, 0 items; no client sink or write. No vuln.
+
 ## Unresolved
 - Order IDOR/BAC (`/order/{id}/status|payment|returns/create`, `GetStorefrontOrder`, `CancelStorefrontOrder`, `CreateReturn`) — no test-owned order; creating one risks fulfillment side effects.
-- Checkout IDOR/price manipulation — no cart/checkout created for the same reason.
+- Checkout IDOR/price manipulation — a test-owned checkout `5258ecf2-4feb-4c1f-8b39-d95035531fcc` was created, but no order was placed. Strict input validation blocked price/tax/customer mass assignment; wrong-secret reads return a cloned cart without PII.
 - Protected assets/tax exemption (`UploadProtectedAsset`, `GetProtectedAssetSignedUrl`, `RequestCustomerTaxExemption`) — submitting a tax-exemption request is an external side effect; random UUID returns 500 and does not prove authz.
-- Country-picker dynamic redirect confirmation (would require navigating to another store host).
+- Country-picker dynamic redirect was confirmed on 2026-10-30: external `redirectUri` was replaced by the selected store host; no open redirect. Sibling store pages were not tested.
 
 ## Assumptions
 - The disposable test accounts in `creds/test-account.txt` are authorized for login and creating test data.

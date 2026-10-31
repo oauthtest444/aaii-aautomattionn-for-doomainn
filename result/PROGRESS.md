@@ -1,12 +1,13 @@
 # Progress
 
-Updated: 2026-10-30T22:35:00Z
-Start: 2026-10-30T07:57:35Z
+Updated: 2026-10-31T05:32:00Z
+Start (current run): 2026-10-31T05:15:00Z
+Cumulative testing began: 2026-10-30T07:57:35Z
 
 - Total UI routes discovered: 51 (build manifest `sortedPages`; plus /404,/500,_app,_error,ping,well-known)
-- Fully tested: 12 (home [client-side], account, account/address/new, account/address/{id}, my-lists, my-lists/{listId}, search, products/uap-ac-hd, category/all-wifi, app/order, app/compare, country-picker)
-- Partially tested / unresolved: checkout, order status/payment/returns, protected-asset/tax-exemption, tags/{tag} (valid slugs), collections/{collection} (valid slugs)
-- Not yet tested: ~28 (remaining product/collection/faq/app-embedded/checkout/service variants)
+- Fully tested route entries: 24 of 25 (`result/testing-inventory.json`); generic `/collections/{collection}` is covered via valid slug `top10-cables`.
+- Partially tested / unresolved: tags/{tag} valid slugs; checkout/order flows; protected-asset/tax-exemption; remaining app-embedded/skeleton routes.
+- Not yet tested: remaining manifest routes, including app/my-lists variants, app/checkout variants, app/skeletons, order status/payment/return routes, and product-under-category/collection variants.
 - Confirmed vulnerabilities: 0
 - Accounts: A logged in (customer 95b6d3ee-354c-47b6-a187-b80959d58f79); B logged in (isolated context), both via maildrop MFA.
 
@@ -32,6 +33,18 @@ App-view gating was solved: `_app` enables `/[store]/[language]/app/*` when the
 Browser is authenticated as Account A. Remaining: app/search, app/compare,
 app/faq, app/my-lists (still redirects to web), app/skeletons, collections,
 country-picker, maintenance, services, checkout/order flows.
+
+
+## Continuation run 41171793013 (2026-10-31T05:15Z)
+- Account A re-authenticated via SSO/MFA; Account B remains available.
+- Completed `/in/en/faq` (client/server), `/in/en/services/ui-care`, and `/in/en/services/cybersecure`: static/local-state routes, no URL-controlled HTML/redirect sink, no write operations. Reports written.
+- Completed `/in/en/maintenance`: route renders null and redirects client-side. `redirect_uri` is accepted only when `new URL(value).origin === window.location.origin`; external example.com was rejected and a same-origin marker was accepted. Server returned 200 with empty Next query/pageProps and no marker reflection. No vuln.
+- Completed `/in/en/app/faq`: fixed same-origin 307 to `/in/en/faq` preserving query; shared FAQ component already tested. No vuln.
+- Completed `/in/en/top-10-accessories`: `collection` is strict-matched to fixed/historical slugs and falls back to the first; marker only in `__NEXT_DATA__.query`; static preloaded collections; no collection-specific GraphQL or write. No vuln.
+- Completed `/in/en/collections/top10-cables` and `/in/en/category/all-wifi/collections/top10-cables`: both use shared collection/product view; valid slug resolves to fixed product `4436004e-b03e-41e8-bc14-50d82fcdfe0c`; query markers only in Next data; public catalog/session reads only. No vuln.
+- Completed `/in/en/app/search` (fixed same-origin 307 to `/in/en/search`, search query preserved) and `/in/en/app/checkout/tax-exemption` (app shell, own exemption list empty, IN has no fields; `RequestCustomerTaxExemption`/`UploadProtectedAsset` deliberately not invoked). No vuln.
+- Completed `/in/en/previous-purchase`: arbitrary query marker dropped from Next query; `GetProductsForHomepagePro(hasPreviousPurchase:true)` is session-scoped and returned 0; no client sink or write. No vuln.
+- Confirmed vulnerabilities remain: 0.
 
 ## Checkout / GraphQL investigation (2026-10-30T13:05-13:25Z)
 - Created test checkout via `CreateCheckout` (`input:{storeId,language,items:[{storeProductVariantId,quantity}]}`); in-stock variant `e1e25a23-9869-463a-bcab-50cab0196115` (USW-Ultra-210W-EU, 2105400 INR). Other India products SoldOut.

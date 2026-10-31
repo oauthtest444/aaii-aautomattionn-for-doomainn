@@ -55,14 +55,6 @@
    "notes": "Actual param is ?search= (not q). Search term rendered only as escaped text/input value; no HTML sink. Angle/quote payloads WAF 403. See result/client-side/in.store.ui.com/search/."
   },
   {
-   "url": "https://in.store.ui.com/in/en/country-picker",
-   "status": "in progress",
-   "javascript": [
-    "home-21.js"
-   ],
-   "notes": "redirectUri host discarded in code; dynamic confirmation pending."
-  },
-  {
    "url": "https://in.store.ui.com/in/en/products/uap-ac-hd",
    "status": "tested",
    "javascript": [
@@ -120,9 +112,113 @@
   },
   {
    "url": "https://in.store.ui.com/in/en/collections/{collection}",
-   "status": "partial",
-   "javascript": [],
-   "notes": "Guessed collection slug wifi-flagship -> 404. Valid collection slugs from GetCollectionsMetadata not yet enumerated."
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/collections/[collection]-293230c55d61f453.js",
+    "8179/50689"
+   ],
+   "notes": "Valid slug top10-cables tested at /collections/top10-cables and /category/all-wifi/collections/top10-cables; unknown slugs 404. Shared collection/product view; no query/source sink; public reads only. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/faq",
+   "status": "tested",
+   "javascript": [
+    "faq-eeac419128c21a0b.js",
+    "9972",
+    "5901",
+    "4866",
+    "5644",
+    "5161"
+   ],
+   "notes": "Static FAQ; search is local state, no URL source or HTML sink. Marker/typed payload escaped. No vuln. See result/client-side/.../faq/ and server-side/.../faq/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/services/ui-care",
+   "status": "tested",
+   "javascript": [
+    "services/ui-care-e3b74d12da5f0708.js",
+    "2859",
+    "9641"
+   ],
+   "notes": "Static service page; no URL source or HTML sink; region-unavailable, no write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/services/cybersecure",
+   "status": "tested",
+   "javascript": [
+    "services/cybersecure-2b9b7e3928ed9667.js",
+    "2859",
+    "9641"
+   ],
+   "notes": "Static service page; no URL source or HTML sink; no write. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/maintenance",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/maintenance-36065e833e7556cc.js"
+   ],
+   "notes": "Maintenance route renders null and client-redirects. redirect_uri must match window.location.origin; external example.com rejected, same-origin marker accepted. No DOM sinks/listeners. Server: 200 empty page, marker not reflected, Next page/query/pageProps empty, strong CSP. No vuln. See result/client-side/.../maintenance/ and server-side/.../maintenance/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/faq",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/faq-ced2bf1c2d3584b7.js",
+    "5161-0ae0dd3b29595b78.js"
+   ],
+   "notes": "307 redirect to same-origin /in/en/faq preserving query; shared FAQ component already tested (local search state, no HTML sink). No vuln. See result/client-side/.../app-faq/ and server-side/.../app-faq/report.md."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/top-10-accessories",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/top-10-accessories-8f1f941ea2658a30.js"
+   ],
+   "notes": "collection query strictly compared to known/historical slugs; unknown falls back to first; no HTML/redirect sink. Marker only in __NEXT_DATA__.query; static preloaded collections; no collection-specific GraphQL/write. No vuln. See result/.../top-10-accessories/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/collections/top10-cables",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/collections/[collection]-293230c55d61f453.js",
+    "8179/50689"
+   ],
+   "notes": "Valid collection maps to fixed product; query marker only in __NEXT_DATA__.query; embed params not promoted. GraphQL public reads (GetProductFaqs null, wishlist membership/lists, core/tax); CMS contentHtml only. No vuln. See result/.../collections-top10-cables/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/category/all-wifi/collections/top10-cables",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/category/[category]/collections/[collection]-9a4335b2cab7841e.js",
+    "8179/50689"
+   ],
+   "notes": "Alias of shared collection/product view. Query marker only in __NEXT_DATA__; server resolves fixed category/collection/currentProductId; public reads only; CMS contentHtml. No vuln. See result/.../category-all-wifi-collections-top10-cables/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/search",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/search-d651b92f8aac4290.js"
+   ],
+   "notes": "Fixed same-origin 307 to /in/en/search preserving search query; web search previously tested; prefetch helper enforces same origin. No vuln. See result/.../app-search/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/checkout/tax-exemption",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/app/checkout/tax-exemption-aa04ccc628206e8a.js",
+    "home-17/62485"
+   ],
+   "notes": "App tax-exemption shell. GetTaxExemptionData returns own empty list + public CA/US config; IN no submittable form. Request/Upload mutations not invoked (external side effect). No query forwarding. No vuln; mutation authz unresolved. See result/.../app-checkout-tax-exemption/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/previous-purchase",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/previous-purchase-5b993962938e5f4c.js"
+   ],
+   "notes": "Previously Purchased view; arbitrary x dropped from Next query; GetProductsForHomepagePro hasPreviousPurchase:true scoped to auth, total 0; no write/owner param. No vuln. See result/.../previous-purchase/."
   }
  ],
  "javascript": [],
