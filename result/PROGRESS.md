@@ -76,3 +76,11 @@ country-picker, maintenance, services, checkout/order flows.
 - Confirmed vulnerabilities remain: 0.
 - Remaining unresolved (all require a test-owned order/active checkout): `checkout/{id}`, `checkout/{id}/payment`, `order/{id}/status|payment|returns/create`, `app/order/{id}/status`. Deliberately not creating an order to avoid fulfillment side effects.
 - Discord notification not sent (no confirmed vuln).
+
+## Continuation run (2026-10-31T21:35-21:40Z)
+- Completed `/in/en/checkout/{id}` and `/in/en/checkout/{id}/payment` with a test-owned active checkout (no order placed). Page uses `in_active_checkout` cookie + its own secret; query `id`/`key` are ignored. Authenticated `/checkout/<other-id>` 307s to the caller's active checkout with the caller's key; no other-account PII rendered. Client chunks have no URL-to-DOM/redirect sink beyond the already-tested same-origin country-picker `location.assign`.
+- Corrected the earlier cross-account checkout note: the "B claimed A's checkout without secret" result was a sequencing artifact. Clean fresh-context test: B `GetCheckout` with A's UUID and no/wrong secret created a NEW checkout; B `UpdateCheckout` with A's UUID + B's secret created a NEW checkout; A's checkout and address stayed unchanged. A valid checkout secret does transfer ownership (bearer capability), which is expected; UUID alone gives no read/write access. No IDOR/PII leak.
+- Unauthenticated checkout GETs: valid UUID -> 307 to a new checkout with `cache-control: private, no-store`, requested UUID echoed in `id` query, new secret in `key`; invalid UUID -> 404; encoded traversal and quote/`<img>` probes -> 403 WAF. No reflection.
+- Probed order routes with a nonexistent UUID: status/payment/returns/create -> 404; callback -> 200 and only fixed-target `parent.postMessage`. Real-order cross-account authz remains unresolved (no order created to avoid fulfillment side effects).
+- Confirmed vulnerabilities remain: 0.
+- Discord notification not sent (no confirmed vuln).

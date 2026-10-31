@@ -37,7 +37,7 @@ None. `result/confirmed-vuln.txt` contains no entries.
 
 ## Unresolved
 - Order IDOR/BAC (`/order/{id}/status|payment|returns/create`, `GetStorefrontOrder`, `CancelStorefrontOrder`, `CreateReturn`) — no test-owned order; creating one risks fulfillment side effects.
-- Checkout IDOR/price manipulation — a test-owned checkout `5258ecf2-4feb-4c1f-8b39-d95035531fcc` was created, but no order was placed. Strict input validation blocked price/tax/customer mass assignment; wrong-secret reads return a cloned cart without PII.
+- Checkout IDOR/price manipulation — resolved this run: `/checkout/{id}` and `/checkout/{id}/payment` use the caller's `in_active_checkout` cookie + own secret; query `id`/`key` are ignored. Clean fresh-context tests showed A's UUID with no/wrong secret creates a NEW checkout (no PII), and B `UpdateCheckout` with A's UUID + B's secret creates a NEW checkout; A's data stayed unchanged. A valid secret transfers ownership (capability), not an IDOR. Strict input validation also blocks price/tax/customer mass assignment.
 - Protected assets/tax exemption (`UploadProtectedAsset`, `GetProtectedAssetSignedUrl`, `RequestCustomerTaxExemption`) — submitting a tax-exemption request is an external side effect; random UUID returns 500 and does not prove authz.
 - Country-picker dynamic redirect was confirmed on 2026-10-30: external `redirectUri` was replaced by the selected store host; no open redirect. Sibling store pages were not tested.
 
@@ -67,3 +67,9 @@ None. `result/confirmed-vuln.txt` contains no entries.
 - `/api/opensearch` is `public, max-age=86400` but varies by query string (`store`), so no cache poisoning; unknown store maps to US template. Not vulnerable.
 - `/api/app/categories-products-count-lookup` expects `storeId`+`productLine`; invalid `productLine` reflected only in JSON error (escaped); `<script>` blocked by WAF 403. Not vulnerable.
 - `/api/has-ui-care` and `/api/geo-ip` are `private`/non-cacheable; XFF trust is low impact. Not vulnerable.
+
+## Latest route coverage (2026-10-31T21:35Z)
+- `/in/en/checkout/{id}` and `/in/en/checkout/{id}/payment`: tested with a test-owned active checkout (no order placed). Page uses `in_active_checkout` cookie + own secret; path/query `id`/`key` ignored. Other-account checkout URLs 307 to the caller's active checkout with the caller's key and render no other-account PII. Client chunks have no URL-to-DOM/redirect sink beyond the already-tested same-origin country picker. Unauthenticated valid-UUID GET -> 307 to a new checkout with `private, no-store`, no PII; invalid UUID -> 404; traversal/malicious query -> 403 WAF. Not vulnerable. Reports: `result/client-side/in.store.ui.com/checkout/route-report.md`, `result/server-side/in.store.ui.com/checkout/route-report.md`.
+- Cross-account checkout correction: the earlier "no-secret claim" result was a sequencing artifact (first call used A's valid secret, then B owned the checkout). Clean re-test with a fresh B context: no/wrong secret => new checkout; A's checkout/address unchanged. No IDOR/PII leak.
+- Order routes `/order/{id}/status|payment|returns/create` -> 404 for nonexistent UUID; `/order/{id}/callback` -> 200 with only fixed-target `parent.postMessage`. Real-order cross-account authz remains unresolved (no order created).
+- Confirmed vulnerabilities remain: 0.

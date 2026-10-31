@@ -22,14 +22,14 @@ Store prefix is `/{store}/{language}`; authorized store is `in/en`.
 | `/{store}/{language}/account/address/{id}` | Address detail | tested (not vulnerable) |
 | `/{store}/{language}/my-lists` | Wishlists | tested (not vulnerable) |
 | `/{store}/{language}/my-lists/{listId}` | Wishlist detail | tested (not vulnerable) |
-| `/{store}/{language}/checkout` | Checkout | partially tested (static shell; no cart) |
-| `/{store}/{language}/checkout/{id}` | Checkout step | unresolved (requires cart/checkout) |
-| `/{store}/{language}/checkout/{id}/payment` | Checkout payment | unresolved (requires checkout) |
+| `/{store}/{language}/checkout` | Checkout | tested (test-owned cart; active-checkout cookie flow) |
+| `/{store}/{language}/checkout/{id}` | Checkout step | tested (not vulnerable; other-account id ignored) |
+| `/{store}/{language}/checkout/{id}/payment` | Checkout payment | tested (not vulnerable; query id/key ignored) |
 | `/{store}/{language}/app/checkout...` | App-embedded checkout variants (`/app/checkout` 307 -> `/checkout`) | tested except order/payment flow (no test order) |
 | `/{store}/{language}/order/{id}/status` | Order status (guest access) | unresolved (no test-owned order) |
 | `/{store}/{language}/order/{id}/payment` | Order payment | unresolved (random id 404; no test-owned order) |
 | `/{store}/{language}/order/{id}/payment/address/billing` | Order payment billing address | unresolved (random id 404; no test-owned order) |
-| `/{store}/{language}/order/{id}/callback` | Payment callback | partially tested (random id 200, no open redirect via redirect/returnUrl params) |
+| `/{store}/{language}/order/{id}/callback` | Payment callback | tested (random id 200; only fixed-target parent.postMessage) |
 | `/{store}/{language}/order/{id}/returns/create` | Return creation | unresolved (no test-owned order) |
 | `/{store}/{language}/previous-purchase` | Previous purchase | tested (static shell, no reflection) |
 | `/{store}/{language}/country-picker` | Country/store picker (`redirectUri`) | code-review: no external redirect; dynamic confirmation skipped (would navigate out of scope) |

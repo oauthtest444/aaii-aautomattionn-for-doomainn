@@ -106,9 +106,9 @@
   },
   {
    "url": "https://in.store.ui.com/in/en/tags/{tag}",
-   "status": "partial",
+   "status": "tested",
    "javascript": [],
-   "notes": "Unknown tag marker -> 404 page; marker only in third-party analytics URLs, not text/HTML. Valid tag slug not yet discovered."
+   "notes": "Valid slug format <namespace>:<value> (e.g. feature:wifi-6, feature:10-stream). Shared SSR catalog listing; route chunk has no URL source/sink; unknown tag -> 404. See tags/feature:wifi-6 report. No vuln."
   },
   {
    "url": "https://in.store.ui.com/in/en/collections/{collection}",
@@ -322,6 +322,62 @@
    "status": "tested",
    "javascript": [],
    "notes": "Random order id -> 404; no leak/redirect. No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/checkout/{id}",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/checkout/[id]-5ea62705d142f8d8.js",
+    "app.js"
+   ],
+   "notes": "Test-owned active checkout. Page uses in_active_checkout cookie + own secret; path/query id/key ignored. Other-account checkout URL 307s to caller's active checkout with caller's key; no PII rendered. Client chunks no URL-to-DOM/redirect sink beyond tested same-origin country picker. See result/client-side/.../checkout/ and result/server-side/.../checkout/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/checkout/{id}/payment",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/checkout/[id]/payment-4493eb08b34789dc.js",
+    "app.js"
+   ],
+   "notes": "Payment form renders from caller's active checkout only. Query key ignored; valid UUID unauth GET 307s to a new checkout (private no-store, no PII); invalid UUID 404; traversal/malicious query 403 WAF. See result/.../checkout/."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/order/{id}/status",
+   "status": "partial",
+   "javascript": [
+    "pages/[store]/[language]/order/[id]/status-4d6488c7c8d51f54.js"
+   ],
+   "notes": "Nonexistent UUID -> 404; no PII/redirect. Real-order cross-account authz untested (no order created)."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/order/{id}/payment",
+   "status": "partial",
+   "javascript": [
+    "pages/[store]/[language]/order/[id]/payment-51a24effaf6b890f.js"
+   ],
+   "notes": "Nonexistent UUID -> 404; no PII/redirect. Real-order cross-account authz untested."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/order/{id}/returns/create",
+   "status": "partial",
+   "javascript": [
+    "pages/[store]/[language]/order/[id]/returns/create-8cbf0d0013655db6.js"
+   ],
+   "notes": "Nonexistent UUID -> 404; no PII/redirect. Real-order cross-account authz untested."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/order/{id}/callback",
+   "status": "tested",
+   "javascript": [
+    "pages/[store]/[language]/order/[id]/callback-f9fdf2b1b0e0314e.js"
+   ],
+   "notes": "Returns 200 generic page; callback chunk has no query source and only fixed-target parent.postMessage('/'). No vuln."
+  },
+  {
+   "url": "https://in.store.ui.com/in/en/app/order/{id}/status",
+   "status": "partial",
+   "javascript": [],
+   "notes": "Shares order-status view; nonexistent UUID -> 404; real-order authz untested (no order created)."
   }
  ],
  "javascript": [],
