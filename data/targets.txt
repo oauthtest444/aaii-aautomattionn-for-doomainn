@@ -1,10 +1,9 @@
 Target:
-in.store.ui.com
+store.ui.com
 
-working url
-https://in.store.ui.com/in/en?s=in&l=en
 
-For this subdomain First discover all intresting and unique UI routes and API endpoints. 
+
+For this domain First discover all intresting and unique UI routes and API endpoints. 
 
 After discovering all interesting UI routes using Chrome MCP, visit each route one by one. Wait 5–10 seconds on each route to ensure that all JavaScript has fully loaded before starting the testing process.
 
