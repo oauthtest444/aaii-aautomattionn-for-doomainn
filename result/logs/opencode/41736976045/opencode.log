@@ -1,0 +1,27 @@
+timestamp=2026-11-03T23:10:44.652Z level=INFO run=7901bd4e message="creating instance" directory=/home/runner/work/_temp
+timestamp=2026-11-03T23:10:44.654Z level=INFO run=7901bd4e message=fromDirectory directory=/home/runner/work/_temp
+timestamp=2026-11-03T23:10:44.669Z level=INFO run=7901bd4e message=bootstrapping directory=/home/runner/work/_temp
+timestamp=2026-11-03T23:10:44.677Z level=INFO run=7901bd4e message=loading path=/home/runner/.config/opencode/config.json
+timestamp=2026-11-03T23:10:44.680Z level=INFO run=7901bd4e message=loading path=/home/runner/.config/opencode/opencode.json
+timestamp=2026-11-03T23:10:44.680Z level=INFO run=7901bd4e message=loading path=/home/runner/.config/opencode/opencode.jsonc
+timestamp=2026-11-03T23:10:44.818Z level=INFO run=7901bd4e message=loading path=/home/runner/.opencode/opencode.json
+timestamp=2026-11-03T23:10:44.819Z level=INFO run=7901bd4e message=loading path=/home/runner/.opencode/opencode.jsonc
+timestamp=2026-11-03T23:10:44.908Z level=INFO run=7901bd4e message="all LSPs are disabled"
+timestamp=2026-11-03T23:10:44.909Z level=INFO run=7901bd4e message="all formatters are disabled"
+timestamp=2026-11-03T23:10:44.909Z level=INFO run=7901bd4e message=init
+timestamp=2026-11-03T23:10:45.098Z level=INFO run=7901bd4e message=created id=ses_e5c521a95ffedehaqKw5MPal0M slug=cosmic-cactus version=1.19.5 projectID=global directory=/home/runner/work/_temp path=home/runner/work/_temp workspaceID=undefined parentID=undefined title="New session - 2026-11-03T23:10:45.098Z" agent=undefined model=undefined metadata=undefined permission="[{\"permission\":\"question\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_enter\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_exit\",\"pattern\":\"*\",\"action\":\"deny\"}]" cost=0 tokens.input=0 tokens.output=0 tokens.reasoning=0 tokens.cache.read=0 tokens.cache.write=0 time.created=1793747445098 time.updated=1793747445098
+timestamp=2026-11-03T23:10:45.108Z level=INFO run=7901bd4e message="event connected"
+timestamp=2026-11-03T23:10:45.189Z level=INFO run=7901bd4e message=loop session.id=ses_e5c521a95ffedehaqKw5MPal0M step=0
+timestamp=2026-11-03T23:10:45.738Z level=INFO run=7901bd4e message="shell tool using shell" shell=/bin/bash
+timestamp=2026-11-03T23:10:45.745Z level=INFO run=7901bd4e message=init count=1
+timestamp=2026-11-03T23:10:45.753Z level=INFO run=7901bd4e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e5c521a95ffedehaqKw5MPal0M small=true agent=title mode=primary
+timestamp=2026-11-03T23:10:45.759Z level=INFO run=7901bd4e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-03T23:10:45.808Z level=INFO run=7901bd4e message="watcher backend" directory=/home/runner/work/_temp platform=linux backend=inotify
+timestamp=2026-11-03T23:10:45.822Z level=INFO run=7901bd4e message="project copy refresh started" projectID=global
+timestamp=2026-11-03T23:10:45.823Z level=INFO run=7901bd4e message="project copy refresh done" projectID=global updated=[] removed=[]
+timestamp=2026-11-03T23:10:45.838Z level=INFO run=7901bd4e message="booting location services" directory=/home/runner/work/_temp workspaceID=undefined
+timestamp=2026-11-03T23:10:46.048Z level=INFO run=7901bd4e message=process session.id=ses_e5c521a95ffedehaqKw5MPal0M messageID=msg_1a3ade7e1001E7cYEXPyJV5xeU
+timestamp=2026-11-03T23:10:46.049Z level=INFO run=7901bd4e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e5c521a95ffedehaqKw5MPal0M small=false agent=build mode=primary
+timestamp=2026-11-03T23:10:46.206Z level=INFO run=7901bd4e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-03T23:10:46.353Z level=ERROR run=7901bd4e message="stream error" providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e5c521a95ffedehaqKw5MPal0M small=false agent=build mode=primary error.error="AI_APICallError: Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+timestamp=2026-11-03T23:10:53.109Z level=ERROR run=7901bd4e message="stream error" providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e5c521a95ffedehaqKw5MPal0M small=true agent=title mode=primary error.error="AI_RetryError: Failed after 3 attempts. Last error: Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
