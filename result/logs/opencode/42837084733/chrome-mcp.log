@@ -1,0 +1,48 @@
+[2802:2828:1110/144447.739018:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2828:1110/144447.739659:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2828:1110/144447.739988:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2834:1110/144447.747451:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2834:1110/144447.747478:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2834:1110/144447.747485:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2828:1110/144449.493430:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2828:1110/144449.508863:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+
+DevTools listening on ws://127.0.0.1:9222/devtools/browser/6fd605ed-809d-4c47-ab57-faf1b52697ff
+[2802:2802:1110/144449.562114:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2802:1110/144449.562215:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2828:1110/144449.562213:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2828:1110/144449.562392:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2802:1110/144449.563006:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2802:1110/144449.564754:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2828:1110/144449.564818:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2802:1110/144449.577132:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2802:1110/144449.579640:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2828:1110/144449.580330:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2802:1110/144449.587202:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2802:1110/144449.592037:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2802:1110/144449.592135:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.UPower was not provided by any .service files
+[2802:2828:1110/144449.593309:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2802:1110/144449.604966:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2802:2828:1110/144449.605358:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2802:2802:1110/144449.615988:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Created TensorFlow Lite XNNPACK delegate for CPU.
+[2845:2860:1110/144759.127472:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.208 ms
+[2845:2860:1110/144759.627404:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.254 ms
+[2845:2860:1110/144800.127527:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.11 ms
+[2845:2860:1110/144800.627378:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.239 ms
+[2845:2860:1110/144801.127454:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.143 ms
+[2845:2860:1110/144801.627393:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.183 ms
+[2845:2860:1110/144802.127465:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.092 ms
+[2845:2860:1110/144802.627382:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.154 ms
+[2845:2845:1110/145356.710325:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1323] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2845:2845:1110/145811.049396:ERROR:gpu/command_buffer/service/gles2_cmd_decoder_passthrough.cc:1323] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.
+[2802:2802:1110/150353.538735:ERROR:chrome/browser/ui/views/user_education/impl/browser_user_education_interface_impl.cc:186] Attempting to show IPH IPH_ExtensionsZeroStatePromo before browser initialization complete; IPH will not be shown.
+[2845:2860:1110/150503.486521:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.182 ms
+[2845:2860:1110/150503.986554:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.128 ms
+[2845:2860:1110/150504.486604:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.06 ms
+[2845:2860:1110/150504.986634:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.009 ms
+[2845:2860:1110/150505.486583:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.039 ms
+[2845:2860:1110/150505.986556:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.045 ms
+[2845:2860:1110/150506.486544:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.038 ms
+[2845:2860:1110/150506.986494:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.067 ms
+[2845:2860:1110/150507.986518:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.006 ms
