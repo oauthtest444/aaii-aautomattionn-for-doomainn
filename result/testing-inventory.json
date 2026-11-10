@@ -1,313 +1,421 @@
 {
-  "targets": [
-    "ui.com"
-  ],
-  "routes": [
-    {
-      "url": "https://account.ui.com/login",
-      "status": "done",
-      "javascript": [],
-      "notes": "email+password login, 2FA, rate limiting; pre-MFA info disclosure VULN-20261110-002"
-    },
-    {
-      "url": "https://account.ui.com/login/mfa",
-      "status": "done",
-      "javascript": [],
-      "notes": "email OTP accepted; wrong token 403; throttled after ~7 (429)"
-    },
-    {
-      "url": "https://account.ui.com/login/change-email",
-      "status": "done",
-      "javascript": [],
-      "notes": "legacy self-scoped change-email flow; legacy send 403 AUTHENTICATION_FAILED; modern verify/send validates uniqueness"
-    },
-    {
-      "url": "https://account.ui.com/login/change-email/confirm",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/login/create-passkey",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/login/trust-device",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/register",
-      "status": "blocked",
-      "javascript": [],
-      "notes": "POST /api/sso/v2/users -> 403 CHALLENGE_RECAPTCHA_TOKEN_REQUIRED"
-    },
-    {
-      "url": "https://account.ui.com/verify",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/verify/verification-code/:uuid",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/reset-password",
-      "status": "blocked",
-      "javascript": [],
-      "notes": "reCAPTCHA + anti-bot (_ubiquiti_private_key/captcha/apple_devicecheck_token) required"
-    },
-    {
-      "url": "https://account.ui.com/reset-password/password-reset-uuid/:uuid",
-      "status": "done",
-      "javascript": [],
-      "notes": "PUT /api/sso/v1/verify/password/{uuid}; user uuid -> 404, needs emailed reset id"
-    },
-    {
-      "url": "https://account.ui.com/account",
-      "status": "done",
-      "javascript": [],
-      "notes": "self profile; mass-assignment of role/accounts ignored"
-    },
-    {
-      "url": "https://account.ui.com/profile",
-      "status": "done",
-      "javascript": [],
-      "notes": "redirects to /account (duplicate route)"
-    },
-    {
-      "url": "https://account.ui.com/security",
-      "status": "done",
-      "javascript": [],
-      "notes": "MFA/sessions/devices/addresses; cross-account ids 404/405/no-op; backup re-mint VULN-20261110-003"
-    },
-    {
-      "url": "https://account.ui.com/security/suspicious/confirm",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/billing",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing customer/orgs; 404 Customer not found"
-    },
-    {
-      "url": "https://account.ui.com/billing/:orgId",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing orgs on test account"
-    },
-    {
-      "url": "https://account.ui.com/invoices",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing customer"
-    },
-    {
-      "url": "https://account.ui.com/invoices/:invoiceId",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing customer"
-    },
-    {
-      "url": "https://account.ui.com/payments",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing customer"
-    },
-    {
-      "url": "https://account.ui.com/payments/3ds",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no billing customer"
-    },
-    {
-      "url": "https://account.ui.com/subscriptions",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no subscriptions"
-    },
-    {
-      "url": "https://account.ui.com/subscriptions/:service",
-      "status": "partial",
-      "javascript": [],
-      "notes": "no subscriptions"
-    },
-    {
-      "url": "https://account.ui.com/subscriptions/cloud-storage/subscribe",
-      "status": "pending",
-      "javascript": [],
-      "notes": "not exercised (no billing)"
-    },
-    {
-      "url": "https://account.ui.com/subscriptions/site-support/subscribe",
-      "status": "pending",
-      "javascript": [],
-      "notes": "not exercised (no billing)"
-    },
-    {
-      "url": "https://account.ui.com/requests",
-      "status": "done",
-      "javascript": [],
-      "notes": "Zendesk own tickets only"
-    },
-    {
-      "url": "https://account.ui.com/requests/:ticketId",
-      "status": "done",
-      "javascript": [],
-      "notes": "cross-account comments 403; write needs x-captcha-token"
-    },
-    {
-      "url": "https://account.ui.com/supportform",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/supportform-uisp",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/supportform-umr",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/mysupport",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/backups",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/switch",
-      "status": "partial",
-      "javascript": [],
-      "notes": "account-chooser cookie; not deeply tested"
-    },
-    {
-      "url": "https://account.ui.com/activate",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/logout",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    },
-    {
-      "url": "https://account.ui.com/idp/login-result",
-      "status": "partial",
-      "javascript": [],
-      "notes": "unauth POST {code,state} -> 400 STATE_MISSING; needs signed idp state cookie"
-    },
-    {
-      "url": "https://account.ui.com/msp/idp/setup-result",
-      "status": "pending",
-      "javascript": [],
-      "notes": ""
-    }
-  ],
-  "javascript": [
-    {
-      "url": "https://account.ui.com/assets/index-BAUIMHQa.js",
-      "sha256": "29983e5e6456bd59b9c4ecbf8283cecf80afca76bbed01b48be19b092855c18a",
-      "tested": true,
-      "notes": "manual source review: no app dangerouslySetInnerHTML, no eval/new Function, redirect allowlist, React escaping"
-    }
-  ],
-  "flows": [],
-  "endpoints": [
-    {
-      "method": "GET",
-      "url": "https://sso.ui.com/api/sso/v1/search/email/{email}",
-      "auth": false,
-      "observations": "204 exists, 404 absent, 429 rate limited; VULN-20261110-001"
-    },
-    {
-      "method": "GET",
-      "url": "https://sso.ui.com/api/sso/v1/search/username/{username}",
-      "auth": false,
-      "observations": "204 exists, 404 absent, 429 rate limited; VULN-20261110-001"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/login",
-      "auth": false,
-      "observations": "body {user,password}; correct -> 499 required 2fa + UUID/MFA metadata; VULN-20261110-002"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/login/2fa",
-      "auth": false,
-      "observations": "body {token}; wrong -> 403 INVALID_CREDENTIAL; 429 after ~7 attempts"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/user/self/2fa/backup",
-      "auth": true,
-      "observations": "mints 10 backup codes; accepts form-urlencoded empty body; no re-auth; VULN-20261110-003"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/user/self/2fa",
-      "auth": true,
-      "observations": "409 MFA_ALREADY_ENABLED on test account"
-    },
-    {
-      "method": "GET",
-      "url": "https://sso.ui.com/api/sso/v1/shopify_login",
-      "auth": false,
-      "observations": "302 to fixed https://account.ui.com/login?shopify=true&region=us; params ignored"
-    },
-    {
-      "method": "PATCH",
-      "url": "https://sso.ui.com/api/sso/v1/user/self/settings",
-      "auth": true,
-      "observations": "empty body 200; returns theme/newsletter/fabric/timezone/passwordless fields"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/user/self/email/verify/send",
-      "auth": true,
-      "observations": "body {email}; existing email -> 400 'This field must be unique'"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/legacy/user/self/email/send",
-      "auth": true,
-      "observations": "403 AUTHENTICATION_FAILED even with full session"
-    },
-    {
-      "method": "POST",
-      "url": "https://sso.ui.com/api/sso/v1/user/self/zendesk_user",
-      "auth": true,
-      "observations": "empty JSON -> 200 empty; GET -> 405"
-    },
-    {
-      "method": "DELETE",
-      "url": "https://sso.ui.com/api/sso/v1/account-chooser/{opaque_id}",
-      "auth": true,
-      "observations": "random opaque id -> 204 (idempotent); cross-account effect not verified"
-    }
-  ],
-  "listeners": []
+ "targets": [
+  "ui.com"
+ ],
+ "routes": [
+  {
+   "url": "https://account.ui.com/login",
+   "status": "done",
+   "javascript": [],
+   "notes": "email+password login, 2FA, rate limiting; pre-MFA info disclosure VULN-20261110-002"
+  },
+  {
+   "url": "https://account.ui.com/login/mfa",
+   "status": "done",
+   "javascript": [],
+   "notes": "email OTP accepted; wrong token 403; throttled after ~7 (429)"
+  },
+  {
+   "url": "https://account.ui.com/login/change-email",
+   "status": "done",
+   "javascript": [],
+   "notes": "legacy self-scoped change-email flow; legacy send 403 AUTHENTICATION_FAILED; modern verify/send validates uniqueness"
+  },
+  {
+   "url": "https://account.ui.com/login/change-email/confirm",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "legacy PUT /legacy/user/self/email requires account state email_changeable (499); Account A/B not eligible; modern email/verify/send requires L2 (499)"
+  },
+  {
+   "url": "https://account.ui.com/login/create-passkey",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "POST /mfa/webauthn/options -> 404 \"User or verified keys not found\" (no registered keys); no unauthenticated registration path"
+  },
+  {
+   "url": "https://account.ui.com/login/trust-device",
+   "status": "done",
+   "javascript": [],
+   "notes": "POST /api/sso/v1/user/self/device {device_id} -> 204; UI flow after MFA; trusted-session TTL 31536000s"
+  },
+  {
+   "url": "https://account.ui.com/register",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "POST /api/sso/v2/users -> 403 CHALLENGE_RECAPTCHA_TOKEN_REQUIRED"
+  },
+  {
+   "url": "https://account.ui.com/verify",
+   "status": "done",
+   "javascript": [],
+   "notes": "unauth -> /login; authenticated -> /; not directly reachable"
+  },
+  {
+   "url": "https://account.ui.com/verify/verification-code/:uuid",
+   "status": "done",
+   "javascript": [],
+   "notes": "PUT /api/sso/v1/verify/verification-code/{uuid} -> 404 for user uuid, zero uuid, \"1\"; token is emailed request id, not user uuid"
+  },
+  {
+   "url": "https://account.ui.com/reset-password",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "reCAPTCHA + anti-bot (_ubiquiti_private_key/captcha/apple_devicecheck_token) required"
+  },
+  {
+   "url": "https://account.ui.com/reset-password/password-reset-uuid/:uuid",
+   "status": "done",
+   "javascript": [],
+   "notes": "PUT /api/sso/v1/verify/password/{uuid}; user uuid -> 404, needs emailed reset id"
+  },
+  {
+   "url": "https://account.ui.com/account",
+   "status": "done",
+   "javascript": [],
+   "notes": "self profile; mass-assignment of role/accounts ignored"
+  },
+  {
+   "url": "https://account.ui.com/profile",
+   "status": "done",
+   "javascript": [],
+   "notes": "redirects to /account (duplicate route)"
+  },
+  {
+   "url": "https://account.ui.com/security",
+   "status": "done",
+   "javascript": [],
+   "notes": "MFA/sessions/devices/addresses; cross-account ids 404/405/no-op; backup re-mint VULN-20261110-003"
+  },
+  {
+   "url": "https://account.ui.com/security/suspicious/confirm",
+   "status": "partial",
+   "javascript": [],
+   "notes": "inspect/confirm require emailed confirm_token (field name validated); decisions validated; opaque tokens unguessable"
+  },
+  {
+   "url": "https://account.ui.com/billing",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing customer/orgs; 404 Customer not found"
+  },
+  {
+   "url": "https://account.ui.com/billing/:orgId",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing orgs on test account"
+  },
+  {
+   "url": "https://account.ui.com/invoices",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing customer"
+  },
+  {
+   "url": "https://account.ui.com/invoices/:invoiceId",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing customer"
+  },
+  {
+   "url": "https://account.ui.com/payments",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing customer"
+  },
+  {
+   "url": "https://account.ui.com/payments/3ds",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no billing customer"
+  },
+  {
+   "url": "https://account.ui.com/subscriptions",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no subscriptions"
+  },
+  {
+   "url": "https://account.ui.com/subscriptions/:service",
+   "status": "partial",
+   "javascript": [],
+   "notes": "no subscriptions"
+  },
+  {
+   "url": "https://account.ui.com/subscriptions/cloud-storage/subscribe",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "no billing customer/subscriptions on test account"
+  },
+  {
+   "url": "https://account.ui.com/subscriptions/site-support/subscribe",
+   "status": "blocked",
+   "javascript": [],
+   "notes": "no billing customer/subscriptions on test account"
+  },
+  {
+   "url": "https://account.ui.com/requests",
+   "status": "done",
+   "javascript": [],
+   "notes": "Zendesk own tickets only"
+  },
+  {
+   "url": "https://account.ui.com/requests/:ticketId",
+   "status": "done",
+   "javascript": [],
+   "notes": "cross-account comments 403; write needs x-captcha-token"
+  },
+  {
+   "url": "https://account.ui.com/supportform",
+   "status": "done",
+   "javascript": [],
+   "notes": "resolves to /requests (Zendesk tickets)"
+  },
+  {
+   "url": "https://account.ui.com/supportform-uisp",
+   "status": "done",
+   "javascript": [],
+   "notes": "resolves to external UISP support link"
+  },
+  {
+   "url": "https://account.ui.com/supportform-umr",
+   "status": "done",
+   "javascript": [],
+   "notes": "resolves to /requests"
+  },
+  {
+   "url": "https://account.ui.com/mysupport",
+   "status": "done",
+   "javascript": [],
+   "notes": "resolves to /requests"
+  },
+  {
+   "url": "https://account.ui.com/backups",
+   "status": "done",
+   "javascript": [],
+   "notes": "cloudaccess.svc.ui.com /api/v1/hosts and /ucore/backups empty for test account"
+  },
+  {
+   "url": "https://account.ui.com/switch",
+   "status": "done",
+   "javascript": [],
+   "notes": "logout + /login?login_hint=; redirect validated by AC() (http/https, *.ui.com|*.ubnt.com|*.uisp.com); no arbitrary external open redirect"
+  },
+  {
+   "url": "https://account.ui.com/activate",
+   "status": "done",
+   "javascript": [],
+   "notes": "client-side window.location.replace(activate.ui.com) redirect; no user-controlled sink"
+  },
+  {
+   "url": "https://account.ui.com/logout",
+   "status": "done",
+   "javascript": [],
+   "notes": "GET and POST /api/sso/v1/logout; GET clears .ui.com auth cookies with no CSRF token (VULN-20261110-004, Low, excluded)"
+  },
+  {
+   "url": "https://account.ui.com/idp/login-result",
+   "status": "partial",
+   "javascript": [],
+   "notes": "unauthenticated POST {code,state} -> 400 STATE_MISSING; needs signed IdP state cookie"
+  },
+  {
+   "url": "https://account.ui.com/msp/idp/setup-result",
+   "status": "done",
+   "javascript": [],
+   "notes": "window.opener.postMessage targetOrigin = window.location.origin; safe"
+  }
+ ],
+ "javascript": [
+  {
+   "url": "https://account.ui.com/assets/index-BAUIMHQa.js",
+   "sha256": "29983e5e6456bd59b9c4ecbf8283cecf80afca76bbed01b48be19b092855c18a",
+   "tested": true,
+   "notes": "manual source review: no app dangerouslySetInnerHTML, no eval/new Function, redirect allowlist, React escaping"
+  }
+ ],
+ "flows": [],
+ "endpoints": [
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/search/email/{email}",
+   "auth": false,
+   "observations": "204 exists, 404 absent, 429 rate limited; VULN-20261110-001"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/search/username/{username}",
+   "auth": false,
+   "observations": "204 exists, 404 absent, 429 rate limited; VULN-20261110-001"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/login",
+   "auth": false,
+   "observations": "body {user,password}; correct -> 499 required 2fa + UUID/MFA metadata; VULN-20261110-002"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/login/2fa",
+   "auth": false,
+   "observations": "body {token}; wrong -> 403 INVALID_CREDENTIAL; 429 after ~7 attempts"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/2fa/backup",
+   "auth": true,
+   "observations": "requires L2: level 1 -> 499 L2_REQUIRED; at L2 mints 10 backup codes; earlier \"no re-auth\" claim not reproducible at L1 (VULN-20261110-003 severity note)"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/2fa",
+   "auth": true,
+   "observations": "409 MFA_ALREADY_ENABLED on test account"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/shopify_login",
+   "auth": false,
+   "observations": "302 to fixed https://account.ui.com/login?shopify=true&region=us; params ignored"
+  },
+  {
+   "method": "PATCH",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/settings",
+   "auth": true,
+   "observations": "empty body 200; returns theme/newsletter/fabric/timezone/passwordless fields"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/email/verify/send",
+   "auth": true,
+   "observations": "body {email}; existing email -> 400 'This field must be unique'"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/legacy/user/self/email/send",
+   "auth": true,
+   "observations": "403 AUTHENTICATION_FAILED even with full session"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/zendesk_user",
+   "auth": true,
+   "observations": "empty JSON -> 200 empty; GET -> 405"
+  },
+  {
+   "method": "DELETE",
+   "url": "https://sso.ui.com/api/sso/v1/account-chooser/{opaque_id}",
+   "auth": true,
+   "observations": "random opaque id -> 204 (idempotent); cross-account effect not verified"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
+   "auth": true,
+   "observations": "body {password}; upgrades assurance to level 2 for 1800s (re-auth)"
+  },
+  {
+   "method": "DELETE",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
+   "auth": true,
+   "observations": "downgrades to level 1"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
+   "auth": true,
+   "observations": "returns {level,time_left_seconds}"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/picture",
+   "auth": true,
+   "observations": "raw body with Content-Type image/*; svg+xml -> 415 unsupported; png -> 200 {picture:https://account-cdn.svc.ui.com/<uuid>}; stored object served image/png; text/html+png bytes returns URL but object AccessDenied (no content-type control)"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/device",
+   "auth": true,
+   "observations": "body {device_id}; 204; marks device trusted after MFA"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/addresses",
+   "auth": true,
+   "observations": "self only; list of addresses"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/sessions",
+   "auth": true,
+   "observations": "self only; session metadata incl. IP/geo"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/trusted_devices",
+   "auth": true,
+   "observations": "self only; device metadata"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/mfa",
+   "auth": true,
+   "observations": "self only; authenticators (email/backup_code)"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/activity",
+   "auth": true,
+   "observations": "self only; uuid query ignored"
+  },
+  {
+   "method": "PUT",
+   "url": "https://sso.ui.com/api/sso/v1/user/self",
+   "auth": true,
+   "observations": "L2 required for username/password changes (499 at level 1); twofa_enabled/email not mass-assignable; empty body 204"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/email",
+   "auth": true,
+   "observations": "add email authenticator -> 499 L2_REQUIRED at level 1"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/account-chooser",
+   "auth": true,
+   "observations": "per-session saved accounts (opaque_id, username, email, remembered_at)"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/user/{uuid}/roles/beta",
+   "auth": true,
+   "observations": "403 \"mismatching UUID\" when path uuid != session user; no IDOR"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/suspicious/confirm/inspect",
+   "auth": true,
+   "observations": "requires field confirm_token; invalid -> validation error; token emailed"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/suspicious/confirm",
+   "auth": true,
+   "observations": "requires confirm_token + valid decision; token emailed"
+  },
+  {
+   "method": "POST",
+   "url": "https://sso.ui.com/api/sso/v1/mfa/webauthn/options",
+   "auth": true,
+   "observations": "404 \"User or verified keys not found\" when no passkeys registered"
+  },
+  {
+   "method": "GET",
+   "url": "https://sso.ui.com/api/sso/v1/logout",
+   "auth": false,
+   "observations": "302 to account.ui.com/login and clears UBIC_AUTH/UBIC_2FA/CloudFront cookies for .ui.com (logout CSRF, VULN-20261110-004)"
+  }
+ ],
+ "listeners": []
 }

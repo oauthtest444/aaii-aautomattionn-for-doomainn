@@ -1,6 +1,6 @@
 # Candidate (UNRESOLVED) — Credentialed CORS reflection on sso.ui.com
 
-**Status:** Not confirmed — no impact demonstrated.
+**Status:** Confirmed misconfiguration; exploitation impact Unresolved (no attacker-controlled `*.ui.com` origin found).
 **Severity if exploitable:** unknown.
 **Host:** `https://sso.ui.com`
 **Date:** 2026-11-10
@@ -46,3 +46,20 @@ Exploitation requires the attacker to control content on a `*.ui.com` origin
 (user content, uploaded HTML, or a subdomain takeover). Wildcard DNS `*.ui.com` points to
 AWS CloudFront and no such controllable origin was found. Without that, the reflected
 CORS grants no capability beyond what the victim's own origin already has.
+
+## Session 4 update (2026-11-10)
+- Re-confirmed on `sso.ui.com`: `Origin: https://evil.ui.com` -> `ACAO: https://evil.ui.com`,
+  `ACAC: true`; preflight allows `PUT, POST, PATCH, DELETE` with `content-type`.
+  Arbitrary non-`ui.com` origins (`https://attacker.example`) and `null` are rejected.
+- Also confirmed credentialed reflection on `cloudaccess.svc.ui.com`:
+  `Origin: https://evil.ui.com` -> `ACAO: https://evil.ui.com`, `ACAC: true`,
+  `Access-Control-Allow-Methods: GET,HEAD,OPTIONS,PUT,POST,DELETE`. This service exposes
+  host/backup/credential endpoints, so the latent impact is higher than the SSO API alone.
+- Wildcard DNS `*.ui.com` resolves to AWS CloudFront. Random names return
+  `302 https://account.ui.com/login?redirect=https%3A%2F%2F<host>%2F`; `/index.html`
+  is served from S3 (HTTP 200, `text/html`) and loads the fixed "UniFi Site Manager"
+  SPA from the same wildcard origin. Direct `PUT`/`POST`/`DELETE` to that origin return
+  `403`; no attacker-writable object or Host-header reflection was found.
+- Conclusion unchanged: the CORS policy trusts the entire `*.ui.com` namespace, but no
+  attacker-controlled `*.ui.com` origin (stored HTML/JS, takeover, or writable bucket)
+  was identified. Kept as Unresolved rather than a standalone finding.

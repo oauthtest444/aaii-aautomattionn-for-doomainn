@@ -1,0 +1,26 @@
+# VULN-20261110-004 evidence — GET logout clears auth cookies (no CSRF token)
+# Captured 2026-11-10T23:45:34Z against https://sso.ui.com
+
+$ curl -s -D - -o /dev/null 'https://sso.ui.com/api/sso/v1/logout'
+HTTP/2 302
+content-type: text/html; charset=utf-8
+content-length: 0
+location: https://account.ui.com/login
+set-cookie: UBIC_AUTH=""; Domain=.ui.com; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; Path=/
+set-cookie: UBIC_2FA=""; Domain=.ui.com; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; Path=/
+set-cookie: CloudFront-Key-Pair-Id=; Domain=.ui.com; expires=Tue, 10 Nov 2026 23:45:34 GMT; Max-Age=0; Path=/; Version=1
+set-cookie: CloudFront-Policy=; Domain=.ui.com; expires=Tue, 10 Nov 2026 23:45:34 GMT; Max-Age=0; Path=/; Version=1
+set-cookie: CloudFront-Signature=; Domain=.ui.com; expires=Tue, 10 Nov 2026 23:45:34 GMT; Max-Age=0; Path=/; Version=1
+server: nginx
+allow: GET, POST, HEAD, OPTIONS
+cache-control: private, max-age=0, no-cache
+
+# Same result with a syntactically invalid cookie (no server-side session needed):
+$ curl -s -D - -o /dev/null 'https://sso.ui.com/api/sso/v1/logout' -H 'Cookie: UBIC_AUTH=fake'
+HTTP/2 302  (identical Set-Cookie clearing headers)
+
+# Control: POST /api/sso/v1/logout -> 204 (also no CSRF token)
+$ curl -s -o /dev/null -w '%{http_code}\n' -X POST 'https://sso.ui.com/api/sso/v1/logout'
+204
+
+# Method advertisement: Allow: GET, POST, HEAD, OPTIONS

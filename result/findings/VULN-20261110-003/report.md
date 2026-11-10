@@ -1,10 +1,30 @@
 # VULN-20261110-003 — 2FA backup-code re-mint accepts CSRF-shaped requests without re-auth
 
-**Status:** Confirmed behavior; exploitability requires a `*.ui.com` origin or a stolen session
+**Status:** Corrected 2026-11-10 (Session 4) — not reproducible at assurance level 1; endpoint enforces L2 re-auth
 **Severity:** Low (Informational)
 **Host:** `https://sso.ui.com`
 **Date:** 2026-11-10
 **Authentication:** user A (full session)
+
+## Session 4 re-test correction
+The original test was performed while the session was at assurance level 2
+(recent password/MFA step-up), which made the endpoint appear to accept the
+request without re-authentication. Re-testing after explicitly downgrading to
+level 1 (`DELETE /api/sso/v1/user/self/login/level`) gives:
+
+```
+POST /api/sso/v1/user/self/2fa/backup
+Content-Type: application/json
+-> HTTP/2 499
+{"error":"L2_REQUIRED","detail":"Please re-authenticate with your password","ERRCODE":"L2_REQUIRED"}
+```
+
+The same `L2_REQUIRED` gate was observed for other sensitive self-service
+operations (email change request, add email authenticator, password/username
+change, picture upload). Therefore the "no re-auth" property described below is
+incorrect for a level-1 session; exploitation would additionally require the
+attacker to hold a level-2 (re-authenticated) session. Severity is Informational.
+The original observations are preserved below for the record.
 
 ## Summary
 `POST /api/sso/v1/user/self/2fa/backup` generates a fresh set of 10 MFA backup
