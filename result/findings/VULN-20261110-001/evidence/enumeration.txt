@@ -1,0 +1,22 @@
+# Account existence oracle — raw evidence (2026-11-10)
+
+Existing email (account A)       : 204
+https://sso.ui.com/api/sso/v1/search/email/tan.tiger5564@maildrop.cc
+
+Existing email (account B)       : 204
+https://sso.ui.com/api/sso/v1/search/email/overrated.chinchilla337@maildrop.cc
+
+Unregistered email               : 404
+https://sso.ui.com/api/sso/v1/search/email/definitely-not-registered-9931@maildrop.cc
+
+Existing username                : 204
+https://sso.ui.com/api/sso/v1/search/username/testttt12
+
+Unregistered username            : 429 (rate limited; earlier 404 pattern)
+https://sso.ui.com/api/sso/v1/search/username/nonexistentzzz12345
+
+All requests were sent with no Cookie header.
+Response bodies:
+  204 -> empty
+  404 -> empty
+  429 -> {"error": "RATE_LIMITED", "detail": "Too many requests"}

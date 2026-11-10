@@ -1,0 +1,29 @@
+# 2FA backup-code re-mint — raw evidence (2026-11-10, test account A)
+
+## Request (simple request, form content type, empty body, full session only)
+POST https://sso.ui.com/api/sso/v1/user/self/2fa/backup
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+
+## Responses
+201  {"id":"ae514c45-64ea-46cf-a444-e86c845282e7","created":"2026-11-10T16:11:56.400613Z",
+      "last_success":null,"type":"backup_code","status":"backup","codes_left":10,
+      "backup_codes":["0becab-bbe6d3","fd32fb-7e9272", ... 10 codes ... ]}
+
+201  (second call, same authenticator id, NEW codes)
+     {"id":"ae514c45-64ea-46cf-a444-e86c845282e7", ... "codes_left":10,
+      "backup_codes":["cfd3b0-904a06","ddb569-0600dd", ... 10 codes ... ]}
+
+## Content-type behavior
+application/json          -> 201 (accepted)
+application/x-www-form-urlencoded (empty body) -> 201 (accepted; CORS simple request)
+text/plain ("{}")         -> 415 UNSUPPORTED_MEDIA_TYPE
+
+## Session cookie (from Set-Cookie)
+UBIC_AUTH=...; Domain=.ui.com; HttpOnly; SameSite=lax; Secure; Max-Age=2592000
+
+## Pre-MFA session (UBIC_2FA) does NOT allow it
+POST /api/sso/v1/user/self/2fa/backup -> 401 " is not allowed"
+
+## JWT forgery negative check
+alg:none token with valid payload + UBIC_AUTH name -> GET /user/self = 401

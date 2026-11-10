@@ -19,3 +19,10 @@
 - Target: ui.com -> account.ui.com
 - Prior state: 37 routes discovered, login flow proven, no routes fully tested
 - Chrome DevTools MCP: available (about:blank)
+
+## Session 3 (continuation)
+- Start time (UTC): 2026-11-10T16:05:19Z
+- Run id: 42850898064 (workflow_dispatch, resume/preserved)
+- Target: ui.com -> account.ui.com
+- Prior state: 9 routes fully tested, 26 pending, 2 partial/blocked; no confirmed vulns
+- Chrome DevTools MCP: available (Chrome/157, about:blank)

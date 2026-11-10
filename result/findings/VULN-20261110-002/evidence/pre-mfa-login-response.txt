@@ -1,0 +1,49 @@
+# Pre-MFA login response (redacted) — 2026-11-10
+# Request: POST https://sso.ui.com/api/sso/v1/login
+# Body: {"user":"<redacted test email>","password":"<redacted test password>"}
+# Note: no Authorization/Cookie credentials were supplied; response Set-Cookie
+#       only granted the restricted short-lived UBIC_2FA cookie.
+
+HTTP/2 499
+content-type: application/json
+
+{
+  "required": "2fa",
+  "authenticators": [
+    {
+      "id": "b82c4c7d-f733-44c1-b6db-ffa6d5f8183b",
+      "created": "2025-01-12T17:14:04.887943Z",
+      "last_success": "2026-11-10T16:06:06.918413Z",
+      "type": "email",
+      "status": "active",
+      "blocked_reason": null,
+      "email": "ta........64@maildrop.cc"
+    },
+    {
+      "id": "ae514c45-64ea-46cf-a444-e86c845282e7",
+      "created": "2026-11-10T16:11:56.400613Z",
+      "last_success": null,
+      "type": "backup_code",
+      "status": "backup",
+      "codes_left": 10
+    }
+  ],
+  "publicKeyCredentialRequestOptions": {
+    "challenge": "<redacted>",
+    "timeout": 60000,
+    "rpId": "ui.com",
+    "allowCredentials": [],
+    "userVerification": "preferred"
+  },
+  "user": {
+    "default_mfa": "b82c4c7d-f733-44c1-b6db-ffa6d5f8183b",
+    "id": "d8946fad-2b8e-4cf0-82c5-5d955b57b829"
+  }
+}
+
+# Follow-up with the UBIC_2FA cookie (pre-MFA):
+#   GET  /api/sso/v1/user/self                       -> 401 " is not allowed"
+#   POST /api/sso/v1/user/self/2fa/backup (json)     -> 401 " is not allowed"
+#   GET  /api/sso/v1/user/self/2fa                   -> 401 " is not allowed"
+#   GET  /api/sso/v1/user/self/settings              -> 403 PERMISSION_DENIED
+#   POST /api/sso/v1/user/self/email/verify/send     -> 401 " is not allowed"
