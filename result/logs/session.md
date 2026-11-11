@@ -18,3 +18,22 @@
   own-ticket scoped (VULN-20261111-001, Unresolved/self-XSS).
 - confirmed-vuln.txt unchanged (comments only); no Discord notification sent.
 - Large prior-session JS bundle preserved; only sanitized snippets added this session.
+
+## Session 6 — run 43034033571 (scheduled, preserved)
+- Start (UTC): 2026-11-11T14:02:45Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank page present)
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3 3.14.4, google-chrome-stable
+- Resume decision: preserved (target hash unchanged) — continue untested/partial routes only
+- Prior coverage: account.ui.com (37 routes; 21 done), www.ui.com, sso/account.svc APIs
+
+## Session 6 result
+- End (UTC): 2026-11-11T14:32Z
+- No high-impact vulnerability confirmed; confirmed-vuln.txt unchanged.
+- Exhausted remaining reachable auth edges: login-token API, pre-MFA authorization,
+  cross-account OTP, JWT HS256 key confusion, change-email gating, account deletion L2.
+- Zendesk ticket-create remains rate-limited (B reset ~15:19Z, A ~15:24Z); comment
+  endpoint still rejects headless reCAPTCHA tokens. Stored-XSS test must resume after
+  the reset with a fresh account or valid reCAPTCHA score.
+- No Discord notification sent.

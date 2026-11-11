@@ -103,3 +103,46 @@ JWT `alg:none` forgery rejected; pre-MFA session cannot reach `/user/self/**`;
 - `/` on `www.ui.com` — client-side Done; server-side no new in-scope API — Done.
 - `account.ui.com` — remains as prior sessions (21 done, partial/blocked unchanged);
   this session added the deep JS audit rather than re-visiting already-tested routes.
+
+## Session 6 (2026-11-11T14:02Z, run 43034033571) — targeted auth/rate-limit checks
+
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- Login-token flow: `POST /api/sso/v1/user/self/token/setup|login` require `{token}`;
+  random/known-invalid values -> `404`; unauthenticated -> `401`. No call sites in the
+  SPA bundle beyond config. Not reproducible without a valid external login token.
+- Change-email flow: route/UI gated by pre-MFA `user.email_changeable`, which is absent
+  for A/B (both verified). Pre-MFA `UBIC_2FA` request -> `403 PERMISSION_DENIED`;
+  authenticated request -> `403 AUTHENTICATION_FAILED` even at L2 and with the correct
+  password. `PUT /user/self` cannot set `email_changeable`. Remains blocked.
+- Pre-MFA authorization matrix (B `UBIC_2FA`): self/settings/sessions/trusted_devices/
+  device all `401/403`; POST device/trusted_devices/sessions -> `403`. No pre-MFA data
+  leak or trust-device bypass.
+- Cross-account OTP confusion: B's fresh email OTP submitted to A's pre-MFA session ->
+  `403 INVALID_CREDENTIAL`. OTP is correctly bound to the login session/user.
+- JWT key confusion: HS256 tokens signed with the RS256 public key (PEM, modulus,
+  base64, JWKS, kid variants) -> `401`. JWKS/OpenID metadata exposes RS256 only.
+- Account deletion: B `DELETE /user/self` with wrong password -> `499 L2_REQUIRED`;
+  account intact. L2 wrong-password upgrade -> `403 INVALID_CREDENTIAL`; correct
+  password -> `200 level:2`.
+- Zendesk cross-account read: A can read only A's closed ticket/comments; B's -> `403`;
+  B likewise cannot read A's closed ticket.
+- Zendesk create rate limit: both A and B remain at `x-ratelimit-remaining: 0`.
+  Reset times observed: B `1794410373` (~15:19Z), A `1794410691` (~15:24Z).
+  Bypass attempts via `X-Forwarded-For`/`X-Real-IP`/`CF-Connecting-IP`/`True-Client-IP`,
+  body `requester`/`requester_id`, trailing slash, `%2F`, case, and query variants all
+  still returned `429`; alternate unmatched paths returned generic `404` with the
+  separate 1000/min limit.
+- Zendesk comment captcha: fresh in-page `grecaptcha.enterprise.execute` token for
+  action `ZENDESK_CREATE_TICKET_COMMENT` still -> `403 Did not pass reCAPTCHA validation`.
+  Headless/automation score is likely the blocker; no server-side bypass found.
+- Exposed `GOOGLE_RECAPTCHA_SECRET_*` constants are used as reCAPTCHA **site keys**
+  (`enterprise.execute`/`render` sitekey), not server secrets; not a finding.
+
+### Still blocked
+- Stored XSS in Zendesk ticket `html_body` cannot be exercised until the per-account
+  ticket-create rate limit resets (A ~15:24Z, B ~15:19Z); comments also require a
+  reCAPTCHA token that the headless browser cannot obtain in this environment.
+- No third test account: registration reCAPTCHA token is rejected
+  (`CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`) for the same reason.
