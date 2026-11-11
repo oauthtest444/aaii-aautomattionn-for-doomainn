@@ -1,0 +1,17 @@
+Bundle: https://account.ui.com/assets/index-BAUIMHQa.js
+SHA256: 29983e5e6456bd59b9c4ecbf8283cecf80afca76bbed01b48be19b092855c18a
+Sink: html-react-parser (BLt) on Zendesk comment html_body
+offset: 6404335
+
+Agent`,WLt=e=>{let{author_type:t,created_at:n,author_name:r,html_body:i,attachments:a}=e,{userSettings:o}=dw(),{profileData:s}=MQ(),c=t===H$.AGENT||t===H$.UNKNOWN,l=t===H$.END_USER,{image:u,name:d}=(0,P.useMemo)(()=>c?{image:VLt,name:HLt.includes(r)?ULt:r}:l?{name:HLt.includes(r)?ULt:r}:{image:s?.picture,name:r},[c,l,s?.picture,r]);return(0,F.jsxs)(J,{column:!0,children:[(0,F.jsxs)(J,{gap:8,alignItems:`center`,height:`100%`,children:[(0,F.jsx)(EI,{fallbackImage:`avatar`,shape:`square`,size:`medium`,image:u,alt:d}),(0,F.jsx)(G,{variant:`heading-small`,children:d}),(0,F.jsxs)(G,{variant:`caption`,color:`text-3`,style:{display:`flex`,gap:4},children:[(0,F.jsx)(`span`,{children:(0,F.jsx)(hJ,{value:n,...Q8(o?.time_format===mw.TWELVE_HOUR)})}),(0,F.jsx)(`span`,{children:(0,F.jsx)(mJ,{value:n,month:`short`,day:`numeric`})})]})]}),(0,F.jsx)(GLt,{children:(0,F.jsx)(G,{color:`text-2`,children:BLt(i)})}),a.length>0&&(0,F.jsx)(KLt,{children:a.map(e=>(0,F.jsxs)(gG,{fontSize:`medium`,href:e.content_url,target:`_blank`,rel:`noreferrer`,isTruncated:!0,children:[(0,F.jsx)(RL,{}),e.file_name]},e.content_url))})]})},GLt=dZ.div`
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+
+  .zd-comment img {
+    max-width: 100%;
+    height: auto;
+  }
+`,KLt=dZ.div`
+  display: flex;
+  flex-direction: col

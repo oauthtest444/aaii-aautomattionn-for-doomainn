@@ -1,0 +1,33 @@
+# Out-of-scope assets observed (not tested)
+
+This file records assets discovered during in-scope testing that were NOT tested, per
+AGENT.md §2/§6. Scope is the ui.com domain and its explicitly approved components
+(ui.com, www.ui.com, account.ui.com, sso.ui.com, account.svc.ui.com,
+cloudaccess.svc.ui.com). Everything below is either a different registrable domain or a
+third-party service.
+
+## Third-party origins loaded by www.ui.com / account.ui.com
+- cdn.cookielaw.org, geolocation.onetrust.com (OneTrust consent)
+- www.googletagmanager.com, www.google-analytics.com (GTM/GA)
+- static.hotjar.com (Hotjar)
+- dev.visualwebsiteoptimizer.com (VWO)
+- www.redditstatic.com, pixel-config.reddit.com, alb.reddit.com (Reddit pixel)
+- js.stripe.com, m.stripe.network (Stripe)
+- static.ada.support (Ada chat)
+- images.svc.ui.com (image CDN; only static images requested)
+
+## Other ui.com infrastructure (not in the approved component list)
+- `*.svc.ui.com` services other than account.svc/cloudaccess.svc, e.g.
+  fabric.svc, billing.svc, enterprise.svc, lte-api.svc, u5g-api.svc, megaphone.svc,
+  geo.svc, images.svc, direct.svc, feedback.svc, account-cdn.svc
+- `*.store.ui.com` / `store.ui.com` (Shopify storefront; separate commerce system)
+- `*.ubnt.com`, `uisp.com`, `amplifi.com`, `unifi.com` and other non-ui.com domains
+- 1,569 `ui.com` subdomains from certificate-transparency enumeration, dominated by
+  `<uuid>.unifi-hosting[.stg|.dev].ui.com`. Passive enumeration only; no DNS brute force
+  or host probing was performed (would be broad/out-of-scope and risk disruptive testing).
+
+## Notes
+- The existing `sso.ui.com` credentialed-CORS observation would only become exploitable
+  if an attacker could control content on some `*.ui.com` origin. No such origin was
+  found; wildcard `*.ui.com` serves a fixed SPA. See
+  `result/findings/cors-credentialed-reflection.md`.

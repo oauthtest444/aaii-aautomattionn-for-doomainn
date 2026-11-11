@@ -74,3 +74,32 @@ JWT `alg:none` forgery rejected; pre-MFA session cannot reach `/user/self/**`;
   CloudFront but return `403` with no served content, so no clickjacking PoC was possible.
 - `script-src` allows `*.ui.com`/`*.ubnt.com` plus `'unsafe-inline'`; wildcard `*.ui.com`
   serves a fixed SPA, so this is only exploitable with an injection on some `ui.com` host.
+
+## Session 5 (2026-11-11T05:51Z, run 42968379409) — www.ui.com + deeper bundle audit
+
+- Total UI routes discovered across both apps: 38 (37 account + 1 www home).
+- Fully tested this session: `https://www.ui.com/` (client-side) and a full-bundle sink
+  re-audit of the `account.ui.com` SPA. No new high-impact vulnerability.
+- `www.ui.com` (marketing microsite): no URL/query-driven DOM source, no external
+  redirect sink (only static-config `vg`), `dangerouslySetInnerHTML` uses bundled i18n
+  strings, no in-scope postMessage listener. Status: Done.
+- account.ui.com bundle (SHA256 `29983e5e...855c18a`): 7.1 MB single bundle.
+  - 18 `dangerouslySetInnerHTML`: 17 React/Radix/attribute internals + 1 app-level
+    Zendesk `html_body` renderer (`WLt`, ~offset 6404335) via `html-react-parser`.
+  - No DOMPurify/sanitize-html/xss library present -> candidate VULN-20261111-001,
+    Unresolved/self-XSS (comments are own-ticket scoped; cross-account 403).
+  - 4 `message` listeners: Sentry (same-window), axios (same-window), Megaphone
+    (`source===parent` + `https` + `AC()` allowlist + Zod schema), MSP IdP (exact origin).
+  - All `location.href/replace/assign` redirect sinks gated by `AC()` (http/https +
+    registrable domain in ui.com/ubnt.com/uisp.com). No open redirect.
+- Re-confirmed `POST /api/sso/v1/login/email` is an unauthenticated
+  `user_exists` + `login_methods` oracle (unknown user -> 400). Same excluded class as
+  VULN-20261110-001.
+- Re-tested CORS origin matcher for suffix bypass: `https://ui.com.evil.com` and
+  `https://account.ui.com.evil.com` are rejected; only real `*.ui.com` https origins
+  are reflected. No escalation of the existing CORS observation.
+
+### Route completion status (this session)
+- `/` on `www.ui.com` — client-side Done; server-side no new in-scope API — Done.
+- `account.ui.com` — remains as prior sessions (21 done, partial/blocked unchanged);
+  this session added the deep JS audit rather than re-visiting already-tested routes.

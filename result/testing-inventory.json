@@ -224,6 +224,16 @@
    "status": "done",
    "javascript": [],
    "notes": "window.opener.postMessage targetOrigin = window.location.origin; safe"
+  },
+  {
+   "url": "https://www.ui.com/",
+   "status": "done",
+   "javascript": [
+    "https://www.ui.com/microsite/static/index-D-lz99wc.js",
+    "https://www.ui.com/microsite/static/Landing-BaDyOaz_.js",
+    "https://www.ui.com/microsite/static/layout-CgCwx8Gc.js"
+   ],
+   "notes": "Session 5: no URL-driven DOM source/sink; static-config redirect only; no in-scope message listener"
   }
  ],
  "javascript": [
@@ -231,10 +241,50 @@
    "url": "https://account.ui.com/assets/index-BAUIMHQa.js",
    "sha256": "29983e5e6456bd59b9c4ecbf8283cecf80afca76bbed01b48be19b092855c18a",
    "tested": true,
-   "notes": "manual source review: no app dangerouslySetInnerHTML, no eval/new Function, redirect allowlist, React escaping"
+   "notes": "Session 5 full-bundle pass: 18 dangerouslySetInnerHTML (17 library, 1 app Zendesk html_body via html-react-parser), 4 message listeners, redirect sinks AC-gated"
+  },
+  {
+   "url": "https://www.ui.com/microsite/static/index-D-lz99wc.js",
+   "sha256": "851df604e5c21167cf0149398de31407dcef62953a4882c26ab5958e348f9ec2",
+   "tested": true,
+   "notes": "www home: sources/sinks reviewed; no URL-driven flow"
+  },
+  {
+   "url": "https://www.ui.com/microsite/static/Landing-BaDyOaz_.js",
+   "sha256": "be75267c9ec1564ff7bc6314b897dfce964aa0a554003976d6ea374d317be719",
+   "tested": true,
+   "notes": "www home: no sinks"
+  },
+  {
+   "url": "https://www.ui.com/microsite/static/layout-CgCwx8Gc.js",
+   "sha256": "2e611cc883b237f44314bd83bc5b361ef35498a8df146f8fca4c0c8ea6709f7a",
+   "tested": true,
+   "notes": "www home: no sinks"
   }
  ],
- "flows": [],
+ "flows": [
+  {
+   "source": "GET /zendesk/comments/{id} html_body",
+   "sink": "html-react-parser -> React DOM",
+   "file": "account index-BAUIMHQa.js ~6404335 (WLt)",
+   "status": "unresolved",
+   "evidence": "result/findings/VULN-20261111-001/"
+  },
+  {
+   "source": "static route config to",
+   "sink": "window.location.href (vg)",
+   "file": "www index-D-lz99wc.js",
+   "status": "not-vulnerable",
+   "evidence": "result/client-side/www.ui.com/home/flows.md"
+  },
+  {
+   "source": "window.location.pathname",
+   "sink": "language-switch same-origin URL (ad)",
+   "file": "www index-D-lz99wc.js",
+   "status": "not-vulnerable",
+   "evidence": "result/client-side/www.ui.com/home/flows.md"
+  }
+ ],
  "endpoints": [
   {
    "method": "GET",
@@ -417,5 +467,38 @@
    "observations": "302 to account.ui.com/login and clears UBIC_AUTH/UBIC_2FA/CloudFront cookies for .ui.com (logout CSRF, VULN-20261110-004)"
   }
  ],
- "listeners": []
+ "listeners": [
+  {
+   "file": "account index-BAUIMHQa.js ~5039212",
+   "handler": "Megaphone $$",
+   "origin_check": "https + AC(origin) allowlist",
+   "source_check": "event.source===window.parent",
+   "status": "not-vulnerable",
+   "notes": "accepts any https *.ui.com/*.ubnt.com/*.uisp.com parent; Zod-validated; no sink"
+  },
+  {
+   "file": "account index-BAUIMHQa.js ~5484083",
+   "handler": "MSP IdP setup",
+   "origin_check": "exact window.location.origin",
+   "source_check": "none",
+   "status": "not-vulnerable",
+   "notes": "requires type msp-idp-setup-result"
+  },
+  {
+   "file": "account index-BAUIMHQa.js ~134405",
+   "handler": "Sentry dialog closed",
+   "origin_check": "none",
+   "source_check": "same-window",
+   "status": "not-vulnerable",
+   "notes": "library"
+  },
+  {
+   "file": "account index-BAUIMHQa.js ~549785",
+   "handler": "axios scheduler",
+   "origin_check": "n/a",
+   "source_check": "source===window + nonce",
+   "status": "not-vulnerable",
+   "notes": "library"
+  }
+ ]
 }

@@ -45,3 +45,11 @@
   fuzzing, no real-user data access, no social engineering.
 - Use only test-owned data/accounts; harmless payloads.
 - Respect rate limits and program policy; stricter rule wins.
+
+## Session 5 scope notes
+- Added `https://www.ui.com/` client-side review (already listed as in-scope component).
+- Performed passive certificate-transparency enumeration of `ui.com` only; no DNS
+  brute force and no probing of unrelated subdomains was performed.
+- `*.svc.ui.com` services other than `account.svc.ui.com` / `cloudaccess.svc.ui.com`,
+  `store.ui.com`, and non-`ui.com` domains remain out of scope and are recorded in
+  `result/out-of-scope.txt`. No scope expansion was performed.

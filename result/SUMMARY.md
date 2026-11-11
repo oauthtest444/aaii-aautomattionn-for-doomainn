@@ -47,3 +47,29 @@
   Host-header spoofing is rejected by CloudFront (`403`).
 - Confirmed logout CSRF (VULN-20261110-004) and corrected the backup-code finding.
 - `GET /api/sso/v1/user/{uuid}/roles/beta` is method-gated and rejects mismatched UUIDs (`403`).
+
+## Session 5 additions (2026-11-11T05:51Z, run 42968379409)
+- New in-scope surface tested: `https://www.ui.com/` (marketing microsite). Full
+  source/sink/listener review of its 7 route JS bundles -> no attacker-controlled flow,
+  no in-scope postMessage listener, redirect component consumes static config only.
+  Status Done.
+- Deeper audit of the `account.ui.com` SPA bundle (7.1 MB, hash `29983e5e...855c18a`):
+  - The bundle does contain HTML sinks (prior note was incomplete): 18
+    `dangerouslySetInnerHTML`, of which one is app-level — Zendesk comment `html_body`
+    rendered through `html-react-parser` with no sanitizer lib. Candidate
+    `VULN-20261111-001`, **Unresolved / self-XSS** because comments are own-ticket scoped
+    (cross-account 403). Not added to `confirmed-vuln.txt`.
+  - 4 `message` listeners all validated (Sentry/axios same-window; Megaphone requires
+    same-parent source + https + `AC()` allowlist + Zod schema; MSP IdP requires exact
+    origin). No sink reached.
+  - All external redirect sinks gated by `AC()` (http/https + ui.com/ubnt.com/uisp.com
+    registrable domain). No open redirect.
+- `POST /api/sso/v1/login/email` re-confirmed as an unauthenticated user-existence +
+  login-methods oracle (unknown user -> 400); same excluded class as VULN-20261110-001.
+- CORS suffix-bypass re-test: `https://ui.com.evil.com` / `https://account.ui.com.evil.com`
+  are rejected; only real `*.ui.com` https origins are reflected. Existing CORS
+  observation remains Unresolved (no attacker-controlled `*.ui.com` origin).
+- `result/confirmed-vuln.txt`: still no high-impact entries (no XSS/CSTI/IDOR/BAC/open-redirect
+  confirmed).
+- Route count now 38 (37 account.ui.com + 1 www.ui.com). No high-impact vulnerability found
+  this session; no Discord notification sent (notification bar not met).

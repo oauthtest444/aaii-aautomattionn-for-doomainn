@@ -1,1 +1,8 @@
 [2026-11-10T14:49Z] account.ui.com/login: login email step POST /api/sso/v1/login/email -> user_exists true, login_methods [password]. Password POST /api/sso/v1/login -> 2fa required (email OTP). MFA OTP from maildrop test inbox accepted. Trust-device declined. Authenticated as test account A username testttt12 uuid d8946fad-2b8e-4cf0-82c5-5d955b57b829.
+[2026-11-11T05:51Z] Session 5 start (run 42968379409, preserved)
+[2026-11-11T05:52Z] www.ui.com home navigated; 7 same-origin JS bundles retrieved (hashes in manifest)
+[2026-11-11T05:53Z] www.ui.com source/sink/listener regex pass: no attacker-controlled flow; status Done
+[2026-11-11T05:54Z] account.ui.com/login loaded; single bundle index-BAUIMHQa.js (SHA256 29983e5e...855c18a)
+[2026-11-11T05:55Z] full-bundle audit: 18 dangerouslySetInnerHTML, 4 message listeners, AC-gated redirects
+[2026-11-11T05:56Z] reconfirmed login/email oracle; CORS suffix-bypass re-test: rejected
+[2026-11-11T05:57Z] candidate VULN-20261111-001 (Zendesk html_body unsanitized, self-XSS) written Unresolved

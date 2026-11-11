@@ -1,0 +1,4 @@
+Bundle: https://account.ui.com/assets/index-BAUIMHQa.js
+Redirect allowlist AC() (offset ~763125)
+
+ch(e=>{n?.searchParams.delete(e)}),n.toString()}catch(n){console.error(`Could not decode URL`,{url:e,queryParams:t,e:n})}return e},AC=e=>{if(!e)return!1;try{let t=new URL(e),n=t.hostname.split(`.`).slice(-2).join(`.`),r=Vpe.includes(n),i=t.protocol===`http:`||t.protocol===`https:`;return r&&i}catch{return!1}},Wpe=e=>AC(e.href),Gpe=(e,t)=>{if(!t)return null;try{return new URL(t,e).href}catch(n){return console.error(`Could not build external URL`,{base:e,path:t,e:n}),null}},jC=

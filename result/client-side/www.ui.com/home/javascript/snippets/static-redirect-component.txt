@@ -1,0 +1,4 @@
+www index-D-lz99wc.js
+SHA256: 851df604e5c21167cf0149398de31407dcef62953a4882c26ab5958e348f9ec2
+
+})),_g=({to:e})=>{let{storeId:t=_r.Us,language:n=On}=re(),r=`/${t}/${n}`;return(0,G.jsx)(O,{to:`${r}${e}`,replace:!0})},vg=({to:e})=>((0,K.useEffect)(()=>{window.location.href=e},[e]),null),yg=e=>e.flatMap(({from:e,to:t})=>{let n=t.startsWith(`http`),r=e.endsWith(`/*`),i=r?e.slice(0,-2):e,a=n?(0,G.jsx)(vg,{to:t}):(0,G.jsx)(_g,{to:t});return pg(i,r).map(e=>({path:e,element:a}))}),bg=B.div.withConfig({componentId:`sc-86056102-0`})([`height:100vh;background:#fff;`]);B.pre.withConfig({componentId:`sc-86056102-1`})([`color:#808893;font-size:12px;margin-top:24px;max-width:640px;overflow-x:auto;white-space:pre-wrap;`]);var xg=()=>{let e=ee
