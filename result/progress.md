@@ -146,3 +146,49 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   reCAPTCHA token that the headless browser cannot obtain in this environment.
 - No third test account: registration reCAPTCHA token is rejected
   (`CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`) for the same reason.
+
+## Session 7 (2026-11-12T00:28Z, run 43127366314) — Zendesk/sso re-test + Site Manager
+
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- Zendesk `search_tickets` / `search_ccd`: require header `x-captcha-token`; without it
+  `400 "reCAPTCHA token was not provided"`. `grecaptcha` is not present on the home page.
+  Blocked (same headless-captcha limitation).
+- Zendesk ticket `requester` mass assignment: created ticket `6138711` with
+  `requester.email` = Account B -> backend ignored it; `requester_id` stayed A
+  (`44644434942359`). No cross-account injection.
+- Zendesk ticket-list IDOR via query params: `?requester_id=`, `?user_id=`, `?email=`,
+  `?page=` are all ignored (returns A's tickets only). `tickets/closed` likewise.
+- Zendesk `html_body` stored XSS (VULN-20261111-001): user HTML is escaped server-side
+  (`&lt;b&gt;`, `&lt;img ...&gt;`) in `html_body`, the field the SPA parses -> **Not
+  Vulnerable**. Report + evidence updated; removed from candidates.
+- sso probes (as A, L2): `/legal` 200; `/account-chooser` 200 (opaque_id
+  `612ef234-...`); `/v2/password-strength` 400 min_length 12; `/v1/password-strength`
+  200; `/user/self/roles` 200; `/user/self` 200. `/chat/messaging/jwt` 404.
+- IDOR `/api/sso/v1/user/{B-uuid}` and variants -> `403 mismatching UUID`/404.
+  `GET /user/self/2fa` -> `409 MFA_ALREADY_ENABLED`; `/2fa/reset` -> 404.
+- `/idp/login-result`: `POST /api/sso/v1/idp/login-result {code,state}` -> `400
+  STATE_MISSING` for arbitrary/empty state; requires a server-issued state. Blocked.
+- `/login/create-passkey`: WebAuthn registration route; no reachable unauthenticated
+  flow (`/mfa/webauthn/options` 404). Not a vuln.
+- New in-scope surface: wildcard `*.ui.com` serves the "UniFi Site Manager" SPA.
+  Bundles audited in `/tmp/unifi`: one app-level `dangerouslySetInnerHTML` (release-notes
+  blocks from API); no `innerHTML`/`document.write` in app bundles; postMessage bridge
+  `portal:account-bridge` validates `.ui.com` origin; `navigation.requested` requires
+  `host==="unifi"` + path `/`-prefixed non-`//`. No DOM XSS/open redirect found.
+- `POST https://cloudaccess.svc.ui.com/create-credentials` mints AWS STS credentials
+  for the session user. Confirmed in-browser from `https://evil.ui.com` (a `*.ui.com`
+  origin): `200` + readable `accessKeyId/secretKey/sessionToken`. CORS reflects any
+  `*.ui.com` origin with credentials. `identityId`/`role`/`orgId` body or
+  `X-Identity-Id` header cannot be overridden. Still requires attacker-controlled
+  `*.ui.com` content -> Unresolved. See `findings/cors-credentialed-reflection.md`.
+- `enterprise.svc.ui.com` / `fabric.svc.ui.com` also reflect `*.ui.com` (out of scope;
+  observed only, recorded in `out-of-scope.txt`).
+
+### Route completion status (this session)
+- `/requests`, `/requests/:ticketId`, `/idp/login-result`, `/login/create-passkey`:
+  tested / resolved (Zendesk search remains captcha-blocked).
+- Site Manager (`unifi.ui.com` + wildcard `*.ui.com`): client-side bundle audit done;
+  no in-scope high-impact flow. New API surface documented.
+- Totals unchanged: 38 routes; no new high-impact finding.

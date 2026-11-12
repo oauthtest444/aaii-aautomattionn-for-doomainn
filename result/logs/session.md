@@ -37,3 +37,32 @@
   endpoint still rejects headless reCAPTCHA tokens. Stored-XSS test must resume after
   the reset with a fresh account or valid reCAPTCHA score.
 - No Discord notification sent.
+
+## Session 7 — run 43127366314 (scheduled, preserved)
+- Start (UTC): 2026-11-12T00:28:32Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3, google-chrome-stable/chromium
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested Zendesk search/user endpoints, passwordless/login, legal,
+  password-strength, chat messaging JWT, idp login-result; re-check stored-XSS delivery paths
+
+## Session 7 result
+- End (UTC): 2026-11-12T00:52Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- Zendesk: `search_tickets`/`search_ccd` require `x-captcha-token` (blocked); `requester`
+  mass assignment ignored (ticket 6138711 kept A's requester_id); list query-param IDOR
+  ignored; VULN-20261111-001 re-tested and closed as Not Vulnerable (Zendesk escapes
+  user HTML in `html_body`).
+- sso: legal/account-chooser/password-strength/roles/self re-checked; IDOR/2FA-reset
+  negative; `/idp/login-result` requires server-issued state (`STATE_MISSING`).
+- New in-scope surface: wildcard `*.ui.com` -> "UniFi Site Manager" SPA. Audited bundles
+  (`/tmp/unifi`): release-notes `dangerouslySetInnerHTML` only; no app `innerHTML`;
+  postMessage bridge validates `.ui.com` origin; no DOM XSS/open redirect.
+- Confirmed `cloudaccess.svc.ui.com/create-credentials` mints AWS STS credentials and
+  credentialed CORS reflects any `*.ui.com` origin (demonstrated in-browser from
+  `https://evil.ui.com`). Impact Unresolved pending attacker-controlled `*.ui.com`
+  content; documented in `findings/cors-credentialed-reflection.md`. Not a
+  confirmed-vuln class.
+- No Discord notification sent.

@@ -73,3 +73,28 @@
   confirmed).
 - Route count now 38 (37 account.ui.com + 1 www.ui.com). No high-impact vulnerability found
   this session; no Discord notification sent (notification bar not met).
+
+## Session 6 additions (2026-11-11T14:02Z, run 43034033571)
+- Exhausted remaining reachable auth edges: login-token API, pre-MFA authorization
+  matrix, cross-account OTP binding, JWT HS256 key confusion, change-email gating,
+  account-deletion L2. All protections held.
+- Zendesk ticket-create rate-limited; comment endpoint still rejects headless
+  reCAPTCHA tokens. No new finding.
+
+## Session 7 additions (2026-11-12T00:28Z, run 43127366314)
+- **VULN-20261111-001 closed as Not Vulnerable**: Zendesk returns user HTML escaped in
+  `html_body` (`&lt;b&gt;`, `&lt;img ...&gt;`), the field the SPA parses; no JS execution.
+- Zendesk: `search_tickets`/`search_ccd` captcha-gated; `requester` mass assignment
+  ignored; ticket-list query-param IDOR ignored.
+- sso re-checks (legal, account-chooser, password-strength, roles, 2FA) negative;
+  `/idp/login-result` requires a server-issued state (`STATE_MISSING`).
+- New in-scope surface: wildcard `*.ui.com` serves the "UniFi Site Manager" SPA.
+  Bundle audit found only a release-notes `dangerouslySetInnerHTML`; no app
+  `innerHTML`/DOM XSS; postMessage bridge validates `.ui.com` origin; no open redirect.
+- **CORS impact demonstrated**: `POST https://cloudaccess.svc.ui.com/create-credentials`
+  mints the session user's AWS STS credentials and credentialed CORS reflects any
+  `*.ui.com` origin (verified in-browser from `https://evil.ui.com`). Still Unresolved
+  because no attacker-controlled `*.ui.com` content was found; not a confirmed-vuln
+  class. See `findings/cors-credentialed-reflection.md`.
+- `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
+  notification sent.

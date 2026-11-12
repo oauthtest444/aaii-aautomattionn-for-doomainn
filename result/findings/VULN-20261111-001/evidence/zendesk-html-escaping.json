@@ -1,0 +1,9 @@
+{
+  "ticket_id": "6138711",
+  "comment_id": 44965425496855,
+  "author_type": "self",
+  "html_body": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">Harmless cross-account injection test OCEAN-XACC-AtoB-1413. Marker &lt;b&gt;XACC1413&lt;/b&gt; and &lt;img src=x alt=\"XACC1413\"&gt;. Please ignore.</p></div>",
+  "body": "Harmless cross-account injection test OCEAN-XACC-AtoB-1413. Marker <b>XACC1413</b> and <img src=x alt=\"XACC1413\">. Please ignore.",
+  "plain_body": "Harmless cross-account injection test OCEAN-XACC-AtoB-1413. Marker &lt;b&gt;XACC1413&lt;/b&gt; and &lt;img src=x alt=\"XACC1413\"&gt;. Please ignore.",
+  "note": "Zendesk returns user HTML escaped in html_body (&lt;b&gt; / &lt;img ...&gt;); SPA renders html_body via html-react-parser, so entities display as text. No JS execution."
+}

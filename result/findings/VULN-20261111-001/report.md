@@ -1,11 +1,11 @@
-# VULN-20261111-001 — Zendesk comment HTML rendered unsanitized (Unresolved / self-XSS)
+# VULN-20261111-001 — Zendesk comment HTML rendered unsanitized (Not Vulnerable)
 
-**Status:** Unresolved (defense gap confirmed; cross-user impact not demonstrated)
-**Type:** DOM/Stored XSS candidate (self-XSS only as tested)
+**Status:** Not Vulnerable (Session 7: Zendesk escapes user HTML in `html_body`)
+**Type:** DOM/Stored XSS candidate
 **Asset:** https://account.ui.com/requests/:ticketId
 **Authentication:** user (test Account A/B)
-**Severity:** Low (self-XSS; excluded from confirmed-vuln.txt)
-**Tested at:** 2026-11-11T05:56Z
+**Severity:** None / Not Vulnerable
+**Tested at:** 2026-11-11T05:56Z (initial); 2026-11-12T00:47Z (re-test, closed)
 
 ## Summary
 The account SPA renders Zendesk comment bodies with `html-react-parser`, with no
@@ -38,6 +38,25 @@ No delivery path to another user/support agent was found, and no JavaScript exec
 observed. Self-XSS without a delivery vector is excluded by AGENT.md §9.
 
 `Confirmed-vuln.txt: excluded — self-XSS / no cross-user delivery, impact unresolved.`
+
+## Session 7 re-test (2026-11-12T00:47Z) — closed as Not Vulnerable
+Created ticket `6138711` with the harmless payload
+`Marker <b>XACC1413</b> and <img src=x alt="XACC1413">` and fetched it back via
+`GET https://account.svc.ui.com/zendesk/comments/6138711`.
+
+Observed response (evidence `evidence/zendesk-html-escaping.json`):
+```
+"html_body": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">... Marker
+ &lt;b&gt;XACC1413&lt;/b&gt; and &lt;img src=x alt=\"XACC1413\"&gt;. Please ignore.</p></div>",
+"body": "... Marker <b>XACC1413</b> and <img src=x alt=\"XACC1413\">. Please ignore."
+```
+Zendesk server-side **escapes** the user-supplied tags in `html_body` (`&lt;b&gt;`,
+`&lt;img ...&gt;`), which is the field the SPA feeds to `html-react-parser`. The escaped
+entities render as literal text, so the client-side parser cannot create elements or
+execute JavaScript. The raw `body`/`description` fields are not used by the comment
+renderer. No JavaScript execution is possible; the candidate is **Not Vulnerable**.
+
+`Confirmed-vuln.txt: excluded — Not Vulnerable (server-side escaping).`
 
 ## Remediation
 Sanitize `html_body` before parsing (DOMPurify with an allowlist) or render as plain
