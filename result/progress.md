@@ -192,3 +192,26 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Site Manager (`unifi.ui.com` + wildcard `*.ui.com`): client-side bundle audit done;
   no in-scope high-impact flow. New API surface documented.
 - Totals unchanged: 38 routes; no new high-impact finding.
+
+## Session 8 (2026-11-13T19:31Z, run 43492795808) — remaining API edges
+
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- Passwordless API (previously untested, config-only in bundle):
+  `POST /api/sso/v1/passwordless/options` requires `{user}` and
+  `POST /api/sso/v1/passwordless/login` requires a credential payload. Both returned
+  `429 RATE_LIMITED` (`retry_after:0`) with schema-valid bodies; no bypass attempted
+  per rate-limit policy. No SPA call site. Marked blocked.
+- `account.svc.ui.com` Zendesk proxy: unauthenticated requests -> `401 UNAUTHORIZED`;
+  path-traversal/encoding variants (`..`, `%2e%2e`, `..%2f`, `..;/`, `%00`, `//`) gave
+  no auth bypass (401/400/404).
+- `GET /api/sso/v1/legal` paramless, returns revision strings only (no reflection).
+- Read-only: `account-cdn.svc.ui.com` bucket root / `?list-type=2` -> `403 AccessDenied`
+  (out-of-scope asset, observed only). `secure-uploads.ui.com` is a SendSafely instance
+  (third-party, observed only).
+
+### Still unresolved
+- Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` remains unresolved; still
+  requires attacker-controlled `*.ui.com` content (none found).
+- Passwordless flow unverified due to rate limiting.

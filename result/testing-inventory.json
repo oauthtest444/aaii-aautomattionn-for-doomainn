@@ -504,6 +504,24 @@
       "url": "https://account.svc.ui.com/zendesk/ticket",
       "auth": true,
       "observations": "Body requester.email ignored; requester_id forced to session user. No cross-account injection."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/passwordless/options",
+      "auth": false,
+      "observations": "Session 8: requires body {user}; schema-valid request -> 429 RATE_LIMITED (retry_after:0); no SPA call site"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/passwordless/login",
+      "auth": false,
+      "observations": "Session 8: credential payload required (400 VALIDATION_ERROR otherwise); -> 429 RATE_LIMITED; flow blocked"
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/zendesk/user",
+      "auth": false,
+      "observations": "Session 8: unauthenticated -> 401 UNAUTHORIZED; traversal/encoding variants no bypass"
     }
   ],
   "listeners": [

@@ -66,3 +66,36 @@
   content; documented in `findings/cors-credentialed-reflection.md`. Not a
   confirmed-vuln class.
 - No Discord notification sent.
+
+## Session 8 — run 43492795808 (scheduled, preserved)
+- Start (UTC): 2026-11-13T19:31:00Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3 3.14.4, google-chrome-stable
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested account.svc/sso API edges (login-token, passwordless,
+  settings mass-assignment, account-chooser, cloudaccess), cloudaccess CORS impact,
+  and any remaining partial routes; dedupe against result/testing-inventory.json
+
+## Session 8 result
+- End (UTC): 2026-11-13T19:41Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- New unreached API discovered in the SPA paths config and probed unauthenticated:
+  `POST /api/sso/v1/passwordless/options` (body `{user}` required) and
+  `POST /api/sso/v1/passwordless/login` (credential payload required). Both returned
+  `429 RATE_LIMITED` (`retry_after:0`) even with a schema-valid body; no bypass/brute
+  force attempted per rate-limit policy. No call site in the SPA bundle (config-only).
+  Recorded as blocked in testing-inventory.
+- account.svc.ui.com proxy: unauthenticated `/zendesk/user`, `/zendesk/tickets`,
+  `/zendesk/tickets/closed`, `/zendesk/comment` all `401 UNAUTHORIZED`; path-traversal
+  and encoding variants (`..`, `%2e%2e`, `..%2f`, `..;/`, `%00`, `//`) produced no auth
+  bypass (401/400/404 only).
+- `GET /api/sso/v1/legal` is a paramless GET returning revision strings; no reflection.
+- Read-only checks: `account-cdn.svc.ui.com` bucket root and `?list-type=2` return
+  `403 AccessDenied` (not world-listable); recorded but account-cdn remains out of scope.
+  `secure-uploads.ui.com` is a SendSafely instance (301 -> `/secure/home/`, nginx);
+  third-party service, observed only.
+- CORS observation unchanged: only real `https://*.ui.com` origins reflected; no
+  attacker-controlled `*.ui.com` content found. Unresolved, not a confirmed-vuln class.
+- No Discord notification sent.

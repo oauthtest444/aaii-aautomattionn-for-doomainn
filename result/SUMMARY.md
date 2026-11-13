@@ -98,3 +98,19 @@
   class. See `findings/cors-credentialed-reflection.md`.
 - `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
   notification sent.
+
+## Session 8 additions (2026-11-13T19:31Z, run 43492795808)
+- Probed the previously untested passwordless API:
+  `POST /api/sso/v1/passwordless/options` (`{user}` required) and
+  `POST /api/sso/v1/passwordless/login` (credential payload required). Both returned
+  `429 RATE_LIMITED` (`retry_after:0`) with valid bodies; no bypass per policy.
+  No SPA call site (config-only). Blocked.
+- `account.svc.ui.com` Zendesk proxy rejects unauthenticated requests (`401`); path
+  traversal/encoding variants gave no auth bypass (`400`/`404`/`401`).
+- `GET /api/sso/v1/legal` is paramless (no reflection).
+- Read-only observations: `account-cdn.svc.ui.com` bucket not listable (`403
+  AccessDenied`); `secure-uploads.ui.com` is a SendSafely instance (third-party).
+  Both recorded as out-of-scope/observed only.
+- CORS observation unchanged; no attacker-controlled `*.ui.com` content found.
+- `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
+  notification sent.

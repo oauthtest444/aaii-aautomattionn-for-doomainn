@@ -26,3 +26,10 @@
 ## 4. Account creation
 - `POST /api/sso/v2/users` requires a reCAPTCHA token; the two test accounts in
   `creds/test-account.txt` were used instead. No brute force attempted (policy).
+
+## 5. Passwordless login API (Session 8)
+- `POST /api/sso/v1/passwordless/options` (`{user}`) and
+  `POST /api/sso/v1/passwordless/login` (credential payload) exist and validate input,
+  but both returned `429 RATE_LIMITED` (`retry_after:0`) with schema-valid bodies.
+- No call site in the SPA bundle (config-only). Not retried repeatedly to respect the
+  documented login rate limits; flow remains untested.
