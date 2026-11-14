@@ -62,3 +62,15 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
   no `Access-Control-Allow-Origin`.
 - `account.svc.ui.com` returns 403 for origins other than `https://account.ui.com`.
 - Requires an attacker-controlled `*.ui.com` origin to be exploitable; no such origin identified.
+
+## Session 9 additions (Site Manager paths config)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/jwt/token | sso | yes | 200 | HS512 JWT (uuid, is_verified, exp, ui_session_id); edge WAF needs browser UA |
+| GET | /api/sso/v1/jwt/token?redirect=`<url>` | sso | yes | 302/200 | 302 only for `http(s)://*.ui.com`; -> `sso.ubnt.com/.../login/<jwt>?redirect=...` (ubnt hop 404). No external/relative/javascript redirect |
+| GET | /api/sso/v1/user/{uuid} | sso | yes | 200/403 | self only; other uuid -> `mismatching UUID` |
+| GET/POST | /api/sso/v1/user/{uuid}/address | sso | yes | 200/201/403 | self only; body `user` ignored on POST |
+| GET/POST | /api/sso/v1/user/{uuid}/console_groups | sso | yes | 200/400/403 | self only; POST needs name+consoles |
+| GET | /api/sso/v1/account-chooser?<param> | sso | yes | 200 | `{"accounts":[]}`; paramless GET -> edge 403; POST -> 405; rate-limited |
+| POST | /api/sso/v1/user/self/token/login | sso | yes | 404 | no longer present |
+| POST | /api/sso/v1/user/self/token/setup | sso | yes | 404 | no longer present |

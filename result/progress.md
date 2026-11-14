@@ -215,3 +215,25 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` remains unresolved; still
   requires attacker-controlled `*.ui.com` content (none found).
 - Passwordless flow unverified due to rate limiting.
+
+## Session 9 (2026-11-14T06:20Z, run 43564092459) — SSO jwt/path endpoints
+
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- `GET /api/sso/v1/jwt/token` -> 200 HS512 JWT for self (`uuid`,`is_verified`,`exp`,
+  `ui_session_id`). Requires browser UA at the edge. `?redirect=` 302s to
+  `sso.ubnt.com/.../login/<jwt>?redirect=...`; target restricted to `*.ui.com`
+  (external/relative/scheme-relative/javascript all rejected). ubnt second hop 404.
+- Path-based `GET/POST /api/sso/v1/user/{uuid}/address`,
+  `GET/POST .../console_groups`, `GET /api/sso/v1/user/{uuid}` -> `403 mismatching UUID`
+  for other users. POST `/address` ignores body `user` (writes to self). No IDOR.
+- `GET /api/sso/v1/account-chooser?<param>` -> `{"accounts":[]}` (empty); 429 after
+  several calls; POST 405. No account info disclosure.
+
+### Still unresolved
+- Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com`: still needs an
+  attacker-controlled `*.ui.com` origin (none found; `Origin: null` not reflected).
+- Site Manager `cloudaccess.svc.ui.com` `/api/v1/*` requires AWS SigV4 (STS creds from
+  `/create-credentials`); plain cookie -> 403 "Missing Authentication Token". Test
+  account has no hosts/sites, so low expected yield.

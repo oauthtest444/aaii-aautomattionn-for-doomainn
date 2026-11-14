@@ -99,3 +99,35 @@
 - CORS observation unchanged: only real `https://*.ui.com` origins reflected; no
   attacker-controlled `*.ui.com` content found. Unresolved, not a confirmed-vuln class.
 - No Discord notification sent.
+
+## Session 9 — run 43564092459 (scheduled, preserved)
+- Start (UTC): 2026-11-14T06:00:00Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.4, npx, python3, google-chrome-stable
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested account.svc/sso endpoints (zendesk_user, /zendesk/user, ccd),
+  partial routes (billing/subscriptions/suspicious-confirm), and any new in-scope surface;
+  dedupe against result/testing-inventory.json
+
+## Session 9 result
+- End (UTC): 2026-11-14T06:20Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- New Site Manager paths config exposed SSO routes: `/api/sso/v1/jwt/token`,
+  `/api/sso/v1/user/{userId}/address`, `/api/sso/v1/user/{userId}/console_groups`.
+- `GET /api/sso/v1/jwt/token` mints an HS512 JWT (`uuid`, `is_verified`, `exp`,
+  `ui_session_id`) for the authenticated user. Edge WAF returns HTML 403 unless a
+  browser UA is sent (same for other sso GETs). `?redirect=` triggers 302 to
+  `https://sso.ubnt.com/api/sso/v1/jwt/token/login/<jwt>?redirect=<target>`; redirect
+  validated to `*.ui.com` only (`evil.com`, `//evil.com`, `javascript:`, `/\evil.com`,
+  `%2F%2Fevil.com` -> no redirect). Second hop on sso.ubnt.com returns 404.
+- `GET /api/sso/v1/user/{uuid}` / `/address` / `/console_groups` and POST `/address`
+  `/console_groups` -> `403 mismatching UUID` for any uuid other than the session user;
+  POST `/address` with body `user=<other uuid>` still writes to self (user ignored).
+  No IDOR/mass-assignment.
+- `GET /api/sso/v1/account-chooser?<anyparam>` -> 200 `{"accounts":[]}` for the test
+  account (paramless GET hits edge 403; POST -> 405). Rate-limited (429) after several
+  requests. Empty saved-account list, no disclosure.
+- Re-confirmed Zendesk ticket renderer parses only `html_body` via html-react-parser
+  (already-closed VULN-20261111-001); no other ticket field reaches the parser.
