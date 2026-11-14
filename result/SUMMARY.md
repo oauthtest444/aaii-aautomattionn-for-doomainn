@@ -136,3 +136,24 @@
 - Solved SigV4 access to `cloudaccess.svc.ui.com` via `POST /create-credentials` (STS) +
   signed requests; hosts/devices/sites/invitations all empty for the test account (no IDOR).
 - Site Manager SPA (13 MB) re-audited: no new app-level HTML/JS sink.
+
+## Session 11 additions (2026-11-14T22:15Z, run 43647019119)
+- `www.ui.com` bundle refreshed to `index-Dyxt5MIq.js` (934 KB); 87 chunks audited.
+  No DOM XSS: all app `dangerouslySetInnerHTML` are static i18n menu text; dynamic
+  routes (`/download/releases|software/:slug`) only feed React `<Head>` escaped meta.
+- Input handling held: `?product_line=` inert; `?s=`/`?l=` enum-validated then
+  stripped; `download-started?link=` restricted to https + `dl.ubnt.com/dl.ui.com/
+  fw-download.ubnt.com`; login redirect host fixed via `window.origin` + account `AC()`.
+- `www.ui.com/api/*` are SPA 404 fallbacks — no same-origin proxy/SSRF.
+- `download.svc.ui.com` (backend of in-scope `/download`; out-of-scope `*.svc`,
+  observed only): public catalog; slug injection uniform 404; huge `page` -> 500
+  empty (error handling only); search -> 204.
+- `activate.ui.com` (newly observed `ui.com` host, S3 SPA): `account.ui.com/activate`
+  is a fixed redirect; SPA does not reflect `serial/code/token/redirect/next`.
+  Device-login endpoints `POST sso.ui.com /api/sso/v1/user/self/token/setup|login`
+  require auth (401 unauth) and return `device_name` only for a valid code.
+- CORS on the device-login token endpoints reflects any `*.ui.com` Origin with
+  credentials (extends the known credentialed-CORS class; still Unresolved, needs
+  attacker-controlled `*.ui.com` content). No authenticated brute-force testing.
+- `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
+  notification sent.

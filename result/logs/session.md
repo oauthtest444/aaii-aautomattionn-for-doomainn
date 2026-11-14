@@ -183,3 +183,67 @@
 - Solved SigV4 access to `cloudaccess.svc.ui.com` via `POST /create-credentials` +
   botocore signing: `/api/v1/hosts`, `/devices`, `/sites` and `/invitations?type=all`
   all return empty for the no-console test account. No IDOR reachable.
+
+## Session 11 (run 43647019119 — continuation)
+- Start (UTC): 2026-11-14T22:15Z
+- Target: `ui.com` (domain-only). Resume state decision `preserved`
+  (target_hash `3353d9c6...933c8a`, unchanged since Session 1 reset).
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Environment: GitHub Actions Linux runner; Chrome 157.0.8103.78 headless at
+  `127.0.0.1:9222`; Chrome DevTools MCP connected (`list_pages` OK).
+- Tool versions: curl 8.18.0, git, node v22.23.4, npx, python3 3.14.4,
+  google-chrome-stable / chromium present.
+- Connectivity: `account.ui.com/login` 200, `www.ui.com/` 200, `sso.ui.com/` 404
+  (root; APIs respond).
+- Prior state loaded: SUMMARY.md, scope.md, progress.md, testing-inventory.json,
+  inventory/*, findings/*, unresolved.md, out-of-scope.txt. 38 routes recorded;
+  no confirmed high-impact findings; `confirmed-vuln.txt` has no entries.
+- Plan: continue with untested/newly discovered in-scope UI routes (focus on
+  `www.ui.com` marketing routes not yet reviewed plus remaining `account.ui.com`
+  edges), one route at a time, client-side then server-side.
+
+### Session 11 results
+- `www.ui.com` served a refreshed bundle `index-Dyxt5MIq.js` (934 KB); 87 chunks
+  downloaded to `/tmp/ui11/all/` and swept with the client-side source/sink regexes.
+- Marketing routes reviewed (read-only + harmless markers, no state change):
+  - `/download?product_line=...` — value not reflected in HTML/DOM/network.
+  - `/download/releases/:slug`, `/download/software/:slug` — slug only reaches the
+    `Head` component; `Head-CU3ir911.js` renders React `<title>/<meta>` (no
+    `innerHTML`), and the canonical URL is React-escaped. No injection.
+  - `/download/unifi/download-started?link=...` — `link` requires `https:` and an
+    exact hostname in `[dl.ubnt.com, dl.ui.com, fw-download.ubnt.com]`; external and
+    `javascript:` values are stripped; no redirect.
+  - `SiteSettingsContext` `?s=`/`?l=` — validated against store/language enum maps,
+    then stripped via router `replace`; no open redirect. `appview=true` only
+    toggles the embedded layout.
+  - `AuthContext` login builds `account.ui.com/login?redirect=https://www.ui.com/<path>`
+    from `window.origin` (host fixed) and the account SPA re-validates via `AC()`
+    (last-two-label ∈ `ui.com|ubnt.com|uisp.com`, http/https). No open redirect.
+    `GOOGLE_API_KEY` is a public reCAPTCHA v3 site key.
+  - All app-level `dangerouslySetInnerHTML` in `www.ui.com` chunks are static i18n
+    menu descriptions (`t(e.description)`), not URL/API data.
+  - `www.ui.com/api/*` (`/api/geoip`, `/api/sso/v1/user/self`, ...) are SPA 404
+    fallbacks — no same-origin proxy/SSRF.
+- `download.svc.ui.com` (backend of the in-scope `/download` route; a `*.svc.ui.com`
+  host recorded out-of-scope, observed only):
+  - Public catalog JSON only. Slug probes (`'`, `"`, traversal, wildcard) all
+    `404` with no error diff; `%00` -> `400` (CloudFront);
+    `page=999999999999999999999` -> `500` empty body (error handling only, not
+    reportable); `POST /v1/downloads/search {"search":"unifi"}` -> `204`.
+- `activate.ui.com` (newly observed `ui.com` host; static S3 SPA `/assets/index-1CNh1WqS.js`):
+  - `account.ui.com/activate` is a fixed redirect: `window.location.replace(
+    "https://activate.ui.com")` (no user-controlled target).
+  - SPA returns 200 for all paths; `serial|code|token|redirect|next` query/path
+    markers are not reflected (React SPA).
+  - Device-login flow: user enters a 5-char device code -> `POST
+    sso.ui.com/api/sso/v1/user/self/token/setup {token}` returns `device_name` ->
+    `POST .../token/login {token}` approves. Both require an authenticated session
+    (unauthenticated -> `401`).
+  - CORS on both token endpoints reflects any `*.ui.com` `Origin` (e.g.
+    `https://evil.ui.com`) with `Access-Control-Allow-Credentials: true`; this
+    extends the known credentialed-CORS issue to the device-login flow. Remains
+    Unresolved: still requires attacker-controlled `*.ui.com` content. No
+    authenticated brute-force/rate-limit testing performed (consent-flow direction
+    limits impact; avoid account lockout).
+- New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
+  Discord notification sent.

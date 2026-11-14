@@ -254,6 +254,30 @@
       "status": "done",
       "javascript": [],
       "notes": "Session 10: same deep-link role flow for network servers -> VULN-20261114-001"
+    },
+    {
+      "url": "https://www.ui.com/download/releases/:slug",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 11: slug only reaches React Head (escaped title/meta); no HTML injection"
+    },
+    {
+      "url": "https://www.ui.com/download/software/:slug",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 11: same as releases slug; no injection"
+    },
+    {
+      "url": "https://www.ui.com/download/unifi/download-started",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 11: ?link= requires https + host in dl.ubnt.com/dl.ui.com/fw-download.ubnt.com; external/javascript stripped"
+    },
+    {
+      "url": "https://activate.ui.com/",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 11: S3 SPA index-1CNh1WqS.js; all paths 200; serial/code/token/redirect/next not reflected"
     }
   ],
   "javascript": [
@@ -590,6 +614,30 @@
       "url": "https://cloudaccess.svc.ui.com/confirm-invitation",
       "auth": "SigV4",
       "observations": "auth:SigV4; body {deviceId,verificationToken,role}; role client-controlled via ?role= deep link; bogus device -> 400 DEVICE_OFFLINE regardless of role. Candidate VULN-20261114-001 (Unresolved). Session 10"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/token/setup",
+      "auth": "session",
+      "observations": "Session 11: body {token}; returns device_name for valid code; 401 unauth; CORS reflects any *.ui.com Origin with credentials"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/token/login",
+      "auth": "session",
+      "observations": "Session 11: body {token}; approves device login; 401 unauth; CORS reflects any *.ui.com Origin with credentials"
+    },
+    {
+      "method": "GET",
+      "url": "https://download.svc.ui.com/v1/downloads?page=999999999999999999999",
+      "auth": "none",
+      "observations": "Session 11 (out-of-scope *.svc, observed): HTTP 500 empty body; error handling only, not reportable"
+    },
+    {
+      "method": "POST",
+      "url": "https://download.svc.ui.com/v1/downloads/search",
+      "auth": "none",
+      "observations": "Session 11 (out-of-scope *.svc, observed): {\"search\":\"unifi\"} -> HTTP 204 empty"
     }
   ],
   "listeners": [

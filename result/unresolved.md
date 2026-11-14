@@ -43,3 +43,27 @@
   invitation and creating a console/invitation is outside policy. Bogus-device probes
   returned `DEVICE_OFFLINE` regardless of role.
 - Detail: `result/findings/VULN-20261114-001/report.md`.
+
+## 7. Device-login token endpoints + credentialed CORS (Session 11)
+- `activate.ui.com` (S3 SPA) implements a device-code login: user enters a 5-char code,
+  `POST https://sso.ui.com/api/sso/v1/user/self/token/setup {token}` returns
+  `device_name`, then `POST .../token/login {token}` approves the device.
+- Both endpoints require an authenticated session (unauthenticated -> `401`) and use
+  `withCredentials`. Preflight reflects any `https://*.ui.com` Origin with
+  `Access-Control-Allow-Credentials: true`, extending the credentialed-CORS issue
+  (item 1) to the device-login flow. Still not exploitable without attacker-controlled
+  `*.ui.com` content.
+- Code space / rate limiting not tested (would need authenticated requests and risks
+  account lockout). Device-code consent phishing is inherent to the flow (device name is
+  shown only after approval), not counted as a vulnerability.
+
+## 8. Clickjacking allowlist on account.ui.com (Session 11)
+- `account.ui.com` CSP `frame-ancestors 'self' *.ui.com uic.uidev.tools *.uic.uidev.tools`
+  (XFO `SAMEORIGIN` is overridden by CSP in modern browsers). Any `*.ui.com` subdomain
+  can therefore frame the account portal.
+- Not exploitable as-is: wildcard `*.ui.com` serves a fixed SPA and no attacker-controlled
+  `*.ui.com` content was found (same prerequisite as the CORS item).
+- `uic.uidev.tools` is a third-party domain resolving to CloudFront (`52.85.193.0/24`) and
+  currently returns `403`; `uidev.tools` has no A record. Observed only (out of scope).
+  No takeover was demonstrated (CloudFront alternate-domain takeover requires ACM/DNS
+  control).

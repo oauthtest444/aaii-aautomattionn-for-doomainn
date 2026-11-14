@@ -267,3 +267,36 @@ No new confirmed high-impact vulnerability; `confirmed-vuln.txt` unchanged.
 - VULN-20261114-001 (Unresolved): invite deep-link `?role=` (admin|owner) is forwarded
   into `POST cloudaccess.svc.ui.com/confirm-invitation` body; server trust unverified
   because the test account has no invitation. `result/findings/VULN-20261114-001/`.
+
+## Session 11 (2026-11-14T22:15Z, run 43647019119) — www.ui.com refresh + activate device-login
+
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- `www.ui.com` refreshed bundle `index-Dyxt5MIq.js` (934 KB); 87 chunks downloaded
+  to `/tmp/ui11/all/` and swept for sources/sinks.
+- Marketing inputs inert or validated: `?product_line=` not reflected;
+  `/download/releases|software/:slug` reach only React `<Head>` (escaped meta, no
+  `innerHTML`); `download-started?link=` requires https + host allowlist
+  (`dl.ubnt.com`, `dl.ui.com`, `fw-download.ubnt.com`); `?s=`/`?l=` are enum-validated
+  then stripped (no open redirect); `appview=true` is layout-only.
+- `www.ui.com` login redirect is built from `window.origin` (fixed host); account SPA
+  re-validates via `AC()` (registrable domain in allowlist, http/https). No open redirect.
+- All app `dangerouslySetInnerHTML` on `www.ui.com` are static i18n menu
+  descriptions, not URL/API data. `www.ui.com/api/*` are SPA 404 fallbacks (no proxy/SSRF).
+- `download.svc.ui.com` (backend of in-scope `/download`; `*.svc.ui.com`, observed
+  only): public catalog JSON; slug quote/traversal/wildcard -> uniform 404; `%00` ->
+  400; huge `page` -> 500 empty (error handling only); `POST /v1/downloads/search` -> 204.
+- `account.ui.com/activate` is a fixed redirect to `https://activate.ui.com`
+  (S3 SPA). SPA does not reflect `serial/code/token/redirect/next`.
+- New device-login endpoints on `sso.ui.com`: `POST
+  /api/sso/v1/user/self/token/setup` (`device_name`) and `/token/login`; both require
+  auth (401 unauth). CORS reflects any `*.ui.com` Origin with credentials — extends
+  the known credentialed-CORS class; still Unresolved (no attacker-controlled
+  `*.ui.com` origin). No authenticated brute-force testing (consent-flow direction
+  limits impact; avoid lockout).
+
+### Still unresolved
+- Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` and now the
+  `activate` device-login token endpoints; needs attacker-controlled `*.ui.com` content.
+- VULN-20261114-001 invite `?role=` escalation (no pending invitation available).
