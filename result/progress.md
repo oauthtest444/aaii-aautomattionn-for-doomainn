@@ -237,3 +237,33 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Site Manager `cloudaccess.svc.ui.com` `/api/v1/*` requires AWS SigV4 (STS creds from
   `/create-credentials`); plain cookie -> 403 "Missing Authentication Token". Test
   account has no hosts/sites, so low expected yield.
+
+## Session 10 (2026-11-14T13:45Z, run 43599586173) — SSO self-service + Site Manager
+
+No new confirmed high-impact vulnerability; `confirmed-vuln.txt` unchanged.
+
+### Newly tested / resolved
+- `PATCH /api/sso/v1/user/self/settings` (PUT/POST 405): `passwordless_enabled` persists;
+  `role/is_admin/uuid/suspicious_detection/email/username` ignored. No mass assignment.
+- `GET/POST/DELETE /api/sso/v1/user/self/login/level` and `POST .../level/refresh`:
+  L2 re-auth is password-only by design; refresh returns 200 at L2, `499 L2_REQUIRED`
+  at genuine L1, 401 pre-MFA. `DELETE .../level` is a no-op (corrected prior note).
+- `POST /user/self/email/verify/send {email}` -> 204 sends a code to the new address;
+  already-used address -> 400 "must be unique". Confirm route not found (404 probes).
+- `POST /user/self/zendesk_user` -> 200 empty; body ignored; `account.svc` Zendesk email
+  unchanged (self-scoped).
+- `POST /user/self/2fa/backup {}` at L2 -> 201 rotates codes (VULN-20261110-003;
+  informational, needs L2). `POST /user/self/mfa` and `/user/self/roles` -> 405.
+- `POST /suspicious/confirm/inspect` -> 400 `confirm_token` required (emailed token).
+- Pre-MFA `UBIC_2FA` replay as `UBIC_AUTH` -> 401; no MFA bypass.
+- Wildcard `*.ui.com`: 302 to `account.ui.com/login` unauthenticated; fixed Site
+  Manager SPA when authenticated. CORS reflects only real `*.ui.com` https origins.
+- `cloudaccess.svc.ui.com` SigV4 access solved (`/create-credentials` STS + signed
+  requests): `/api/v1/hosts`, `/devices`, `/sites`, `/invitations?type=all` all empty;
+  no IDOR. `/api/v1/invitations` is 404 (correct path is `/invitations`).
+- Site Manager SPA (13 MB) re-audited: no new app-level HTML/JS sink.
+
+### New candidate
+- VULN-20261114-001 (Unresolved): invite deep-link `?role=` (admin|owner) is forwarded
+  into `POST cloudaccess.svc.ui.com/confirm-invitation` body; server trust unverified
+  because the test account has no invitation. `result/findings/VULN-20261114-001/`.

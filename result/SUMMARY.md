@@ -114,3 +114,25 @@
 - CORS observation unchanged; no attacker-controlled `*.ui.com` content found.
 - `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
   notification sent.
+
+## Session 10 additions (2026-11-14T13:45Z, run 43599586173)
+- No new confirmed high-impact vulnerability; `confirmed-vuln.txt` unchanged.
+- New Unresolved candidate **VULN-20261114-001**: the Site Manager invite deep links
+  (`/invite/:verificationToken?/:hostId?`, `/invite-network-server/...`) read a
+  client-supplied `?role=` (`admin`|`owner`) and forward it into
+  `POST https://cloudaccess.svc.ui.com/confirm-invitation` body. If the server trusts
+  this value over the invitation record, an invitee can escalate to `owner`. Not
+  exploitable in testing: test accounts have no pending invitation and creating a
+  console/invitation is outside policy. Evidence: `result/findings/VULN-20261114-001/`.
+- SSO self-service endpoints tested (all safe/no high-impact): PATCH `settings`
+  (ignores privilege fields), `login/level` GET/POST/DELETE/refresh semantics, email
+  verify `send` (code to new address, uniqueness check), `zendesk_user` (self-scoped,
+  body ignored), `2fa/backup` (needs L2; rotates codes), `suspicious/confirm/inspect`
+  (requires emailed token). `DELETE login/level` confirmed a no-op (corrected prior note).
+- Pre-MFA `UBIC_2FA` cookie cannot be replayed as `UBIC_AUTH`; no MFA bypass.
+- Wildcard `*.ui.com` now 302s unauthenticated users to `account.ui.com/login` and serves
+  the fixed Site Manager SPA when authenticated; CORS still reflects only real `*.ui.com`
+  origins (no attacker-controlled origin found).
+- Solved SigV4 access to `cloudaccess.svc.ui.com` via `POST /create-credentials` (STS) +
+  signed requests; hosts/devices/sites/invitations all empty for the test account (no IDOR).
+- Site Manager SPA (13 MB) re-audited: no new app-level HTML/JS sink.

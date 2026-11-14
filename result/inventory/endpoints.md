@@ -74,3 +74,21 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | GET | /api/sso/v1/account-chooser?<param> | sso | yes | 200 | `{"accounts":[]}`; paramless GET -> edge 403; POST -> 405; rate-limited |
 | POST | /api/sso/v1/user/self/token/login | sso | yes | 404 | no longer present |
 | POST | /api/sso/v1/user/self/token/setup | sso | yes | 404 | no longer present |
+
+## Session 10 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| PATCH | /api/sso/v1/user/self/settings | sso | yes | 200 | `passwordless_enabled` persists; privilege fields (role/is_admin/uuid/email/username) ignored; PUT/POST 405 |
+| GET | /api/sso/v1/user/self/login/level | sso | yes | 200 | `{level,time_left_seconds}` |
+| POST | /api/sso/v1/user/self/login/level | sso | yes | 200/499 | `{password}` re-auth to L2 (password only by design) |
+| POST | /api/sso/v1/user/self/login/level/refresh | sso | yes | 200/499/401 | 200 extends at L2; L1 -> 499 L2_REQUIRED; pre-MFA 401 |
+| DELETE | /api/sso/v1/user/self/login/level | sso | yes | 200 | returns `{level:1}` but is a no-op on the token |
+| POST | /api/sso/v1/user/self/email/verify/send | sso | yes | 204/400 | sends confirmation code to new address; used address -> 400 unique |
+| POST | /api/sso/v1/user/self/zendesk_user | sso | yes | 200 | empty; body ignored; account.svc Zendesk email unchanged |
+| POST | /api/sso/v1/suspicious/confirm/inspect | sso | yes | 400 | requires emailed `confirm_token` |
+| POST | /create-credentials | cloudaccess | cookie | 200 | mints AWS STS creds (us-west-2) for SigV4; CORS primitive |
+| GET | /invitations?type=all | cloudaccess | SigV4 | 200 | `[]` for test account; `/api/v1/invitations` is 404 |
+| POST | /confirm-invitation | cloudaccess | SigV4 | 400 | body `{deviceId,verificationToken,role}`; bogus device -> DEVICE_OFFLINE; role client-controlled (VULN-20261114-001) |
+| GET | /api/v1/hosts | cloudaccess | SigV4 | 200 | `{"data":[],"nextToken":null}` |
+| GET | /devices | cloudaccess | SigV4 | 200 | `[]` |
+| GET | /sites | cloudaccess | SigV4 | 200 | `{"sites":[],"nextToken":null}` |

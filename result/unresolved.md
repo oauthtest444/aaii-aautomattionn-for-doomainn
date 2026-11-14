@@ -33,3 +33,13 @@
   but both returned `429 RATE_LIMITED` (`retry_after:0`) with schema-valid bodies.
 - No call site in the SPA bundle (config-only). Not retried repeatedly to respect the
   documented login rate limits; flow remains untested.
+
+## 6. Invite deep-link `role` forwarded to confirm-invitation (VULN-20261114-001)
+- `/invite/:verificationToken?/:hostId?` and `/invite-network-server/...` read `?role=`
+  (parser allows `admin`|`owner`) and send `{deviceId,verificationToken,role}` to
+  `POST https://cloudaccess.svc.ui.com/confirm-invitation`.
+- If the server uses this client value instead of the role stored on the invitation,
+  an invitee can escalate to `owner`. Unverified: test accounts have no pending
+  invitation and creating a console/invitation is outside policy. Bogus-device probes
+  returned `DEVICE_OFFLINE` regardless of role.
+- Detail: `result/findings/VULN-20261114-001/report.md`.

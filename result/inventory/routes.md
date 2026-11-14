@@ -41,3 +41,11 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 | 35 | /logout | yes | pending | |
 | 36 | /idp/login-result | no | pending | |
 | 37 | /msp/idp/setup-result | no | pending | |
+
+## unifi.ui.com (Site Manager SPA, wildcard `*.ui.com`) — Session 10
+| # | Route | Auth | Status | Notes |
+|---|-------|------|--------|-------|
+| U1 | /invite/:verificationToken?/:hostId? | yes | done | `?role=` (admin\|owner) forwarded to `confirm-invitation`; VULN-20261114-001 (Unresolved) |
+| U2 | /invite-network-server/:verificationToken?/:hostId? | yes | done | same deep-link role flow |
+| U3 | /create-cloud-console | yes | pending | not created (would provision real infra) |
+| U4 | /consoles, /network-servers, /vantage-points, /iam, /invitations/organizations | yes | done | SPA routes; API access via SigV4, empty for test account |

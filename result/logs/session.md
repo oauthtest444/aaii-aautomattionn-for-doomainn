@@ -131,3 +131,55 @@
   requests. Empty saved-account list, no disclosure.
 - Re-confirmed Zendesk ticket renderer parses only `html_body` via html-react-parser
   (already-closed VULN-20261111-001); no other ticket field reaches the parser.
+
+## Session 10 — run 43599586173 (scheduled, preserved)
+- Start (UTC): 2026-11-14T13:25:15Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank); Chrome headless at 127.0.0.1:9222
+- Tools: opencode 1.19.5, curl 8.18.0, git 2.56.1, node v22.23.4, npx 10.9.9, python3 3.14.4
+- Resume decision: preserved — continue untested/partial surface only
+- New observation: wildcard `*.ui.com` now 302-redirects unauthenticated requests to
+  `account.ui.com/login?redirect=https://<sub>.ui.com/` (previously served the fixed
+  Site Manager SPA). Re-checking redirect handling and the CORS trust boundary.
+- Focus this session: remaining untested SSO self-service endpoints (settings, 2fa
+  backup/reset, login level refresh, email verify, picture), suspicious-confirm flow,
+  and the wildcard-subdomain redirect behavior; dedupe against testing-inventory.json
+
+## Session 10 result
+- End (UTC): 2026-11-14T13:45Z
+- No new confirmed high-impact vulnerability; `confirmed-vuln.txt` unchanged; no Discord
+  notification. One new Unresolved candidate: VULN-20261114-001.
+- Auth/MFA: logged in as Account A (maildrop OTP), MFA verified again. Created a pre-MFA
+  `UBIC_2FA` jar and confirmed it cannot be used as `UBIC_AUTH` (401). No MFA bypass.
+- `PATCH /api/sso/v1/user/self/settings` works (PUT/POST -> 405). `passwordless_enabled`
+  persists (restored to true); `role`, `is_admin`, `uuid`, `suspicious_detection`,
+  `email`, `username` are ignored — no mass assignment.
+- Assurance level: `GET /user/self/login/level` -> `{level,time_left_seconds}`;
+  `POST .../level {password}` re-auths to L2 (password only, by design). `.../level/refresh`
+  at L2 -> 200 (extends to 1800s), at genuine L1 -> `499 L2_REQUIRED`, pre-MFA -> 401.
+  `DELETE .../level` returns `{level:1}` but is a NO-OP on the token (corrected prior note).
+- Email change: `POST /user/self/email/verify/send {email}` -> 204 and sends a
+  confirmation code to the new address; an address already used by another account ->
+  400 "must be unique". Confirmation route not found (all probes 404).
+- `POST /user/self/zendesk_user` -> 200 empty; body `email`/`name` ignored; the
+  `account.svc.ui.com/zendesk/user` email is unchanged (self-scoped).
+- `POST /user/self/2fa/backup {}` at L2 -> 201 and rotated the 10 backup codes
+  (VULN-20261110-003, informational; requires L2). `POST /user/self/mfa` and
+  `/user/self/roles` -> 405.
+- `POST /suspicious/confirm/inspect` -> 400 `confirm_token` required (emailed token;
+  blocked).
+- Wildcard `*.ui.com`: unauthenticated -> 302 to
+  `account.ui.com/login?redirect=https://<sub>.ui.com/`; authenticated -> 200 fixed
+  "UniFi Site Manager" SPA from S3. CORS re-check: only real `*.ui.com` https origins
+  are reflected with credentials; `null`, trailing-dot, port, `evilui.com`,
+  `ui.com.evil.com`, percent-encoded all rejected. Uppercase origin reflection is not
+  exploitable (browsers send lowercase Origin).
+- Site Manager SPA audit (`/tmp/unifi10`, 13 MB): no new app-level XSS sink (release-notes
+  `dangerouslySetInnerHTML` is API-sourced; `innerHTML` only in libraries; no
+  `eval`/`document.write`). Deep-link invite routes read `?role=` and forward it into
+  `POST cloudaccess.svc.ui.com/confirm-invitation` body — candidate VULN-20261114-001
+  (Unresolved; test account has no invitation, bogus device -> DEVICE_OFFLINE).
+- Solved SigV4 access to `cloudaccess.svc.ui.com` via `POST /create-credentials` +
+  botocore signing: `/api/v1/hosts`, `/devices`, `/sites` and `/invitations?type=all`
+  all return empty for the no-console test account. No IDOR reachable.

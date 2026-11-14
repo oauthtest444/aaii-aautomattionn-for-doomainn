@@ -242,6 +242,18 @@
         "/tmp/unifi/main-*.js"
       ],
       "notes": "Session 7: wildcard *.ui.com serves UniFi Site Manager SPA. Bundle audit: one app-level dangerouslySetInnerHTML (release-notes blocks from API); no app innerHTML/document.write; postMessage bridge validates .ui.com origin; navigation.requested requires host===\"unifi\" + safe path. No DOM XSS/open redirect. APIs: cloudaccess/enterprise/fabric/ues/storage/config.svc.ui.com."
+    },
+    {
+      "url": "https://unifi.ui.com/invite/:verificationToken?/:hostId?",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 10: invite accept deep link; ?role= read from query and forwarded to POST cloudaccess/confirm-invitation body -> candidate VULN-20261114-001 (Unresolved, no invitation to test)"
+    },
+    {
+      "url": "https://unifi.ui.com/invite-network-server/:verificationToken?/:hostId?",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 10: same deep-link role flow for network servers -> VULN-20261114-001"
     }
   ],
   "javascript": [
@@ -268,6 +280,18 @@
       "sha256": "2e611cc883b237f44314bd83bc5b361ef35498a8df146f8fca4c0c8ea6709f7a",
       "tested": true,
       "notes": "www home: no sinks"
+    },
+    {
+      "url": "https://unifi.ui.com/main-2.99fff016d6b090e8.js",
+      "sha256": "ad70542058907ba06cf236c160e62c0e49c833bfcdb9b0b39b832948e01d22c1",
+      "tested": true,
+      "notes": "Session 10: Site Manager SPA chunk (invite deep-link component reads ?role= and passes to acceptFromDeepLink); no new app-level XSS sinks"
+    },
+    {
+      "url": "https://unifi.ui.com/main-7.89817c7552da11f1.js",
+      "sha256": "c9b7ad08ce1ef1ce9a6d5a1aa67c53475cd1cddcef225d4cde0dc9c7cab61083",
+      "tested": true,
+      "notes": "Session 10: module 567899 confirmInvitation POSTs {deviceId,verificationToken,role}; role schema admin|owner; release-notes dangerouslySetInnerHTML is API-sourced"
     }
   ],
   "flows": [
@@ -292,6 +316,14 @@
       "file": "www index-D-lz99wc.js",
       "status": "not-vulnerable",
       "evidence": "result/client-side/www.ui.com/home/flows.md"
+    },
+    {
+      "source": "?role= query param on /invite|/invite-network-server deep link",
+      "sink": "POST https://cloudaccess.svc.ui.com/confirm-invitation body.role",
+      "file": "unifi.ui.com main-2 (acceptFromDeepLink) + main-7 (module 567899 confirmInvitation)",
+      "status": "candidate",
+      "evidence": "result/findings/VULN-20261114-001/",
+      "notes": "Client-supplied role (admin|owner) sent to confirm-invitation; server trust unverified (test account has no invitation; bogus device -> DEVICE_OFFLINE regardless of role)."
     }
   ],
   "endpoints": [
@@ -371,19 +403,19 @@
       "method": "POST",
       "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
       "auth": true,
-      "observations": "body {password}; upgrades assurance to level 2 for 1800s (re-auth)"
+      "observations": "body {password}; re-auth to level 2 for 1800s (password only, MFA not required by design); refresh attempt with password -> 499. Session 10"
     },
     {
       "method": "DELETE",
       "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
       "auth": true,
-      "observations": "downgrades to level 1"
+      "observations": "Session 10 corrected: returns {level:1} but is a NO-OP on the active token (GET /login/level still reports 2 and sensitive ops still succeed); not an actual downgrade."
     },
     {
       "method": "GET",
       "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
       "auth": true,
-      "observations": "returns {level,time_left_seconds}"
+      "observations": "returns {level,time_left_seconds}; L2 -> L1 on expiry; at genuine L1 sensitive ops return 499 L2_REQUIRED. Session 10"
     },
     {
       "method": "POST",
@@ -522,6 +554,42 @@
       "url": "https://account.svc.ui.com/zendesk/user",
       "auth": false,
       "observations": "Session 8: unauthenticated -> 401 UNAUTHORIZED; traversal/encoding variants no bypass"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/login/level/refresh",
+      "auth": true,
+      "observations": "auth:true; L2 -> 200 extends time_left to 1800; L1 -> 499 L2_REQUIRED; pre-MFA -> 401. Session 10"
+    },
+    {
+      "method": "GET",
+      "url": "https://cloudaccess.svc.ui.com/api/v1/hosts",
+      "auth": "SigV4",
+      "observations": "auth:SigV4; {\"data\":[],\"nextToken\":null} for test account; requires execute-api SigV4 (us-west-2). Session 10"
+    },
+    {
+      "method": "GET",
+      "url": "https://cloudaccess.svc.ui.com/devices",
+      "auth": "SigV4",
+      "observations": "auth:SigV4; [] for test account. Session 10"
+    },
+    {
+      "method": "GET",
+      "url": "https://cloudaccess.svc.ui.com/sites",
+      "auth": "SigV4",
+      "observations": "auth:SigV4; {\"sites\":[],\"nextToken\":null} for test account. Session 10"
+    },
+    {
+      "method": "GET",
+      "url": "https://cloudaccess.svc.ui.com/invitations?type=all",
+      "auth": "SigV4",
+      "observations": "auth:SigV4; [] (no pending invitations); path is /invitations NOT /api/v1/invitations (404). Session 10"
+    },
+    {
+      "method": "POST",
+      "url": "https://cloudaccess.svc.ui.com/confirm-invitation",
+      "auth": "SigV4",
+      "observations": "auth:SigV4; body {deviceId,verificationToken,role}; role client-controlled via ?role= deep link; bogus device -> 400 DEVICE_OFFLINE regardless of role. Candidate VULN-20261114-001 (Unresolved). Session 10"
     }
   ],
   "listeners": [

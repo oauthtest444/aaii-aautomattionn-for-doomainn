@@ -1,0 +1,14 @@
+// [1] route definitions (main-2)
+let Q=[{path:`${U.VK.InviteConsole}/:verificationToken?/:hostId?`,areaRootUrl:U.VK.Consoles},{path:`${U.VK.InviteNetserver}/:verificationToken?/:hostId?`,areaRootUrl:U.VK.Netservers}],$=e=>{let t,a,i,r,l,o,u,m,p,h,f,x,b=(0,n.c)(54),{areaRootUrl:v,verificationToken:y,hostId:j}=e,{_:S}=(0,d.uB)(),{sea
+
+// [2] role read from query + acceptFromDeepLink (main-2)
+>{let t,a,i,r,l,o,u,m,p,h,f,x,b=(0,n.c)(54),{areaRootUrl:v,verificationToken:y,hostId:j}=e,{_:S}=(0,d.uB)(),{search:I}=(0,F.useLocation)();b[0]!==I?(t=(0,Y.vW)(new URLSearchParams(I).get("role")??void 0),b[0]=I,b[1]=t):t=b[1];let w=t,{acceptFromDeepLink:A,decline:C}=(0,q.F)(),{invitations:E,isLoadingServerData:k,isError:T,refetch:P}=(0,W.A)(),Q=(0,z.DG)(),$=(0,F.useHistory)();b[2]!==j||b[3]!==E?(a=E?.find(e=>e.deviceId===j),b[2]=j,b[3]=E,b[4]=a):a=b[4];let J=a,{email:Z}=(0,c.As)();b[5]!==j?(i=j?[j]:[],b[5]=j,b[6]=i):i=b[6];let X=i,[ee]=(0,O.WU)(X),et=(0,O.Sp)(),[ea,ei]=(0,M
+
+// [3] deep-link accept + role forwarding (main-2)
+let a=await M(t,e.data.verificationToken,e.data.deviceType===m._r.PC,e.data.role),i=a.success||"INVITATION_ALREADY_CONFIRMED"===a.errorData.code;return N(t,i?"accepted":"failed"),i&&(0,j.$q)(t),a}catch(e){throw N(t,"failed"),e}},[M,x,N]),L=(0,_.useCallback)(async(e,t,a,i)=>M(e,t,a,i),[M]);return{hasMutation:R,getMutationRecord:O,accept:F,acceptFromDeepLink:L,decline:(0,_.useCallback)(async e=>{await D(e);try{return a
+
+// [4] role schema + invitation normalization (main-7 module 567899)
+let h=d.k5(["admin","owner"]).optional().catch(e=>{(0,i.Cp)(new p("unknown invitation role",{sentryContext:{extra:{role:e.input}}}))}),m=async()=>{let e=await (0,u.mt)(`${c.y.nca.invitations}?type=all`,{method:"GET"}).catch(e=>{throw new p("fetchInvitations failed",{cause:e})});try{return Array.isArray(e)?e.map(e=>{let{deviceId:t,name:a="UNKNOWN",sender:i,verificationToken:s}=e;return{deviceId:t,name:a,deviceType:(0,r.Rx)(e.hostType??-1),role:h.parse(e.role),sender:{name:i.name||(i.firstName&&i.lastName?`${i.firstN
+
+// [5] confirmInvitation POST body (main-7)
+ failed",{cause:t});throw(0,i.Cp)(e),e}},g=async(e,t,a)=>{let i=await (0,u.HB)(c.y.nca.confirmInvitation,{method:"POST",body:JSON.stringify({deviceId:e,verificationToken:t,role:a})});if(i.ok)return{success:!0,okData:void 0};let n=await (0,o
