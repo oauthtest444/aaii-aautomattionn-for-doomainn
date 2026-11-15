@@ -1,9 +1,10 @@
 # Route Testing Progress — account.ui.com
 
 - Total UI routes discovered: 37
-- Fully tested: 21
-- Partially tested: 10
-- Blocked: 6
+- Fully tested: 22
+- Partially tested: 0
+- Blocked: 15 (missing billing customer/org, emailed token, attestation/passkey,
+  or server-issued state; see `result/inventory/routes.md`)
 
 Session 3 run: 42850898064, started 2026-11-10T16:05:19Z.
 Session 4 run: 42920600593, started 2026-11-10T23:09:28Z (scheduled, resume/preserved).
@@ -300,3 +301,63 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` and now the
   `activate` device-login token endpoints; needs attacker-controlled `*.ui.com` content.
 - VULN-20261114-001 invite `?role=` escalation (no pending invitation available).
+
+## Session 12 — 2026-11-15 (run 43683615848)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Session/state recovery
+- OTP email delivery to the test maildrop stopped working (A newest mail
+  2026-11-14T13:29:26Z; many `/2fa/email` resends returned 200 with a fresh
+  `otp_prefix` but no message arrived). Interactive re-login is therefore blocked.
+- Recovered still-valid 30-day `UBIC_AUTH` JWTs for test accounts A and B from the
+  prior session log (`result/logs/opencode.log`, grep `UBIC_AUTH=`). Tokens verified
+  with `GET /api/sso/v1/user/self` -> 200 and expire ~2026-12-11..14. No token values
+  are copied into new files.
+- L1 -> L2 assurance unlocked with password-only
+  `POST https://sso.ui.com/api/sso/v1/user/self/login/level {"password":"..."}`:
+  200 `{level:2,time_left_seconds:1800}` and a new `UBIC_AUTH` cookie (old cookie
+  remains L1). Saved as `/tmp/A2.jar` / `/tmp/B2.jar`; re-run to extend the 30 min.
+  This is documented L2-by-password behavior, not a bypass.
+- Browser testing used the recovered cookie injected on `https://account.ui.com`
+  (`document.cookie = "UBIC_AUTH=...; domain=.ui.com; path=/; secure; samesite=lax"`).
+
+### Authenticated (L2) authorization matrix
+- Own data 200: `/user/self`, `/user/self/sessions`, `/trusted_devices`, `/activity`,
+  `/addresses`, `/mfa` (authenticator metadata only), `/roles`; `PATCH settings`
+  ignores privilege fields (prior result holds).
+- Cross-account UUID swaps (`/user/{B_uuid}/...`, `?uuid=`/`?user=` params) ->
+  `403 mismatching UUID` or own data only. No IDOR/BAC.
+- Zendesk: own ticket comments 200; A->B and B->A `GET
+  /zendesk/comments/{ticket}` -> `403 FORBIDDEN`. No ticket IDOR.
+- Pre-MFA `UBIC_2FA` cookie: `/user/self/mfa` GET, `POST /mfa/totp`,
+  `POST /mfa/email`, `DELETE /mfa/email/{id}` and `cloudaccess /create-credentials`
+  all `401 is not allowed`. Only OTP send is permitted pre-MFA. Pre-MFA
+  `/account-chooser` returns the caller's own account (by design, informational).
+- MFA email/TOTP add/remove not performed (would alter test-account auth state and
+  still require a password-elevated session; expected by design).
+
+### Route completion (authenticated browser)
+- `/billing` renders; passive calls: `sso /user/self` 200,
+  `billing.svc /api/v2/customers/self/subscriptions?limit=100` 404
+  (`Customer not found`), `/api/v2/products` 200, `/invoices/available-years` 404,
+  `cloudaccess /api/v1/hosts` 200 empty. `billing.svc.ui.com` remains outside the
+  approved component scope, so only UI-observed calls were recorded.
+- `/invoices`, `/payments`, `/subscriptions` redirect to `/billing`;
+  `/backups` renders Active/Archived with no backups; `/profile` redirects to
+  `/account`. Route tally now 22 done / 0 partial / 15 blocked (37 total).
+
+### Client-side refresh
+- `account.ui.com` bundle unchanged (`index-BAUIMHQa.js`, sha256 `29983e5e...55c18a`).
+- Wildcard `unifi.ui.com` Site Manager SPA is a new build (index last-modified
+  2026-11-12; 15 chunks in `/tmp/unifi2/`). Re-audited: only app-level
+  `dangerouslySetInnerHTML` remains release-notes blocks; bridge validates
+  `new URL(event.origin).hostname.endsWith(".ui.com")` and forces `host === "unifi"`
+  for `navigation.requested`; `nf = ${protocol}//${normalizedHost}` keeps
+  backslash/absolute-path input on the same host. No new sink or open redirect.
+
+### Still unresolved
+- Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` (needs attacker-controlled
+  `*.ui.com` origin).
+- VULN-20261114-001 invite `?role=` escalation (no pending invitation).
+- OTP mail delivery and therefore fresh login / suspicious-confirm / email-change-confirm.
+- Billing server-side testing (no billing customer; `billing.svc` out of approved scope).

@@ -157,3 +157,24 @@
   attacker-controlled `*.ui.com` content). No authenticated brute-force testing.
 - `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
   notification sent.
+
+## Session 12 additions (2026-11-15T06:02Z, run 43683615848)
+- OTP email delivery to the test maildrop failed, blocking fresh interactive login.
+  Recovered still-valid 30-day `UBIC_AUTH` JWTs for A/B from the prior session log;
+  verified via `GET /api/sso/v1/user/self` (200). Tokens expire ~2026-12-11..14; raw
+  values were not duplicated into new files.
+- L1 -> L2 uses password-only `POST /api/sso/v1/user/self/login/level` (200,
+  `level:2`, 30 min, new `UBIC_AUTH` cookie). Documented behavior, not a bypass.
+- L2 matrix: own sessions/trusted_devices/activity/addresses/mfa/settings 200;
+  cross-account UUID and query-param swaps -> 403/own data. No IDOR/BAC.
+  Zendesk comments: own 200, cross-account 403. No ticket IDOR.
+- Pre-MFA `UBIC_2FA`: MFA management and `cloudaccess /create-credentials` -> 401;
+  only OTP send allowed. `/account-chooser` returns own account only (by design).
+- Authenticated UI: `/billing` loads empty (`billing.svc` 404 `Customer not found`;
+  host outside approved component scope), `/invoices`/`/payments`/`/subscriptions`
+  redirect to `/billing`, `/backups` empty, `/profile` -> `/account`. Tally 22 done /
+  0 partial / 15 blocked.
+- Account bundle unchanged. Wildcard Site Manager SPA rebuilt 2026-11-12: re-audit
+  found no new HTML sink; bridge origin/navigation checks hold (same-host URL build).
+- `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
+  notification sent.

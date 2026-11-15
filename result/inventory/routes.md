@@ -7,40 +7,40 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 | 1 | /login | no | done | login email+password; 2FA; rate limit |
 | 2 | /login/mfa | partial | done | email OTP accepted |
 | 3 | /login/change-email | partial | done | legacy self-scoped email change |
-| 4 | /login/change-email/confirm | partial | pending | |
-| 5 | /login/create-passkey | partial | pending | |
-| 6 | /login/trust-device | partial | pending | |
-| 7 | /register | no | pending | account creation |
-| 8 | /verify | no | pending | |
-| 9 | /verify/verification-code/:uuid | no | pending | |
+| 4 | /login/change-email/confirm | partial | blocked | email_changeable absent; confirm not exposed |
+| 5 | /login/create-passkey | partial | blocked | no registered passkeys; webauthn options -> not found |
+| 6 | /login/trust-device | partial | done | device registration (204); trusted-device TTL 1y |
+| 7 | /register | no | blocked | POST /api/sso/v2/users needs private-key+captcha+devicecheck attestation |
+| 8 | /verify | no | blocked | verification id is emailed request id; auth user -> / |
+| 9 | /verify/verification-code/:uuid | no | blocked | uuid= user/zero/1 -> 404; needs emailed request id |
 | 10 | /reset-password | no | blocked | reCAPTCHA + anti-bot required |
 | 11 | /reset-password/password-reset-uuid/:uuid | no | done | needs emailed reset id; user uuid -> 404 |
 | 12 | /account | yes | done | self profile; mass-assignment ignored |
 | 13 | /profile | yes | done | client-side redirect to `/account` |
 | 14 | /security | yes | done | MFA/sessions/devices/addresses; IDOR protected |
-| 15 | /security/suspicious/confirm | yes | pending | |
-| 16 | /billing | yes | pending | |
-| 17 | /billing/:orgId | yes | pending | |
-| 18 | /invoices | yes | pending | |
-| 19 | /invoices/:invoiceId | yes | pending | |
-| 20 | /payments | yes | pending | |
-| 21 | /payments/3ds | yes | pending | |
-| 22 | /subscriptions | yes | pending | |
-| 23 | /subscriptions/:service | yes | pending | |
-| 24 | /subscriptions/cloud-storage/subscribe | yes | pending | |
-| 25 | /subscriptions/site-support/subscribe | yes | pending | |
+| 15 | /security/suspicious/confirm | yes | blocked | inspect/confirm need emailed confirm_token |
+| 16 | /billing | yes | blocked | L2 UI loads; billing.svc 404 Customer not found; billing.svc outside approved scope |
+| 17 | /billing/:orgId | yes | blocked | no billing org on test account |
+| 18 | /invoices | yes | done | L2: redirects to /billing (empty) |
+| 19 | /invoices/:invoiceId | yes | blocked | no invoice ids (no billing customer) |
+| 20 | /payments | yes | done | L2: redirects to /billing; no payment methods |
+| 21 | /payments/3ds | yes | blocked | no payment/3DS flow without billing customer |
+| 22 | /subscriptions | yes | done | L2: redirects to /billing (empty) |
+| 23 | /subscriptions/:service | yes | blocked | no subscriptions on test account |
+| 24 | /subscriptions/cloud-storage/subscribe | yes | blocked | no subscription context; no purchase path exercised |
+| 25 | /subscriptions/site-support/subscribe | yes | blocked | feature flag allowSiteSupportSubscribe=false |
 | 26 | /requests | yes | done | Zendesk own tickets only |
 | 27 | /requests/:ticketId | yes | done | cross-account comments 403 |
 | 28 | /supportform | yes | done | client-side redirect to `/requests` |
 | 29 | /supportform-uisp | yes | done | redirect to `/requests` with `isUISPForm` state |
 | 30 | /supportform-umr | yes | done | redirect to `/requests` |
 | 31 | /mysupport | yes | done | client-side redirect to `/requests` |
-| 32 | /backups | yes | partial | renders backups page; test account has no cloud backups |
-| 33 | /switch | yes | partial | account-chooser cookie; not deeply tested |
+| 32 | /backups | yes | done | L2: page renders; no backups; cloudaccess hosts/backups empty |
+| 33 | /switch | yes | done | logout + login_hint; redirect AC()-validated |
 | 34 | /activate | no | done | fixed client-side redirect to `https://activate.ui.com` (no user-controlled target) |
 | 35 | /logout | yes | done | GET logout clears `.ui.com` auth cookies (VULN-20261110-004, low) |
-| 36 | /idp/login-result | no | pending | |
-| 37 | /msp/idp/setup-result | no | pending | |
+| 36 | /idp/login-result | no | blocked | POST needs server-issued state (STATE_MISSING) |
+| 37 | /msp/idp/setup-result | no | done | postMessage targetOrigin = window.location.origin |
 
 ## unifi.ui.com (Site Manager SPA, wildcard `*.ui.com`) — Session 10
 | # | Route | Auth | Status | Notes |

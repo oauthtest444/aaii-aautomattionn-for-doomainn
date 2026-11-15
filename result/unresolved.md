@@ -18,10 +18,13 @@
   reachable. Server-side (Zendesk) sanitization was not bypass-tested.
 - Detail: `result/findings/VULN-20261111-001/report.md`.
 
-## 3. Authenticated-only routes not re-tested this session
-- Billing / invoices / payments / subscriptions / MSP IdP / passkey: test account has no
-  billing customer, no MSP membership, no registered passkeys. Marked Unresolved in
-  prior sessions; unchanged.
+## 3. Authenticated-only routes with no test data
+- Billing / invoices / payments / subscriptions were revisited at L2 in Session 12:
+  the UI loads, but `billing.svc.ui.com` returns `404 Customer not found` and that
+  host is outside the approved component list, so only UI-observed calls were made.
+  `/invoices`, `/payments`, `/subscriptions` redirect to `/billing`.
+- MSP IdP and passkey routes remain blocked: no MSP membership, no registered
+  passkeys.
 
 ## 4. Account creation
 - `POST /api/sso/v2/users` requires a reCAPTCHA token; the two test accounts in
@@ -67,3 +70,15 @@
   currently returns `403`; `uidev.tools` has no A record. Observed only (out of scope).
   No takeover was demonstrated (CloudFront alternate-domain takeover requires ACM/DNS
   control).
+
+## 9. Test-account session/MFA operational blockers (Session 12)
+- OTP email delivery to the maildrop inbox stopped working (A last message
+  2026-11-14T13:29:26Z; resends return 200 with a fresh `otp_prefix` but no mail).
+  Fresh interactive login, suspicious-login confirm, and email-change confirm are
+  blocked for now.
+- Workaround: still-valid 30-day `UBIC_AUTH` JWTs for A/B are present in
+  `result/logs/opencode.log` (grep `UBIC_AUTH=`). They expire ~2026-12-11..14.
+  `POST /api/sso/v1/user/self/login/level {"password":...}` re-elevates to L2 for
+  30 min and returns a new cookie. Do not copy raw token values into new files.
+- B TOTP secret is unknown and backup codes are stale (rotated Session 10), so there
+  is no alternate interactive MFA path. No passkeys are registered.

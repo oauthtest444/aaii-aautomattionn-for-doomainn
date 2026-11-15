@@ -92,3 +92,20 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | GET | /api/v1/hosts | cloudaccess | SigV4 | 200 | `{"data":[],"nextToken":null}` |
 | GET | /devices | cloudaccess | SigV4 | 200 | `[]` |
 | GET | /sites | cloudaccess | SigV4 | 200 | `{"sites":[],"nextToken":null}` |
+
+## Session 12 additions (L2 authenticated, recovered session)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/account-chooser | sso | UBIC_2FA | 200 | pre-MFA returns caller's own `{opaque_id,username,email,picture_url,remembered_at}`; by design, informational |
+| GET | /api/sso/v1/user/self/mfa | sso | UBIC_2FA | 401 | `is not allowed` pre-MFA; L2 -> 200 authenticator metadata (no secrets) |
+| POST | /api/sso/v1/user/self/mfa/totp | sso | UBIC_2FA | 401 | pre-MFA denied; not exercised at L2 (would alter account MFA) |
+| POST | /api/sso/v1/user/self/mfa/email | sso | UBIC_2FA | 401 | pre-MFA denied |
+| DELETE | /api/sso/v1/user/self/mfa/email/{id} | sso | UBIC_2FA | 401 | pre-MFA denied |
+| POST | /create-credentials | cloudaccess | UBIC_2FA | 401 | pre-MFA cannot mint STS credentials |
+| POST | /api/sso/v1/user/self/login/level | sso | L1 | 200 | `{password}` -> `{level:2,time_left_seconds:1800}` + new UBIC_AUTH; documented password-only L2 |
+| GET | /api/sso/v1/user/self/{sessions,trusted_devices,activity,addresses} | sso | L2 | 200 | own data only |
+| GET | /api/sso/v1/user/{uuid}/{address,console_groups} | sso | L2 | 403 | other account -> `mismatching UUID` |
+| GET/POST | /api/sso/v1/user/{uuid}[/address]?uuid=...&user=... | sso | L2 | 200/403 | params ignored; own data or 403 |
+| GET | /zendesk/comments/{ticket} | account | L2 | 200/403 | own 200; cross-account A<->B 403 `FORBIDDEN` |
+| GET | /api/v2/customers/self[/subscriptions] | billing | L2 | 404 | `Customer not found`; host outside approved component scope, UI-observed only |
+| GET | /api/v2/products | billing | L2 | 200 | public product list (UI-observed) |

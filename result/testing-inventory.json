@@ -25,37 +25,37 @@
       "url": "https://account.ui.com/login/change-email/confirm",
       "status": "blocked",
       "javascript": [],
-      "notes": "legacy PUT /legacy/user/self/email requires account state email_changeable (499); Account A/B not eligible; modern email/verify/send requires L2 (499)"
+      "notes": "Session 12: still blocked; user.email_changeable absent, confirm route not exposed"
     },
     {
       "url": "https://account.ui.com/login/create-passkey",
       "status": "blocked",
       "javascript": [],
-      "notes": "Session 7: WebAuthn registration route; no reachable unauthenticated flow (/mfa/webauthn/options 404). No verified keys on test accounts."
+      "notes": "Session 7/12: no registered passkeys; /mfa/webauthn/options returns user/keys not found"
     },
     {
       "url": "https://account.ui.com/login/trust-device",
       "status": "done",
       "javascript": [],
-      "notes": "POST /api/sso/v1/user/self/device {device_id} -> 204; UI flow after MFA; trusted-session TTL 31536000s"
+      "notes": "Session 4/12: POST /user/self/device {device_id} -> 204; trusted-session TTL 31536000s"
     },
     {
       "url": "https://account.ui.com/register",
       "status": "blocked",
       "javascript": [],
-      "notes": "POST /api/sso/v2/users -> 403 CHALLENGE_RECAPTCHA_TOKEN_REQUIRED"
+      "notes": "Session 12: POST /api/sso/v2/users requires _ubiquiti_private_key + captcha + apple_devicecheck_token (not in SPA bundle)"
     },
     {
       "url": "https://account.ui.com/verify",
-      "status": "done",
+      "status": "blocked",
       "javascript": [],
-      "notes": "unauth -> /login; authenticated -> /; not directly reachable"
+      "notes": "Session 4/12: auth redirect to /; verification token is emailed request id, not user uuid"
     },
     {
       "url": "https://account.ui.com/verify/verification-code/:uuid",
-      "status": "done",
+      "status": "blocked",
       "javascript": [],
-      "notes": "PUT /api/sso/v1/verify/verification-code/{uuid} -> 404 for user uuid, zero uuid, \"1\"; token is emailed request id, not user uuid"
+      "notes": "Session 12: PUT .../verification-code/{uuid} -> 404 for user/zero/1; needs emailed request id"
     },
     {
       "url": "https://account.ui.com/reset-password",
@@ -89,69 +89,69 @@
     },
     {
       "url": "https://account.ui.com/security/suspicious/confirm",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "inspect/confirm require emailed confirm_token (field name validated); decisions validated; opaque tokens unguessable"
+      "notes": "Session 12: inspect/confirm require emailed confirm_token; wrong token fails validation"
     },
     {
       "url": "https://account.ui.com/billing",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "no billing customer/orgs; 404 Customer not found"
+      "notes": "Session 12 (L2): UI loads but billing.svc.ui.com returns 404 Customer not found; billing.svc is outside the approved component list, so no active API testing"
     },
     {
       "url": "https://account.ui.com/billing/:orgId",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "no billing orgs on test account"
+      "notes": "Session 12: no organization membership/billing org on test account"
     },
     {
       "url": "https://account.ui.com/invoices",
-      "status": "partial",
+      "status": "done",
       "javascript": [],
-      "notes": "no billing customer"
+      "notes": "Session 12 (L2): route redirects to /billing; invoice list empty"
     },
     {
       "url": "https://account.ui.com/invoices/:invoiceId",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "no billing customer"
+      "notes": "Session 12: no invoice IDs (no billing customer)"
     },
     {
       "url": "https://account.ui.com/payments",
-      "status": "partial",
+      "status": "done",
       "javascript": [],
-      "notes": "no billing customer"
+      "notes": "Session 12 (L2): route redirects to /billing; no payment methods"
     },
     {
       "url": "https://account.ui.com/payments/3ds",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "no billing customer"
+      "notes": "Session 12: no payment/3DS flow without a billing customer"
     },
     {
       "url": "https://account.ui.com/subscriptions",
-      "status": "partial",
+      "status": "done",
       "javascript": [],
-      "notes": "no subscriptions"
+      "notes": "Session 12 (L2): route redirects to /billing; subscription list empty"
     },
     {
       "url": "https://account.ui.com/subscriptions/:service",
-      "status": "partial",
+      "status": "blocked",
       "javascript": [],
-      "notes": "no subscriptions"
+      "notes": "Session 12: no subscriptions on test account"
     },
     {
       "url": "https://account.ui.com/subscriptions/cloud-storage/subscribe",
       "status": "blocked",
       "javascript": [],
-      "notes": "no billing customer/subscriptions on test account"
+      "notes": "Session 12: no subscription context; storage availability 200 but no purchase path exercised"
     },
     {
       "url": "https://account.ui.com/subscriptions/site-support/subscribe",
       "status": "blocked",
       "javascript": [],
-      "notes": "no billing customer/subscriptions on test account"
+      "notes": "Session 12: feature flag allowSiteSupportSubscribe=false"
     },
     {
       "url": "https://account.ui.com/requests",
@@ -193,13 +193,13 @@
       "url": "https://account.ui.com/backups",
       "status": "done",
       "javascript": [],
-      "notes": "cloudaccess.svc.ui.com /api/v1/hosts and /ucore/backups empty for test account"
+      "notes": "Session 12 (L2): page renders Active/Archived; no backups; cloudaccess /api/v1/hosts and /ucore backups empty"
     },
     {
       "url": "https://account.ui.com/switch",
       "status": "done",
       "javascript": [],
-      "notes": "logout + /login?login_hint=; redirect validated by AC() (http/https, *.ui.com|*.ubnt.com|*.uisp.com); no arbitrary external open redirect"
+      "notes": "Session 4/12: logout + login_hint; redirect AC()-validated (no external open redirect)"
     },
     {
       "url": "https://account.ui.com/activate",
@@ -217,13 +217,13 @@
       "url": "https://account.ui.com/idp/login-result",
       "status": "blocked",
       "javascript": [],
-      "notes": "Session 7: POST /api/sso/v1/idp/login-result {code,state} -> 400 STATE_MISSING for arbitrary/empty state; requires a server-issued state. Not reachable without a real IdP flow."
+      "notes": "Session 7/12: POST /api/sso/v1/idp/login-result {code,state} -> 400 STATE_MISSING; needs server-issued state"
     },
     {
       "url": "https://account.ui.com/msp/idp/setup-result",
       "status": "done",
       "javascript": [],
-      "notes": "window.opener.postMessage targetOrigin = window.location.origin; safe"
+      "notes": "Session 4/12: postMessage targetOrigin = window.location.origin; safe"
     },
     {
       "url": "https://www.ui.com/",
