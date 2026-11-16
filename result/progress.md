@@ -5,6 +5,8 @@
 - Partially tested: 0
 - Blocked: 15 (missing billing customer/org, emailed token, attestation/passkey,
   or server-issued state; see `result/inventory/routes.md`)
+- All-scope `testing-inventory.json`: 45 routes = 37 `account.ui.com` + 8
+  `www.ui.com`/`unifi.ui.com`/`activate.ui.com`; 30 done / 15 blocked.
 
 Session 3 run: 42850898064, started 2026-11-10T16:05:19Z.
 Session 4 run: 42920600593, started 2026-11-10T23:09:28Z (scheduled, resume/preserved).
@@ -359,5 +361,53 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` (needs attacker-controlled
   `*.ui.com` origin).
 - VULN-20261114-001 invite `?role=` escalation (no pending invitation).
-- OTP mail delivery and therefore fresh login / suspicious-confirm / email-change-confirm.
 - Billing server-side testing (no billing customer; `billing.svc` out of approved scope).
+
+## Session 13 — 2026-11-16 (run 43814022276)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Fresh login / mail
+- Maildrop delivery recovered. Account A mobile-Safari-UA login completed:
+  password -> `499` MFA challenge -> email OTP `KK947859` -> `/login/2fa` 200 ->
+  `UBIC_AUTH` (`SameSite=lax`, HttpOnly, `Domain=.ui.com`, 30 days). No CAPTCHA and
+  no suspicious-login email for a new device/UA; chose "Not now" on trust-device.
+- `499` login body carries only `user.id`/`default_mfa`; no `email_changeable`.
+  `GET /api/sso/v1/account-chooser` -> `200` empty for A and B (no saved accounts).
+- `POST /api/sso/v1/jwt/token` -> `404` (removed/renamed) while still rotating a
+  fresh `UBIC_AUTH` cookie; `L2` claim is a 2FA timestamp, not expiry.
+
+### Email change
+- Legacy `POST /api/sso/v1/legacy/user/self/email/send` with `UBIC_AUTH` ->
+  `403 AUTHENTICATION_FAILED`; pre-MFA `UBIC_2FA` -> `403 PERMISSION_DENIED`.
+  UI only exposes it when login `499` includes `email_changeable`; not reachable.
+- Current profile flow: `POST /api/sso/v1/user/self/email/verify/send {email}`
+  -> `204` + 6-digit code to the new mailbox (`opencode-s13`; code `926854`).
+  Confirm `PUT /api/sso/v1/user/self
+  {email,email_change_verification_code,create_mfa}`.
+  - Unique email enforced at request (`400 This field must be unique` for B's email).
+  - Code bound to requested email (`400 Email change request not found` when
+    confirming B's email with a code sent elsewhere).
+  - Pre-MFA `UBIC_2FA` -> `401`; no CSRF via cross-site POST (`SameSite=lax`).
+- `PUT /user/self` ignores a supplied `uuid`; only self updated. Test artifact
+  `first_name` restored. No IDOR/mass assignment.
+
+### Roles / MFA / Zendesk
+- `POST /api/sso/v1/user/{uuid}/roles/beta {}` is self-service: own UUID -> `204`
+  adding fixed `Beta Testers`; other UUID -> `403 mismatching UUID`; body
+  `role`/`roles` ignored. A retains `Beta Testers` as a test artifact (low impact).
+- Cross-account MFA: A on B's email authenticator -> `405` for GET/PUT/POST and
+  `404 No EmailAuthenticator matches` for `/send`; B's TOTP -> `404`. Ownership
+  enforced.
+- Zendesk: B -> A ticket comments `403 FORBIDDEN`, ticket `404`; search still
+  reCAPTCHA-gated. No ticket IDOR.
+
+### Client-side
+- `account.js` unchanged (`29983e5e...55c18a`). `window.open` sinks use fixed,
+  internal, or server IdP URLs; Site Manager `account-bridge` origin check
+  (`.endsWith(".ui.com")`) and `navigation.requested` single-slash path check held;
+  no attacker-controlled source.
+
+### Inventory reconciliation
+- `testing-inventory.json`: 45 routes = 37 `account.ui.com` + 8
+  `www.ui.com`/`unifi.ui.com`/`activate.ui.com`; 30 done / 15 blocked. The 37-account
+  route tally in prior progress entries is the account-ui subset (22 done / 15 blocked).

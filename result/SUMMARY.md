@@ -178,3 +178,19 @@
   found no new HTML sink; bridge origin/navigation checks hold (same-host URL build).
 - `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
   notification sent.
+
+## Session 13 additions (2026-11-16T06:02Z, run 43814022276)
+- Maildrop recovered; Account A mobile-UA login succeeded end-to-end
+  (password -> `499` MFA -> email OTP -> `UBIC_AUTH`, `SameSite=lax`, 30 days).
+  No CAPTCHA / suspicious-login email for a new device; chose "Not now" on trust.
+- `GET /account-chooser` empty for A/B. `POST /jwt/token` now `404` while rotating
+  `UBIC_AUTH`; no open redirect.
+- Email change: legacy endpoint is `email_changeable`-gated (`403`); profile flow
+  `POST /user/self/email/verify/send` sends a 6-digit code to the new mailbox and
+  `PUT /user/self` confirms it. Unique-email and code-to-email binding both enforced;
+  pre-MFA and CSRF paths `401`/SameSite-blocked. No ATO.
+- `PUT /user/self` ignores `uuid` (no IDOR); `POST /user/{uuid}/roles/beta` is
+  self-service fixed-role (`Beta Testers`) and rejects other UUIDs; MFA and Zendesk
+  cross-account access enforced (`405`/`404`/`403`). No new high-impact finding.
+- Inventory reconciled: 45 total routes = 37 account-ui + 8 www/unifi/activate;
+  30 done / 15 blocked. `confirmed-vuln.txt` unchanged; no Discord notification sent.

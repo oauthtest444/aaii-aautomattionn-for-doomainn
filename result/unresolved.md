@@ -71,14 +71,18 @@
   No takeover was demonstrated (CloudFront alternate-domain takeover requires ACM/DNS
   control).
 
-## 9. Test-account session/MFA operational blockers (Session 12)
-- OTP email delivery to the maildrop inbox stopped working (A last message
-  2026-11-14T13:29:26Z; resends return 200 with a fresh `otp_prefix` but no mail).
-  Fresh interactive login, suspicious-login confirm, and email-change confirm are
-  blocked for now.
-- Workaround: still-valid 30-day `UBIC_AUTH` JWTs for A/B are present in
-  `result/logs/opencode.log` (grep `UBIC_AUTH=`). They expire ~2026-12-11..14.
-  `POST /api/sso/v1/user/self/login/level {"password":...}` re-elevates to L2 for
-  30 min and returns a new cookie. Do not copy raw token values into new files.
-- B TOTP secret is unknown and backup codes are stale (rotated Session 10), so there
-  is no alternate interactive MFA path. No passkeys are registered.
+## 9. Test-account session/MFA operational blockers (updated Session 13)
+- OTP delivery recovered. A full mobile-UA login of Account A succeeded
+  (password -> `499` MFA -> email OTP -> `/login/2fa` 200 -> `UBIC_AUTH`); maildrop
+  now receives MFA and email-change codes again. Fresh interactive login works for A.
+- The login `499` body still lacks `email_changeable`, so `/login/change-email` and
+  the legacy `POST /legacy/user/self/email/send` endpoint remain unreachable
+  (`403`). The current profile email-change flow is reachable with a session but
+  sends a code to the new mailbox and binds confirmation to that address; it is not
+  an ATO primitive. The pending test change to `opencode-s13@maildrop.cc` was not
+  confirmed and its 10-minute code has expired.
+- B's TOTP secret is unknown and backup codes are stale (rotated Session 10), so
+  there is no alternate interactive MFA path for B. No passkeys are registered.
+- A self-enrolled in early access (`Beta Testers`) while testing
+  `POST /user/{uuid}/roles/beta`; the endpoint only adds this fixed role and rejects
+  other UUIDs. This is a test artifact, not a privilege escalation.

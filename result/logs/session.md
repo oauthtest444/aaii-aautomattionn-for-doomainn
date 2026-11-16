@@ -294,3 +294,69 @@
   server-issued state.
 - New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
   Discord notification sent.
+
+## Session 13 — run 43814022276, started 2026-11-16T06:02:20Z
+- Event: schedule; decision=preserved (target hash `3353d9c6...733c8a` unchanged)
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Environment: Linux runner; Chrome via chrome-devtools MCP; target bundles unchanged
+- Scope: `account.ui.com`, `sso.ui.com`, `account.svc.ui.com`,
+  `cloudaccess.svc.ui.com`; `www.ui.com`/`activate.ui.com` prior results reused
+- Resume: continuing from Session 12; no open high-impact findings.
+
+### Session 13 results
+- Maildrop delivery recovered. A fresh interactive login of Account A succeeded via
+  mobile-Safari UA (isolated context): password -> `499` MFA challenge -> email OTP
+  `KK947859` -> `/login/2fa` 200 -> `UBIC_AUTH` cookie (`SameSite=lax`, HttpOnly,
+  `Domain=.ui.com`, 30 days). Trust-device prompt shown; chose "Not now".
+- The `499` login response contains only `user.id` + `default_mfa` (no
+  `email_changeable`); this is the normal MFA challenge, not a suspicious-login state.
+  A new mobile device/UAs did **not** trigger a suspicious-login email or CAPTCHA.
+- `GET /api/sso/v1/account-chooser` returns `200` with an empty body for both A and B;
+  no saved accounts, no IDOR.
+- `POST /api/sso/v1/jwt/token` now returns `404` (Allow: GET, OPTIONS) while still
+  setting a fresh `UBIC_AUTH` cookie; the prior open-redirect test is no longer
+  reproducible. Cookie claims show `L2` is a last-2FA timestamp, not an expiry.
+- Legacy email-change path: `POST /api/sso/v1/legacy/user/self/email/send` with a
+  full `UBIC_AUTH` cookie and `{email,password}` -> `403 AUTHENTICATION_FAILED`
+  (wrong-password shape); with a fresh pre-MFA `UBIC_2FA` cookie ->
+  `403 PERMISSION_DENIED`. The UI gates it on `email_changeable`, which is only set
+  on a login `499` response; A's response lacks the flag, so the route is unreachable
+  and the endpoint is not a standalone ATO primitive.
+- Profile email change (new API): `POST /api/sso/v1/user/self/email/verify/send`
+  with an authenticated session and `{email}` -> `204` and sends a 6-digit code to
+  the new address (tested `opencode-s13@maildrop.cc`; code `926854`, 10 min).
+  Confirmation is `PUT /api/sso/v1/user/self` with
+  `{email,email_change_verification_code,create_mfa}`.
+  - Unique email enforced at request time: B's email -> `400 This field must be
+    unique`.
+  - Code is bound to the requested address: using B's email at confirm with a code
+    sent to `opencode-s13` -> `400 Email change request not found`.
+  - Pre-MFA `UBIC_2FA` -> `401` for send and `PUT`.
+  - The flow is session-only (no password re-auth), but requires control of the new
+    mailbox; `UBIC_AUTH` is `SameSite=lax`, so cross-site POST CSRF does not carry it.
+    Not a confirmed high-impact bug.
+- Profile mass assignment / IDOR: `PUT /api/sso/v1/user/self` with `uuid: B` still
+  updated only A (`first_name`); B unchanged (`404`/own data). Restored A's
+  `first_name` to `OpenCodeTest`. No BAC/IDOR.
+- Early-access roles: `POST /api/sso/v1/user/{uuid}/roles/beta {}` is self-service:
+  own UUID -> `204` (adds fixed `Beta Testers`); B/random UUID -> `403 mismatching
+  UUID`; body `role`/`roles` values are ignored (fixed role, no arbitrary assignment).
+  A now carries `Beta Testers` as a test artifact; low impact, no privilege escalation.
+- MFA cross-account IDOR: A session on B's email authenticator
+  (`a646df96-...`) `GET`/`PUT`/`POST /mfa/email/{id}` -> `405`;
+  `/mfa/email/{id}/send` -> `404 No EmailAuthenticator matches`; B's TOTP
+  `PUT /mfa/totp/{id}` -> `404 No TOTPAuthenticator matches`. Ownership enforced.
+- Zendesk: A's ticket still returns (`6138711`); B -> A `GET /zendesk/comments/6138711`
+  -> `403 FORBIDDEN`, `/zendesk/tickets/6138711` -> `404`; `search_tickets` remains
+  reCAPTCHA-gated (`400`). No ticket IDOR.
+- Client-side re-audit: `account.js` unchanged (`29983e5e...55c18a`); `window.open`
+  sinks (`Bw` external links, consent popup, `_me`) only consume fixed/internal or
+  server IdP URLs; Site Manager `account-bridge` trusts `*.ui.com` origins but
+  `navigation.requested` validates a single-slash path and URL construction keeps
+  the host; no attacker-controlled source found.
+- Route tally reconciliation: `testing-inventory.json` has 45 routes = 37
+  `account.ui.com` + 8 `www.ui.com`/`unifi.ui.com`/`activate.ui.com` routes;
+  status 30 done / 15 blocked. `progress.md`'s "37 account routes" is the
+  account-ui subset and is consistent with the inventory.
+- New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
+  Discord notification sent.
