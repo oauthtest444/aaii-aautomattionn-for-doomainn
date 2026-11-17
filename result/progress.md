@@ -445,3 +445,33 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   reCAPTCHA plus vendor anti-bot fields; score token -> `403
   CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`, no challenge solved. Zendesk search stayed
   captcha-gated (`x-captcha-token`), and a fresh B ticket was unavailable (`429`).
+
+## Session 15 (2026-11-17T20:46Z)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Bundle refresh
+- `www.ui.com` main bundle changed to `/microsite/static/index-BfxHSOgp.js`
+  (934,244 B, sha256 `0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9`);
+  187 chunk refs, 156 + 99 chunks downloaded/audited. `account.ui.com` bundle
+  unchanged (`index-CYDY7PBp.js`).
+- www sinks: all `dangerouslySetInnerHTML` sites render i18n/static data;
+  `DownloadStarted` `link` param requires https + allowlisted
+  `dl.ubnt.com`/`dl.ui.com`/`fw-download.ubnt.com` and is rejected otherwise;
+  `Landing` hash only toggles `#partners`. No DOM XSS/open redirect.
+- Account: `iS`/`sS` redirect validators reject external, `javascript:`, `//`,
+  and backslash targets; `?org=` is billing-only (out of scope).
+
+### New endpoint results
+- `POST https://sso.ui.com/api/sso/v1/user/self/zendesk_user` -> `200` empty;
+  body `external_id`/`email`/`role` ignored.
+- `resendVerificationEmail` (`/api/sso/v1/verify`) has no call site; POST
+  `/api/sso/v1/verify/email/<A>` -> `405`.
+- `POST https://account.svc.ui.com/zendesk/ticket` -> `400 BAD_REQUEST`
+  (input/captcha gate); follow-up -> `429 RATE_LIMITED`; no mass-assignment result.
+- `account.svc /zendesk/user` body fields (`external_id`/`email`/`role`/`id`)
+  remain ignored; no persistence.
+
+### Status
+- 45 routes = 37 account-ui + 8 www/unifi/activate; 30 done / 15 blocked.
+- Unresolved unchanged: credentialed CORS (needs attacker-controlled `*.ui.com`),
+  invite `?role=` (no pending invitation), billing/MSP/passkey blockers.

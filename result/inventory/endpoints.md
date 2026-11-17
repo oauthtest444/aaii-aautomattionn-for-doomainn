@@ -119,3 +119,11 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/user/self/2fa/reset | sso | L1/L2 | 404 | no route |
 | POST | /api/sso/v1/user/self/2fa/backup | sso | L1/L2 | 499/201 | L1 -> `L2_REQUIRED`; L2 -> new codes |
 | POST | /chat/messaging/jwt | account | L1 | 200/401 | binds JWT to session; body `email/external_id/user_id` ignored; unauth 401 |
+
+## Session 15 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/user/self/zendesk_user | sso | L2 | 200 | empty; body `external_id`/`email`/`role` ignored |
+| POST | /api/sso/v1/verify/email/{email} | sso | no | 405 | `resendVerificationEmail` is config-only (no call site) |
+| POST | /zendesk/user | account | L2 | 200 | body `external_id`/`email`/`role`/`id` ignored, no persistence |
+| POST | /zendesk/ticket | account | L2 | 400/429 | baseline `BAD_REQUEST`; follow-up `RATE_LIMITED`; creation input/captcha-gated |

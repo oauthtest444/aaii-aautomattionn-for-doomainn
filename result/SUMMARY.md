@@ -209,3 +209,20 @@
 - Cloudaccess collections are empty for A, so no object-ID IDOR surface was available.
 - No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification sent.
+
+## Session 15 additions (2026-11-17T20:46Z)
+- `www.ui.com` refreshed to `/microsite/static/index-BfxHSOgp.js` (934,244 B,
+  sha256 `0722ab3b...eae58f9`); 187 chunk refs audited (DownloadStarted, Landing,
+  TrustCenter, ManagedVoIP, ProfessionalIntegrators, UniFiPartnerHub, Ultra,
+  SiteSupport, BecomeATrainerApplication). All HTML sinks are static/i18n; the
+  DownloadStarted `link` auto-download requires https + an allowlisted
+  `dl.ubnt.com`/`dl.ui.com`/`fw-download.ubnt.com` host. No DOM XSS/open redirect.
+- Account bundle re-audit: `redirect` (`iS`) and `innerRedirect` (`sS`) validators
+  reject external/`javascript:`/`//`/backslash targets and match app paths only;
+  `?org=` only feeds out-of-scope `billing.svc.ui.com` subscription URLs.
+- New endpoint negatives: SSO `POST /user/self/zendesk_user` -> `200` empty (body
+  ignored); `resendVerificationEmail` is config-only (`405`); account.svc Zendesk
+  ticket create -> `400` (input/captcha gate) then `429`; Zendesk user body fields
+  (`external_id`/`email`/`role`/`id`) are not persisted.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.

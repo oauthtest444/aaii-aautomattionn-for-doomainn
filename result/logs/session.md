@@ -395,3 +395,42 @@
   untested for cross-tenant scope.
 - Maildrop GraphQL confirmed working (`POST https://api.maildrop.cc/graphql`),
   but both inboxes were empty at test time; no email-token flows could resume.
+
+### Session 15 — 2026-11-17 (run continuing, 20:46Z)
+- Preflight OK: opencode/curl/git/node/npx/python3 + Chrome 158 at 127.0.0.1:9222; MCP tools live.
+- Continuation (target hash 3353d9c6... unchanged, decision=preserved). Read SUMMARY,
+  scope, progress, inventory, findings, unresolved.
+- New asset observed: `www.ui.com` now serves `/microsite/static/index-BfxHSOgp.js`
+  (previous Session 11 bundle was `index-Dyxt5MIq.js`). Auditing the changed bundle.
+- Bundle/chunk audit completed for the changed `www.ui.com` build:
+  `/microsite/static/index-BfxHSOgp.js` (934,244 B, sha256
+  `0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9`) with 187
+  chunk refs; downloaded 156 + 99 route chunks under `/tmp/ui15/all`, `/tmp/ui15/all2`.
+- `DownloadStarted-C7jLKP1G.js`: the `link` param is stored only if
+  `I(new URL(link, origin).hostname)` is one of `dl.ubnt.com`, `dl.ui.com`,
+  `fw-download.ubnt.com`; the auto-clicked anchor then uses `F(link)` which
+  additionally requires `protocol === "https:"`. `javascript:`, `//host`, and
+  external hosts are rejected; the `v` version only interpolates into a fixed
+  `https://community.ui.com/releases/r/...` path. No open redirect / DOM XSS.
+- Other `dangerouslySetInnerHTML` chunks (`Landing`, `TrustCenter`, `ManagedVoIP`,
+  `ProfessionalIntegrators`, `UniFiPartnerHub`, `Ultra`, `SiteSupport`,
+  `BecomeATrainerApplication`) render only i18n strings, static config data, or
+  static trainer objects; `Landing` hash parser is
+  `Xe = e => e.replace(/^#/,'') === 'partners' ? 1 : 0`. No attacker-controlled source.
+- `BecomeATrainerApplication` posts a CSRF+reCAPTCHA form (client site keys) and
+  references `direct.svc.ui.com/public/training-events`; `direct.svc` is outside the
+  approved component list, so UI-observed only. No reflection/sink.
+- Account bundle re-audit: login `redirect` uses `iS` (host suffix must be `ui.com`;
+  protocol http/https); `innerRedirect` uses `sS` (must start `/`, not `//`, no `\`,
+  and match an app path constant). No open redirect / `javascript:` sink.
+  The `?org=` param flows only into `billing.svc.ui.com` subscription paths
+  (outside approved components).
+- Endpoint checks: `POST https://sso.ui.com/api/sso/v1/user/self/zendesk_user` ->
+  `200` empty (body `external_id`/`email`/`role` ignored, matching account.svc).
+  `resendVerificationEmail` (`/api/sso/v1/verify`) is config-only with no call site;
+  `POST /api/sso/v1/verify/email/<A>` -> `405 METHOD_NOT_ALLOWED`.
+  `POST https://account.svc.ui.com/zendesk/ticket` -> `400 BAD_REQUEST` (validation/
+  captcha gate) and a follow-up -> `429 RATE_LIMITED`; stopped to respect limits.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent. Unresolved items remain: credentialed CORS (needs an
+  attacker-controlled `*.ui.com` origin) and invite `?role=` (no pending invitation).
