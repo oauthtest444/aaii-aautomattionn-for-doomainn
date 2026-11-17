@@ -316,6 +316,18 @@
       "sha256": "c9b7ad08ce1ef1ce9a6d5a1aa67c53475cd1cddcef225d4cde0dc9c7cab61083",
       "tested": true,
       "notes": "Session 10: module 567899 confirmInvitation POSTs {deviceId,verificationToken,role}; role schema admin|owner; release-notes dangerouslySetInnerHTML is API-sourced"
+    },
+    {
+      "url": "https://account.ui.com/assets/index-CYDY7PBp.js",
+      "sha256": "14c9788ebdf32e9a2d9763821836589c4703e5910a2aade9f5e55ffce2d14a1b",
+      "tested": true,
+      "notes": "Session 14 current build (7,150,439 B): same 99 API paths/42 routes; new MFA/chat paths; no new app sink"
+    },
+    {
+      "url": "https://unifi.ui.com/main-0.4943c3d68170aaef.js",
+      "sha256": "43393b8a50cbef169c920d7fca36bc920cbb3774426fb06e85076205d35b9209",
+      "tested": true,
+      "notes": "Session 14 Site Manager build; account-bridge origin .endsWith(\".ui.com\"), navigation.requested host/path validated"
     }
   ],
   "flows": [
@@ -638,6 +650,60 @@
       "url": "https://download.svc.ui.com/v1/downloads/search",
       "auth": "none",
       "observations": "Session 11 (out-of-scope *.svc, observed): {\"search\":\"unifi\"} -> HTTP 204 empty"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/email/{id}/verify",
+      "auth": "session/L1",
+      "observations": "Session 14: pre-MFA 401; L1 needs oneTimePassword field; cross-account id 404"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/email/{id}/send",
+      "auth": "session/L1",
+      "observations": "Session 14: own 204; cross-account id 404"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/totp",
+      "auth": "session/L1",
+      "observations": "Session 14: L1 -> 499 L2_REQUIRED"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/totp/{id}/verify",
+      "auth": "session/L2",
+      "observations": "Session 14: cross-account B totp 404"
+    },
+    {
+      "method": "DELETE",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/{totp,email}/{id}",
+      "auth": "session/L2",
+      "observations": "Session 14: cross-account B ids 404"
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/push/poll-login",
+      "auth": "session/L1",
+      "observations": "Session 14: 400 Invalid session without login push"
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/mfa/push/{id}/poll-setup",
+      "auth": "session/L1",
+      "observations": "Session 14: unknown id 404"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/2fa/reset",
+      "auth": "session/L1",
+      "observations": "Session 14: 404 no route"
+    },
+    {
+      "method": "POST",
+      "url": "https://account.svc.ui.com/chat/messaging/jwt",
+      "auth": "session/L1",
+      "observations": "Session 14: session-bound JWT; body email/external_id/user_id ignored; unauth 401"
     }
   ],
   "listeners": [

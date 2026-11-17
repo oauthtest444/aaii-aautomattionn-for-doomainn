@@ -360,3 +360,38 @@
   account-ui subset and is consistent with the inventory.
 - New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
   Discord notification sent.
+
+### Session 14 — 2026-11-17 (run continuing, 07:54Z)
+- Account bundle changed: `index-CYDY7PBp.js` (7,150,439 B, sha256
+  `14c9788ebdf32e9a2d9763821836589c4703e5910a2aade9f5e55ffce2d14a1b`) now served
+  instead of `index-BAUIMHQa.js`; same 99 `/api/*` paths and 42 route paths.
+- New bundle paths: `/mfa/{type}/{id}/verify`, `/mfa/{type}/{id}/send`,
+  `/mfa/push/{id}/poll-setup`, `/mfa/push/poll-login`, `/mfa/webauthn/{options,login}`,
+  `/2fa/reset`, `/chat/messaging/jwt`. No new app-level DOM sink: `dangerouslySetInnerHTML`
+  remains static i18n menu text (www) and release-notes blocks; `.innerHTML` are library
+  code; postMessage bridge still validates `*.ui.com` and keeps `targetOrigin` at the
+  current origin for the MSP result page.
+- New endpoint checks: pre-MFA email `/send` -> `204` (own), email `/verify` -> `401`;
+  L1 own email `/verify` -> `400` (`oneTimePassword` required), `POST /2fa/backup` -> `499
+  L2_REQUIRED`; L2 cross-account B email/TOTP `/verify`, `/send`, `DELETE` -> `404`;
+  `/2fa/reset` -> `404`; `POST /chat/messaging/jwt` ignores body `email`/`external_id`/
+  `user_id` and binds the JWT to the session (`401` unauth).
+- Fresh login `499` body still lacks `email_changeable`; authenticator metadata unchanged.
+- Site Manager `main-0..7` audited: bridge origin check `.endsWith(".ui.com")` and
+  `navigation.requested` requires `host === "unifi"` plus a single-slash path; no new sink.
+- Cloudaccess `hosts`/`sites`/`archived-backups`/`invitations`/`colocated-hosts` return
+  `200` with empty collections for A; no object IDs for IDOR testing.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.
+- Reset/host-injection probe: `POST /api/sso/v1/password/{email}` now returns
+  `400 VALIDATION_ERROR` listing `captcha`, `_ubiquiti_private_key`, and
+  `apple_devicecheck_token`; a score-key token yields `403
+  CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`, and the forced challenge remains unsolved
+  (no automated CAPTCHA solving). Password-reset email link/host-header poisoning
+  is therefore blocked by reCAPTCHA, not tested.
+- Zendesk cross-account search still gated: search requires header
+  `x-captcha-token`; B ticket creation returned `429 RATE_LIMITED`, so no fresh
+  B ticket marker was available. `search_tickets` remains dead UI code and
+  untested for cross-tenant scope.
+- Maildrop GraphQL confirmed working (`POST https://api.maildrop.cc/graphql`),
+  but both inboxes were empty at test time; no email-token flows could resume.

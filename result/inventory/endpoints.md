@@ -109,3 +109,13 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | GET | /zendesk/comments/{ticket} | account | L2 | 200/403 | own 200; cross-account A<->B 403 `FORBIDDEN` |
 | GET | /api/v2/customers/self[/subscriptions] | billing | L2 | 404 | `Customer not found`; host outside approved component scope, UI-observed only |
 | GET | /api/v2/products | billing | L2 | 200 | public product list (UI-observed) |
+| POST | /api/sso/v1/user/self/mfa/email/{id}/verify | sso | UBIC_2FA/L1 | 401/400 | pre-MFA denied; L1 body `oneTimePassword`; cross-account -> 404 |
+| POST | /api/sso/v1/user/self/mfa/email/{id}/send | sso | UBIC_2FA/L1 | 204/404 | own 204; cross-account 404 |
+| POST | /api/sso/v1/user/self/mfa/totp | sso | L1 | 499 | `L2_REQUIRED` |
+| POST/DELETE | /api/sso/v1/user/self/mfa/{totp,email}/{id} | sso | L2 | 404/405 | cross-account B ids -> 404; PATCH -> 405 |
+| POST | /api/sso/v1/user/self/mfa/totp/{id}/verify | sso | L2 | 404 | cross-account B totp -> 404 |
+| GET | /api/sso/v1/user/self/mfa/push/poll-login | sso | L1 | 400 | `Invalid session` without login push |
+| GET | /api/sso/v1/user/self/mfa/push/{id}/poll-setup | sso | L1 | 404 | missing/expired setup id |
+| POST | /api/sso/v1/user/self/2fa/reset | sso | L1/L2 | 404 | no route |
+| POST | /api/sso/v1/user/self/2fa/backup | sso | L1/L2 | 499/201 | L1 -> `L2_REQUIRED`; L2 -> new codes |
+| POST | /chat/messaging/jwt | account | L1 | 200/401 | binds JWT to session; body `email/external_id/user_id` ignored; unauth 401 |

@@ -411,3 +411,37 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - `testing-inventory.json`: 45 routes = 37 `account.ui.com` + 8
   `www.ui.com`/`unifi.ui.com`/`activate.ui.com`; 30 done / 15 blocked. The 37-account
   route tally in prior progress entries is the account-ui subset (22 done / 15 blocked).
+
+## Session 14 (2026-11-17T07:54Z)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Refresh and diff
+- `account.ui.com` now serves `index-CYDY7PBp.js` (7,150,439 B, sha256
+  `14c9788ebdf32e9a2d9763821836589c4703e5910a2aade9f5e55ffce2d14a1b`); the prior
+  `index-BAUIMHQa.js` is no longer referenced. 99 `/api/*` paths and 42 route paths
+  are unchanged. New paths: MFA `{type}/{id}/verify`, `{type}/{id}/send`,
+  `push/{id}/poll-setup`, `push/poll-login`, `webauthn/options|login`, `2fa/reset`,
+  and `chat/messaging/jwt`.
+- Sink review: no new app-level `dangerouslySetInnerHTML`, `.innerHTML`, or redirect
+  sink. Release-notes blocks (remote, vendor-authored) and static i18n menu text are
+  the only app HTML sinks; `postMessage` still validates `.ui.com` and uses the current
+  origin for the MSP setup result.
+- Site Manager build (`main-0..7`, e.g. `main-0` sha256 `43393b8a...b9209`):
+  `account-bridge` origin check `.endsWith(".ui.com")`; `navigation.requested` requires
+  `host === "unifi"` and a single-slash path; no new sink.
+
+### New endpoint results
+- Pre-MFA `POST /mfa/email/{id}/send` -> `204` (own), `POST .../verify` -> `401`;
+  L1 own email verify -> `400` requiring `oneTimePassword`; L1 `POST /2fa/backup` ->
+  `499 L2_REQUIRED` (L2 -> `201` new codes).
+- L2 cross-account B email/TOTP `verify`, `send`, `DELETE` -> `404`; `PATCH` -> `405`;
+  `/2fa/reset` -> `404`; push poll-login -> `400 Invalid session`; poll-setup for an
+  unknown id -> `404`.
+- `POST /chat/messaging/jwt` -> session-bound JWT; body `email`/`external_id`/`user_id`
+  ignored; unauth -> `401`.
+- Cloudaccess `hosts`, `sites`, `archived-backups`, `invitations`, `colocated-hosts`
+  -> `200` empty for A; enterprise organizations empty; no IDs to test for IDOR.
+- Password-reset host-header poisoning blocked: the reset request requires
+  reCAPTCHA plus vendor anti-bot fields; score token -> `403
+  CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`, no challenge solved. Zendesk search stayed
+  captcha-gated (`x-captcha-token`), and a fresh B ticket was unavailable (`429`).

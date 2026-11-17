@@ -194,3 +194,18 @@
   cross-account access enforced (`405`/`404`/`403`). No new high-impact finding.
 - Inventory reconciled: 45 total routes = 37 account-ui + 8 www/unifi/activate;
   30 done / 15 blocked. `confirmed-vuln.txt` unchanged; no Discord notification sent.
+
+## Session 14 additions (2026-11-17T07:54Z)
+- `account.ui.com` bundle refreshed to `index-CYDY7PBp.js` (7,150,439 B, sha256
+  `14c9788e...2d14a1b`). API/route count unchanged; new paths are the MFA
+  `verify`/`send`/push-poll/WebAuthn endpoints, `2fa/reset`, and `chat/messaging/jwt`.
+- No new app-level DOM sink; release-notes `dangerouslySetInnerHTML` and static i18n
+  menu text remain the only app sinks. Site Manager `main-0..7` bridge still validates
+  `.ui.com` origin and `navigation.requested` host/path.
+- New endpoint matrix: pre-MFA email send `204`/verify `401`; L1 email verify needs
+  `oneTimePassword` (`400`), backup-code mint `499 L2_REQUIRED`; L2 cross-account MFA
+  operations `404`; `/2fa/reset` `404`; chat JWT is session-bound and ignores
+  body-supplied user identifiers.
+- Cloudaccess collections are empty for A, so no object-ID IDOR surface was available.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.
