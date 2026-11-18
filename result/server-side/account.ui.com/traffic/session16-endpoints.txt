@@ -1,0 +1,49 @@
+# Session 16 endpoint evidence (2026-11-18) — test accounts A/B, disposable creds
+Started: 2026-11-18T20:26:46Z
+
+## GET /api/sso/v1/user/self/roles (A)
+{"roles":["Beta - EdgeRouter","Beta - airCRM","Beta - airFiber","Beta - mFi","Beta Testers","Beta-RocketAC"]}
+HTTP 200
+
+## GET /api/sso/v1/user/self/roles (B)
+{"roles":["Beta - EdgeRouter","Beta - airCRM","Beta - airFiber","Beta - mFi","Beta Testers","Beta-RocketAC"]}
+HTTP 200
+
+## POST /api/sso/v1/user/self/roles (A) method check
+{"detail":"Method \"POST\" not allowed.","error":"METHOD_NOT_ALLOWED"}
+HTTP 405
+
+## POST /api/sso/v1/address/validator unauthenticated (valid US address)
+
+HTTP 204
+
+## POST /api/sso/v1/address/validator unauthenticated (missing country)
+{"country":["required"],"error":"VALIDATION_ERROR"}
+HTTP 400
+
+## POST /api/sso/v1/address/validator (invalid country / overlong postal code)
+{"country":["'ZZ' is not a valid country code"],"error":"VALIDATION_ERROR"}
+HTTP 400
+{"postal_code":["Ensure this field has no more than 10 characters."],"error":"VALIDATION_ERROR"}
+HTTP 400
+
+## CORS preflight on address/validator (Origin https://evil.ui.com)
+HTTP/2 200 
+vary: origin, Cookie
+access-control-allow-credentials: true
+access-control-allow-origin: https://evil.ui.com
+access-control-allow-methods: POST,GET,HEAD,PATCH,DELETE,OPTIONS,PUT
+vary: Access-Control-Request-Method
+vary: Origin
+vary: Access-Control-Request-Headers
+access-control-max-age: 600
+
+## POST /api/sso/v2/user/self/mfa/email/{id}/send cross-account A->B (B id a646df96...)
+{"detail":"No EmailAuthenticator matches the given query.","error":"ERROR"}
+HTTP 404
+
+## POST /api/sso/v2/user/self/mfa/email/{id}/send unauthenticated (A id b82c4c7d...)
+ is not allowed
+HTTP 401
+
+Ended: 2026-11-18T20:26:48Z

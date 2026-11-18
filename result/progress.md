@@ -475,3 +475,35 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - 45 routes = 37 account-ui + 8 www/unifi/activate; 30 done / 15 blocked.
 - Unresolved unchanged: credentialed CORS (needs attacker-controlled `*.ui.com`),
   invite `?role=` (no pending invitation), billing/MSP/passkey blockers.
+
+## Session 16 — 2026-11-18T20:21Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Bundle refresh
+- `account.ui.com` `index-CYDY7PBp.js` unchanged (sha256 `14c9788e...2d14a1b`);
+  `www.ui.com` `index-BfxHSOgp.js` unchanged (`0722ab3b...eae58f9`).
+- Site Manager new build `main-0.2678141fb293ea0d.js` (`5bccf419...3993a1b`) plus
+  `main-7.89817c7552da11f1.js` (`c9b7ad08...c61083`). Re-audit: account-bridge
+  origin `.endsWith(".ui.com")` with reporter/version/Zod checks; uid portal host
+  constrained to `${domain}${fixedSuffix}`; `?link=` stored only; `appview` boolean;
+  debug params enum/regex validated. One release-notes `dangerouslySetInnerHTML`
+  (vendor-authored), no `innerHTML`/`eval`/`srcdoc`.
+
+### New endpoint results
+- `GET /api/sso/v1/user/self/roles` 200 for A and B with a fixed beta role list;
+  `POST` -> `405 METHOD_NOT_ALLOWED`. Roles are not client-writable here.
+- `POST /api/sso/v1/address/validator` is **unauthenticated**: valid US address ->
+  `204`; missing country -> `400 country required`; invalid country / >10-char
+  postal code -> `400`. OPTIONS reflects any `https://*.ui.com` Origin with
+  credentials (known CORS class). No object access or injection.
+- `POST /api/sso/v2/user/self/mfa/email/{id}/send`: own 200 (`otp_prefix`),
+  cross-account B id -> `404`, unauth -> `401`.
+- Mass assignment `PUT /api/sso/v1/user/self`: `scopes`, `account_type`,
+  `is_staff`, `groups`, `mfa_required`, `is_superadmin` -> `204` but not persisted;
+  `session_ttl_seconds` -> `499 L2_REQUIRED`. `429` rate limits observed.
+
+### Status
+- 45 routes = 37 account-ui + 8 www/unifi/activate; 30 done / 15 blocked (unchanged).
+- Evidence: `result/server-side/account.ui.com/session16-ledger.md`,
+  `result/server-side/account.ui.com/traffic/session16-*.txt`.
+- No Discord notification sent (notification bar not met).

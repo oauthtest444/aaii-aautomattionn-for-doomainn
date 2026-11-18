@@ -6,3 +6,6 @@
 [2026-11-11T05:55Z] full-bundle audit: 18 dangerouslySetInnerHTML, 4 message listeners, AC-gated redirects
 [2026-11-11T05:56Z] reconfirmed login/email oracle; CORS suffix-bypass re-test: rejected
 [2026-11-11T05:57Z] candidate VULN-20261111-001 (Zendesk html_body unsanitized, self-XSS) written Unresolved
+[2026-11-18T20:22Z] Session 16 continuation; account bundle 14c9788e... unchanged, Site Manager build rotated to main-0.2678...
+[2026-11-18T20:24Z] Site Manager new build source/sink/listener pass: bridge origin .endsWith(".ui.com"); uid domain constrained to ${domain}.ui.com; ?link= stored only; no new sink
+[2026-11-18T20:25Z] www index-BfxHSOgp.js (0722ab3b...) unchanged; no URL-driven DOM source/sink

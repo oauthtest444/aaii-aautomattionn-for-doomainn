@@ -53,3 +53,15 @@ Base hosts: `https://sso.ui.com` (SSO), `https://account.svc.ui.com` (account BE
 | * | .../zendesk/comment | yes | |
 | * | .../zendesk/ticket/{ticketId}/close | yes | |
 | * | .../chat/messaging/jwt | yes | |
+
+## Session 16 tested variants
+| Method | Path | Auth | Result |
+|--------|------|------|--------|
+| GET | /api/sso/v1/user/self/roles | yes | 200 fixed beta role list (A and B) |
+| POST | /api/sso/v1/user/self/roles | yes | 405 METHOD_NOT_ALLOWED |
+| POST | /api/sso/v1/address/validator | **no** | 204 valid / 400 field errors; CORS `*.ui.com` |
+| POST | /api/sso/v2/user/self/mfa/email/{id}/send | yes | own 200; cross-account 404; unauth 401 |
+| PUT | /api/sso/v1/user/self | yes | privilege fields accepted-but-inert; session_ttl -> 499 L2_REQUIRED |
+
+Evidence: `result/server-side/account.ui.com/session16-ledger.md` and
+`result/server-side/account.ui.com/traffic/session16-*.txt`.

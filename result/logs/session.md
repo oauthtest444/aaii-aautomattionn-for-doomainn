@@ -434,3 +434,31 @@
 - No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification sent. Unresolved items remain: credentialed CORS (needs an
   attacker-controlled `*.ui.com` origin) and invite `?role=` (no pending invitation).
+
+### Session 16 — 2026-11-18 (run continuing, 20:21Z)
+- Preflight OK: cwd repo root; opencode/curl/git/node/npx/python3 + Chrome 158 at
+  127.0.0.1:9222; MCP tools live (`list_pages` -> about:blank).
+- Continuation (target hash `3353d9c6...` unchanged, decision=preserved). Read
+  SUMMARY, scope, progress, inventory, findings, unresolved, both skill files.
+- Bundle refresh: `account.ui.com` `index-CYDY7PBp.js` unchanged (sha256
+  `14c9788e...2d14a1b`, 7,150,439 B); `www.ui.com` `index-BfxHSOgp.js` unchanged
+  (`0722ab3b...eae58f9`); Site Manager rotated to `main-0.2678141fb293ea0d.js`
+  (`5bccf419...3993a1b`) etc.; `activate.ui.com` unchanged (`index-1CNh1WqS.js`).
+- Recovered still-valid A/B `UBIC_AUTH` JWTs from `result/logs/opencode.log`
+  (A `7c5aab2b...`, B `d8946fad...`; exp ~2026-12-15); `GET /user/self` 200 for both.
+- New endpoint results: `GET /user/self/roles` 200 (fixed beta role list, both
+  accounts); `POST` 405. `POST /address/validator` is **unauthenticated**: valid US
+  address -> 204; missing/invalid fields -> 400; CORS reflects `*.ui.com` (known
+  class). `POST /v2/user/self/mfa/email/{id}/send`: own 200, cross-account 404,
+  unauth 401.
+- Mass assignment on `PUT /user/self`: `scopes`, `account_type`, `is_staff`,
+  `groups`, `mfa_required`, `is_superadmin` return 204 but do not persist;
+  `session_ttl_seconds` -> `499 L2_REQUIRED`. Rate limiting (`429`, retry_after 0)
+  observed; no brute force.
+- Site Manager new build re-audit: account bridge origin `.endsWith(".ui.com")`
+  with reporter/version/Zod validation; `?from=uid` portal host constrained to
+  `${domain}${fixedSuffix}`; `?link=` only stored in localStorage; `appview`
+  boolean; `debug-crossorigin`/`debug-search` enum/regex validated. No new sink.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent. Evidence: `result/server-side/account.ui.com/session16-ledger.md`
+  and `result/server-side/account.ui.com/traffic/session16-*.txt`.

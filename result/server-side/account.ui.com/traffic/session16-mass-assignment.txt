@@ -1,0 +1,36 @@
+# Session 16 PUT /api/sso/v1/user/self mass-assignment (Account A, disposable)
+Started: 2026-11-18T20:27:38Z
+
+## Baseline sensitive fields
+{'username': 'testttt12', 'email': 'tan.tiger5564@maildrop.cc', 'is_verified': True, 'twofa_enabled': True, 'scopes': None, 'account_type': None, 'is_staff': None, 'is_superadmin': None, 'groups': None, 'session_ttl_seconds': None}
+
+## PUT {"scopes": ["admin"]}
+HTTP 204 
+persisted scopes = None | is_verified True | twofa True
+
+## PUT {"account_type": "admin"}
+HTTP 204 
+persisted account_type = None | is_verified True | twofa True
+
+## PUT {"is_staff": true}
+HTTP 204 
+persisted is_staff = None | is_verified True | twofa True
+
+## PUT {"groups": ["administrators"]}
+HTTP 204 
+persisted groups = None | is_verified True | twofa True
+
+## PUT {"mfa_required": false}
+HTTP 204 
+persisted mfa_required = None | is_verified True | twofa True
+
+## PUT {"is_superadmin": true}
+HTTP 204 
+persisted is_superadmin = None | is_verified True | twofa True
+
+## PUT session_ttl_seconds=31536000 (security setting expected L2)
+{"error":"L2_REQUIRED","detail":"Please re-authenticate with your password","ERRCODE":"L2_REQUIRED"}
+HTTP 499
+## Re-read session_ttl_seconds
+session_ttl_seconds = None
+Ended: 2026-11-18T20:28:11Z

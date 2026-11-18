@@ -127,3 +127,12 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/verify/email/{email} | sso | no | 405 | `resendVerificationEmail` is config-only (no call site) |
 | POST | /zendesk/user | account | L2 | 200 | body `external_id`/`email`/`role`/`id` ignored, no persistence |
 | POST | /zendesk/ticket | account | L2 | 400/429 | baseline `BAD_REQUEST`; follow-up `RATE_LIMITED`; creation input/captcha-gated |
+
+## Session 16 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/user/self/roles | sso | L1 | 200 | fixed beta role list for A and B (not privilege-bearing) |
+| POST | /api/sso/v1/user/self/roles | sso | L1 | 405 | `METHOD_NOT_ALLOWED`; roles not client-writable here |
+| POST | /api/sso/v1/address/validator | sso | none | 204/400 | unauthenticated address validation; field errors only; CORS reflects `*.ui.com` (known class) |
+| POST | /api/sso/v2/user/self/mfa/email/{id}/send | sso | L1 | 200/404/401 | own 200 + `otp_prefix`; cross-account 404; unauth 401 |
+| PUT | /api/sso/v1/user/self | sso | L1 | 204/499 | `scopes`/`account_type`/`is_staff`/`groups`/`mfa_required`/`is_superadmin` not persisted; `session_ttl_seconds` -> `L2_REQUIRED` |

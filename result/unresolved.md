@@ -9,6 +9,9 @@
 - Exploitability still requires an attacker-controlled `*.ui.com` origin (stored
   HTML/JS, writable bucket, or subdomain takeover). Wildcard `*.ui.com` currently
   serves a fixed SPA. No such origin found.
+- Session 16 adds the unauthenticated `POST /api/sso/v1/address/validator` to the
+  same reflection set (OPTIONS/preflight reflects any `https://*.ui.com` Origin
+  with credentials); still needs an attacker-controlled `*.ui.com` origin.
 - Detail: `result/findings/cors-credentialed-reflection.md`.
 
 ## 2. Zendesk comment HTML renderer (VULN-20261111-001)

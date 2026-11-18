@@ -315,7 +315,7 @@
       "url": "https://unifi.ui.com/main-7.89817c7552da11f1.js",
       "sha256": "c9b7ad08ce1ef1ce9a6d5a1aa67c53475cd1cddcef225d4cde0dc9c7cab61083",
       "tested": true,
-      "notes": "Session 10: module 567899 confirmInvitation POSTs {deviceId,verificationToken,role}; role schema admin|owner; release-notes dangerouslySetInnerHTML is API-sourced"
+      "notes": "Session 16 Site Manager build; validated bridge/navigation; no new sink"
     },
     {
       "url": "https://account.ui.com/assets/index-CYDY7PBp.js",
@@ -328,6 +328,18 @@
       "sha256": "43393b8a50cbef169c920d7fca36bc920cbb3774426fb06e85076205d35b9209",
       "tested": true,
       "notes": "Session 14 Site Manager build; account-bridge origin .endsWith(\".ui.com\"), navigation.requested host/path validated"
+    },
+    {
+      "url": "https://unifi.ui.com/main-0.2678141fb293ea0d.js",
+      "sha256": "5bccf419e7c7f1c80db476fb3c96cd1e329c38b0036a78fd562c9d2293993a1b",
+      "tested": true,
+      "notes": "Session 16 Site Manager build; bridge origin .endsWith(.ui.com), uid portal host constrained, ?link= stored only; no new sink"
+    },
+    {
+      "url": "https://www.ui.com/microsite/static/index-BfxHSOgp.js",
+      "sha256": "0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9",
+      "tested": true,
+      "notes": "Session 15/16 www build; static/i18n HTML sinks; download link https+allowlist"
     }
   ],
   "flows": [
@@ -499,7 +511,7 @@
       "method": "PUT",
       "url": "https://sso.ui.com/api/sso/v1/user/self",
       "auth": true,
-      "observations": "L2 required for username/password changes (499 at level 1); twofa_enabled/email not mass-assignable; empty body 204"
+      "observations": "Session 16 mass assignment: scopes/account_type/is_staff/groups/mfa_required/is_superadmin -> 204 but not persisted; session_ttl_seconds -> 499 L2_REQUIRED. Evidence result/server-side/account.ui.com/traffic/session16-mass-assignment.txt."
     },
     {
       "method": "POST",
@@ -704,6 +716,24 @@
       "url": "https://account.svc.ui.com/chat/messaging/jwt",
       "auth": "session/L1",
       "observations": "Session 14: session-bound JWT; body email/external_id/user_id ignored; unauth 401"
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/roles",
+      "auth": true,
+      "observations": "Session 16: 200 fixed beta role list for A and B; not privilege-bearing. POST -> 405 METHOD_NOT_ALLOWED."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/address/validator",
+      "auth": false,
+      "observations": "Session 16: unauthenticated; valid US address -> 204; missing country -> 400 country required; invalid country / >10-char postal -> 400. OPTIONS reflects any https://*.ui.com Origin with credentials (known CORS class). No object access/injection."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v2/user/self/mfa/email/{id}/send",
+      "auth": true,
+      "observations": "Session 16: own id -> 200 + otp_prefix; cross-account B id -> 404 No EmailAuthenticator matches; unauthenticated -> 401."
     }
   ],
   "listeners": [

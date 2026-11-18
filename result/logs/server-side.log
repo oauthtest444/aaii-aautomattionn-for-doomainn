@@ -1,0 +1,10 @@
+# Server-side testing log
+
+[2026-11-18T20:22Z] Session 16 continuation; target hash 3353d9c6... unchanged (preserved).
+[2026-11-18T20:22Z] account.ui.com bundle index-CYDY7PBp.js unchanged (sha256 14c9788e...); www index-BfxHSOgp.js unchanged; Site Manager build rotated (main-0.2678...).
+[2026-11-18T20:23Z] Recovered valid A/B UBIC_AUTH from prior log; GET /user/self 200 for both.
+[2026-11-18T20:25Z] GET /user/self/roles 200 (fixed beta role list) for A and B; POST -> 405.
+[2026-11-18T20:26Z] POST /address/validator unauthenticated 204/400 (field validation only); CORS reflects *.ui.com (known class).
+[2026-11-18T20:26Z] POST /v2/user/self/mfa/email/{id}/send: own 200, cross-account 404, unauth 401.
+[2026-11-18T20:27Z] PUT /user/self mass assignment: scopes/account_type/is_staff/groups/mfa_required/is_superadmin 204 but not persisted; session_ttl_seconds 499 L2_REQUIRED.
+[2026-11-18T20:28Z] Site Manager new build audited: bridge origin .endsWith(".ui.com"), uid portal host constrained to ${domain}.ui.com, ?link= stored only, no HTML sink. No high-impact finding.

@@ -226,3 +226,19 @@
   (`external_id`/`email`/`role`/`id`) are not persisted.
 - No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification sent.
+
+## Session 16 additions (2026-11-18T20:21Z)
+- Bundles: account `index-CYDY7PBp.js` and www `index-BfxHSOgp.js` unchanged;
+  Site Manager rotated to `main-0.2678141fb293ea0d.js` (audited: bridge origin
+  `.endsWith(".ui.com")`, uid portal host constrained, `?link=` stored only, no new
+  HTML/navigation sink).
+- New endpoints: `GET /user/self/roles` 200 fixed beta list (not privilege-bearing),
+  POST 405. `POST /address/validator` is unauthenticated and only performs field
+  validation (204/400); it reflects any `*.ui.com` Origin with credentials (known
+  CORS class). `POST /v2/user/self/mfa/email/{id}/send` own 200 / cross-account 404 /
+  unauth 401.
+- Mass assignment on `PUT /user/self`: `scopes`, `account_type`, `is_staff`, `groups`,
+  `mfa_required`, `is_superadmin` are accepted-but-inert (not persisted);
+  `session_ttl_seconds` -> `499 L2_REQUIRED`. Rate limiting observed; no brute force.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.
