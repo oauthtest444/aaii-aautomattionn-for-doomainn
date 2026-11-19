@@ -8,3 +8,10 @@
 [2026-11-18T20:26Z] POST /v2/user/self/mfa/email/{id}/send: own 200, cross-account 404, unauth 401.
 [2026-11-18T20:27Z] PUT /user/self mass assignment: scopes/account_type/is_staff/groups/mfa_required/is_superadmin 204 but not persisted; session_ttl_seconds 499 L2_REQUIRED.
 [2026-11-18T20:28Z] Site Manager new build audited: bridge origin .endsWith(".ui.com"), uid portal host constrained to ${domain}.ui.com, ?link= stored only, no HTML sink. No high-impact finding.
+[2026-11-19T07:04Z] Session 17 continuation; target hash 3353d9c6... unchanged (preserved).
+[2026-11-19T07:05Z] Bundles unchanged: account index-CYDY7PBp.js 14c9788e...; www index-BfxHSOgp.js 0722ab3b...; activate index-1CNh1WqS.js 7ebf64bb...
+[2026-11-19T07:06Z] Recovered valid A/B UBIC_AUTH; GET /user/self 200 for both.
+[2026-11-19T07:07Z] POST passwordless/options 200 (WebAuthn, allowCredentials []); passwordless/login 400 invalid payload / 429; no bypass.
+[2026-11-19T07:08Z] zendesk/tickets/ccd empty A/B; comments?ticket_id 404.
+[2026-11-19T07:09Z] chat/queue: POST 201, GET own queueInfo, DELETE 204; body userId optional/ignored; cross-user userId does not queue B; messaging JWT still A; account.svc CORS strict (evil.ui.com -> 403). Not Vulnerable.
+[2026-11-19T07:10Z] Support-files consoleID IDOR unresolved (no device IDs). No high-impact finding.

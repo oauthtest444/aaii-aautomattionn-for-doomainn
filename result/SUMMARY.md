@@ -242,3 +242,24 @@
   `session_ttl_seconds` -> `499 L2_REQUIRED`. Rate limiting observed; no brute force.
 - No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification sent.
+
+## Session 17 additions (2026-11-19T07:03Z)
+- Bundles unchanged from Session 16 (account `14c9788e...`, www `0722ab3b...`,
+  activate `7ebf64bb...`); no new code to diff. Recovered still-valid A/B
+  `UBIC_AUTH` sessions and verified `/user/self` 200.
+- New/changed endpoint coverage:
+  - `passwordless/options` returns a WebAuthn challenge (`rpId ui.com`,
+    `allowCredentials: []`); `passwordless/login` strictly validates the credential
+    payload (400) and is rate limited (429). No bypass, no passkey registered.
+  - `zendesk/tickets/ccd` empty for both accounts; `zendesk/comments?ticket_id=` 404.
+  - `chat/queue` (POST/GET/DELETE) is **session-bound**: the body `userId` is
+    optional and ignored, so posting another test account's UUID does not queue
+    them and the messaging JWT remains the caller's. account.svc CORS is strict
+    (`Origin: https://evil.ui.com` -> 403). Not Vulnerable.
+- New Unresolved blocker: support-file helper
+  `POST cloudaccess /devices/{consoleID}/support-files` cross-tenant IDOR cannot be
+  tested (no console/device IDs on the test accounts; enumeration prohibited).
+- Client-side re-check of `iS`/`sS` redirect validators and www static `Ke` redirect
+  config: no open redirect / dangerous `javascript:` sink.
+- `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
+  notification sent.

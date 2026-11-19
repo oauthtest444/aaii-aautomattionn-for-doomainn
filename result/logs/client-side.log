@@ -9,3 +9,5 @@
 [2026-11-18T20:22Z] Session 16 continuation; account bundle 14c9788e... unchanged, Site Manager build rotated to main-0.2678...
 [2026-11-18T20:24Z] Site Manager new build source/sink/listener pass: bridge origin .endsWith(".ui.com"); uid domain constrained to ${domain}.ui.com; ?link= stored only; no new sink
 [2026-11-18T20:25Z] www index-BfxHSOgp.js (0722ab3b...) unchanged; no URL-driven DOM source/sink
+[2026-11-19T07:05Z] Session 17: account/www/activate bundles unchanged; re-checked redirect validators iS (registrable-domain allowlist via last-two-labels) and sS (single-slash app-path allowlist) -> no open redirect; www `vg` external redirects consume static `Ke` config only.
+[2026-11-19T07:09Z] chat/queue department rendered only via textContent; no in-scope HTML sink. No new client-side finding.

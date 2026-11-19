@@ -507,3 +507,40 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Evidence: `result/server-side/account.ui.com/session16-ledger.md`,
   `result/server-side/account.ui.com/traffic/session16-*.txt`.
 - No Discord notification sent (notification bar not met).
+
+## Session 17 — 2026-11-19T07:03Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Bundle refresh
+- `account.ui.com` `index-CYDY7PBp.js` unchanged (sha256 `14c9788e...2d14a1b`);
+  `www.ui.com` `index-BfxHSOgp.js` unchanged (`0722ab3b...eae58f9`);
+  `activate.ui.com` `index-1CNh1WqS.js` (`7ebf64bb...7dcd90`). No new code to diff.
+
+### New endpoint results (chat/passwordless)
+- `POST /api/sso/v1/passwordless/options` now returns 200 WebAuthn
+  `publicKeyCredentialRequestOptions` (`rpId ui.com`, `allowCredentials: []`) for a
+  test email; unknown users fall into the same shared 429, so no existence oracle.
+- `POST /api/sso/v1/passwordless/login` validates the credential payload
+  (`400 Invalid credential payload` on `{}`/fake structs); schema-valid attempts hit
+  `429 RATE_LIMITED`. No bypass; no passkey registered.
+- `GET /zendesk/tickets/ccd` -> empty for A/B. `/zendesk/comments?ticket_id=` -> 404
+  (path form remains owner-checked 403 cross-account).
+- **`/chat/queue` (new coverage):** `POST {userId,department}` -> 201, `GET` -> own
+  `queueInfo`, `DELETE` -> 204. The body `userId` is optional and ignored: posting B's
+  uuid as A still leaves B not queued, `X-User-Id` is ignored, and the subsequent
+  `chat/messaging/jwt` is still A's (`external_id` = A). Queue/JWT are session-bound.
+  `OPTIONS` with `Origin: https://evil.ui.com` -> 403 (account.svc CORS strict).
+  **Not Vulnerable.**
+- Observation (not a finding): arbitrary `department` is stored in the queue and
+  echoed by `GET`; only rendered as `textContent` client-side and the agent side is
+  third-party. Support-file helper `POST cloudaccess /devices/{consoleID}/support-files`
+  IDOR is **Unresolved** (test accounts have no console/device IDs; enumeration
+  prohibited).
+
+### Status
+- 45 routes = 37 account-ui + 8 www/unifi/activate; 30 done / 15 blocked (unchanged).
+- Unresolved unchanged: credentialed CORS (needs attacker-controlled `*.ui.com`),
+  invite `?role=`, billing/MSP/passkey blockers; new support-files IDOR blocker.
+- Evidence: `result/server-side/account.ui.com/session17-ledger.md`,
+  `result/server-side/account.ui.com/traffic/session17-chat-queue.txt`.
+- No Discord notification sent (notification bar not met).

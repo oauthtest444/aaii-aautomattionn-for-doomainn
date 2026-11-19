@@ -715,7 +715,7 @@
       "method": "POST",
       "url": "https://account.svc.ui.com/chat/messaging/jwt",
       "auth": "session/L1",
-      "observations": "Session 14: session-bound JWT; body email/external_id/user_id ignored; unauth 401"
+      "observations": "Session 14: session-bound JWT; body email/external_id/user_id ignored; unauth 401 Session 17: after cross-user queue POST, JWT external_id remains the caller's uuid; queue/JWT session-bound."
     },
     {
       "method": "GET",
@@ -734,6 +734,30 @@
       "url": "https://sso.ui.com/api/sso/v2/user/self/mfa/email/{id}/send",
       "auth": true,
       "observations": "Session 16: own id -> 200 + otp_prefix; cross-account B id -> 404 No EmailAuthenticator matches; unauthenticated -> 401."
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/zendesk/tickets/ccd",
+      "auth": "session/L1",
+      "observations": "Session 17: {\"tickets\":[],\"totalTickets\":0} for A and B; no data."
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/chat/queue",
+      "auth": "session/L1",
+      "observations": "Session 17: session-bound queue position; 404 when not queued."
+    },
+    {
+      "method": "POST",
+      "url": "https://account.svc.ui.com/chat/queue",
+      "auth": "session/L1",
+      "observations": "Session 17: body {userId,department}; userId optional/ignored (missing -> 201); cross-user body userId does not queue the other account and messaging JWT stays session user; arbitrary department echoed. Not Vulnerable (session-bound)."
+    },
+    {
+      "method": "DELETE",
+      "url": "https://account.svc.ui.com/chat/queue",
+      "auth": "session/L1",
+      "observations": "Session 17: 204 removes own queue entry."
     }
   ],
   "listeners": [

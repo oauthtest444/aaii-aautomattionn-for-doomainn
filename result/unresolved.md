@@ -89,3 +89,15 @@
 - A self-enrolled in early access (`Beta Testers`) while testing
   `POST /user/{uuid}/roles/beta`; the endpoint only adds this fixed role and rejects
   other UUIDs. This is a test artifact, not a privilege escalation.
+
+## 10. Support-file helper consoleID IDOR (Session 17)
+- The account SPA's Ada support handoff calls
+  `POST https://cloudaccess.svc.ui.com/devices/{consoleID}/support-files` (and a
+  cap/umr equivalent) with `consoleID` taken from chat `user_data`, returning a
+  `download_url`.
+- Not testable: A/B have no cloudaccess hosts/devices/consoles (`/devices`,
+  `/api/v1/hosts`, `/sites` all empty), and guessing/enumerating real device IDs is
+  prohibited. Cross-tenant ownership of this endpoint remains **Unresolved**.
+- `POST /chat/queue {userId,department}` was tested and is session-bound (body
+  `userId` optional/ignored); no cross-account impact. Arbitrary `department` is
+  stored in the queue but no in-scope HTML sink renders it.

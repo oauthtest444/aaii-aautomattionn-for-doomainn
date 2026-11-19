@@ -462,3 +462,19 @@
 - No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification sent. Evidence: `result/server-side/account.ui.com/session16-ledger.md`
   and `result/server-side/account.ui.com/traffic/session16-*.txt`.
+
+## Session 17 — 2026-11-19T07:03Z (continuation, preserved)
+- Start (UTC): 2026-11-19T07:03:37Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.4, npx, python3, google-chrome-stable
+- Resume: read SUMMARY/scope/progress/inventory/findings/unresolved + both skills
+- Focus: bundle refresh diff, any new/untested endpoint, remaining Unresolved candidates
+- End (UTC): 2026-11-19T07:12Z
+- Bundles unchanged (account/www/activate); no new code.
+- Tested new surface: passwordless options/login (no bypass, rate-limited),
+  zendesk tickets/ccd + comments query param, chat/queue POST/GET/DELETE
+  (session-bound, body userId ignored), account.svc CORS strict.
+- Unresolved: support-file consoleID IDOR (no device IDs).
+- No high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.

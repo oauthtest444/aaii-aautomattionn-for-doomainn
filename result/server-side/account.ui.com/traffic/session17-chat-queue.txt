@@ -1,0 +1,16 @@
+# Session 17 chat/queue tests  (A=d8946fad..., B=7c5aab2b...)  2026-11-19T07:09:28Z
+## baseline GET (A)
+{"error":"User not found in queue"}
+[404]
+## POST missing userId (A)
+{}
+[201]
+## GET after missing-userId POST (A)
+{"queueInfo":{"position":1,"department":"opencode-test","total":1}}
+[200]
+## DELETE cleanup (A)
+
+[204]
+## GET verify empty (A)
+{"error":"User not found in queue"}
+[404]

@@ -136,3 +136,15 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/address/validator | sso | none | 204/400 | unauthenticated address validation; field errors only; CORS reflects `*.ui.com` (known class) |
 | POST | /api/sso/v2/user/self/mfa/email/{id}/send | sso | L1 | 200/404/401 | own 200 + `otp_prefix`; cross-account 404; unauth 401 |
 | PUT | /api/sso/v1/user/self | sso | L1 | 204/499 | `scopes`/`account_type`/`is_staff`/`groups`/`mfa_required`/`is_superadmin` not persisted; `session_ttl_seconds` -> `L2_REQUIRED` |
+
+## Session 17 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/passwordless/options | sso | none | 200 | `{user}` -> WebAuthn `publicKeyCredentialRequestOptions` (`rpId: ui.com`, `allowCredentials: []`); no user-existence oracle; unknown user hits shared 429 |
+| POST | /api/sso/v1/passwordless/login | sso | none | 400/429 | `{}` -> 400 `Invalid credential payload`; malformed credential structs -> 400; schema-valid attempts -> 429 RATE_LIMITED |
+| GET | /zendesk/tickets/ccd | account | L1 | 200 | `{"tickets":[],"totalTickets":0}` for A/B; no data |
+| GET | /zendesk/comments?ticket_id={id} | account | L1 | 404 | query-param form not supported; path form remains owner-checked (`403` cross-account) |
+| GET | /chat/queue | account | L1 | 404/200 | session-bound queue position; 404 when not queued |
+| POST | /chat/queue | account | L1 | 201 | body `{userId,department}`; `userId` is optional and ignored (missing -> 201); queue/JWT remain the session user's; arbitrary `department` echoed in `queueInfo` |
+| DELETE | /chat/queue | account | L1 | 204 | removes own session queue entry |
+| OPTIONS | /chat/queue | account | none | 403 | `Origin: https://evil.ui.com` rejected (account.svc CORS strict) |
