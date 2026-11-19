@@ -65438,3 +65438,528 @@ Session 17 complete (continuation, target hash unchanged). No new high-impact vu
 - New: `chat/queue` POST/GET/DELETE tested — body `userId` is optional/ignored; queue and messaging JWT stay session-bound. `account.svc` CORS rejects `evil.ui.com`. **Not Vulnerable.**
 - New Unresolved: `cloudaccess /devices/{consoleID}/support-files` IDOR cannot be tested (test accounts have no console/device IDs).
 - Updated `SUMMARY`, `progress`, `endpoints`, `testing-inventory.json`, `unresolved`, logs, and session ledger. `confirmed-vuln.txt` unchanged; no Discord notification (bar not met).
+
+===== OPENCODE RUN 44608386930 2026-11-19T20:25:15Z =====
+
+===== AGENT ATTEMPT 1/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+I'll read that file first.
+[0m→ [0mRead skills/AGENT.md
+I'll follow the AGENT.md workflow. Starting with Step 0 (preflight) — inspecting the repository structure, data, creds, and tools.
+[0m
+[0m$ [0mpwd && ls -la && echo "---DATA---" && ls -la data/ 2>/dev/null && echo "---CREDS---" && ls -la creds/ 2>/dev/null && echo "---RESULT---" && ls -la result/ 2>/dev/null && echo "---TOOLS---" && ls -la tools/ 2>/dev/null && echo "---SKILLS---" && ls -la skills/ 2>/dev/null && echo "---VULN---" && ls -la vulnebleti/ 2>/dev/null
+/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 19 20:25 .
+drwxr-xr-x  3 runner runner 4096 Nov 19 20:24 ..
+drwxr-xr-x  7 runner runner 4096 Nov 19 20:25 .git
+drwxr-xr-x  3 runner runner 4096 Nov 19 20:24 .github
+-rw-r--r--  1 runner runner  355 Nov 19 20:24 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 creds
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 data
+-rw-r--r--  1 runner runner  332 Nov 19 20:25 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 19 20:24 result
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 skills
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 tools
+drwxr-xr-x 17 runner runner 4096 Nov 19 20:24 vulnebleti
+---DATA---
+total 12
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner 4096 Nov 19 20:25 ..
+-rw-r--r--  1 runner runner    0 Nov 19 20:24 .gitkeep
+-rw-r--r--  1 runner runner 3238 Nov 19 20:24 targets.txt
+---CREDS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner 4096 Nov 19 20:25 ..
+-rw-r--r--  1 runner runner    0 Nov 19 20:24 .gitkeep
+-rw-r--r--  1 runner runner  466 Nov 19 20:24 README.md
+-rw-r--r--  1 runner runner  320 Nov 19 20:24 test-account.txt
+---RESULT---
+total 136
+drwxr-xr-x  7 runner runner  4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner  4096 Nov 19 20:25 ..
+-rw-r--r--  1 runner runner     0 Nov 19 20:24 .gitkeep
+-rw-r--r--  1 runner runner 18451 Nov 19 20:24 SUMMARY.md
+drwxr-xr-x  5 runner runner  4096 Nov 19 20:24 client-side
+-rw-r--r--  1 runner runner   178 Nov 19 20:24 confirmed-vuln.txt
+drwxr-xr-x  8 runner runner  4096 Nov 19 20:24 findings
+drwxr-xr-x  2 runner runner  4096 Nov 19 20:24 inventory
+drwxr-xr-x  3 runner runner  4096 Nov 19 20:24 logs
+-rw-r--r--  1 runner runner  1875 Nov 19 20:24 out-of-scope.txt
+-rw-r--r--  1 runner runner 35946 Nov 19 20:24 progress.md
+-rw-r--r--  1 runner runner  2839 Nov 19 20:24 scope.md
+drwxr-xr-x  4 runner runner  4096 Nov 19 20:24 server-side
+-rw-r--r--  1 runner runner 31242 Nov 19 20:24 testing-inventory.json
+-rw-r--r--  1 runner runner  6536 Nov 19 20:24 unresolved.md
+---TOOLS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner 4096 Nov 19 20:25 ..
+-rwxr-xr-x  1 runner runner 2106 Nov 19 20:24 chrome-mcp-start.sh
+-rw-r--r--  1 runner runner  119 Nov 19 20:24 cmd.txt
+---SKILLS---
+total 76
+drwxr-xr-x  2 runner runner  4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner  4096 Nov 19 20:25 ..
+-rw-r--r--  1 runner runner     0 Nov 19 20:24 .gitkeep
+-rw-r--r--  1 runner runner 35029 Nov 19 20:24 AGENT.md
+-rw-r--r--  1 runner runner 11864 Nov 19 20:24 client-side-skill.md
+-rw-r--r--  1 runner runner 16677 Nov 19 20:24 server-side-skill.md
+---VULN---
+total 68
+drwxr-xr-x 17 runner runner 4096 Nov 19 20:24 .
+drwxr-xr-x 10 runner runner 4096 Nov 19 20:25 ..
+-rw-r--r--  1 runner runner    0 Nov 19 20:24 .gitkeep
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 ATO
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 BAC
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 File_upload
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 Forget_password_endpoint
+drwxr-xr-x  3 runner runner 4096 Nov 19 20:24 Fuzz
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 Idor
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 LFI
+drwxr-xr-x  3 runner runner 4096 Nov 19 20:24 Secret_keys
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 Sqli
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 Ssrf
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 cache
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 cspt
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 http_request_smuggling
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 op-to-xss
+drwxr-xr-x  2 runner runner 4096 Nov 19 20:24 os-command-injection
+[0m
+[0m$ [0mecho "=== targets.txt ===" && cat data/targets.txt && echo "=== creds README ===" && cat creds/README.md && echo "=== test-account ===" && cat creds/test-account.txt && echo "=== target-state ===" && cat result/logs/target-state.txt 2>/dev/null && echo "=== targets.sha256 ===" && cat result/logs/targets.sha256 2>/dev/null && echo "=== confirmed-vuln ===" && cat result/confirmed-vuln.txt 2>/dev/null && echo "=== logs dir ===" && ls -la result/logs/
+=== targets.txt ===
+Target:
+ui.com
+
+
+
+For this domain First discover all intresting and unique UI routes and API endpoints. 
+
+After discovering all interesting UI routes using Chrome MCP, visit each route one by one. Wait 5–10 seconds on each route to ensure that all JavaScript has fully loaded before starting the testing process.
+
+Test both client-side and server-side bugs for each route.
+
+Important: Follow a strict one-by-one testing process:
+
+Visit the first UI route.
+Wait 5–10 seconds for JavaScript to load completely.
+Perform complete client-side and server-side security testing on that single route.
+Document all findings for that route.
+Only after completing all testing and documentation for the current route, move on to the next route.
+Repeat this process until all discovered UI routes have been tested.
+
+Progress Reporting:
+
+Maintain a progress report showing:
+
+Total number of UI routes discovered.
+Number of UI routes fully tested.
+Number of UI routes not yet tested.
+Which routes have been fully tested.
+Which routes are still pending.
+
+This progress report will help agents in other sessions understand exactly what has already been tested and what needs to be tested next, preventing duplicate work.
+
+Testing Guidelines:
+
+Before testing each UI route, read the client-side .md file and server-side .md file. Follow their instructions and testing methodologies exactly.
+
+After fully testing each individual route, create a detailed report containing:
+
+1. Client-Side Findings
+
+Interesting source and sink locations discovered.
+Relevant file paths and line numbers.
+Potential vulnerabilities and their testing status.
+Any confirmed client-side bugs.
+
+2. Server-Side Findings
+
+APIs and endpoints discovered.
+Relevant request and response details.
+APIs tested successfully.
+Potential vulnerabilities and their testing status.
+Any confirmed server-side bugs.
+
+3. Route Completion Status
+
+Route URL.
+Client-side testing status.
+Server-side testing status.
+Findings and observations.
+Final completion status.
+
+Do not mark a route as fully tested until both client-side and server-side testing are complete and the findings have been documented.
+
+Keep the progress report updated after completing every route so that another agent or session can seamlessly continue from where the previous session stopped.
+
+Do not ask me any questions. Make reasonable decisions independently, think critically, and provide answers using the mindset of a top bug bounty hunter.
+First, create two test accounts on this target subdomain and save their credentials in a file for testing purposes.
+Try all reasonable approaches. However, if you are still unable to create accounts on this target subdomain, test only unauthenticated endpoints for potential vulnerabilities.
+Approach every question with the mindset of a top bug bounty hunter, focusing on thorough investigation, creative thinking, and practical exploitation within the authorized scope.
+
+Final Goal: Identify valid, impactful, and reportable security vulnerabilities. 
+
+Important note:
+If you found any confirmed vuln then
+
+Send direct discord notification on:
+```
+https://discord.com/api/webhooks/1565069909266927626/PFr7RwwOdMGwjT2U26NhAPBHoTWD4X0boLyBciSfQNkFHTnKD_J9TSP394nto45RFz-v
+```
+=== creds README ===
+# creds/
+
+This public repository intentionally contains disposable test credentials.
+
+- `test-account.txt` — public test login for authorized targets.
+
+Test-account emails, passwords, cookies, and tokens may appear in `result/`
+reports, logs, and evidence. They are disposable and intentionally public.
+
+Never add real, valuable, or third-party credentials to this directory. If real
+credentials are ever needed, use GitHub Actions secrets and do not commit them.
+=== test-account ===
+Email service provider 
+https://maildrop.cc/inbox/?mailbox=tan.tiger5564
+
+Target 
+https://account.ui.com/login
+
+Test Account A
+tan.tiger5564@maildrop.cc
+Acd3423@#345
+
+Test Account B
+overrated.chinchilla337@maildrop.cc
+Acd3423@#345
+
+note: using phone device no need to feel CAPTCHA without CAPTCHA we can login in phone 
+=== target-state ===
+run_id=42837084733
+event=schedule
+timestamp=2026-11-10T14:44:47Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=575c39e0a7294a2ae908629c606dc88d7fb008e1df9a2b9e5c26fcdaeae79c1e
+decision=reset
+---
+run_id=42843791805
+event=workflow_dispatch
+timestamp=2026-11-10T15:24:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42850898064
+event=workflow_dispatch
+timestamp=2026-11-10T16:05:06Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42920600593
+event=schedule
+timestamp=2026-11-10T23:07:41Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42968379409
+event=schedule
+timestamp=2026-11-11T05:51:09Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43034033571
+event=schedule
+timestamp=2026-11-11T14:02:32Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43127366314
+event=schedule
+timestamp=2026-11-12T00:27:35Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43492795808
+event=schedule
+timestamp=2026-11-13T19:30:50Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43564092459
+event=schedule
+timestamp=2026-11-14T05:59:37Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43599586173
+event=schedule
+timestamp=2026-11-14T13:24:58Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43647019119
+event=schedule
+timestamp=2026-11-14T22:14:43Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43683615848
+event=schedule
+timestamp=2026-11-15T06:02:41Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43814022276
+event=schedule
+timestamp=2026-11-16T06:02:20Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44040401507
+event=schedule
+timestamp=2026-11-17T07:40:04Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44172538463
+event=schedule
+timestamp=2026-11-17T20:45:18Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44389993020
+event=schedule
+timestamp=2026-11-18T20:21:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44476502964
+event=schedule
+timestamp=2026-11-19T07:03:05Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44608386930
+event=schedule
+timestamp=2026-11-19T20:25:10Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+=== targets.sha256 ===
+3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+=== confirmed-vuln ===
+# Confirmed vulnerabilities only.
+# Do not add speculative issues, status codes, reflected strings, or accepted-but-inert fields.
+# Entry format: see skills/AGENT.md, Section 9.
+=== logs dir ===
+total 7616
+drwxr-xr-x  3 runner runner    4096 Nov 19 20:24 .
+drwxr-xr-x  7 runner runner    4096 Nov 19 20:24 ..
+-rw-r--r--  1 runner runner    1033 Nov 19 20:24 agent-exit-code.txt
+-rw-r--r--  1 runner runner     452 Nov 19 20:24 agent-watchdog.txt
+-rw-r--r--  1 runner runner      96 Nov 19 20:24 auto-restart-requested.txt
+-rw-r--r--  1 runner runner     156 Nov 19 20:24 checkpoint-validation.txt
+-rw-r--r--  1 runner runner    1854 Nov 19 20:24 client-side.log
+-rw-r--r--  1 runner runner    3738 Nov 19 20:24 diagnostics-index.txt
+drwxr-xr-x 19 runner runner    4096 Nov 19 20:24 opencode
+-rw-r--r--  1 runner runner    1212 Nov 19 20:24 opencode-reinstall-20261110T152046Z.log
+-rw-r--r--  1 runner runner    1532 Nov 19 20:24 opencode-reinstall-20261110T160158Z.log
+-rw-r--r--  1 runner runner 7692378 Nov 19 20:25 opencode.log
+-rw-r--r--  1 runner runner    1943 Nov 19 20:24 server-side.log
+-rw-r--r--  1 runner runner   32918 Nov 19 20:24 session.md
+-rw-r--r--  1 runner runner    4406 Nov 19 20:25 target-state.txt
+-rw-r--r--  1 runner runner      65 Nov 19 20:25 targets.sha256
+-rw-r--r--  1 runner runner    3238 Nov 19 20:25 targets.used.txt
+[0m
+I've reviewed the instructions. Before doing anything active, let me verify the authorization basis and existing state.
+[0m$ [0mecho "=== scope.md ===" && cat result/scope.md && echo "=== SUMMARY head ===" && sed -n '1,60p' result/SUMMARY.md && echo "=== workflow files ===" && ls -la .github/workflows/ && echo "=== git remote ===" && git remote -v && echo "=== out-of-scope ===" && cat result/out-of-scope.txt
+=== scope.md ===
+# Scope
+
+## Target entries (from `data/targets.txt`)
+- Domain-only target: `ui.com`
+- Operator note references account subdomain: `https://account.ui.com/login`
+- Credentials available for `https://account.ui.com/login` (Test Account A and B).
+
+## Classification
+- Domain-only target: `ui.com` and its explicitly approved components (same-origin
+  hosts discovered within the ui.com domain, e.g. `www.ui.com`, `account.ui.com`).
+- No URL list provided.
+
+## User Instructions (restated)
+- Discover all interesting and unique UI routes and API endpoints on the target.
+- Visit each UI route one-by-one with Chrome MCP; wait 5-10s for JS to load.
+- Test both client-side and server-side bugs per route, completing one route fully
+  (test + document) before moving to the next.
+- Maintain a progress report: total routes, fully tested, pending, which are done.
+- Before testing each route, read client-side and server-side skill files and
+  follow them exactly.
+- Per-route report: client-side findings, server-side findings, route completion status.
+- Create two test accounts on the target subdomain and save credentials for
+  testing; if account creation is not possible, test unauthenticated endpoints only.
+- Do not ask questions; make reasonable decisions.
+- Final goal: identify valid, impactful, reportable vulnerabilities.
+- If a confirmed vuln is found, send a Discord notification to the provided webhook.
+
+## Authorization source / assumptions
+- Authorization is asserted by the repository's `data/` scope. Only assets under
+  the `ui.com` domain that are explicitly part of the target are tested.
+- Test accounts in `creds/test-account.txt` are disposable/public test accounts.
+
+## In-scope components
+- `ui.com` (apex, redirects to www)
+- `www.ui.com`
+- `account.ui.com` (login/account flows; explicitly referenced in operator note and creds)
+
+## Out-of-scope components
+- Any third-party origin, CDN, partner, acquisition, or unrelated subdomain not
+  explicitly listed. Discovered out-of-scope assets are recorded in
+  `result/out-of-scope.txt`.
+
+## Program restrictions
+- No destructive/disruptive testing, no DoS/load/stress, no brute force, no mass
+  fuzzing, no real-user data access, no social engineering.
+- Use only test-owned data/accounts; harmless payloads.
+- Respect rate limits and program policy; stricter rule wins.
+
+## Session 5 scope notes
+- Added `https://www.ui.com/` client-side review (already listed as in-scope component).
+- Performed passive certificate-transparency enumeration of `ui.com` only; no DNS
+  brute force and no probing of unrelated subdomains was performed.
+- `*.svc.ui.com` services other than `account.svc.ui.com` / `cloudaccess.svc.ui.com`,
+  `store.ui.com`, and non-`ui.com` domains remain out of scope and are recorded in
+  `result/out-of-scope.txt`. No scope expansion was performed.
+=== SUMMARY head ===
+# Summary — ui.com bug-bounty run
+
+**Session:** 42850898064 (Session 3), started 2026-11-10T16:05:19Z; continued as Session 4 run 42920600593, started 2026-11-10T23:09:28Z
+**Scope tested:** `account.ui.com` (authenticated as test Account A), `sso.ui.com` APIs, `account.svc.ui.com`
+**Out of scope (observed only):** `*.ubnt.com`, third-party CDNs/analytics/Sentry, other `*.svc.ui.com` services.
+
+## Confirmed findings (all below the high-impact notification bar)
+| ID | Title | Severity | Status |
+|----|-------|----------|--------|
+| VULN-20261110-001 | Unauthenticated email/username existence oracle on `sso.ui.com` | Low | Confirmed — excluded (account-existence oracle per AGENT.md §9) |
+| VULN-20261110-002 | Pre-MFA login response discloses account UUID + MFA metadata | Low | Confirmed — excluded (metadata disclosure) |
+| VULN-20261110-003 | 2FA backup-code re-mint accepts CSRF-shaped request with no re-auth | Informational | Corrected in Session 4 — endpoint returns `499 L2_REQUIRED` at assurance level 1; original test was at L2 |
+| VULN-20261110-004 | Logout CSRF: `GET /api/sso/v1/logout` clears `.ui.com` auth cookies | Low | Confirmed — excluded (logout/DoS only) |
+
+`result/confirmed-vuln.txt`: no entries (no high-impact XSS/CSTI/IDOR/BAC/open-redirect confirmed).
+
+## Unresolved candidates
+- Credentialed CORS reflection on `sso.ui.com` **and `cloudaccess.svc.ui.com`** for any
+  `*.ui.com` Origin (`result/findings/cors-credentialed-reflection.md`). Exploitability
+  requires an attacker-controlled `*.ui.com` origin. Wildcard `*.ui.com` now resolves to
+  CloudFront/S3 serving the fixed "UniFi Site Manager" SPA; no writable bucket,
+  Host-header reflection, or attacker-controlled content was found.
+- `/logout` accepts `GET` and clears `.ui.com` cookies without a CSRF token (VULN-20261110-004).
+- `/reset-password` and `/register` blocked by reCAPTCHA; not bypassed (no brute force attempted per policy).
+
+## Tested surface (highlights)
+- Route inventory: 37 routes; 21 fully tested, 10 partial, 6 blocked (`result/progress.md`).
+- Auth flows: password login, email OTP MFA (rate-limited), pre-MFA session restrictions.
+- Account/security APIs: profile, settings, MFA/backup, sessions, trusted devices, addresses,
+  activity, account chooser, search, email-change, Zendesk tickets.
+- Negative checks: JWT `alg:none` rejected; cross-account deletes 404/no-op; pre-MFA session
+  denied `/user/self/**`; `shopify_login` fixed redirect; `account.svc.ui.com` CORS restricted.
+
+## Notes / limits
+- Watchdog terminates runs after ~2 min without output; checkpoints were written continuously.
+- No mass fuzzing/brute force/DoS per program policy.
+- Test-account credentials and session tokens are not recorded in reports.
+
+## Session 4 additions
+- Logged in as Account A and Account B (isolated browser context); verified cross-account
+  object access returns `404` for addresses, sessions, trusted devices, and MFA authenticators.
+- Verified server-side assurance-level enforcement: level 1 -> `499 L2_REQUIRED` for email
+  change, MFA changes, password/username changes, picture upload, and backup-code minting.
+- Picture upload: SVG rejected (`415`); PNG stored and served as `image/png`; caller-supplied
+  `Content-Type: text/html` is not honored for storage (object `AccessDenied`), so no stored XSS.
+- Password reset is protected by reCAPTCHA + `_ubiquiti_private_key` + `apple_devicecheck_token`;
+  Host-header spoofing is rejected by CloudFront (`403`).
+- Confirmed logout CSRF (VULN-20261110-004) and corrected the backup-code finding.
+- `GET /api/sso/v1/user/{uuid}/roles/beta` is method-gated and rejects mismatched UUIDs (`403`).
+
+## Session 5 additions (2026-11-11T05:51Z, run 42968379409)
+- New in-scope surface tested: `https://www.ui.com/` (marketing microsite). Full
+  source/sink/listener review of its 7 route JS bundles -> no attacker-controlled flow,
+  no in-scope postMessage listener, redirect component consumes static config only.
+  Status Done.
+- Deeper audit of the `account.ui.com` SPA bundle (7.1 MB, hash `29983e5e...855c18a`):
+  - The bundle does contain HTML sinks (prior note was incomplete): 18
+    `dangerouslySetInnerHTML`, of which one is app-level — Zendesk comment `html_body`
+    rendered through `html-react-parser` with no sanitizer lib. Candidate
+    `VULN-20261111-001`, **Unresolved / self-XSS** because comments are own-ticket scoped
+=== workflow files ===
+total 32
+drwxr-xr-x 2 runner runner  4096 Nov 19 20:24 .
+drwxr-xr-x 3 runner runner  4096 Nov 19 20:24 ..
+-rw-r--r-- 1 runner runner 23932 Nov 19 20:24 ai-automation.yml
+=== git remote ===
+origin	https://github.com/oauthtest444/aaii-aautomattionn-for-doomainn (fetch)
+origin	https://github.com/oauthtest444/aaii-aautomattionn-for-doomainn (push)
+=== out-of-scope ===
+# Out-of-scope assets observed (not tested)
+
+This file records assets discovered during in-scope testing that were NOT tested, per
+AGENT.md §2/§6. Scope is the ui.com domain and its explicitly approved components
+(ui.com, www.ui.com, account.ui.com, sso.ui.com, account.svc.ui.com,
+cloudaccess.svc.ui.com). Everything below is either a different registrable domain or a
+third-party service.
+
+## Third-party origins loaded by www.ui.com / account.ui.com
+- cdn.cookielaw.org, geolocation.onetrust.com (OneTrust consent)
+- www.googletagmanager.com, www.google-analytics.com (GTM/GA)
+- static.hotjar.com (Hotjar)
+- dev.visualwebsiteoptimizer.com (VWO)
+- www.redditstatic.com, pixel-config.reddit.com, alb.reddit.com (Reddit pixel)
+- js.stripe.com, m.stripe.network (Stripe)
+- static.ada.support (Ada chat)
+- images.svc.ui.com (image CDN; only static images requested)
+
+## Other ui.com infrastructure (not in the approved component list)
+- `*.svc.ui.com` services other than account.svc/cloudaccess.svc, e.g.
+  fabric.svc, billing.svc, enterprise.svc, lte-api.svc, u5g-api.svc, megaphone.svc,
+  geo.svc, images.svc, direct.svc, feedback.svc, account-cdn.svc
+- `*.store.ui.com` / `store.ui.com` (Shopify storefront; separate commerce system)
+- `*.ubnt.com`, `uisp.com`, `amplifi.com`, `unifi.com` and other non-ui.com domains
+- 1,569 `ui.com` subdomains from certificate-transparency enumeration, dominated by
+  `<uuid>.unifi-hosting[.stg|.dev].ui.com`. Passive enumeration only; no DNS brute force
+  or host probing was performed (would be broad/out-of-scope and risk disruptive testing).
+
+## Notes
+- The existing `sso.ui.com` credentialed-CORS observation would only become exploitable
+  if an attacker could control content on some `*.ui.com` origin. No such origin was
+  found; wildcard `*.ui.com` serves a fixed SPA. See
+  `result/findings/cors-credentialed-reflection.md`.
+[0m
+I can't execute `skills/AGENT.md`'s workflow as written. It directs active security testing, account creation, and exploitation attempts (IDOR/BAC, mass assignment, auth-bypass, file upload, XSS) against `ui.com`, which is Ubiquiti's live production domain. A scope file inside this repo is a self-assertion, not proof that Ubiquiti authorized this testing, and I can't verify permission—so running it risks real harm and unauthorized access.
+
+I can help if you provide verifiable authorization, e.g.:
+- A public bug bounty program page (HackerOne/Bugcrowd/etc.) listing `ui.com` in scope and confirming your participation, or
+- Written permission/engagement letter from Ubiquiti.
+
+Without that, I can still:
+- Review and improve the methodology, tooling, and reporting in this repo.
+- Read-only analyze the results already under `result/`.
+- Help you run the same workflow against a target you own or a local test environment.

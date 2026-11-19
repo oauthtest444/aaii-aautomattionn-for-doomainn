@@ -1,0 +1,137 @@
+timestamp=2026-11-19T20:25:07.647Z level=INFO run=55b5e67a message="creating instance" directory=/home/runner/work/_temp
+timestamp=2026-11-19T20:25:07.649Z level=INFO run=55b5e67a message=fromDirectory directory=/home/runner/work/_temp
+timestamp=2026-11-19T20:25:07.657Z level=INFO run=55b5e67a message=bootstrapping directory=/home/runner/work/_temp
+timestamp=2026-11-19T20:25:07.666Z level=INFO run=55b5e67a message=loading path=/home/runner/.config/opencode/config.json
+timestamp=2026-11-19T20:25:07.666Z level=INFO run=55b5e67a message=loading path=/home/runner/.config/opencode/opencode.json
+timestamp=2026-11-19T20:25:07.667Z level=INFO run=55b5e67a message=loading path=/home/runner/.config/opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:07.797Z level=INFO run=55b5e67a message=loading path=/home/runner/.opencode/opencode.json
+timestamp=2026-11-19T20:25:07.797Z level=INFO run=55b5e67a message=loading path=/home/runner/.opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:07.904Z level=INFO run=55b5e67a message="all LSPs are disabled"
+timestamp=2026-11-19T20:25:07.905Z level=INFO run=55b5e67a message="all formatters are disabled"
+timestamp=2026-11-19T20:25:07.905Z level=INFO run=55b5e67a message=init
+timestamp=2026-11-19T20:25:08.097Z level=INFO run=55b5e67a message=created id=ses_e0a83faffffewcJChhQbxsDSwg slug=jolly-knight version=1.19.6 projectID=global directory=/home/runner/work/_temp path=home/runner/work/_temp workspaceID=undefined parentID=undefined title="New session - 2026-11-19T20:25:08.097Z" agent=undefined model=undefined metadata=undefined permission="[{\"permission\":\"question\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_enter\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_exit\",\"pattern\":\"*\",\"action\":\"deny\"}]" cost=0 tokens.input=0 tokens.output=0 tokens.reasoning=0 tokens.cache.read=0 tokens.cache.write=0 time.created=1795119908097 time.updated=1795119908097
+timestamp=2026-11-19T20:25:08.109Z level=INFO run=55b5e67a message="event connected"
+timestamp=2026-11-19T20:25:08.185Z level=INFO run=55b5e67a message=loop session.id=ses_e0a83faffffewcJChhQbxsDSwg step=0
+timestamp=2026-11-19T20:25:08.728Z level=INFO run=55b5e67a message="shell tool using shell" shell=/bin/bash
+timestamp=2026-11-19T20:25:08.736Z level=INFO run=55b5e67a message=init count=1
+timestamp=2026-11-19T20:25:08.744Z level=INFO run=55b5e67a message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83faffffewcJChhQbxsDSwg small=true agent=title mode=primary
+timestamp=2026-11-19T20:25:08.750Z level=INFO run=55b5e67a message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:08.813Z level=INFO run=55b5e67a message="watcher backend" directory=/home/runner/work/_temp platform=linux backend=inotify
+timestamp=2026-11-19T20:25:08.829Z level=INFO run=55b5e67a message="booting location services" directory=/home/runner/work/_temp workspaceID=undefined
+timestamp=2026-11-19T20:25:08.840Z level=INFO run=55b5e67a message="project copy refresh started" projectID=global
+timestamp=2026-11-19T20:25:08.841Z level=INFO run=55b5e67a message="project copy refresh done" projectID=global updated=[] removed=[]
+timestamp=2026-11-19T20:25:09.074Z level=INFO run=55b5e67a message=process session.id=ses_e0a83faffffewcJChhQbxsDSwg messageID=msg_1f57c076f001vERcX0PKp6V1eQ
+timestamp=2026-11-19T20:25:09.075Z level=INFO run=55b5e67a message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83faffffewcJChhQbxsDSwg small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:09.077Z level=INFO run=55b5e67a message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:12.539Z level=INFO run=72b41838 message="creating instance" directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:12.540Z level=INFO run=72b41838 message=fromDirectory directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:12.568Z level=INFO run=72b41838 message=bootstrapping directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:12.574Z level=INFO run=72b41838 message=loading path=/home/runner/.config/opencode/config.json
+timestamp=2026-11-19T20:25:12.574Z level=INFO run=72b41838 message=loading path=/home/runner/.config/opencode/opencode.json
+timestamp=2026-11-19T20:25:12.574Z level=INFO run=72b41838 message=loading path=/home/runner/.config/opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:12.579Z level=INFO run=72b41838 message=loading path=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/opencode.json
+timestamp=2026-11-19T20:25:12.595Z level=INFO run=72b41838 message=loading path=/home/runner/.opencode/opencode.json
+timestamp=2026-11-19T20:25:12.596Z level=INFO run=72b41838 message=loading path=/home/runner/.opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:12.679Z level=INFO run=72b41838 message="all LSPs are disabled"
+timestamp=2026-11-19T20:25:12.680Z level=INFO run=72b41838 message="all formatters are disabled"
+timestamp=2026-11-19T20:25:12.680Z level=INFO run=72b41838 message=init
+timestamp=2026-11-19T20:25:16.537Z level=INFO run=7f39676e message="creating instance" directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:16.539Z level=INFO run=7f39676e message=fromDirectory directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:16.575Z level=INFO run=7f39676e message=bootstrapping directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+timestamp=2026-11-19T20:25:16.582Z level=INFO run=7f39676e message=loading path=/home/runner/.config/opencode/config.json
+timestamp=2026-11-19T20:25:16.583Z level=INFO run=7f39676e message=loading path=/home/runner/.config/opencode/opencode.json
+timestamp=2026-11-19T20:25:16.583Z level=INFO run=7f39676e message=loading path=/home/runner/.config/opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:16.588Z level=INFO run=7f39676e message=loading path=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/opencode.json
+timestamp=2026-11-19T20:25:16.613Z level=INFO run=7f39676e message=loading path=/home/runner/.opencode/opencode.json
+timestamp=2026-11-19T20:25:16.614Z level=INFO run=7f39676e message=loading path=/home/runner/.opencode/opencode.jsonc
+timestamp=2026-11-19T20:25:16.735Z level=INFO run=7f39676e message="all LSPs are disabled"
+timestamp=2026-11-19T20:25:16.736Z level=INFO run=7f39676e message="all formatters are disabled"
+timestamp=2026-11-19T20:25:16.736Z level=INFO run=7f39676e message=init
+timestamp=2026-11-19T20:25:16.934Z level=INFO run=7f39676e message=created id=ses_e0a83d879ffett7ibz22Zw3NgI slug=hidden-falcon version=1.19.6 projectID=58b9fcc6b0f0b1487f78436926b6d5e7495be2dd directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn path="" workspaceID=undefined parentID=undefined title="New session - 2026-11-19T20:25:16.934Z" agent=undefined model=undefined metadata=undefined permission="[{\"permission\":\"question\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_enter\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"plan_exit\",\"pattern\":\"*\",\"action\":\"deny\"}]" cost=0 tokens.input=0 tokens.output=0 tokens.reasoning=0 tokens.cache.read=0 tokens.cache.write=0 time.created=1795119916934 time.updated=1795119916934
+timestamp=2026-11-19T20:25:16.947Z level=INFO run=7f39676e message="event connected"
+timestamp=2026-11-19T20:25:16.990Z level=INFO run=7f39676e message=loop session.id=ses_e0a83d879ffett7ibz22Zw3NgI step=0
+timestamp=2026-11-19T20:25:17.639Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=true agent=title mode=primary
+timestamp=2026-11-19T20:25:17.645Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:17.702Z level=INFO run=7f39676e message=initialized
+timestamp=2026-11-19T20:25:17.858Z level=INFO run=7f39676e message=tracking hash=8c9d9c04cee96b983db5262fb611b92689d8df67 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:17.869Z level=INFO run=7f39676e message="shell tool using shell" shell=/bin/bash
+timestamp=2026-11-19T20:25:19.004Z level=INFO run=7f39676e message=init count=1
+timestamp=2026-11-19T20:25:19.064Z level=INFO run=7f39676e message="watcher backend" directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn platform=linux backend=inotify
+timestamp=2026-11-19T20:25:19.066Z level=INFO run=7f39676e message="project copy refresh started" projectID=58b9fcc6b0f0b1487f78436926b6d5e7495be2dd
+timestamp=2026-11-19T20:25:19.575Z level=INFO run=7f39676e message="project copy refresh done" projectID=58b9fcc6b0f0b1487f78436926b6d5e7495be2dd updated=[] removed=[]
+timestamp=2026-11-19T20:25:19.586Z level=INFO run=7f39676e message="booting location services" directory=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn workspaceID=undefined
+timestamp=2026-11-19T20:25:19.590Z level=INFO run=7f39676e message=process session.id=ses_e0a83d879ffett7ibz22Zw3NgI messageID=msg_1f57c2a40001aN8RH1TDjOxA7K
+timestamp=2026-11-19T20:25:19.592Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:19.594Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:21.254Z level=INFO run=7f39676e message=evaluated permission=read pattern=skills/AGENT.md action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:21.268Z level=INFO run=7f39676e message="touching file" file=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/skills/AGENT.md
+timestamp=2026-11-19T20:25:21.414Z level=INFO run=7f39676e message=tracking hash=410674192131de79232a99f7977134bbfb0467d7 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:21.460Z level=INFO run=7f39676e message=loop session.id=ses_e0a83d879ffett7ibz22Zw3NgI step=1
+timestamp=2026-11-19T20:25:21.498Z level=INFO run=7f39676e message=tracking hash=410674192131de79232a99f7977134bbfb0467d7 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:21.505Z level=INFO run=7f39676e message=process session.id=ses_e0a83d879ffett7ibz22Zw3NgI messageID=msg_1f57c3935001TLf7RgHX3o6a0U
+timestamp=2026-11-19T20:25:21.506Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:21.509Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern=pwd action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---DATA---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la data/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---CREDS---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la creds/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---RESULT---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la result/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---TOOLS---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la tools/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---SKILLS---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la skills/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"---VULN---\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.660Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la vulnebleti/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:25.847Z level=INFO run=7f39676e message=tracking hash=5beaff0e5ea89cf58240148285bb635587487099 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:25.887Z level=INFO run=7f39676e message=loop session.id=ses_e0a83d879ffett7ibz22Zw3NgI step=2
+timestamp=2026-11-19T20:25:25.994Z level=INFO run=7f39676e message=tracking hash=5beaff0e5ea89cf58240148285bb635587487099 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:25.999Z level=INFO run=7f39676e message=process session.id=ses_e0a83d879ffett7ibz22Zw3NgI messageID=msg_1f57c4aa6001gXBl7OkI2zdZAU
+timestamp=2026-11-19T20:25:26.000Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:26.002Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:28.509Z level=INFO run=7f39676e message="resolved path" arg=data/targets.txt resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/data/targets.txt
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message="resolved path" arg=creds/README.md resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/creds/README.md
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message="resolved path" arg=creds/test-account.txt resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/creds/test-account.txt
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message="resolved path" arg=result/logs/target-state.txt resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/target-state.txt
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message="resolved path" arg=result/logs/targets.sha256 resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/targets.sha256
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message="resolved path" arg=result/confirmed-vuln.txt resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/confirmed-vuln.txt
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== targets.txt ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat data/targets.txt" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== creds README ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat creds/README.md" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== test-account ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.510Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat creds/test-account.txt" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== target-state ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat result/logs/target-state.txt" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== targets.sha256 ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat result/logs/targets.sha256" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== confirmed-vuln ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat result/confirmed-vuln.txt" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== logs dir ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.511Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la result/logs/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:28.690Z level=INFO run=7f39676e message=tracking hash=333fe87290cc5813c2757d5c41c79b9e3cc22ab6 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:28.728Z level=INFO run=7f39676e message=loop session.id=ses_e0a83d879ffett7ibz22Zw3NgI step=3
+timestamp=2026-11-19T20:25:28.820Z level=INFO run=7f39676e message=tracking hash=333fe87290cc5813c2757d5c41c79b9e3cc22ab6 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:28.825Z level=INFO run=7f39676e message=process session.id=ses_e0a83d879ffett7ibz22Zw3NgI messageID=msg_1f57c55ba001J33IMkvvWZsQ5e
+timestamp=2026-11-19T20:25:28.826Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:28.827Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message="resolved path" arg=result/scope.md resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/scope.md
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message="resolved path" arg=result/out-of-scope.txt resolved=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/out-of-scope.txt
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== scope.md ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat result/scope.md" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== SUMMARY head ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="sed -n '1,60p' result/SUMMARY.md" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== workflow files ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="ls -la .github/workflows/" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== git remote ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="git remote -v" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="echo \"=== out-of-scope ===\"" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.523Z level=INFO run=7f39676e message=evaluated permission=bash pattern="cat result/out-of-scope.txt" action.permission=* action.action=allow action.pattern=*
+timestamp=2026-11-19T20:25:36.699Z level=INFO run=7f39676e message=tracking hash=8ad8906ad60ebe7e3a050445bda944688281c635 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:36.739Z level=INFO run=7f39676e message=loop session.id=ses_e0a83d879ffett7ibz22Zw3NgI step=4
+timestamp=2026-11-19T20:25:36.846Z level=INFO run=7f39676e message=tracking hash=8ad8906ad60ebe7e3a050445bda944688281c635 cwd=/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn git=/home/runner/.local/share/opencode/snapshot/58b9fcc6b0f0b1487f78436926b6d5e7495be2dd/4f61316cb021d2d8755bff177075b7912db261f9
+timestamp=2026-11-19T20:25:36.850Z level=INFO run=7f39676e message=process session.id=ses_e0a83d879ffett7ibz22Zw3NgI messageID=msg_1f57c750a001rjgggWJZl8zr0I
+timestamp=2026-11-19T20:25:36.851Z level=INFO run=7f39676e message=stream providerID=opencode modelID=deepseek-v4.1-flash-free session.id=ses_e0a83d879ffett7ibz22Zw3NgI small=false agent=build mode=primary
+timestamp=2026-11-19T20:25:36.853Z level=INFO run=7f39676e message="llm runtime selected" llm.runtime=ai-sdk llm.provider=opencode llm.model=deepseek-v4.1-flash-free
