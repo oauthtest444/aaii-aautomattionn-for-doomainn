@@ -478,3 +478,13 @@
   (session-bound, body userId ignored), account.svc CORS strict.
 - Unresolved: support-file consoleID IDOR (no device IDs).
 - No high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+
+## Session 20 — 2026-11-20T19:56Z (continuation, preserved)
+- Start (UTC): 2026-11-20T19:56:59Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome/158 DevTools MCP live at 127.0.0.1:9222
+- Tools: opencode, curl, git, node v22.23.5, npx, python3, chrome
+- Resume: read AGENT.md, both skills, SUMMARY/scope/progress/inventory/findings/unresolved
+- Observation: `account.ui.com` bundle still `index-DUlTrD1u.js`; `activate.ui.com` unchanged;
+  **`www.ui.com` rebuilt as a Next.js/Turbopack app** (new attack surface, was static microsite).
