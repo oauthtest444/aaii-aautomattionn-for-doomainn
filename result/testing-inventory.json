@@ -239,7 +239,7 @@
         "https://www.ui.com/microsite/static/Landing-BaDyOaz_.js",
         "https://www.ui.com/microsite/static/layout-CgCwx8Gc.js"
       ],
-      "notes": "Session 5: no URL-driven DOM source/sink; static-config redirect only; no in-scope message listener"
+      "notes": "Session 5: no URL-driven DOM source/sink; static-config redirect only; no in-scope message listener. Session 21: rebuilt as Next.js/Turbopack App Router on Vercel; middleware rewrites to /us/en; no server actions, /_next/image and source maps 404; CVE-2025-29927 middleware-subrequest payloads ineffective"
     },
     {
       "url": "https://unifi.ui.com/ (wildcard *.ui.com)",
@@ -265,19 +265,25 @@
       "url": "https://www.ui.com/download/releases/:slug",
       "status": "done",
       "javascript": [],
-      "notes": "Session 11: slug only reaches React Head (escaped title/meta); no HTML injection"
+      "notes": "Session 11: slug only reaches React Head (escaped title/meta); no HTML injection. Session 21: re-verified on Next.js rebuild; param percent-encoded in RSC flight payload and canonical/og:url, no breakout"
     },
     {
       "url": "https://www.ui.com/download/software/:slug",
       "status": "done",
       "javascript": [],
-      "notes": "Session 11: same as releases slug; no injection"
+      "notes": "Session 11: same as releases slug; no injection. Session 21: same encoding on Next.js rebuild; raw quotes/angle brackets percent-encoded"
+    },
+    {
+      "url": "https://www.ui.com/download/:productFamily",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 21: Next.js App Router dynamic route; unknown family -> 404 with param percent-encoded in RSC payload/canonical/og:url; no XSS/JSON-LD breakout; /download/unifi 200"
     },
     {
       "url": "https://www.ui.com/download/unifi/download-started",
       "status": "done",
       "javascript": [],
-      "notes": "Session 11: ?link= requires https + host in dl.ubnt.com/dl.ui.com/fw-download.ubnt.com; external/javascript stripped"
+      "notes": "Session 11: ?link= requires https + host in dl.ubnt.com/dl.ui.com/fw-download.ubnt.com; external/javascript stripped. Session 21: allowlist re-confirmed in new chunk 3h4qiliw__8ql.js; 6 bypass variants rejected"
     },
     {
       "url": "https://activate.ui.com/",

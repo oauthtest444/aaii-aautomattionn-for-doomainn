@@ -1,6 +1,6 @@
 # Summary — ui.com bug-bounty run
 
-**Session:** multi-session continuation; latest Session 19 (2026-11-20T07:30Z). Originally Session 3 run 42850898064, started 2026-11-10T16:05:19Z; continued through Session 19.
+**Session:** multi-session continuation; latest Session 21 (2026-11-20T20:15Z). Originally Session 3 run 42850898064, started 2026-11-10T16:05:19Z; continued through Session 21.
 **Scope tested:** `account.ui.com` (authenticated as test Account A), `sso.ui.com` APIs, `account.svc.ui.com`
 **Out of scope (observed only):** `*.ubnt.com`, third-party CDNs/analytics/Sentry, other `*.svc.ui.com` services.
 
@@ -24,7 +24,7 @@
 - `/reset-password` and `/register` blocked by reCAPTCHA; not bypassed (no brute force attempted per policy).
 
 ## Tested surface (highlights)
-- Route inventory (latest): 46 routes = 38 account-ui + 8 www/unifi/activate; 31 done, 15 blocked (`result/progress.md`, `result/testing-inventory.json`).
+- Route inventory (latest): 47 routes = 38 account-ui + 9 www/unifi/activate; 32 done, 15 blocked (`result/progress.md`, `result/testing-inventory.json`).
 - Auth flows: password login, email OTP MFA (rate-limited), pre-MFA session restrictions.
 - Account/security APIs: profile, settings, MFA/backup, sessions, trusted devices, addresses,
   activity, account chooser, search, email-change, Zendesk tickets.
@@ -298,3 +298,19 @@
 - Inventory updated with `/subscribe`, the current bundle hash, and Session 19
   endpoint observations. No new confirmed high-impact finding; `confirmed-vuln.txt`
   unchanged; no Discord notification sent.
+
+## Session 20-21 additions (2026-11-20T19:56Z / 20:15Z)
+- **`www.ui.com` rebuilt as a Next.js/Turbopack App Router app on Vercel**
+  (CloudFront + nginx legacy backend). App Router route table recovered from
+  `03lc1g5u1-quw.js`; dynamic routes `/download/[productFamily]` and
+  `/download/software/[slug]`.
+- Dynamic params are percent-encoded into the RSC flight payload and
+  `canonical`/`og:url`; raw `"`, `<`, `>`, `</script>` do not break out (404 page).
+- `?link=` allowlist re-confirmed in new chunk `3h4qiliw__8ql.js`: https +
+  hostname in {dl.ubnt.com, dl.ui.com, fw-download.ubnt.com}; 6 bypass variants
+  rejected. `dangerouslySetInnerHTML` only static translation strings.
+- CVE-2025-29927 `x-middleware-subrequest` payloads ineffective; open-redirect
+  probes (`//`, `%2f%2f`, `?redirect=`) -> 404/inert; no Server Actions; no
+  `/_next/image`; no source maps. Newsletter form -> Mailchimp (out of scope).
+- Inventory now 47 routes (38 account-ui + 9 www/unifi/activate), 32 done / 15 blocked.
+  No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged.

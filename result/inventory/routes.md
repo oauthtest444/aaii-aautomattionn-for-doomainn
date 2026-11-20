@@ -66,3 +66,15 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 | `/` + arbitrary paths | done | 200 SPA fallback; `serial/code/token/redirect/next` markers not reflected |
 | Device-login code entry | observed | `POST sso.ui.com/api/sso/v1/user/self/token/setup` -> `device_name`, then `/token/login`; auth required |
 | CORS on token endpoints | observed | reflects any `*.ui.com` Origin with credentials (known CORS class, Unresolved) |
+
+## www.ui.com Next.js/Turbopack rebuild (Session 21) — App Router on Vercel
+| Item | Status | Notes |
+|------|--------|-------|
+| `/` + static routes (`/us/en/...`) | done | middleware rewrites to `/us/en`; no user-input sinks |
+| `/download/[productFamily]` | done | unknown -> 404; param percent-encoded in RSC payload + `canonical`/`og:url`; no breakout |
+| `/download/software/[slug]` | done | same encoding; no HTML/JSON-LD injection |
+| `/download/unifi` | done | 200 (5.5MB); data from `download.svc` `/v2/downloads` (out of scope) |
+| `/download/unifi/download-started` (`?link=`) | done | allowlist re-confirmed in chunk `3h4qiliw__8ql.js` (https + dl.ubnt.com/dl.ui.com/fw-download.ubnt.com) |
+| `x-middleware-subrequest` (CVE-2025-29927) | done | payloads ineffective; middleware still rewrites `/us/en` |
+| Open-redirect probes (`//`, `%2f%2f`, `?redirect=`) | done | 404/inert, no `Location` |
+| Next.js Server Actions | done | none present (0 `createServerReference` ids) |

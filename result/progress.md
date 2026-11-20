@@ -608,3 +608,27 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Evidence: `result/server-side/account.ui.com/session19-ledger.md`,
   `result/server-side/account.ui.com/traffic/session19-account-chooser-2fa-reset.txt`.
 - No Discord notification sent (notification bar not met).
+
+## Session 21 — 2026-11-20T20:15Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### www.ui.com Next.js/Turbopack rebuild (new attack surface)
+- App Router route table recovered from `03lc1g5u1-quw.js`; dynamic routes
+  `/download/[productFamily]` and `/download/software/[slug]`.
+- Unknown dynamic params -> 404, but value is percent-encoded in the RSC flight
+  payload and `canonical`/`og:url`; raw `"`, `<`, `>`, `</script>` do not break out.
+- `/download/unifi` -> 200; data fetched from `download.svc` `/v2/downloads`
+  (out of scope). `download-started` link builder uses server `fileUrl`.
+- `?link=` allowlist re-confirmed in new chunk `3h4qiliw__8ql.js`: `u()` = https +
+  hostname ∈ {dl.ubnt.com, dl.ui.com, fw-download.ubnt.com}; userinfo/suffix/`//`
+  bypasses rejected and absent from HTML. `dangerouslySetInnerHTML` = static translations.
+- CVE-2025-29927 `x-middleware-subrequest` payloads ineffective (`x-middleware-rewrite:
+  /us/en` still present). `//host`/`%2f%2f`/`?redirect=` -> 404/inert.
+- No Server Actions (0 ids); `/_next/image` and source maps 404; newsletter -> Mailchimp
+  (out of scope); `/wafflejs` exposes django-waffle flags only (low info).
+
+### Status
+- No route-status change; 47 routes = 38 account-ui + 9 www/unifi/activate (32 done / 15 blocked).
+- Inventory: added `www.ui.com` Next.js rebuild section to `result/inventory/routes.md`.
+- Evidence: downloaded chunks under `/tmp/www20/` (session-local, not committed).
+- No Discord notification sent (notification bar not met).

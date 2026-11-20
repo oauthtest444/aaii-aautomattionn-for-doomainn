@@ -488,3 +488,27 @@
 - Resume: read AGENT.md, both skills, SUMMARY/scope/progress/inventory/findings/unresolved
 - Observation: `account.ui.com` bundle still `index-DUlTrD1u.js`; `activate.ui.com` unchanged;
   **`www.ui.com` rebuilt as a Next.js/Turbopack app** (new attack surface, was static microsite).
+
+## Session 21 — 2026-11-20T20:15Z (continuation, preserved)
+- Start (UTC): 2026-11-20T20:15Z (resumed after Session 20 watchdog stop)
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.5, npx, python3, chrome
+- Focus: new `www.ui.com` Next.js/Turbopack (App Router) attack surface.
+- Extracted route table from `03lc1g5u1-quw.js`; dynamic routes are
+  `/download/[productFamily]` and `/download/software/[slug]` (plus static unifi pages).
+- Dynamic-route params: raw `"`/`<`/`>`/`</script>` are percent-encoded into the RSC
+  flight payload and `canonical`/`og:url` -> no HTML/JSON-LD breakout (404 page).
+- `/download/unifi` -> 200 (5.5MB); release data from `download.svc` `/v2/downloads`
+  (out of scope); link builder uses server-provided `fileUrl`.
+- Re-confirmed `?link=` allowlist in new chunk `3h4qiliw__8ql.js`: `u()` requires
+  https + hostname ∈ {dl.ubnt.com, dl.ui.com, fw-download.ubnt.com}; `dangerouslySetInnerHTML`
+  only translation strings (`downloadStarted.hero.title`). 6 bypass variants rejected/absent.
+- CVE-2025-29927 `x-middleware-subrequest` payloads: middleware NOT bypassed
+  (`x-middleware-rewrite: /us/en` still returned).
+- Open-redirect probes (`//host`, `%2f%2f`, `?redirect=`) -> 404/inert; no `Location`.
+- No Next.js Server Actions (0 `createServerReference` ids); `/_next/image` 404; source
+  maps 404. Newsletter form -> Mailchimp (out of scope). `/wafflejs` = django-waffle flags (low info).
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- End (UTC): 2026-11-20T20:22Z
