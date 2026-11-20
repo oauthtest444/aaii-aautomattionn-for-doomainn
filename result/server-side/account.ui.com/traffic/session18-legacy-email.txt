@@ -1,0 +1,24 @@
+# Session 18 legacy email-change probes (B token 7c5aab2b..., L2)  2026-11-20T07:02Z
+## baseline GET https://sso.ui.com/api/sso/v1/user/self
+HTTP 200
+{"email": "overrated.chinchilla337@maildrop.cc", "is_verified": true, "twofa_enabled": true, "username": "test-account-b"}
+
+## PUT https://sso.ui.com/api/sso/v1/legacy/user/self/email body={}
+HTTP 403
+{"detail":"Incorrect authentication credentials.","error":"AUTHENTICATION_FAILED"}
+
+## PUT https://sso.ui.com/api/sso/v1/legacy/user/self/email body={"email":"tan.tiger5564@maildrop.cc","email_change_verification_code":"000000"}
+HTTP 403
+{"detail":"Incorrect authentication credentials.","error":"AUTHENTICATION_FAILED"}
+
+## PUT https://sso.ui.com/api/sso/v1/legacy/user/self/email body={"email":"tan.tiger5564@maildrop.cc","oneTimePassword":"000000"}
+HTTP 403
+{"detail":"Incorrect authentication credentials.","error":"AUTHENTICATION_FAILED"}
+
+## PUT https://sso.ui.com/api/sso/v1/legacy/user/self/email body={"email_change_verification_code":"000000"}
+HTTP 403
+{"detail":"Incorrect authentication credentials.","error":"AUTHENTICATION_FAILED"}
+
+## PUT https://account.ui.com/api/sso/v1/legacy/user/self/email body={} (edge method gate)
+HTTP 403 content-type=text/html
+<TITLE>ERROR: The request could not be satisfied</TITLE>

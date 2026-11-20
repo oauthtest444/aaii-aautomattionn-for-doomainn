@@ -1,0 +1,20 @@
+old: bytes=7150439 sha256=14c9788ebdf32e9a2d9763821836589c4703e5910a2aade9f5e55ffce2d14a1b
+  api_paths=98 route_paths=42
+  dangerouslySetInnerHTML: 18
+  innerHTML=: 16
+  eval(: 0
+  new Function: 0
+  document.write: 0
+  postMessage: 8
+  message listeners: 4
+new: bytes=6941256 sha256=a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c
+  api_paths=98 route_paths=42
+  dangerouslySetInnerHTML: 18
+  innerHTML=: 16
+  eval(: 0
+  new Function: 0
+  document.write: 0
+  postMessage: 8
+  message listeners: 4
+api path sets equal: True
+route path sets equal: True
