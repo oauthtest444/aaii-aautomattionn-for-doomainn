@@ -226,6 +226,12 @@
       "notes": "Session 4/12: postMessage targetOrigin = window.location.origin; safe"
     },
     {
+      "url": "https://account.ui.com/subscribe",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 18: reads ?product=; redirects only to fixed internal subscription paths (/subscriptions, cloud-storage/site-support builders). No external URL, javascript:, or attacker-controlled navigation. Report result/client-side/account.ui.com/subscribe/report.md"
+    },
+    {
       "url": "https://www.ui.com/",
       "status": "done",
       "javascript": [
@@ -340,6 +346,12 @@
       "sha256": "0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9",
       "tested": true,
       "notes": "Session 15/16 www build; static/i18n HTML sinks; download link https+allowlist"
+    },
+    {
+      "url": "https://account.ui.com/assets/index-DUlTrD1u.js",
+      "sha256": "a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c",
+      "tested": true,
+      "notes": "Session 18/19 current build (6,941,256 B): 98 API paths / 42 routes identical to index-CYDY7PBp.js; sinks unchanged (dangerouslySetInnerHTML 18, .innerHTML= 16, eval 0, new Function 0, document.write 0); build/dependency refresh only"
     }
   ],
   "flows": [
@@ -445,7 +457,7 @@
       "method": "DELETE",
       "url": "https://sso.ui.com/api/sso/v1/account-chooser/{opaque_id}",
       "auth": true,
-      "observations": "random opaque id -> 204 (idempotent); cross-account effect not verified"
+      "observations": "Session 19: random id -> 204; clean cross-account test: B deleting A's opaque_id -> 204 but A's saved entry remains (A GET still returns it). Cookie-scoped/idempotent, not an IDOR."
     },
     {
       "method": "POST",
@@ -523,7 +535,7 @@
       "method": "GET",
       "url": "https://sso.ui.com/api/sso/v1/account-chooser",
       "auth": true,
-      "observations": "per-session saved accounts (opaque_id, username, email, remembered_at)"
+      "observations": "Session 19: driven by the HttpOnly ACCOUNT_CHOOSER cookie (Domain sso.ui.com, SameSite=Strict); returns only the caller's own saved entry (opaque_id, username, email, picture_url, remembered_at). A pre-MFA UBIC_2FA session with the cookie also returns the own entry."
     },
     {
       "method": "POST",
@@ -758,6 +770,18 @@
       "url": "https://account.svc.ui.com/chat/queue",
       "auth": "session/L1",
       "observations": "Session 17: 204 removes own queue entry."
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/2fa",
+      "auth": "session/L1",
+      "observations": "Session 19: OPTIONS allow GET, POST, HEAD, OPTIONS (no DELETE); GET and POST -> 409 {\"detail\":\"2fa is yet enabled\",\"error\":\"MFA_ALREADY_ENABLED\"}; not a standalone disable/reset primitive."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/password/{user}",
+      "auth": "unauthenticated",
+      "observations": "Session 19 (mobile UA): {} -> 400 VALIDATION_ERROR (missing _ubiquiti_private_key, captcha, apple_devicecheck_token); dummy values -> 403 PERMISSION_DENIED; no email sent, so reset-link host-header injection remains Blocked."
     }
   ],
   "listeners": [

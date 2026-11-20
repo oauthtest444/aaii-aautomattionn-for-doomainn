@@ -74,10 +74,18 @@
   No takeover was demonstrated (CloudFront alternate-domain takeover requires ACM/DNS
   control).
 
-## 9. Test-account session/MFA operational blockers (updated Session 13)
+## 9. Test-account session/MFA operational blockers (updated Session 19)
 - OTP delivery recovered. A full mobile-UA login of Account A succeeded
   (password -> `499` MFA -> email OTP -> `/login/2fa` 200 -> `UBIC_AUTH`); maildrop
   now receives MFA and email-change codes again. Fresh interactive login works for A.
+- Session 19 made OTP retrieval reproducible without a browser:
+  `POST https://api.maildrop.cc/graphql` with
+  `{"query":"query { inbox(mailbox:\"tan.tiger5564\") { id subject date } }"}`
+  and `message(mailbox:\"tan.tiger5564\", id:\"<id>\"){ html }`. Login with
+  `remember_me:true` also sets an HttpOnly `ACCOUNT_CHOOSER` cookie (Domain
+  `sso.ui.com`, SameSite=Strict); `GET /account-chooser` is cookie-scoped and
+  `DELETE /account-chooser/{opaque_id}` is an idempotent no-op across accounts
+  (not an IDOR).
 - The login `499` body still lacks `email_changeable`, so `/login/change-email` and
   the legacy `POST /legacy/user/self/email/send` endpoint remain unreachable
   (`403`). The current profile email-change flow is reachable with a session but

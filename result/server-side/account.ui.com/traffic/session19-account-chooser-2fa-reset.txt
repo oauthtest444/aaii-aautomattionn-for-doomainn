@@ -1,0 +1,71 @@
+Session 19 — 2026-11-20 — evidence (tokens/cookies redacted)
+
+Target: https://sso.ui.com (in scope)
+Accounts: A d8946fad-2b8e-4cf0-82c5-5d955b57b829 (tan.tiger5564@maildrop.cc)
+          B 7c5aab2b-e568-40de-a7a5-ec27df1db94b (overrated.chinchilla337@maildrop.cc)
+UA: iPhone Safari mobile (mobile UA avoids interactive CAPTCHA per creds note)
+
+== Fresh A login with remember_me ==
+POST https://sso.ui.com/api/sso/v1/login
+body {"user":"tan.tiger5564@maildrop.cc","password":"<redacted>","remember_me":true,"email_prefix":true}
+-> 499 {"required":"2fa", "user":{"id":"d8946fad-...","default_mfa":"<email-authenticator-id>"},
+        "otp_prefix":"BK", ...}
+Set-Cookie: UBIC_2FA=<redacted JWT>; Domain=.ui.com; HttpOnly; SameSite=lax; Max-Age=600
+Set-Cookie: ACCOUNT_CHOOSER=<redacted>; Domain=sso.ui.com; HttpOnly; SameSite=Strict; Max-Age=5184000
+
+OTP retrieved from the test mailbox via Maildrop GraphQL:
+  POST https://api.maildrop.cc/graphql
+  {"query":"query { inbox(mailbox:\"tan.tiger5564\") { id subject date } }"}
+  -> {"data":{"inbox":[{"id":"fOlaOlgzxv","subject":"MFA Login Authentication",...}]}}
+  {"query":"query { message(mailbox:\"tan.tiger5564\", id:\"fOlaOlgzxv\") { id subject date html } }"}
+  -> email body "BK - 535183" (code consumed immediately; 10-minute validity)
+
+POST https://sso.ui.com/api/sso/v1/login/2fa  {"token":"<otp>"}
+-> 200 user object; Set-Cookie UBIC_AUTH=<redacted>; Domain=.ui.com; HttpOnly; SameSite=lax
+GET  https://sso.ui.com/api/sso/v1/user/self  (new session) -> 200
+GET  https://sso.ui.com/api/sso/v1/user/self/login/level -> {"level":1,"time_left_seconds":0}
+
+== Account chooser ==
+GET https://sso.ui.com/api/sso/v1/account-chooser (fresh A session)
+-> 200 {"accounts":[{"opaque_id":"243b83be-...","username":"testttt12",
+        "email":"tan.tiger5564@maildrop.cc",
+        "picture_url":"https://account-cdn.svc.ui.com/dee2279c-...",
+        "remembered_at":1795159538}]}
+Pre-MFA session (only UBIC_2FA + ACCOUNT_CHOOSER) also returned the same own entry.
+
+DELETE https://sso.ui.com/api/sso/v1/account-chooser/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee (A)
+-> 204 ; A GET chooser -> still contains own entry (idempotent no-op)
+
+Cross-account test (clean; B auth cookie only, no A cookie):
+DELETE https://sso.ui.com/api/sso/v1/account-chooser/243b83be-... (B session)
+-> 204 ; Set-Cookie UBIC_AUTH=<rotated> (no ACCOUNT_CHOOSER write)
+GET    https://sso.ui.com/api/sso/v1/account-chooser (A session)
+-> 200 {"accounts":[{"opaque_id":"243b83be-...", ...}]}   # A entry NOT removed
+Conclusion: DELETE is scoped to the caller's ACCOUNT_CHOOSER cookie; no cross-account
+deletion/IDOR. The 204 for arbitrary ids is an idempotent no-op.
+
+== /user/self/2fa method probe ==
+OPTIONS https://sso.ui.com/api/sso/v1/user/self/2fa
+-> 200 allow: GET, POST, HEAD, OPTIONS   (no DELETE/PUT)
+GET  (B, L1) -> 409 {"detail":"2fa is yet enabled","error":"MFA_ALREADY_ENABLED"}
+POST {} (B, L1) -> 409 same; no state change
+POST https://sso.ui.com/api/sso/v1/user/self/mfa/totp {} (B, L1) -> 499 L2_REQUIRED
+Conclusion: no L1 MFA-disable/reset primitive; changes remain L2-gated.
+
+== Password reset (host-header test attempt) ==
+POST https://sso.ui.com/api/sso/v1/password/tan.tiger5564@maildrop.cc
+{} (mobile UA) -> 400 {"_ubiquiti_private_key":["Required parameter is missing"],
+                       "captcha":["Required parameter is missing"],
+                       "apple_devicecheck_token":["Required parameter is missing"],
+                       "error":"VALIDATION_ERROR"}
+{"user":...,"captcha":"x","_ubiquiti_private_key":"x","apple_devicecheck_token":"x"}
++ X-Forwarded-Host: evil.example, X-Forwarded-Proto: https
+-> 403 {"detail":"invalid _ubiquiti_private_key","error":"PERMISSION_DENIED"}
+Mailbox poll after both requests: no reset email delivered.
+Conclusion: reset is gated before email generation; reset-link host-header injection
+remains untestable (Blocked), consistent with prior sessions.
+
+== Bundle ==
+GET https://account.ui.com/assets/index-DUlTrD1u.js
+6,941,256 B sha256 a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c
+(unchanged from Session 18; old index-CYDY7PBp.js and index-BAUIMHQa.js still served)

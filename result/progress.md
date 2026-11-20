@@ -544,3 +544,67 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Evidence: `result/server-side/account.ui.com/session17-ledger.md`,
   `result/server-side/account.ui.com/traffic/session17-chat-queue.txt`.
 - No Discord notification sent (notification bar not met).
+
+## Session 18 — 2026-11-20T07:12Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Bundle refresh
+- `account.ui.com` rotated to `index-DUlTrD1u.js` (6,941,256 B, sha256
+  `a26e5447...b680f5c`); old `index-CYDY7PBp.js` and `index-BAUIMHQa.js` still
+  served. Diff: 98 API paths and 42 route paths identical; sink counts unchanged
+  (dangerouslySetInnerHTML 18, .innerHTML= 16, eval 0, new Function 0,
+  document.write 0). Build/dependency refresh only.
+- `www.ui.com`, Site Manager, and `activate.ui.com` bundles unchanged.
+
+### Client-side route gap
+- `/subscribe` exists in the route config but was missing from the inventory. Its
+  component reads `?product=` and redirects only to fixed internal subscription
+  paths; no external/`javascript:`/attacker-controlled target. Added as the 38th
+  account-ui route. Report: `result/client-side/account.ui.com/subscribe/report.md`.
+
+### New endpoint results
+- Legacy change-email `PUT /api/sso/v1/legacy/user/self/email` remains `403
+  AUTHENTICATION_FAILED` (normal session); `account.ui.com` edge rejects PUT.
+- `GET /api/sso/v1/legacy/user/self/email` -> `403` (matches prior).
+- All-scope tally: 46 routes = 38 account-ui + 8 www/unifi/activate; 31 done /
+  15 blocked.
+
+### Status
+- Evidence: `result/server-side/account.ui.com/session18-ledger.md`,
+  `result/server-side/account.ui.com/traffic/session18-*.txt`.
+- No Discord notification sent (notification bar not met).
+
+## Session 19 — 2026-11-20T07:30Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Bundle / validator re-check
+- `index-DUlTrD1u.js` unchanged from Session 18; no new code.
+- Re-verified the redirect host allowlist (`NS()`): last two hostname labels must
+  be exactly `ui.com`/`ubnt.com`/`uisp.com` over http(s); `evilui.com`,
+  `ui.com.evil.com`, and `account.ui.com.evil.com` are rejected. No open redirect.
+
+### Account chooser / MFA / reset
+- Fresh A login with `remember_me:true` (mobile UA) -> `499` 2FA -> OTP read from
+  Maildrop GraphQL (`POST https://api.maildrop.cc/graphql`) -> `/login/2fa` `200`,
+  new `UBIC_AUTH`; `/user/self` `200`.
+- `GET /account-chooser` is driven by the HttpOnly `ACCOUNT_CHOOSER` cookie
+  (Domain `sso.ui.com`, SameSite=Strict); returns only the caller's own saved
+  entry (email/username/picture_url/opaque_id/remembered_at).
+- `DELETE /account-chooser/{opaque_id}` -> `204` for random, own, and another
+  account's id. Clean cross-account test: B deleting A's opaque_id did **not**
+  remove A's entry. Cookie-scoped/idempotent, **not an IDOR**.
+- `/user/self/2fa`: OPTIONS allows GET/POST only; GET and POST `{}` -> `409
+  MFA_ALREADY_ENABLED` (no state change); `/mfa/totp` at L1 -> `499 L2_REQUIRED`.
+  No L1 MFA-disable/reset primitive.
+- `POST /api/sso/v1/password/{user}`: `{}` -> `400 VALIDATION_ERROR` (missing
+  `_ubiquiti_private_key`, `captcha`, `apple_devicecheck_token`); dummy values ->
+  `403 PERMISSION_DENIED`; no email sent, so reset-link host-header injection
+  remains Blocked.
+
+### Status
+- 46 routes = 38 account-ui + 8 www/unifi/activate; 31 done / 15 blocked.
+- Inventory updated: `/subscribe` route, current bundle entry, and Session 19
+  endpoint observations added to `result/testing-inventory.json`.
+- Evidence: `result/server-side/account.ui.com/session19-ledger.md`,
+  `result/server-side/account.ui.com/traffic/session19-account-chooser-2fa-reset.txt`.
+- No Discord notification sent (notification bar not met).

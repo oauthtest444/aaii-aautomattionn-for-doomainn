@@ -1,6 +1,6 @@
 # Summary — ui.com bug-bounty run
 
-**Session:** 42850898064 (Session 3), started 2026-11-10T16:05:19Z; continued as Session 4 run 42920600593, started 2026-11-10T23:09:28Z
+**Session:** multi-session continuation; latest Session 19 (2026-11-20T07:30Z). Originally Session 3 run 42850898064, started 2026-11-10T16:05:19Z; continued through Session 19.
 **Scope tested:** `account.ui.com` (authenticated as test Account A), `sso.ui.com` APIs, `account.svc.ui.com`
 **Out of scope (observed only):** `*.ubnt.com`, third-party CDNs/analytics/Sentry, other `*.svc.ui.com` services.
 
@@ -24,7 +24,7 @@
 - `/reset-password` and `/register` blocked by reCAPTCHA; not bypassed (no brute force attempted per policy).
 
 ## Tested surface (highlights)
-- Route inventory: 37 routes; 21 fully tested, 10 partial, 6 blocked (`result/progress.md`).
+- Route inventory (latest): 46 routes = 38 account-ui + 8 www/unifi/activate; 31 done, 15 blocked (`result/progress.md`, `result/testing-inventory.json`).
 - Auth flows: password login, email OTP MFA (rate-limited), pre-MFA session restrictions.
 - Account/security APIs: profile, settings, MFA/backup, sessions, trusted devices, addresses,
   activity, account chooser, search, email-change, Zendesk tickets.
@@ -263,3 +263,38 @@
   config: no open redirect / dangerous `javascript:` sink.
 - `confirmed-vuln.txt` unchanged (no XSS/CSTI/IDOR/BAC/open-redirect); no Discord
   notification sent.
+
+## Session 18 additions (2026-11-20T07:12Z)
+- `account.ui.com` rotated to `index-DUlTrD1u.js` (6,941,256 B, sha256
+  `a26e5447...b680f5c`); old `index-CYDY7PBp.js`/`index-BAUIMHQa.js` still served.
+  Diff: 98 API paths and 42 route paths identical; sink counts unchanged; build /
+  dependency refresh only. `www.ui.com`, Site Manager, `activate.ui.com` unchanged.
+- Added the previously missing `/subscribe` account-ui route: reads `?product=`
+  and redirects only to fixed internal subscription paths; no external or
+  `javascript:` target. All-scope tally 46 routes (38 account-ui + 8
+  www/unifi/activate), 31 done / 15 blocked.
+- Legacy change-email `PUT /api/sso/v1/legacy/user/self/email` still `403
+  AUTHENTICATION_FAILED`; `account.ui.com` edge blocks PUT.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.
+
+## Session 19 additions (2026-11-20T07:30Z)
+- Fresh A login with `remember_me:true` (mobile UA): password -> `499` email-OTP ->
+  OTP read via Maildrop GraphQL -> `/login/2fa` `200` -> new `UBIC_AUTH`. OTP
+  retrieval is now reproducible for future authenticated tests.
+- Account chooser: `GET /account-chooser` is driven by the HttpOnly
+  `ACCOUNT_CHOOSER` cookie (Domain `sso.ui.com`, SameSite=Strict) and returns only
+  the caller's own saved entry. `DELETE /account-chooser/{opaque_id}` always `204`
+  but is cookie-scoped: B deleting A's opaque_id did **not** remove A's entry.
+  Not an IDOR.
+- `/user/self/2fa`: OPTIONS allows GET/POST only; GET/POST `{}` -> `409
+  MFA_ALREADY_ENABLED`; `/mfa/totp` L1 -> `499 L2_REQUIRED`. No L1 MFA-disable.
+- Password reset still gated before email generation: `{}` -> `400
+  VALIDATION_ERROR` (missing `_ubiquiti_private_key`, `captcha`,
+  `apple_devicecheck_token`); dummy values -> `403 PERMISSION_DENIED`; no email.
+  Reset-link host-header injection remains Blocked.
+- Redirect host allowlist re-verified: last two hostname labels must be exactly
+  `ui.com`/`ubnt.com`/`uisp.com`; `evilui.com`/`ui.com.evil.com` rejected.
+- Inventory updated with `/subscribe`, the current bundle hash, and Session 19
+  endpoint observations. No new confirmed high-impact finding; `confirmed-vuln.txt`
+  unchanged; no Discord notification sent.
