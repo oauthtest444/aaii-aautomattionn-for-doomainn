@@ -632,3 +632,58 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Inventory: added `www.ui.com` Next.js rebuild section to `result/inventory/routes.md`.
 - Evidence: downloaded chunks under `/tmp/www20/` (session-local, not committed).
 - No Discord notification sent (notification bar not met).
+
+## Session 22 — 2026-11-21T19:14Z (continuation)
+No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
+
+### Builds unchanged
+- `account.ui.com` still `index-DUlTrD1u.js` sha256 `a26e5447...b680f5c`
+  (same as Sessions 18–21). Site Manager `main-0.2678141f`/`main-7.89817c75`
+  and `www.ui.com` Next.js `dpl=ebfbbf36...` unchanged (Sessions 16/21).
+  No new code to diff; focused on untested hypotheses instead.
+
+### Fresh authenticated session
+- Account A login reproduced end-to-end via Maildrop GraphQL OTP:
+  `POST /api/sso/v1/login` -> `499 {"required":"2fa"}` + `UBIC_2FA`;
+  `POST /api/sso/v1/login/2fa {token}` -> `200` + `UBIC_AUTH`
+  (uuid `d8946fad-2b8e-4cf0-82c5-5d955b57b829`, username `testttt12`).
+
+### Mass assignment / prototype pollution (negative)
+- `PUT /api/sso/v1/user/self {"twofa_enabled":false}` -> `204`, re-read still `true`.
+- `PUT` `{"is_verified":false,"email_verified":false}` -> `204`, re-read still `true`.
+- `PUT` `{"__proto__":{"is_admin":true,...}}` / `{"constructor":{"prototype":...}}`
+  / nested `__proto__` -> `204` or `429`; re-read `is_admin`/`polluted` null.
+- `PATCH /user/self/settings {"__proto__":{...}}` -> `200`, no persisted effect.
+- Not vulnerable to these classes.
+
+### Credentialed CORS re-verified (still unresolved, not weaponizable)
+- `GET sso.ui.com/api/sso/v1/user/self` with A cookie reflects
+  `ACAO: https://evil.ui.com|https://ui.com|https://a.b.ui.com` +
+  `ACAC: true`; rejects `http://`, `evilui.com`, `ui.com.evil.com`,
+  trailing-dot, `:8443`, `null`, `notui.com`. Primitive confirmed; still needs
+  an attacker-controlled `*.ui.com` origin.
+
+### `*.ui.com` CNAME / takeover survey (negative)
+- 21 non-`svc` hosts from bundles: `ir.ui.com`->investis.com,
+  `secure-uploads.ui.com`->`*.ss-domain.com` (SendSafely, live Google SSO
+  `hd=ui.com`), `status.ui.com`->Statuspage (`stspg-customer.com`),
+  `unifi.dev/stg.ui.com`->CloudFront (403), `unifi.df.ui.com` no record.
+  No dangling/claimable target -> no attacker-controlled origin found.
+
+### Upload / legacy sink checks (negative for impact)
+- Picture upload rejects `image/svg+xml` (`415 not a supported image format`);
+  stored file re-encoded to 40x40 `image/png`, `immutable` -> no upload XSS.
+- Legacy `www.ui.com` `main.min.js` `constructUserPopup()` injects
+  `picture` via `.html('<img src="'+picture+'">')` and `first_name`/`last_name`/
+  `email` via jQuery `.append()` from `/user/self`. Self-XSS only (renders the
+  caller's own data); no cross-user render found. Excluded per self-XSS rule.
+- `/contact/?q=` reflected only percent-encoded in `og:url` and inline
+  `$.fn.globals.set("url",{absolute:"..."})`; `"`,`<`,`</script>` do not break out.
+- Site Manager bundles: only app-level `dangerouslySetInnerHTML` is Release Notes
+  (prior-known); no sink for account names/pictures.
+
+### Status
+- No route-status change; 47 routes = 38 account-ui + 9 www/unifi/activate
+  (32 done / 15 blocked).
+- Evidence under `/tmp/s22/` (session-local, not committed).
+- No Discord notification sent (notification bar not met).

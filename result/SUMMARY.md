@@ -314,3 +314,24 @@
   `/_next/image`; no source maps. Newsletter form -> Mailchimp (out of scope).
 - Inventory now 47 routes (38 account-ui + 9 www/unifi/activate), 32 done / 15 blocked.
   No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged.
+
+## Session 22 additions (2026-11-21T19:14Z)
+- Builds unchanged (`account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447...`;
+  Site Manager and `www.ui.com` Next.js unchanged); no new code to diff.
+- Fresh Account A session reproduced via Maildrop OTP; used for authenticated tests.
+- Mass-assignment/prototype-pollution canaries on `PUT /user/self`,
+  `PATCH /user/self/settings` -> no persisted effect (`twofa_enabled`,
+  `is_verified` unchanged; no `__proto__` pollution).
+- Credentialed CORS on `sso.ui.com` re-confirmed: reflects
+  `https://evil.ui.com`/`https://ui.com`/`https://a.b.ui.com` with
+  `ACAC:true`; rejects `http`, `evilui.com`, `ui.com.evil.com`, trailing dot,
+  port, `null`, non-`ui.com`. Still needs an attacker-controlled `*.ui.com` origin.
+- 21-host `*.ui.com` CNAME survey found no dangling/claimable target
+  (`ir`->investis, `secure-uploads`->SendSafely, `status`->Statuspage,
+  `unifi.dev/stg`->CloudFront 403, `unifi.df` no record).
+- Picture upload rejects SVG (`415`), re-encodes to PNG -> no upload XSS.
+- Legacy `www.ui.com` `main.min.js` `constructUserPopup()` injects `picture`/
+  names/email from `/user/self` via `.html()`/`.append()`: self-XSS only,
+  no cross-user delivery -> excluded per policy.
+- No route-status change (47 routes, 32 done / 15 blocked). No Discord
+  notification sent (notification bar not met).

@@ -12,6 +12,12 @@
 - Session 16 adds the unauthenticated `POST /api/sso/v1/address/validator` to the
   same reflection set (OPTIONS/preflight reflects any `https://*.ui.com` Origin
   with credentials); still needs an attacker-controlled `*.ui.com` origin.
+- Session 22 re-confirmed the reflection (`https://evil.ui.com`, `https://ui.com`,
+  `https://a.b.ui.com` -> `ACAC:true`; `http`, `evilui.com`, `ui.com.evil.com`,
+  trailing-dot, `:8443`, `null`, non-`ui.com` rejected) and surveyed 21 non-`svc`
+  `*.ui.com` CNAMEs (`ir`->investis, `secure-uploads`->SendSafely, `status`->Statuspage,
+  `unifi.dev/stg`->CloudFront 403, `unifi.df` no record). Still no attacker-controlled
+  `*.ui.com` origin.
 - Detail: `result/findings/cors-credentialed-reflection.md`.
 
 ## 2. Zendesk comment HTML renderer (VULN-20261111-001)
@@ -109,3 +115,11 @@
 - `POST /chat/queue {userId,department}` was tested and is session-bound (body
   `userId` optional/ignored); no cross-account impact. Arbitrary `department` is
   stored in the queue but no in-scope HTML sink renders it.
+
+## 11. Legacy www.ui.com profile HTML injection (self-XSS, Session 22)
+- Legacy `main.min.js` `constructUserPopup()` injects `picture` via
+  `.html('<img src="'+picture+'">')` and `first_name`/`last_name`/`email` via
+  jQuery `.append()` using the `/user/self` response (cached in `localStorage`).
+- Only the caller's own data is rendered, so it is self-XSS with no cross-user
+  delivery found; excluded per policy. The Site Manager has no equivalent sink
+  (only Release Notes uses `dangerouslySetInnerHTML`).
