@@ -123,3 +123,17 @@
 - Only the caller's own data is rendered, so it is self-XSS with no cross-user
   delivery found; excluded per policy. The Site Manager has no equivalent sink
   (only Release Notes uses `dangerouslySetInnerHTML`).
+
+## 12. Zendesk search + second-account MFA (Session 23 status)
+- `POST https://account.svc.ui.com/zendesk/search_tickets` / `search_ccd`
+  (`{query,status}`, header `x-captcha-token`) exist in the bundle, but the caller
+  is gated by `allowBillingSearch:false` and `/requests` redirects to `/`; no
+  in-bundle invocation path. Cross-account IDOR remains **Unresolved** (needs a
+  cross-account ticket plus a valid `x-captcha-token`).
+- B pre-MFA email MFA cannot be triggered: the "verify with email" action calls
+  `sendEmailV2` (`/api/sso/v2/user/self/mfa/email/{id}/send`), which returns `401`
+  without an authenticated session; `POST /api/sso/v1/login/2fa` accepts only
+  `{token}`. B's default MFA is TOTP with an unknown secret, so no second-account
+  session is available for IDOR testing.
+- Registration bot score still blocks `POST /api/sso/v2/users` with the valid
+  `score` site key (`CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`); no new account minted.

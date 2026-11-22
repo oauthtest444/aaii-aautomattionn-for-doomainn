@@ -335,3 +335,24 @@
   no cross-user delivery -> excluded per policy.
 - No route-status change (47 routes, 32 done / 15 blocked). No Discord
   notification sent (notification bar not met).
+
+## Session 23 additions (2026-11-22T06:23Z)
+- Builds unchanged (`account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447...`;
+  `www.ui.com` Next.js `dpl=ebfbbf36...`). Fresh A session reproduced via Maildrop
+  OTP; browser session re-established from `sso.ui.com` origin.
+- Client-side redirect sinks re-verified on the current bundle: login-result
+  `xQ()`/`TQ()` apply `NS()` (external host last-two labels ∈ ui.com/ubnt.com/
+  uisp.com, http/https only) and `IS()` (internal absolute paths only). `/switch`
+  uses `NS()`. No open redirect to an arbitrary external host or `javascript:`.
+- Registration captcha re-tested: `site_key=score` (valid key) -> `403
+  CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`; `site_key=account_backend` -> `403` invalid
+  captcha. `high_risk`/`medium_risk`/`challenge` keys are not valid site keys.
+- cloudaccess STS role (`prd-unifi-cloud-access`, acct `297616773877`, `roles:
+  ['BETA']`) denied IAM/S3/API-Gateway reads; `/ucore/*`, `/devices`,
+  `/api/v1/hosts`, `/sites` empty for A; random device -> `404` no such device.
+- Zendesk `search_tickets` caller is feature-flagged off (`allowBillingSearch:
+  false`) and `/requests` redirects to `/`; cross-account test remains blocked.
+- B email-MFA at pre-MFA unreachable (`sendEmailV2` needs a session; `loginMFA`
+  takes only `{token}`), so no second-account session.
+- No route-status change (47 routes, 32 done / 15 blocked). No new confirmed
+  high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.

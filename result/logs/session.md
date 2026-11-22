@@ -512,3 +512,13 @@
   maps 404. Newsletter form -> Mailchimp (out of scope). `/wafflejs` = django-waffle flags (low info).
 - No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
 - End (UTC): 2026-11-20T20:22Z
+== session start 2026-11-22T06:23:08Z ==
+## Session 23 start 2026-11-22T06:23:08Z (continuation; targets hash unchanged)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Re-verified client-side redirect sinks (xQ/TQ/NS/IS, /switch) — validated.
+- Registration captcha re-test + reCAPTCHA key classification (3 valid site keys,
+  3 invalid). cloudaccess STS role scoped; ucore/devices/hosts/sites empty.
+- Zendesk search caller gated off; B pre-MFA email MFA needs session.
+- Ledger: result/server-side/account.ui.com/session23-ledger.md
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+== session end 2026-11-22T06:31:00Z ==

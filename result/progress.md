@@ -687,3 +687,16 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   (32 done / 15 blocked).
 - Evidence under `/tmp/s22/` (session-local, not committed).
 - No Discord notification sent (notification bar not met).
+
+## Session 23 (2026-11-22) — endpoint re-verification (no route-status change)
+- Re-ran client-side redirect/sink review on current `index-DUlTrD1u.js`:
+  `xQ`/`TQ`+`NS`/`IS` and `/switch` are validated; no open redirect.
+- Re-tested registration captcha (score key -> challenge; account_backend ->
+  invalid captcha) and classified reCAPTCHA keys (valid site keys: account_backend,
+  feedback, score; invalid: high_risk, medium_risk, challenge).
+- cloudaccess STS creds issued but role is tightly scoped; all A tenant resources
+  empty; random device lookup -> 404.
+- Zendesk `search_tickets` caller gated off (`allowBillingSearch:false`); B
+  pre-MFA email MFA send requires a session -> both remain Blocked.
+- Ledger: `result/server-side/account.ui.com/session23-ledger.md`.
+- Status: 47 routes = 38 account-ui + 9 www/unifi/activate (32 done / 15 blocked).
