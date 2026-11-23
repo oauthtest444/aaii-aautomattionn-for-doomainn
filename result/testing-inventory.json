@@ -390,6 +390,14 @@
       "status": "candidate",
       "evidence": "result/findings/VULN-20261114-001/",
       "notes": "Client-supplied role (admin|owner) sent to confirm-invitation; server trust unverified (test account has no invitation; bogus device -> DEVICE_OFFLINE regardless of role)."
+    },
+    {
+      "source": "window.name / ancestorOrigins / document.referrer (account-frame bridge)",
+      "sink": "window.parent.postMessage (sso.account.changed / navigation.requested / billing.*)",
+      "file": "account index-DUlTrD1u.js ~782410,2595202,2606404,2607157 (FS/VS/Wge/Gge/Rw)",
+      "status": "not-vulnerable",
+      "evidence": "result/server-side/account.ui.com/traffic/session26-newcover.txt",
+      "notes": "targetOrigin Gge()='*' only in non-prd builds; prod requires https + NS() host allowlist (ui.com/ubnt.com/uisp.com). Inbound Megaphone $$ requires source===parent + kw(origin)+Zod. Popup lIt uses targetOrigin=self. No PII leak/authorization bypass. Session 26."
     }
   ],
   "endpoints": [
@@ -445,7 +453,7 @@
       "method": "POST",
       "url": "https://sso.ui.com/api/sso/v1/user/self/email/verify/send",
       "auth": true,
-      "observations": "body {email}; existing email -> 400 'This field must be unique'"
+      "observations": "body {email}; existing email -> 400 'This field must be unique'; Session 26: benign 204; CRLF -> 400 PARSE_ERROR; %0d%0a -> 400 invalid email; case-insensitive uniqueness -> no header injection/ATO"
     },
     {
       "method": "POST",
@@ -860,6 +868,36 @@
       "url": "https://www.ui.com/ (hostile cookies/XFH/XFP/// paths)",
       "auth": false,
       "observations": "Session 25: microsite-language/country-code-session/X-Forwarded-Host/X-Forwarded-Proto probes -> 200 x-middleware-rewrite:/us/en, cookies reset EN/US; //evil.com & %2f%2fevil.com -> 404 legacy (sets csrftoken). No redirect/poisoning."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/password-strength",
+      "auth": false,
+      "observations": "zxcvbn score/warning only; input not reflected. Session 26 Not Vulnerable"
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v2/password-strength",
+      "auth": false,
+      "observations": "400 policy `required` fields; input not reflected. Session 26 Not Vulnerable"
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/health",
+      "auth": false,
+      "observations": "bounded discovery: 404 (no hidden endpoints). Session 26"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.ui.com/_next/image",
+      "auth": false,
+      "observations": "404; Next image optimizer disabled. Session 26"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.ui.com/api/{path}",
+      "auth": false,
+      "observations": "301 -> store.ui.com (out-of-scope commerce host). Session 26"
     }
   ],
   "listeners": [

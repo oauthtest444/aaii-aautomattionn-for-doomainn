@@ -407,3 +407,31 @@
   inert (`200`, `x-middleware-rewrite:/us/en`, cookies reset; `//` → `404`). No poisoning.
 - No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
   Ledger: `result/server-side/account.ui.com/session25-ledger.md`.
+
+## Session 26 (2026-11-23T23:44Z, run 45291357082; continuation, decision=preserved)
+- Builds unchanged (`account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447...`;
+  Site Manager `main-0.2678141`/`main-7.89817` unchanged since Session 16; www Next.js
+  unchanged). No new JavaScript to diff.
+- Recovered and validated A/B full sessions from `result/logs/opencode.log`; escalated A
+  to L2 (password re-auth) for the email-change flow.
+- **New negatives (no impact):** `POST /api/sso/v1/password-strength` is zxcvbn-only;
+  `POST /api/sso/v2/password-strength` returns policy requirements — no reflection.
+  `POST /user/self/email/verify/send` rejects CRLF (JSON parse error / invalid email) and
+  enforces case-insensitive uniqueness — no header injection or ATO; A's email unchanged.
+  Bounded GET-only SSO discovery (20 plausible paths) all `404` (no hidden endpoints).
+  `www.ui.com` has no `/_next/image`; `/api/*` 301s to `store.ui.com` (out of scope).
+- **Runtime (Chrome DevTools MCP):** `account.ui.com/login?redirect=` with
+  `https://evil.com`, `//evil.com`, `javascript:alert(1)` does **not** redirect or execute
+  (final URL stays on account.ui.com); `www.ui.com/download/unifi` renders normally.
+- **Client-side bridge re-analysis (new documentation):** the `account-frame`/`window.name`
+  + `Rw()`/`Gge()`/`Wge()`/`kw()` bridge posts PII (`sso.account.changed`) only to a
+  `kw()`-validated parent (https + host last-two-labels ∈ ui.com/ubnt.com/uisp.com);
+  `Gge()` returns `'*'` only in non-`prd` builds. Inbound Megaphone listener requires
+  `event.source===window.parent` and `kw(event.origin)` + Zod schema. Popup SSO result
+  posts with `targetOrigin = window.location.origin`. => Not Vulnerable.
+- **Site Manager unaudited chunks (main-2..6, numeric):** user-sync `BroadcastChannel` is
+  same-origin only; invite `role` forward is the known VULN-20261114-001 (Unresolved, still
+  no valid invitation); service-worker fetch proxy is same-origin SW-scoped. No new exploit.
+- Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
+  `result/server-side/account.ui.com/session26-ledger.md`.

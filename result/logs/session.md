@@ -545,3 +545,21 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session25-ledger.md
 == session end 2026-11-23T08:05:00Z ==
+
+## Session 26 (2026-11-23T23:44Z UTC) — continuation (run 45291357082, decision=preserved)
+- Working dir: repo root. Target hash 3353d9c6… matches; continuation (not reset).
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq, google-chrome-stable present.
+- Prior state: 47 routes (32 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: verify MCP; recover A/B sessions; hunt remaining in-scope surface (account.svc/sso/cloudaccess);
+  avoid duplicates per testing-inventory.json.
+
+### Session 26 outcome (2026-11-23T23:5xZ)
+- Builds unchanged; A/B sessions validated; A escalated to L2.
+- New checks: password-strength (inert), email header-injection (blocked), bounded SSO
+  discovery (all 404), www Next probes (no optimizer; /api -> store out of scope),
+  runtime redirect checks (no open redirect / no javascript: exec), account-frame
+  postMessage bridge re-audit (Not Vulnerable), Site Manager unaudited chunks (no exploit).
+- No new confirmed high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session26-ledger.md
+== session end 2026-11-23T23:58:00Z ==

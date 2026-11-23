@@ -1,0 +1,90 @@
+# Session 26 evidence — new coverage (2026-11-23T23:44Z UTC)
+
+All requests used disposable test accounts A (`tan.tiger5564@maildrop.cc`) and B
+(`overrated.chinchilla337@maildrop.cc`). `UBIC_AUTH` bearer value redacted (test
+session cookie; full value intentionally not duplicated here).
+
+## 0. Session validation
+```
+GET https://sso.ui.com/api/sso/v1/user/self  (Cookie: UBIC_AUTH=<A>)
+=> 200 {"username":"testttt12","email":"tan.tiger5564@maildrop.cc","is_verified":true,...}
+
+GET https://sso.ui.com/api/sso/v1/user/self  (Cookie: UBIC_AUTH=<B>)
+=> 200 {"username":"test-account-b","email":"overrated.chinchilla337@maildrop.cc",...}
+
+POST https://sso.ui.com/api/sso/v1/user/self/login/level  body {"password":"<A pw>"}
+=> 200 {"level":2,"time_left_seconds":1800}; Set-Cookie: UBIC_AUTH=<L2 token>; ...
+```
+
+## 1. Password-strength (undocumented in SPA call sites for v1; v2 in config)
+```
+POST https://sso.ui.com/api/sso/v1/password-strength  {"password":"abc"}
+=> 200 {"is_acceptable_password":false,"guesses_log10":1.11,"score":0,
+        "warning":"Sequences like \"abc\" ...","suggestions":[...]}
+
+POST https://sso.ui.com/api/sso/v1/password-strength  {"password":"<img src=x onerror=alert(1)>"}
+=> 200 {"is_acceptable_password":false,"guesses_log10":26.86,"score":4,
+        "warning":"...appears in a public database of exposed passwords...","suggestions":[]}
+
+POST https://sso.ui.com/api/sso/v2/password-strength  {"password":"abc"}
+=> 400 {"required":{"min_length":"12","symbol":"1","digit":"1","uppercase":"1"},"error":"VALIDATION_ERROR"}
+```
+No reflection / execution; zxcvbn scoring only. Not Vulnerable.
+
+## 2. Email-change header-injection / canonicalization (A at L2)
+```
+POST https://sso.ui.com/api/sso/v1/user/self/email/verify/send  {"email":"s26probe1@maildrop.cc"}
+=> 204   (verification code sent; email change NOT applied until confirmation)
+
+POST .../email/verify/send  (raw body with CR/LF)
+{"email":"s26probe2@maildrop.cc\r\nBcc: s26probe3@maildrop.cc"}
+=> 400 {"detail":"JSON parse error - Invalid control character at: line 1 column 32 (char 31)","error":"PARSE_ERROR"}
+
+POST .../email/verify/send  {"email":"s26probe4@maildrop.cc%0d%0aBcc:s26probe5@maildrop.cc"}
+=> 400 {"email":["Enter a valid email address."],"error":"VALIDATION_ERROR"}
+
+POST .../email/verify/send  {"email":"TAN.TIGER5564@maildrop.cc"}
+=> 400 {"email":["This field must be unique."],"error":"VALIDATION_ERROR"}
+
+POST .../email/verify/send  {"email":"overrated.chinchilla337@maildrop.cc"}   (B's address)
+=> 400 {"email":["This field must be unique."],"error":"VALIDATION_ERROR"}
+```
+No header injection (CRLF rejected at parse and at email validation). Uniqueness is
+case-insensitive. Post-test `GET /user/self` => email still `tan.tiger5564@maildrop.cc`.
+
+## 3. Bounded SSO endpoint discovery (A at L2, GET only)
+```
+/appi/sso/v1/{health,version,config,csrf,user/self/email,user/self/username,
+ user/self/phone,user/self/tenant,user/self/organizations,user/self/apps,
+ user/self/api_keys,user/self/export,user/self/invitations,user/self/members,
+ user/self/permissions,invitations,organizations,users,admin,me}
+=> all 404 <!doctype html> ... <title>Not Found</title>
+```
+No undocumented endpoints on the SSO host beyond the known inventory.
+
+## 4. www.ui.com Next.js handler probes
+```
+GET https://www.ui.com/_next/image?url=https://example.com/&w=64&q=75  => 404 text/html
+GET https://www.ui.com/api/health   => 301 Location: https://www.ui.com/api/health/
+      (follow -> https://store.ui.com/us/en 200; commerce host out of approved scope)
+GET https://www.ui.com/api/  \ _next/data/x.json   => 404
+```
+
+## 5. Runtime redirect checks (Chrome DevTools MCP, headless, unauth)
+```
+navigate https://account.ui.com/login?redirect=https%3A%2F%2Fevil.com
+  after 6s: location.href unchanged; no meta refresh; no Location -> no open redirect
+navigate https://account.ui.com/login?redirect=%2F%2Fevil.com
+  after 6s: location.href unchanged; network: GET /user/self 401, GET /account-chooser 200,
+  GET /geo 200; no redirect to evil.com
+navigate https://account.ui.com/login?redirect=javascript:alert(1)
+  after 5s: location.href unchanged; no dialog / no JS execution
+navigate https://www.ui.com/download/unifi  => title "Software Downloads - Ubiquiti", 200
+```
+Client-side `redirect` param is not acted on for an unauthenticated session and the
+validators reject external / `//` / `javascript:` values (consistent with prior static
+analysis of `NS()`/`IS()`).
+
+## 6. Post-build note
+`account.ui.com` bundle hash and Site Manager `main-0`/`main-7` hashes are unchanged from
+Sessions 16/18-25, so there was no new JavaScript to diff this session.

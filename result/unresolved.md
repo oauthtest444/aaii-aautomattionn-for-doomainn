@@ -188,3 +188,32 @@
   cross-uuid `POST /user/{B}/address` → `403 mismatching UUID`; body `user` override
   ignored; B modifying A's address → `404`. Test addresses cleaned up.
 - Evidence: `result/server-side/account.ui.com/traffic/session25-zendesk-login-cors-jsonp.txt`.
+
+## 15. Session 26 re-checks (no new unresolved risk; one mechanism documented safe)
+- **Account-frame / postMessage bridge (Not Vulnerable, newly documented):** the account
+  SPA names a framed instance `account-frame-<rand>` and stores state under a
+  `window.name`-derived sessionStorage key. Its outbound emitter `Rw()` posts to
+  `window.parent` with `targetOrigin = Gge()`, which is `'*'` **only** in non-`prd` builds
+  and otherwise the `ancestorOrigins[0]`/`document.referrer` origin **only if** `kw()`
+  passes (`https://` + host last-two-labels ∈ ui.com/ubnt.com/uisp.com). PII events
+  (`sso.account.changed`) therefore cannot reach an attacker origin. Inbound Megaphone
+  listener requires `event.source === window.parent` and `kw(event.origin)` (Zod-parsed);
+  the SSO popup result handler posts with `targetOrigin = window.location.origin`. No
+  authorization bypass or data leak found.
+- **Email-change header injection / canonicalization (Not Vulnerable):**
+  `POST /user/self/email/verify/send` rejects CR/LF (JSON parse error for raw CRLF; invalid
+  email for `%0d%0a`), uniqueness is case-insensitive (`TAN.TIGER5564@...` -> unique), and
+  the change stays pending until confirmed. A's email remained `tan.tiger5564@maildrop.cc`.
+  (`s26probe1@maildrop.cc` was submitted as a code target but not confirmed.)
+- **Bounded SSO endpoint discovery:** 20 plausible GET paths (`health`, `version`,
+  `config`, `csrf`, `user/self/{email,username,phone,tenant,organizations,apps,api_keys,
+  export,invitations,members,permissions}`, `invitations`, `organizations`, `users`,
+  `admin`, `me`) all returned `404`; the documented inventory is complete for the SSO host.
+- **Site Manager unaudited chunks (main-2..6, numeric):** user-sync `BroadcastChannel`
+  (`user-change`/`logout`/`ws-changes`) is same-origin only; invite acceptance forwards
+  `e.data.role`/`verificationToken` to `confirm-invitation` — the known
+  **VULN-20261114-001**, still Unresolved (no valid pending invitation on A/B); the
+  `Swai-Request-From-ServiceWorker` proxy is invoked by a same-origin service worker /
+  message port, not an attacker-reachable cross-origin channel.
+- `www.ui.com/_next/image` -> `404`; `www.ui.com/api/*` -> `301` to `store.ui.com`
+  (out-of-scope commerce host; not tested).

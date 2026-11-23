@@ -160,3 +160,14 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/user/self/addresses `{user:B}` | sso | A | 201 | created for caller A; body `user` ignored (no owner mass-assignment) |
 | PUT/DELETE | /api/sso/v1/user/self/addresses/{id} | sso | B | 404 | B -> A's address `No SSOAddress matches` -> Not Vulnerable |
 | GET | https://www.ui.com/ (hostile cookies/XFH/XFP/`//`) | www | none | 200/404 | middleware rewrite `/us/en`, cookies reset EN/US; `//`/`%2f%2f` -> 404; no redirect/poisoning |
+
+## Session 26 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/password-strength | sso | none | 200 | zxcvbn score/warning only; input not reflected -> Not Vulnerable |
+| POST | /api/sso/v2/password-strength | sso | none | 400 | returns policy `required` fields; input not reflected -> Not Vulnerable |
+| POST | /api/sso/v1/user/self/email/verify/send `{email}` | sso | L2 | 204/400 | benign 204; CRLF -> 400 PARSE_ERROR; `%0d%0a` -> 400 invalid email; case-insensitive uniqueness -> no header injection / ATO |
+| GET | /api/sso/v1/{health,version,config,csrf,user/self/*,admin,me,...} (20 paths) | sso | L2 | 404 | bounded discovery; no undocumented endpoints |
+| GET | https://www.ui.com/_next/image | www | none | 404 | image optimizer disabled |
+| GET | https://www.ui.com/api/* | www | none | 301 | redirects to store.ui.com (out-of-scope commerce host) |
+| — | account-frame postMessage bridge (`Rw`/`Gge`/`Wge`/`kw`, Megaphone `$$`, popup `lIt`) | account | — | — | outbound PII gated by https+`NS()` allowlist (or `'*'` non-prod only); inbound `source===parent`+`kw(origin)`; popup targetOrigin=self -> Not Vulnerable |

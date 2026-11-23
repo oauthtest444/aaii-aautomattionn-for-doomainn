@@ -737,3 +737,26 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session25-ledger.md`.
+
+## Session 26 (2026-11-23T23:44Z) — new coverage, no route-status change
+- Builds unchanged: account `index-DUlTrD1u.js` sha256 `a26e5447...`; Site Manager
+  `main-0.2678141...`/`main-7.89817...` (Session 16); www Next.js unchanged.
+- Recovered/validated A+B sessions; A escalated to L2 (password) for email-flow tests.
+- New negatives: `POST /api/sso/v1/password-strength` (v1) is zxcvbn-only; v2 returns policy
+  requirements; no reflection. `email/verify/send` rejects CRLF (parse + email validation),
+  uniqueness is case-insensitive; no header injection / ATO. A's email unchanged.
+- Bounded GET-only SSO discovery (20 candidate paths) -> all `404`; no hidden endpoints.
+- www Next: no `/_next/image`; `/api/*` 301 -> `store.ui.com` (out of scope).
+- Runtime (Chrome MCP): `login?redirect=https://evil.com|//evil.com|javascript:alert(1)`
+  do NOT redirect/execute; `www.ui.com/download/unifi` renders normally.
+- Client-side `account-frame`/postMessage bridge re-analysed: `Rw()` posts PII only to
+  `kw()`-validated parent (https + ui.com/ubnt.com/uisp.com); `Gge()='*'` only in non-prod;
+  inbound Megaphone requires `source===parent` + `kw(origin)`; popup result uses self
+  targetOrigin. Not Vulnerable (documents a previously unsummarised mechanism).
+- Site Manager unaudited chunks: BroadcastChannel user-sync is same-origin; invite role
+  forward is existing VULN-20261114-001 (still Unresolved, no invitation); SW fetch proxy is
+  SW-scoped. No new exploit.
+- Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session26-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session26-newcover.txt`.
