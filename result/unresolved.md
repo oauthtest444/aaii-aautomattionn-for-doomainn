@@ -98,8 +98,10 @@
   sends a code to the new mailbox and binds confirmation to that address; it is not
   an ATO primitive. The pending test change to `opencode-s13@maildrop.cc` was not
   confirmed and its 10-minute code has expired.
-- B's TOTP secret is unknown and backup codes are stale (rotated Session 10), so
-  there is no alternate interactive MFA path for B. No passkeys are registered.
+- **Session 24:** B's full session is recoverable and B's MFA is email OTP to B's
+  maildrop (`overrated.chinchilla337`), not TOTP. A still-valid B `UBIC_AUTH` was
+  recovered from `result/logs/opencode.log` and validated (`/user/self` 200); a fresh
+  B `UBIC_2FA` is mintable via the password step. See item 12.
 - A self-enrolled in early access (`Beta Testers`) while testing
   `POST /user/{uuid}/roles/beta`; the endpoint only adds this fixed role and rejects
   other UUIDs. This is a test artifact, not a privilege escalation.
@@ -130,10 +132,35 @@
   is gated by `allowBillingSearch:false` and `/requests` redirects to `/`; no
   in-bundle invocation path. Cross-account IDOR remains **Unresolved** (needs a
   cross-account ticket plus a valid `x-captcha-token`).
-- B pre-MFA email MFA cannot be triggered: the "verify with email" action calls
-  `sendEmailV2` (`/api/sso/v2/user/self/mfa/email/{id}/send`), which returns `401`
-  without an authenticated session; `POST /api/sso/v1/login/2fa` accepts only
-  `{token}`. B's default MFA is TOTP with an unknown secret, so no second-account
-  session is available for IDOR testing.
+- **Session 24 (resolved):** B's second-account session is now available. A valid B
+  full-session `UBIC_AUTH` was recovered from `result/logs/opencode.log` and
+  re-validated (`/user/self` 200). The earlier "`sendEmailV2` needs a full session"
+  conclusion was wrong: with B's fresh pre-MFA `UBIC_2FA` token, `POST
+  /api/sso/v2/user/self/mfa/email/{id}/send` returns `200` and emails an OTP (B MFA is
+  email, authenticator `a646df96-...`), and `/login/2fa` completes the login. B does
+  **not** use TOTP.
+- The MFA flow is session/user-bound: B pre-MFA + A's authenticator id → `404`; a
+  fresh A OTP under B's pre-MFA → `403 INVALID_CREDENTIAL` (same code under A → `200`).
+  No cross-user OTP routing or MFA bypass. Pre-MFA tokens are rejected on sensitive
+  endpoints (`/user/self`, `/addresses`, `/activity` 401; `/settings`, `/sessions`
+  403; `/2fa/backup` 401), and `/2fa/backup` with a full token → `499 L2_REQUIRED`.
+- Zendesk cross-account ticket **read** is Not Vulnerable for a known ticket id:
+  `GET /zendesk/comments/{id}` → own `200`, other user `403 FORBIDDEN`, unauth `401`.
+  Ticket comment **write** requires a valid reCAPTCHA (`400` absent / `403` invalid)
+  before the ownership check, so no write IDOR is reachable; search-based IDOR remains
+  Unresolved (captcha-gated, no caller).
 - Registration bot score still blocks `POST /api/sso/v2/users` with the valid
   `score` site key (`CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`); no new account minted.
+
+## 13. Unauthenticated avatar lookup by UUID (Session 24, excluded)
+- `GET https://sso.ui.com/api/sso/v1/user/{uuid}/picture` is reachable **without
+  authentication** and returns the avatar URL for a valid account UUID
+  (`200 {"picture":"https://account-cdn.svc.ui.com/<image-id>"}`) or `404 "No SSOUser
+  matches the given query."` for an unknown UUID. All sibling user-scoped routes and
+  writes are properly `401`/`403` (`mismatching UUID`), and query expansion
+  (`?include=`, `?expand=`, `?full=`) does not add fields; a 28-name unauth subresource
+  sweep found no other unauthenticated subresource.
+- Impact is limited to a public CDN avatar URL plus a UUID-existence oracle; UUIDs are
+  random v4 and not enumerable from an email/username, and no other PII or write is
+  exposed. Documented and **excluded** from `confirmed-vuln.txt` per AGENT.md §9.
+- Detail: `result/findings/VULN-20261123-001/report.md`.

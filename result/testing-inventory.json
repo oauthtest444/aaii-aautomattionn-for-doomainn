@@ -788,6 +788,30 @@
       "url": "https://sso.ui.com/api/sso/v1/password/{user}",
       "auth": "unauthenticated",
       "observations": "Session 19 (mobile UA): {} -> 400 VALIDATION_ERROR (missing _ubiquiti_private_key, captcha, apple_devicecheck_token); dummy values -> 403 PERMISSION_DENIED; no email sent, so reset-link host-header injection remains Blocked."
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/{uuid}/picture",
+      "auth": false,
+      "observations": "Session 24: unauthenticated 200 with avatar URL for valid uuid; 404 'No SSOUser matches' for unknown; siblings/ writes 401/403. Low (public avatar + UUID oracle), VULN-20261123-001 excluded"
+    },
+    {
+      "method": "POST",
+      "url": "https://account.svc.ui.com/zendesk/comment/{ticketId}",
+      "auth": true,
+      "observations": "Session 24: body {comment}; x-captcha-token required (400 absent / 403 invalid) before ownership; cross-account comment write not reachable"
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/zendesk/comments/{ticketId}",
+      "auth": true,
+      "observations": "Session 24: ownership enforced; own 200, other user 403 FORBIDDEN, unauth 401"
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/zendesk/ticket/{ticketId}/close",
+      "auth": true,
+      "observations": "Session 24: POST close -> other user 404 Not found (no cross-account close)"
     }
   ],
   "listeners": [

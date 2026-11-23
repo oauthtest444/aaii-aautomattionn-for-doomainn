@@ -700,3 +700,20 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   pre-MFA email MFA send requires a session -> both remain Blocked.
 - Ledger: `result/server-side/account.ui.com/session23-ledger.md`.
 - Status: 47 routes = 38 account-ui + 9 www/unifi/activate (32 done / 15 blocked).
+
+## Session 24 (2026-11-23) — B session recovered; unauth avatar endpoint (excluded)
+- Recovered and validated Account B full-session `UBIC_AUTH` from `result/logs/opencode.log`
+  (`UUID=7c5aab2b-...`, exp `1797401599`, L2) → `/user/self` `200`. Minted fresh B
+  pre-MFA `UBIC_2FA` via password step; B MFA is email OTP to B's maildrop
+  (authenticator `a646df96-...`). Completed a fresh A email-OTP login end-to-end.
+- Confirmed `GET /api/sso/v1/user/{uuid}/picture` unauthenticated (avatar URL, `404`
+  unknown uuid). Sibling routes/writes/roles properly protected. **Excluded** from
+  `confirmed-vuln.txt` (low: public CDN avatar + UUID existence oracle).
+  Report: `result/findings/VULN-20261123-001/`.
+- Negative: MFA email-send session-scoped; `/login/2fa` code session-bound; pre-MFA token
+  rejected on sensitive endpoints; Zendesk comment read/write IDOR blocked (ownership +
+  reCAPTCHA); header impersonation ignored; login redirect validator robust.
+- `POST /user/{uuid}/roles/beta` uuid-scoped (`A→B 403`, `B own 204`). `www.ui.com`
+  `/search/autocomplete/` now `302 → /`.
+- Status: 47 routes = 38 account-ui + 9 www/unifi/activate (32 done / 15 blocked). B
+  session now available for future cross-account tests. No Discord notification.

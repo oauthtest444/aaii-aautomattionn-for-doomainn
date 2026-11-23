@@ -522,3 +522,14 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - Ledger: result/server-side/account.ui.com/session23-ledger.md
 - No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
 == session end 2026-11-22T06:31:00Z ==
+== session start 2026-11-23T07:20:00Z ==
+## Session 24 start 2026-11-23T07:20:00Z (continuation; B session recoverable)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Builds unchanged (account.ui.com index-DUlTrD1u.js sha256 a26e5447...).
+- Recovered valid Account B UBIC_AUTH from result/logs/opencode.log (UUID 7c5aab2b-..., exp 1797401599); /user/self -> 200.
+- B password step minted fresh UBIC_2FA; B MFA = email OTP (auth a646df96-...) to B maildrop. Fresh A email-OTP login completed (code 717101).
+- NEW (low, excluded): GET /api/sso/v1/user/{uuid}/picture is unauthenticated (200 avatar / 404 unknown). Sibling routes 401/403. Report result/findings/VULN-20261123-001/.
+- Negative: MFA email-send session-scoped (B session + A auth id -> 404); /login/2fa session-bound (A code under B -> 403, under A -> 200); pre-MFA token rejected on sensitive endpoints; Zendesk comments ownership + reCAPTCHA enforced; header impersonation ignored; NS() redirect validator robust.
+- POST /user/{uuid}/roles/beta uuid-scoped (A->B 403, B own 204). www.ui.com /search/autocomplete/ -> 302 /.
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+== session end 2026-11-23T07:35:00Z ==

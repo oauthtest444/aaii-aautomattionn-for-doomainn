@@ -1,3 +1,4 @@
 VULN-20261110-001: confirmed report has no severity
 VULN-20261110-002: confirmed report has no severity
 VULN-20261110-004: confirmed report has no severity
+VULN-20261123-001: confirmed report has no severity
