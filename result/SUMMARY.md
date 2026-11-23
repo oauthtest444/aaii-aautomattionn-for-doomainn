@@ -383,3 +383,27 @@
 - No route-status change (47 routes, 32 done / 15 blocked; B-session unlock enables
   future cross-account tests but the previously-blocked routes still need
   captcha/device/invite data). `confirmed-vuln.txt` unchanged; no Discord notification.
+
+## Session 25 (2026-11-23)
+- Builds unchanged (account `index-DUlTrD1u.js` sha256 `a26e5447...`; www dpl `ebfbbf36...`).
+  A/B sessions recovered and re-validated (`/user/self` `200`).
+- **New endpoint** `GET https://sso.ui.com/api/sso/v1/zendesk_login` (not referenced in the
+  SPA config; reached via the help-center SSO hop): unauthenticated → `302` to
+  `account.ui.com/login`; authenticated → `302` to `ubnt.zendesk.com/access/jwt?jwt=<HS256>`
+  (name/email/external_id). The `return_to` value is forwarded by sso but the Zendesk hop
+  normalizes it to `https://help.ui.com/hc`, so no open redirect / `javascript:`.
+  The `302` reflects `Origin: https://evil.ui.com` with `ACAC:true`, but the JWT is only in
+  `Location` (opaque under `redirect:'manual'`; follow lands on non-CORS hosts) → **not
+  readable, not exploitable**. Documented Not Vulnerable.
+- **Negative** re-tests: no JSONP on sso (`callback`/`jsonp`/`format`/`Accept: application/javascript`
+  → `406`/`404`); `shopify_login` fixed redirect; path-form `PUT/DELETE
+  /user/{uuid}/address/{id}` → `404`; cross-uuid `POST /user/{B}/address` → `403`; body
+  `user` override ignored; B modifying A's disposable address → `404`. Test addresses deleted.
+- **Recon:** 94 `ui.com` hosts resolved (passive), no dangling/claimable CNAME.
+  `blog/community/design/mobility/help.ui.com` are not in the approved component list →
+  observed only, recorded in `out-of-scope.txt`. No attacker-controlled `*.ui.com` origin
+  exists, so the credentialed-CORS finding remains blocked.
+- www.ui.com hostile cookie / `X-Forwarded-Host` / `X-Forwarded-Proto` / `//`-path probes
+  inert (`200`, `x-middleware-rewrite:/us/en`, cookies reset; `//` → `404`). No poisoning.
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session25-ledger.md`.

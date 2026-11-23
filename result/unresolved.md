@@ -19,6 +19,11 @@
   `unifi.dev/stg`->CloudFront 403, `unifi.df` no record). Still no attacker-controlled
   `*.ui.com` origin.
 - Detail: `result/findings/cors-credentialed-reflection.md`.
+- Session 25: passive recon (94 hosts) again found no dangling/claimable `*.ui.com`
+  CNAME (JFrog `artifacts`, Zendesk `help`, SendSafely `secure-uploads`, Statuspage
+  `status`, CloudFront `unifi` all owned). Non-approved hosts (`blog/community/design/
+  mobility/help.ui.com`) were only read/classified and are recorded in
+  `out-of-scope.txt`. The CORS item therefore remains **blocked**, not exploitable.
 
 ## 2. Zendesk comment HTML renderer (VULN-20261111-001)
 - `account.ui.com` renders Zendesk `html_body` via `html-react-parser` with no
@@ -164,3 +169,22 @@
   random v4 and not enumerable from an email/username, and no other PII or write is
   exposed. Documented and **excluded** from `confirmed-vuln.txt` per AGENT.md §9.
 - Detail: `result/findings/VULN-20261123-001/report.md`.
+
+## 14. `zendesk_login` return_to / CORS + JSONP probe (Session 25, Not Vulnerable)
+- `GET https://sso.ui.com/api/sso/v1/zendesk_login` is a real server-side endpoint
+  (not referenced in the SPA config; reached via the help-center SSO hop). Unauth →
+  `302 account.ui.com/login`; authenticated → `302 ubnt.zendesk.com/access/jwt?jwt=<HS256>`
+  carrying name/email/external_id. `return_to` is forwarded verbatim by sso, but the
+  Zendesk hop normalizes it to `https://help.ui.com/hc`, so no open redirect and no
+  `javascript:` execution.
+- The `302` reflects `Origin: https://evil.ui.com` with `ACAC:true` (same known CORS
+  class), but the JWT exists only in `Location`: `fetch(...,{redirect:'manual'})` yields
+  an opaque redirect and `redirect:'follow'` lands on non-CORS Zendesk/help hosts, so the
+  JWT is **not readable**. No chain to token theft.
+- No JSONP: `callback`/`jsonp`/`format=jsonp|javascript` and
+  `Accept: application/javascript` → `406 NOT_ACCEPTABLE` / `404`.
+- `GET /api/sso/v1/shopify_login` re-confirmed fixed redirect (all params ignored).
+- Address BOLA re-test: path-form `PUT/DELETE /user/{uuid}/address/{id}` → `404`;
+  cross-uuid `POST /user/{B}/address` → `403 mismatching UUID`; body `user` override
+  ignored; B modifying A's address → `404`. Test addresses cleaned up.
+- Evidence: `result/server-side/account.ui.com/traffic/session25-zendesk-login-cors-jsonp.txt`.

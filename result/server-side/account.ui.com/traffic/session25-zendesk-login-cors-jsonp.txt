@@ -1,0 +1,46 @@
+# Session 25 — sso.ui.com / zendesk_login / JSONP / shopify_login evidence
+# Date: 2026-11-23 (UTC). Test accounts A (testttt12, d8946fad-...) and B (test-account-b, 7c5aab2b-...).
+# Tokens are disposable test-account UBIC_AUTH JWTs recovered from prior run logs.
+
+## 1. NEW endpoint: GET /api/sso/v1/zendesk_login (not present in SPA config; discovered via help.ui.com SSO hop)
+### 1a. Unauthenticated
+$ curl -sS -D - -o /dev/null 'https://sso.ui.com/api/sso/v1/zendesk_login?brand_id=394784&locale_id=1&timestamp=1795420266&return_to=https%3A%2F%2Fevil.com'
+HTTP/2 302
+location: https://account.ui.com/login?redirect=https%3A%2F%2Fsso.ui.com%2Fapi%2Fsso%2Fv1%2Fzendesk_login%3Fbrand_id%3D394784%26locale_id%3D1%26timestamp%3D1795420266%26return_to%3Dhttps%253A%252F%252Fevil.com
+
+### 1b. Authenticated (A) — mints Zendesk SSO JWT in Location; return_to forwarded verbatim
+$ curl -sS -D - -o /dev/null -H 'Cookie: UBIC_AUTH=<A>' 'https://sso.ui.com/api/sso/v1/zendesk_login?brand_id=394784&locale_id=1&timestamp=1795420300&return_to=https%3A%2F%2Fevil.com'
+HTTP/2 302
+location: https://ubnt.zendesk.com/access/jwt?jwt=<HS256 JWT name/email/external_id/photo>&return_to=https%3A%2F%2Fevil.com
+
+### 1c. Following the Zendesk hop — return_to is NOT honored (normalized to help.ui.com)
+$ curl -sS -D - -o /dev/null -H 'Cookie: <zendesk shared session>' 'https://ubnt.zendesk.com/access/jwt?jwt=<JWT>&return_to=https%3A%2F%2Fevil.com'
+HTTP/2 302
+location: https://help.ui.com/access/return_to?challenge=<...>&locale=en-US-x-1&return_to=https://help.ui.com/hc
+=> Open redirect / javascript: NOT achieved. Zendesk discards the supplied return_to.
+=> Response is a 302 with no body; the JWT only lives in the Location header.
+
+### 1d. CORS on the 302 (known *.ui.com reflection, but Location not readable cross-origin)
+$ curl -sS -D - -H 'Origin: https://evil.ui.com' -H 'Cookie: UBIC_AUTH=<A>' '.../zendesk_login?...&return_to=https%3A%2F%2Fevil.ui.com'
+HTTP/2 302
+access-control-allow-credentials: true
+access-control-allow-origin: https://evil.ui.com
+location: https://ubnt.zendesk.com/access/jwt?jwt=<JWT>&return_to=...
+=> fetch(..., {redirect:'manual'}) returns an opaque redirect (status 0, headers hidden);
+   redirect:'follow' lands on ubnt.zendesk.com/help.ui.com which do not grant CORS.
+   JWT is NOT readable via the *.ui.com CORS primitive. Not exploitable.
+
+## 2. JSONP / callback — not supported
+$ curl -H 'Accept: application/javascript' 'https://sso.ui.com/api/sso/v1/user/self?callback=cb123'
+HTTP/2 406 {"detail":"Could not satisfy the request Accept header.","error":"NOT_ACCEPTABLE"}
+?format=jsonp / ?format=javascript / ?jsonp=cb123 -> 404 / 406. No JSONP.
+
+## 3. GET /api/sso/v1/shopify_login — fixed redirect (re-confirmed)
+?redirect=https://evil.com | ?return_to=... | ?shop=evil.com | ?redirect=//evil.com | ?redirect=javascript:alert(1)
+=> all HTTP/2 302 location: https://account.ui.com/login?shopify=true&region=us  (no reflection)
+
+## 4. www.ui.com Next.js middleware/cookie probes (read-only)
+Cookie microsite-language / country-code-session set to //evil.com, https://evil.com, javascript:,
+../../evil, X-Forwarded-Host: evil.com, X-Forwarded-Proto: http -> all HTTP 200 with
+x-middleware-rewrite: /us/en; cookies re-set to EN/US; no redirect, no reflection.
+Path //evil.com and /%2f%2fevil.com -> HTTP 404 legacy backend (sets csrftoken), no Location.

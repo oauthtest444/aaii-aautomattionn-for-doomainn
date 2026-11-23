@@ -717,3 +717,23 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `/search/autocomplete/` now `302 → /`.
 - Status: 47 routes = 38 account-ui + 9 www/unifi/activate (32 done / 15 blocked). B
   session now available for future cross-account tests. No Discord notification.
+
+## Session 25 (2026-11-23) — new sso endpoint + address BOLA re-test (no route-status change)
+- Builds unchanged (account `index-DUlTrD1u.js` sha256 `a26e5447...`; www dpl `ebfbbf36...`).
+  Recovered/validated A + B sessions (`/user/self` `200`).
+- NEW endpoint `GET /api/sso/v1/zendesk_login` (not in SPA config): unauth → `302`
+  `account.ui.com/login`; auth → `302 ubnt.zendesk.com/access/jwt?jwt=<name/email/external_id>`.
+  `return_to` forwarded by sso but Zendesk normalizes it to `help.ui.com/hc` → no open
+  redirect. CORS reflects `*.ui.com` + `ACAC:true` on the `302`, but the JWT lives only in
+  `Location` (opaque on `redirect:'manual'`, no CORS on follow) → **Not Vulnerable**.
+- Negative: no JSONP (`callback`/`format`/`Accept: application/javascript` → `406`/`404`);
+  `shopify_login` fixed redirect; path-form `PUT/DELETE /user/{uuid}/address/{id}` → `404`;
+  cross-uuid `POST /user/{B}/address` → `403`; body `user` override ignored (creates for
+  self); B modifying A's address → `404`. Disposable test addresses cleaned up (`204`).
+- Recon: 94 `ui.com` hosts resolved; no dangling CNAME. `blog/community/design/mobility/help`
+  are not in the approved component list → observed only, recorded in `out-of-scope.txt`.
+- www.ui.com hostile cookie / `X-Forwarded-Host` / `X-Forwarded-Proto` / `//` path probes
+  inert (`200`, `x-middleware-rewrite:/us/en`, cookies reset; `//` → `404`). No poisoning.
+- Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session25-ledger.md`.

@@ -148,3 +148,15 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /chat/queue | account | L1 | 201 | body `{userId,department}`; `userId` is optional and ignored (missing -> 201); queue/JWT remain the session user's; arbitrary `department` echoed in `queueInfo` |
 | DELETE | /chat/queue | account | L1 | 204 | removes own session queue entry |
 | OPTIONS | /chat/queue | account | none | 403 | `Origin: https://evil.ui.com` rejected (account.svc CORS strict) |
+
+## Session 25 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/zendesk_login | sso | none/A | 302 | NEW (not in SPA config). unauth -> `account.ui.com/login`; auth -> `ubnt.zendesk.com/access/jwt?jwt=<name/email/external_id>`. `return_to` forwarded but Zendesk normalizes -> `help.ui.com/hc`; no open redirect. CORS reflects `*.ui.com`+`ACAC:true` on 302, JWT only in `Location` (not readable) -> Not Vulnerable |
+| GET | /api/sso/v1/shopify_login | sso | none | 302 | `redirect`/`return_to`/`shop`/`//`/`javascript:` ignored; fixed `account.ui.com/login?shopify=true&region=us` -> Not Vulnerable |
+| GET | /api/sso/v1/user/self?callback=/jsonp=/format= | sso | A | 406/404 | no JSONP; `Accept: application/javascript` -> `406 NOT_ACCEPTABLE` |
+| PUT/DELETE | /api/sso/v1/user/{uuid}/address/{id} | sso | A/B | 404 | path-form route unsupported (HTML 404); no BOLA via this path |
+| POST | /api/sso/v1/user/{uuid}/address | sso | A | 403 | A -> `/user/{B}/address` = `mismatching UUID` (uuid enforced) |
+| POST | /api/sso/v1/user/self/addresses `{user:B}` | sso | A | 201 | created for caller A; body `user` ignored (no owner mass-assignment) |
+| PUT/DELETE | /api/sso/v1/user/self/addresses/{id} | sso | B | 404 | B -> A's address `No SSOAddress matches` -> Not Vulnerable |
+| GET | https://www.ui.com/ (hostile cookies/XFH/XFP/`//`) | www | none | 200/404 | middleware rewrite `/us/en`, cookies reset EN/US; `//`/`%2f%2f` -> 404; no redirect/poisoning |

@@ -533,3 +533,15 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - POST /user/{uuid}/roles/beta uuid-scoped (A->B 403, B own 204). www.ui.com /search/autocomplete/ -> 302 /.
 - No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
 == session end 2026-11-23T07:35:00Z ==
+== session start 2026-11-23T07:45:00Z ==
+## Session 25 start 2026-11-23T07:45:00Z (continuation; builds unchanged)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Builds unchanged: account.ui.com index-DUlTrD1u.js sha256 a26e5447...; www.ui.com dpl ebfbbf36...
+- Recovered/validated A (testttt12, d8946fad-...) and B (test-account-b, 7c5aab2b-...) sessions (/user/self 200).
+- NEW endpoint GET /api/sso/v1/zendesk_login (not in SPA config): unauth 302 login; auth 302 ubnt.zendesk.com/access/jwt?jwt=<name/email/external_id>; return_to forwarded but Zendesk normalizes -> no open redirect. CORS reflects *.ui.com+ACAC on 302 but JWT only in Location (not readable) => Not Vulnerable.
+- Negative: no JSONP (callback/format/Accept js -> 406/404); shopify_login fixed redirect; path-form /user/{uuid}/address/{id} PUT/DELETE 404; cross-uuid address POST 403; body 'user' override ignored; B->A address 404.
+- Recon: 94 ui.com hosts resolved (no dangling CNAME); blog/community/design/mobility/help NOT in approved list -> observed only, recorded out-of-scope; no attacker-controlled *.ui.com origin.
+- www middleware/cookie/XFH probes inert (200, /us/en rewrite, cookies reset; // paths 404).
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session25-ledger.md
+== session end 2026-11-23T08:05:00Z ==

@@ -26,6 +26,16 @@ third-party service.
   `<uuid>.unifi-hosting[.stg|.dev].ui.com`. Passive enumeration only; no DNS brute force
   or host probing was performed (would be broad/out-of-scope and risk disruptive testing).
 
+### Session 25 — `ui.com` hosts observed via passive recon (NOT in approved list; not tested)
+- `blog.ui.com` and `*.blog.ui.com` (Next.js/Vite blogs; wildcard TLS cert fails for
+  arbitrary labels), `community.ui.com` (Vite SPA), `design.ui.com` (SPA), `mobility.ui.com`,
+  `help.ui.com` / `*.help.ui.com` (Zendesk), `api.ui.com`, `billing-admin.ui.com`,
+  `alpha.ui.com`, and other `<sub>.ui.com` labels returned by hackertarget/rapiddns/bundle refs.
+  These are outside the explicitly approved component list; only read-only HTTP/DNS was used
+  to classify them (no auth, no writes, no fuzzing). No dangling/claimable CNAME was found
+  (JFrog `artifacts`, Zendesk `help`, SendSafely `secure-uploads`, Statuspage `status`,
+  CloudFront `unifi`).
+
 ## Notes
 - The existing `sso.ui.com` credentialed-CORS observation would only become exploitable
   if an attacker could control content on some `*.ui.com` origin. No such origin was
