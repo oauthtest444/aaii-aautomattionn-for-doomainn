@@ -563,3 +563,21 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - No new confirmed high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session26-ledger.md
 == session end 2026-11-23T23:58:00Z ==
+
+## Session 27 — 2026-11-24T09:37Z (continuation, decision=preserved)
+- Start: 2026-11-24T09:37:52Z (run 45366850654, event=schedule, decision=preserved)
+- Target: ui.com (domain-only); in-scope components: www/account/sso + observed svc hosts per scope.md
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq; Chrome DevTools MCP available (about:blank)
+- Mode: continuation of Session 26; reading preserved inventory/findings first.
+
+### Session 27 outcome (2026-11-24T09:5xZ)
+- www.ui.com redeployed (`dpl=6f710854…`, Next.js 16.4.6 + Turbopack, patched); account
+  bundle + Site Manager unchanged.
+- www chunk audit clean (no dynamic sink; strict link allowlist; no Server Actions).
+- New negatives: device-token setup/login (generic 404, no oracle/rate-limit); username change
+  gated by 499 L2_REQUIRED; sso cache-deception inert; www XFH/og:url + open-redirect probes
+  inert; wildcard 302 not an external redirect.
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session27-ledger.md
+== session end 2026-11-24T09:58:00Z ==

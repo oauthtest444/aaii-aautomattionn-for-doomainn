@@ -1,0 +1,69 @@
+# Session 27 evidence — 2026-11-24
+# Target hash 3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+# Account A: uuid d8946fad-2b8e-4cf0-82c5-5d955b57b829 (username testttt12)
+# Redacted: Authorization/Cookie values truncated to token-presence only.
+
+## 1) Account baseline (A)
+GET /api/sso/v1/user/self          (Cookie: UBIC_AUTH=<A>)
+200
+{uuid: d8946fad-2b8e-4cf0-82c5-5d955b57b829, username: testttt12,
+ email: tan.tiger5564@maildrop.cc, first_name: OpenCodeTest, last_name: null,
+ is_verified: true}
+
+## 2) Username change requires fresh L2 (no state change)
+PUT /api/sso/v1/user/self          (Cookie: UBIC_AUTH=<A>)  {"username":"oc27tmp832"}
+499
+{"error":"L2_REQUIRED","detail":"Please re-authenticate with your password","ERRCODE":"L2_REQUIRED"}
+GET /api/sso/v1/user/self -> username still "testttt12"
+PUT restore {"username":"testttt12"} -> 499 L2_REQUIRED (still "testttt12")
+
+## 3) Cache-deception probe (sso)
+GET /api/sso/v1/user/self{,.css,.js,.txt}   (Cookie: UBIC_AUTH=<A>)
+valid path -> 200; suffixed -> 404
+All responses: cache-control: private, max-age=0, no-cache ; vary: Cookie
+=> no shared-cache poisoning primitive.
+
+## 4) Device-code token endpoints (invalid/random tokens only — no state created)
+POST /api/sso/v1/user/self/token/setup  {}                  -> 400
+{"token":["This field is required."],"error":"VALIDATION_ERROR"}
+POST /api/sso/v1/user/self/token/login  {}                  -> 400 (same)
+POST /api/sso/v1/user/self/token/setup  {"token":"AAAA-BBBB-122654"}  -> 404 (generic)
+POST /api/sso/v1/user/self/token/login  {"token":"AAAA-BBBB-14288"}   -> 404 (generic)
+POST /api/sso/v1/user/self/token/setup  {"token":"AAAA-BBBB-219640"}  -> 404
+POST /api/sso/v1/user/self/token/login  {"token":"AAAA-BBBB-219171"}  -> 404
+Headers: no retry-after / x-ratelimit present; valid-vs-invalid -> same 404 (no oracle).
+POST /api/sso/v1/user/self/token/setup  {"token":"..."} unauth -> 401 (" is not allowed")
+POST /api/sso/v1/user/self/token/login  {"token":"..."} unauth -> 401
+
+## 5) CORS preflight (token/setup)
+OPTIONS /api/sso/v1/user/self/token/setup
+Origin: https://account.ui.com
+Access-Control-Request-Method: POST
+->
+200
+access-control-allow-credentials: true
+access-control-allow-origin: https://account.ui.com   (allowlisted only)
+access-control-allow-methods: POST,GET,HEAD,PATCH,DELETE,OPTIONS,PUT
+vary: Access-Control-Request-Method, Access-Control-Request-Headers
+access-control-max-age: 600
+
+## 6) www host-header poisoning (new deployment dpl=6f710854...)
+GET https://www.ui.com/   with X-Forwarded-Host: evil.com (and X-Host/Forwarded/X-Forwarded-Proto)
+200 ; x-nextjs-cache: HIT ; og:url = https://ui.com/ ; "evil.com" not present in body.
+=> not reflected; no cache-poisoning primitive.
+
+## 7) www open-redirect probes
+GET https://www.ui.com/?s=https://evil.com      -> 200, no Location
+GET /?l=... /?redirect=... /?next=... /?link=... -> 200, no Location
+
+## 8) Wildcard *.ui.com host reflection
+GET https://<realhost>.ui.com/path?q   -> 302
+Location: https://account.ui.com/login?redirect=https%3A%2F%2F<realhost>.ui.com%2Fpath%3Fq
+evil.com / unifi.ui.com.evil.com / user@evil.com -> 403 (not accepted as Host)
+X-Forwarded-Host: evil.com -> ignored (redirect uses real Host).
+=> no external open redirect.
+
+## 9) Builds
+www.ui.com      dpl=6f710854cbbfd59f08058493f6937313e2161848  Next.js 16.4.6 (Turbopack, patched)
+account.ui.com  /assets/index-DUlTrD1u.js sha256 a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c (unchanged)
+unifi.ui.com    main-0.2678141fb293ea0d.js (unchanged)

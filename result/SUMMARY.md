@@ -435,3 +435,25 @@
 - Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact
   finding; `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
   `result/server-side/account.ui.com/session26-ledger.md`.
+
+## Session 27 (2026-11-24T09:37Z; continuation, decision=preserved)
+- `www.ui.com` redeployed `dpl=6f710854cbbfd59f08058493f6937313e2161848` (was `ebfbbf36…`),
+  Next.js `16.4.6` + Turbopack — **patched** (>=16.2.11/16.4.5), no applicable known CVE.
+  `account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447…` and Site Manager `main-0.2678141…`
+  unchanged (no new account JS to diff).
+- **www chunk audit** (36 initial + 6 lazy): `dangerouslySetInnerHTML` sites static/i18n only;
+  only query param consumed is `appview` (no `javascript:`/URL sink); no usable Server Actions;
+  `/download/software/<slug>` percent-encoded into RSC payload (non-executable); link `u`
+  allowlist requires `https:` and hostname ∈ `dl.ubnt.com/dl.ui.com/fw-download.ubnt.com`. Clean.
+- **New negatives:** `POST /user/self/token/{setup,login}` require `token` (400); random tokens
+  -> generic `404` with no rate-limit headers and no valid/invalid oracle; unauth -> `401`.
+  `PUT /user/self {username}` -> `499 L2_REQUIRED` (fresh password re-auth; not a finding).
+  Cache-deception suffixes on sso -> `404` / `private, no-cache` + `vary: Cookie`. www
+  host-header poisoning inert (`x-nextjs-cache: HIT`, `og:url` fixed `https://ui.com/`); no
+  open redirect (`?s/?l/?redirect/?next/?link`); wildcard 302 reflects only real `*.ui.com` Host
+  (rejects `evil.com`, `unifi.ui.com.evil.com`, `user@evil.com`; ignores XFH).
+- Credentialed-CORS reflection on sso/cloudaccess remains un-weaponizable (no attacker-controlled
+  `*.ui.com` origin; wildcard serves fixed SPA; no dangling CNAME across 94 hosts).
+- Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
+  `result/server-side/account.ui.com/session27-ledger.md`.

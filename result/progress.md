@@ -760,3 +760,24 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session26-ledger.md`;
   evidence `result/server-side/account.ui.com/traffic/session26-newcover.txt`.
+
+## Session 27 (2026-11-24T09:37Z) — www redeploy audit + device-token endpoints, no status change
+- Builds: `www.ui.com` redeployed `dpl=6f710854cbbfd59f08058493f6937313e2161848`
+  (was `ebfbbf36…`), Next.js `16.4.6` + Turbopack (patched; >=16.2.11/16.4.5).
+  `account.ui.com` `index-DUlTrD1u.js` sha256 `a26e5447…` and Site Manager `main-0.2678141…`
+  unchanged.
+- www chunk audit (36 initial + 6 lazy): `dangerouslySetInnerHTML` static/i18n only; only
+  query param consumed is `appview` (no sink); no usable Server Actions; `/download/software/<slug>`
+  percent-encoded into RSC payload; link `u` allowlist strict (`https:` + hostname ∈
+  dl.ubnt.com/dl.ui.com/fw-download.ubnt.com). Clean.
+- New negatives: `token/setup`+`token/login` require `token` (400); random tokens -> generic
+  `404` with no rate-limit headers and no valid-vs-invalid oracle; unauth -> `401`.
+  `PUT /user/self {username}` -> `499 L2_REQUIRED` (fresh password re-auth needed, not a finding).
+  Cache-deception suffixes -> `404` / `cache-control: private, no-cache`, `vary: Cookie`.
+  www XFH/X-Host/Forwarded poisoning inert (`x-nextjs-cache: HIT`, `og:url` fixed); no
+  open-redirect on `?s/?l/?redirect/?next/?link`; wildcard 302 reflects only real `*.ui.com` Host.
+- CORS primitive still un-weaponizable (no attacker-controlled `*.ui.com` origin).
+- Status: 47 routes unchanged (32 done / 15 blocked). No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session27-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session27-www-sso-account.txt`.
