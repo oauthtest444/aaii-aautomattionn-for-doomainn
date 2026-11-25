@@ -180,3 +180,19 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/user/self/device | sso | unauth | 403 | not accessible unauthenticated |
 | GET | /api/sso/v1/user/self/sessions | sso | A L1 | 200 | own sessions only; device_id null |
 | GET | /api/sso/v1/user/self/trusted_devices | sso | A L1 | 200 | `[]` |
+
+## Session 29 additions (builds unchanged; discovery + authz + type-juggling)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /.well-known/openid-configuration | sso | none | 200 | NEW. Minimal OIDC metadata: issuer, jwks_uri, `RS256` id_token, claims `sub/iss/exp`; **no** authorize/token/userinfo endpoints |
+| GET | /.well-known/jwks.json | sso | none | 200 | single RSA-2048 `RS256` signing key (`kid MeSXSrMD…`); no weak/duplicate keys |
+| GET | /oauth/{authorize,token,userinfo}, /api/sso/v1/oauth/authorize, /saml/metadata | sso | none | 404 | no OAuth/SAML flow exposed |
+| GET | /api/fabrics/base/msp/v1/{msp,idp,idp/configuration,idp/credentials,idp/scim-token,idp/sync-targets,idp/sync-jobs/1}, /v2/idp/directory/groups | fabric | A L1 | 403 | all `no_msp_membership`; `idp/credentials` & `idp/scim-token` unauth `401` — no BAC leak |
+| POST | /zendesk/search_tickets, /zendesk/search_ccd | account | A L1 | 400/403 | reCAPTCHA enforced before query (no token 400; dummy 403) |
+| GET | /zendesk/tickets?requester_id={B uuid} | account | A L1 | 404 | query filter not accepted; no cross-account listing |
+| POST | /api/sso/v1/login/2fa `{token: <non-string>}` | sso | pre-MFA A | 400/403 | strict string validation; `$ne`/`$gt`/array/bool rejected -> no NoSQL/type bypass |
+| POST | /api/sso/v1/login & /login/email `{user/password: <non-string>}` | sso | none | 400/429 | strict string validation; no injection |
+| POST | /api/sso/v1/user/self/login/level `{password}` | sso | A L1 | 403/400 | wrong/empty/missing password does not elevate; level stays 1 |
+| POST | /api/sso/v1/user/self/login/level/refresh | sso | A L1 | 499 | L2 required; no refresh bypass |
+| GET | /api/sso/v1/user/self?include=roles,permissions,scopes / expand=all | sso | A L1 | 200 | `include=roles` adds fixed beta role names only; `permissions`/`scopes`/`expand` null/unchanged; no secret/PII expansion |
+| GET/PUT/DELETE/PATCH/POST | /api/sso/v1/user/{B uuid}/picture | sso | none | 200/405/401 | unauth GET returns public avatar URL (known excluded low); PUT/PATCH 405; DELETE/POST 401 |

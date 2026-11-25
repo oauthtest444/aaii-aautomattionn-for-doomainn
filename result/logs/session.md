@@ -600,3 +600,24 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
   unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session28-ledger.md
 == session end 2026-11-25T08:35:00Z ==
+
+## Session 29 — 2026-11-25T08:52Z (continuation, decision=preserved, run 45579991342)
+- Start: 2026-11-25T08:52:35Z (event=workflow_dispatch, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope components www/account/sso + observed svc hosts per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: curl, git, node 22.23.5, npx, python3, jq, google-chrome-stable; Chrome DevTools MCP connected (about:blank).
+- Prior state: 48 routes (33 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff current builds/JS vs inventory; test any delta; resume remaining in-scope surface; do not repeat.
+
+### Session 29 outcome (2026-11-25T09:1xZ)
+- Builds unchanged (account `index-YVfMK5j0.js` sha256 `5cb23f64…`; www `dpl=cf2ef489…`).
+- New discovery: sso OIDC discovery (minimal; no OAuth authorize/token endpoints).
+- New negatives: MSP IdP backend all `no_msp_membership`; Zendesk search captcha-gated
+  before query; login/OTP/level strict JSON typing (no NoSQL/type bypass); wrong password
+  cannot elevate assurance level; runtime `?redirect=javascript:` inert.
+- Recon: CT `%.ui.com` 1,569 names, no dangling/takeover CNAME; dev-store is a live
+  password-protected Shopify store; still no attacker-controlled `*.ui.com` origin.
+- 48 routes (33 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt
+  unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session29-ledger.md
+== session end 2026-11-25T09:15:00Z ==

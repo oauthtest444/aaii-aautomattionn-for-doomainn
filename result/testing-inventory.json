@@ -918,6 +918,84 @@
       "url": "https://www.ui.com/api/{path}",
       "auth": false,
       "observations": "301 -> store.ui.com (out-of-scope commerce host). Session 26"
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/.well-known/openid-configuration",
+      "auth": false,
+      "observations": "Session 29: 200 minimal OIDC metadata (issuer,jwks_uri,RS256 id_token,claims sub/iss/exp); no authorize/token/userinfo endpoints. Informational."
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/.well-known/jwks.json",
+      "auth": false,
+      "observations": "Session 29: 200 single RSA-2048 RS256 signing key; no weak keys. Not Vulnerable."
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/oauth/{authorize,token,userinfo}; /api/sso/v1/oauth/*; /saml/metadata",
+      "auth": false,
+      "observations": "Session 29: 404; no OAuth/SAML flow. Not Vulnerable."
+    },
+    {
+      "method": "GET",
+      "url": "https://fabric.svc.ui.com/api/fabrics/base/msp/v1/{msp,idp,idp/configuration,idp/credentials,idp/scim-token,idp/sync-targets,idp/sync-jobs/1}",
+      "auth": "user",
+      "observations": "Session 29: 403 no_msp_membership for A/B; unauth 401 on credentials/scim-token; no BAC secret leak. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://account.svc.ui.com/zendesk/search_tickets",
+      "auth": "user",
+      "observations": "Session 29: reCAPTCHA enforced before query (400 no token / 403 invalid); cross-account search IDOR remains captcha-blocked. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://account.svc.ui.com/zendesk/search_ccd",
+      "auth": "user",
+      "observations": "Session 29: reCAPTCHA enforced (400). Not Vulnerable."
+    },
+    {
+      "method": "GET",
+      "url": "https://account.svc.ui.com/zendesk/tickets?requester_id={uuid}",
+      "auth": "user",
+      "observations": "Session 29: 404; query filter not accepted, no cross-account listing. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/login/2fa",
+      "auth": "partial",
+      "observations": "Session 29: non-string token (bool/num/array/object/$ne/$gt) -> 400 Not a valid string; strict typing, no NoSQL/type bypass. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/login",
+      "auth": false,
+      "observations": "Session 29: non-string user/password -> 400; no injection. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/login/level",
+      "auth": "user",
+      "observations": "Session 29: wrong/empty/missing password -> 403/400; level stays 1. Not Vulnerable."
+    },
+    {
+      "method": "POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/self/login/level/refresh",
+      "auth": "user",
+      "observations": "Session 29: L1 -> 499 L2_REQUIRED. Not Vulnerable."
+    },
+    {
+      "method": "GET",
+      "url": "https://sso.ui.com/api/sso/v1/user/self?include=roles,permissions,scopes",
+      "auth": "user",
+      "observations": "Session 29: include=roles adds fixed beta role names only; permissions/scopes/expand null/unchanged; settings=true adds normal settings. No secret/PII expansion. Not Vulnerable."
+    },
+    {
+      "method": "GET/PUT/DELETE/PATCH/POST",
+      "url": "https://sso.ui.com/api/sso/v1/user/{uuid}/picture",
+      "auth": false,
+      "observations": "Session 29: unauth GET 200 public avatar URL (known excluded low); PUT/PATCH 405; DELETE/POST 401; no unauth write. Not Vulnerable."
     }
   ],
   "listeners": [

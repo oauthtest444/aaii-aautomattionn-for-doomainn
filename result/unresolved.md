@@ -217,3 +217,27 @@
   message port, not an attacker-reachable cross-origin channel.
 - `www.ui.com/_next/image` -> `404`; `www.ui.com/api/*` -> `301` to `store.ui.com`
   (out-of-scope commerce host; not tested).
+
+## 16. Session 29 — OIDC discovery, MSP IdP authz, auth type-juggling (all negative)
+- `GET https://sso.ui.com/.well-known/openid-configuration` is **newly discovered**
+  (`200`): only `issuer`, `jwks_uri`, `RS256` id_token signing, claims `sub/iss/exp`.
+  There is no `authorization_endpoint`/`token_endpoint`/`userinfo_endpoint`; sibling
+  `/oauth/*`, `/api/sso/v1/oauth/*`, `/saml/metadata` are `404`. So there is no
+  reachable OAuth/SAML authorization flow to attack (no `redirect_uri`/`aud` surface).
+  JWKS is a single RSA-2048 key. Informational only.
+- MSP IdP backend endpoints referenced by the in-scope account bundle
+  (`fabric.svc.ui.com` `/api/fabrics/base/msp/v1/idp{,/configuration,/credentials,/scim-token,/sync-targets,/sync-jobs/1}`,
+  `/v2/idp/directory/groups`) are all `403 no_msp_membership` for A/B and `401`
+  unauthenticated. No broken-access-control leak of IdP credentials or SCIM tokens.
+- Zendesk `search_tickets`/`search_ccd` enforce reCAPTCHA **before** the query
+  (`400` no token, `403` invalid), so the search-based cross-account IDOR remains
+  captcha-blocked (consistent with item 12). `GET /zendesk/tickets?requester_id=` -> `404`.
+- Login/OTP/level endpoints validate JSON field types strictly (non-string
+  `user`/`password`/`token` -> `400 "Not a valid string."`); `$ne`/`$gt`/array/bool
+  payloads cannot reach a query. Wrong/empty password on `login/level` does not
+  elevate; `login/level/refresh` at L1 -> `499`. No auth bypass.
+- CT recon (`crt.sh %.ui.com`, 1,569 names / 393 non-UUID): still **no**
+  attacker-controlled `*.ui.com` origin. `dev-store.ui.com` -> `ubnt-dev.myshopify.com`
+  is a live password-protected Shopify store; `help.ui.com` -> `ubnt.zendesk.com`
+  live; `training.ui.com` -> `saas.moonami.com`. The credentialed-CORS item (1)
+  therefore remains **blocked**, not exploitable.

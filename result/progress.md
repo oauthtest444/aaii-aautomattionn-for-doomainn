@@ -799,3 +799,27 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session28-ledger.md`;
   new-route report: `result/client-side/www.ui.com/identity-qrcode-desktop-bt_pairing/route-report.md`.
+
+## Session 29 (2026-11-25T08:52Z) — builds unchanged; discovery/authz/type-juggling (no status change)
+- Builds identical to Session 28: `account.ui.com` `index-YVfMK5j0.js` sha256
+  `5cb23f64…`; `www.ui.com` `dpl=cf2ef489…`. No new JS/route to diff.
+- **New discovery:** `GET https://sso.ui.com/.well-known/openid-configuration` (`200`)
+  is minimal (issuer + jwks_uri + RS256 id_token + sub/iss/exp); no authorize/token/
+  userinfo endpoints (`/oauth/*`, `/saml/metadata` -> `404`). No OAuth flow to attack.
+- **New negative (authz):** all MSP IdP backend endpoints (`fabric.svc.ui.com`
+  `idp`, `idp/configuration`, `idp/credentials`, `idp/scim-token`, `idp/sync-targets`,
+  `idp/sync-jobs/1`, `/v2/idp/directory/groups`) -> `403 no_msp_membership`; unauth `401`.
+  No secret leak.
+- **New negative (captcha/injection):** Zendesk `search_tickets`/`search_ccd` enforce
+  reCAPTCHA before query; `/zendesk/tickets?requester_id=` -> `404`. Login/OTP/level
+  endpoints strictly reject non-string JSON (`$ne`/`$gt`/array/bool -> `400`); wrong
+  password on `login/level` -> `403`, level stays 1; `level/refresh` L1 -> `499`.
+- **Runtime (Chrome MCP):** login page renders; `login?redirect=javascript:alert(...)`
+  does not navigate/execute.
+- **Recon:** CT `%.ui.com` (1,569 names) — no dangling/takeover-prone CNAME;
+  `dev-store.ui.com` is a live password-protected Shopify store; still no
+  attacker-controlled `*.ui.com` origin (CORS stays blocked).
+- Status: **48 routes unchanged (33 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session29-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session29-discovery-authz.txt`.

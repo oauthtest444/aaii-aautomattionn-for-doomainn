@@ -52,3 +52,15 @@ third-party service.
   is a `*.svc` host outside the approved component list; not tested.
 - CNAME survey of 50 hosts: all point to owned AWS ELB / CloudFront / JFrog; no
   dangling/claimable target found.
+
+### Session 29 — CT recon `*.ui.com` (observed only; NOT tested)
+- `crt.sh?q=%.ui.com` returned 1,569 names (393 non-UUID). Most are per-tenant
+  `<uuid>.unifi-hosting[.dev|.stg].ui.com` wildcard hosts (CloudFront) — not claimable.
+- Non-approved hosts observed and classified read-only: `dev-store.ui.com` ->
+  `ubnt-dev.myshopify.com` (live, password-protected Shopify store), `training.ui.com`
+  -> `saas.moonami.com`, `help.ui.com` -> `ubnt.zendesk.com` (live), plus many
+  `*.svc`/`*.dev`/`*.stg` service hosts (`arbiter`, `nimbus`, `trunking`, `c360`,
+  `datasheets*`, `inventory`, `scoreboard`, `supplier`, `solutions`, `sunmax`, etc.).
+  Only DNS/HTTP classification performed; no auth, no writes, no fuzzing.
+- No dangling/claimable CNAME and no attacker-controlled `*.ui.com` origin found, so
+  the credentialed-CORS observation remains blocked.

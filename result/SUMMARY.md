@@ -482,3 +482,25 @@
 - Route ledger now **48 routes (38 account-ui + 10 www/unifi/activate), 33 done /
   15 blocked**. No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
   notification. Ledger: `result/server-side/account.ui.com/session28-ledger.md`.
+
+## Session 29 (2026-11-25T08:52Z; continuation, decision=preserved)
+- Builds identical to Session 28 (`account.ui.com` `index-YVfMK5j0.js` sha256
+  `5cb23f64…`; `www.ui.com` `dpl=cf2ef489…`); no new JS/route to diff.
+- **New discovery:** `sso.ui.com/.well-known/openid-configuration` (`200`) is minimal —
+  `issuer`, `jwks_uri`, `RS256` id_token, claims `sub/iss/exp`; **no** authorize/token/
+  userinfo endpoints (`/oauth/*`, `/saml/metadata` -> `404`). No OAuth/SAML flow to attack.
+- **Authz (negative):** MSP IdP backend endpoints (`fabric.svc.ui.com`
+  `idp/credentials`, `idp/scim-token`, `idp/configuration`, `idp/sync-*`,
+  `/v2/idp/directory/groups`) all `403 no_msp_membership`; unauth `401`. No secret leak.
+- **Injection/captcha (negative):** Zendesk `search_tickets`/`search_ccd` enforce
+  reCAPTCHA before the query; `/zendesk/tickets?requester_id=` -> `404`. Login/OTP/level
+  reject non-string JSON (`$ne`/`$gt`/array/bool -> `400`); wrong password on
+  `login/level` -> `403` (level stays 1); `login/level/refresh` L1 -> `499`.
+- **Runtime (Chrome MCP):** `account.ui.com/login` renders; `?redirect=javascript:alert(...)`
+  does not navigate/execute.
+- **Recon:** CT `%.ui.com` (1,569 names) — no dangling/takeover-prone CNAME;
+  `dev-store.ui.com` is a live password-protected Shopify store. Still no
+  attacker-controlled `*.ui.com` origin, so the credentialed-CORS item remains blocked.
+- Route ledger unchanged: 48 routes (33 done / 15 blocked). No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
+  `result/server-side/account.ui.com/session29-ledger.md`.
