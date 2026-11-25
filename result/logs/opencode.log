@@ -115901,3 +115901,2245 @@ https://discord.com/api/webhooks/1565069909266927626/PFr7RwwOdMGwjT2U26NhAPBHoTW
 
 WATCHDOG: no agent output for 120s; terminating attempt 1.
 WATCHDOG: time=2026-11-25T08:38:42Z log_bytes=11383836
+
+===== OPENCODE RUN 45578135995 2026-11-25T08:40:09Z =====
+
+===== AGENT ATTEMPT 1/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+[0m→ [0mRead skills/AGENT.md
+I'll follow the AGENT.md workflow. Starting with preflight and reading required inputs.
+[0m
+[0m$ [0mpwd && ls -la && echo "---DATA---" && ls -la data/ 2>/dev/null && echo "---CREDS---" && ls -la creds/ 2>/dev/null && echo "---SKILLS---" && ls -la skills/ 2>/dev/null && echo "---TOOLS---" && ls -la tools/ 2>/dev/null && echo "---RESULT---" && ls -la result/ 2>/dev/null && echo "---VULN---" && ls -la vulnebleti/ 2>/dev/null
+/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 .
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 ..
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:40 .git
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 .github
+-rw-r--r--  1 runner runner  355 Nov 25 08:39 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 creds
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 data
+-rw-r--r--  1 runner runner  332 Nov 25 08:40 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:39 result
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 skills
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 tools
+drwxr-xr-x 17 runner runner 4096 Nov 25 08:39 vulnebleti
+---DATA---
+total 12
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner    0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 3238 Nov 25 08:40 targets.txt
+---CREDS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner    0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner  466 Nov 25 08:39 README.md
+-rw-r--r--  1 runner runner  320 Nov 25 08:39 test-account.txt
+---SKILLS---
+total 76
+drwxr-xr-x  2 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner  4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner     0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 35029 Nov 25 08:39 AGENT.md
+-rw-r--r--  1 runner runner 11864 Nov 25 08:39 client-side-skill.md
+-rw-r--r--  1 runner runner 16677 Nov 25 08:39 server-side-skill.md
+---TOOLS---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rwxr-xr-x  1 runner runner 2106 Nov 25 08:39 chrome-mcp-start.sh
+-rw-r--r--  1 runner runner  119 Nov 25 08:39 cmd.txt
+---RESULT---
+total 184
+drwxr-xr-x  7 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner  4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner     0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 34630 Nov 25 08:39 SUMMARY.md
+drwxr-xr-x  5 runner runner  4096 Nov 25 08:39 client-side
+-rw-r--r--  1 runner runner   178 Nov 25 08:39 confirmed-vuln.txt
+drwxr-xr-x  9 runner runner  4096 Nov 25 08:39 findings
+drwxr-xr-x  2 runner runner  4096 Nov 25 08:39 inventory
+drwxr-xr-x  3 runner runner  4096 Nov 25 08:39 logs
+-rw-r--r--  1 runner runner  3394 Nov 25 08:39 out-of-scope.txt
+-rw-r--r--  1 runner runner 52528 Nov 25 08:39 progress.md
+-rw-r--r--  1 runner runner  2839 Nov 25 08:39 scope.md
+drwxr-xr-x  4 runner runner  4096 Nov 25 08:39 server-side
+-rw-r--r--  1 runner runner 40581 Nov 25 08:39 testing-inventory.json
+-rw-r--r--  1 runner runner 15102 Nov 25 08:39 unresolved.md
+---VULN---
+total 68
+drwxr-xr-x 17 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner    0 Nov 25 08:39 .gitkeep
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 ATO
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 BAC
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 File_upload
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 Forget_password_endpoint
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 Fuzz
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 Idor
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 LFI
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 Secret_keys
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 Sqli
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 Ssrf
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 cache
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 cspt
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 http_request_smuggling
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 op-to-xss
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 os-command-injection
+[0m
+[0m→ [0mRead data/targets.txt
+[0m→ [0mRead creds/test-account.txt
+[0m→ [0mRead creds/README.md
+[0m→ [0mRead result/scope.md
+This is a continuation (result/ has prior work). Let me read targets, creds, resume state, and skills.
+[0m→ [0mRead result/confirmed-vuln.txt
+[0m→ [0mRead result/logs/target-state.txt
+Continuation confirmed (`decision=preserved`). Let me read the skills, summary, and progress state.
+[0m→ [0mRead skills/client-side-skill.md
+[0m→ [0mRead skills/server-side-skill.md
+[0m→ [0mRead result/SUMMARY.md
+Now let me read the resume state: SUMMARY, progress, inventory, findings.
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn && echo "=== findings ===" && ls -R result/findings/ && echo "=== inventory ===" && ls -la result/inventory/ && echo "=== client-side ===" && ls -R result/client-side/ | head -80 && echo "=== server-side ===" && ls -R result/server-side/ | head -80 && echo "=== logs ===" && ls -la result/logs/
+=== findings ===
+result/findings/:
+VULN-20261110-001
+VULN-20261110-002
+VULN-20261110-003
+VULN-20261110-004
+VULN-20261111-001
+VULN-20261114-001
+VULN-20261123-001
+cors-credentialed-reflection.md
+
+result/findings/VULN-20261110-001:
+evidence
+report.md
+
+result/findings/VULN-20261110-001/evidence:
+enumeration.txt
+
+result/findings/VULN-20261110-002:
+evidence
+report.md
+
+result/findings/VULN-20261110-002/evidence:
+pre-mfa-login-response.txt
+
+result/findings/VULN-20261110-003:
+evidence
+report.md
+
+result/findings/VULN-20261110-003/evidence:
+backup-remint.txt
+
+result/findings/VULN-20261110-004:
+evidence
+report.md
+
+result/findings/VULN-20261110-004/evidence:
+logout-get.txt
+
+result/findings/VULN-20261111-001:
+evidence
+payloads
+report.md
+
+result/findings/VULN-20261111-001/evidence:
+01-zendesk-html-render.txt
+02-ac-redirect-allowlist.txt
+zendesk-html-escaping.json
+
+result/findings/VULN-20261111-001/payloads:
+README.md
+
+result/findings/VULN-20261114-001:
+evidence
+report.md
+
+result/findings/VULN-20261114-001/evidence:
+confirm-invitation-code.txt
+confirm-invitation-probe.txt
+deeplink-role-source.txt
+
+result/findings/VULN-20261123-001:
+evidence
+report.md
+
+result/findings/VULN-20261123-001/evidence:
+picture-unauth.txt
+=== inventory ===
+total 48
+drwxr-xr-x 2 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 7 runner runner  4096 Nov 25 08:39 ..
+-rw-r--r-- 1 runner runner 17106 Nov 25 08:39 endpoints.md
+-rw-r--r-- 1 runner runner  3594 Nov 25 08:39 javascript.md
+-rw-r--r-- 1 runner runner   866 Nov 25 08:39 listeners.md
+-rw-r--r-- 1 runner runner  6762 Nov 25 08:39 routes.md
+-rw-r--r-- 1 runner runner   762 Nov 25 08:39 sinks.md
+=== client-side ===
+result/client-side/:
+account.ui.com
+unifi.ui.com
+www.ui.com
+
+result/client-side/account.ui.com:
+login
+subscribe
+
+result/client-side/account.ui.com/login:
+javascript
+session5-deep-review.md
+
+result/client-side/account.ui.com/login/javascript:
+index-BAUIMHQa.js
+manifest.md
+snippets
+
+result/client-side/account.ui.com/login/javascript/snippets:
+ac-redirect-allowlist.txt
+api-config.txt
+zendesk-html-render.txt
+
+result/client-side/account.ui.com/subscribe:
+report.md
+
+result/client-side/unifi.ui.com:
+invite
+
+result/client-side/unifi.ui.com/invite:
+javascript
+report.md
+
+result/client-side/unifi.ui.com/invite/javascript:
+snippets
+
+result/client-side/unifi.ui.com/invite/javascript/snippets:
+invite-role-flow.txt
+
+result/client-side/www.ui.com:
+home
+identity-qrcode-desktop-bt_pairing
+
+result/client-side/www.ui.com/home:
+flows.md
+javascript
+listeners.md
+route-report.md
+sinks.md
+sources.md
+
+result/client-side/www.ui.com/home/javascript:
+manifest.md
+snippets
+
+result/client-side/www.ui.com/home/javascript/snippets:
+i18n-dangerouslySetInnerHTML.txt
+static-redirect-component.txt
+
+result/client-side/www.ui.com/identity-qrcode-desktop-bt_pairing:
+route-report.md
+=== server-side ===
+result/server-side/:
+account.ui.com
+cloudaccess.svc.ui.com
+
+result/server-side/account.ui.com:
+api-inventory.md
+session10-ledger.md
+session16-ledger.md
+session17-ledger.md
+session18-ledger.md
+session19-ledger.md
+session23-ledger.md
+session24-ledger.md
+session25-ledger.md
+session26-ledger.md
+session27-ledger.md
+session28-ledger.md
+traffic
+
+result/server-side/account.ui.com/traffic:
+session16-endpoints.txt
+session16-mass-assignment.txt
+session17-chat-queue.txt
+session18-bundle-diff.txt
+session18-legacy-email.txt
+session19-account-chooser-2fa-reset.txt
+session25-zendesk-login-cors-jsonp.txt
+session26-newcover.txt
+session27-www-sso-account.txt
+
+result/server-side/cloudaccess.svc.ui.com:
+confirm-invitation.md
+=== logs ===
+total 11256
+drwxr-xr-x  3 runner runner     4096 Nov 25 08:39 .
+drwxr-xr-x  7 runner runner     4096 Nov 25 08:39 ..
+-rw-r--r--  1 runner runner     2111 Nov 25 08:39 agent-exit-code.txt
+-rw-r--r--  1 runner runner     1596 Nov 25 08:39 agent-watchdog.txt
+-rw-r--r--  1 runner runner       96 Nov 25 08:39 auto-restart-requested.txt
+-rw-r--r--  1 runner runner      208 Nov 25 08:39 checkpoint-validation.txt
+-rw-r--r--  1 runner runner     2029 Nov 25 08:39 client-side.log
+-rw-r--r--  1 runner runner     6683 Nov 25 08:39 diagnostics-index.txt
+drwxr-xr-x 34 runner runner     4096 Nov 25 08:39 opencode
+-rw-r--r--  1 runner runner     1212 Nov 25 08:39 opencode-reinstall-20261110T152046Z.log
+-rw-r--r--  1 runner runner     1532 Nov 25 08:39 opencode-reinstall-20261110T160158Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261120T071003Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261120T200804Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261121T070545Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261123T074159Z.log
+-rw-r--r--  1 runner runner     1052 Nov 25 08:39 opencode-reinstall-20261125T083604Z.log
+-rw-r--r--  1 runner runner 11388960 Nov 25 08:40 opencode.log
+-rw-r--r--  1 runner runner     2162 Nov 25 08:39 server-side.log
+-rw-r--r--  1 runner runner    42644 Nov 25 08:39 session.md
+-rw-r--r--  1 runner runner     7614 Nov 25 08:40 target-state.txt
+-rw-r--r--  1 runner runner       65 Nov 25 08:40 targets.sha256
+-rw-r--r--  1 runner runner     3238 Nov 25 08:40 targets.used.txt
+[0m
+
+WATCHDOG: no agent output for 120s; terminating attempt 1.
+WATCHDOG: time=2026-11-25T08:42:49Z log_bytes=11394542
+WATCHDOG: restarting agent (attempt 2/3)
+
+===== AGENT ATTEMPT 2/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+Continuing as a new session. Let me check the current build state, route progress, and unresolved items.
+[0m→ [0mRead result/inventory/routes.md
+[0m→ [0mRead result/inventory/endpoints.md
+
+WATCHDOG: no agent output for 120s; terminating attempt 2.
+WATCHDOG: time=2026-11-25T08:45:12Z log_bytes=11394986
+WATCHDOG: restarting agent (attempt 3/3)
+
+===== AGENT ATTEMPT 3/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+[0m$ [0mpwd && ls -la && find skills result -maxdepth 3 -type f 2>/dev/null | sort
+/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 .
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 ..
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:40 .git
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 .github
+-rw-r--r--  1 runner runner  355 Nov 25 08:39 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 creds
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 data
+-rw-r--r--  1 runner runner  332 Nov 25 08:40 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:39 result
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 skills
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 tools
+drwxr-xr-x 17 runner runner 4096 Nov 25 08:39 vulnebleti
+result/.gitkeep
+result/SUMMARY.md
+result/confirmed-vuln.txt
+result/findings/VULN-20261110-001/report.md
+result/findings/VULN-20261110-002/report.md
+result/findings/VULN-20261110-003/report.md
+result/findings/VULN-20261110-004/report.md
+result/findings/VULN-20261111-001/report.md
+result/findings/VULN-20261114-001/report.md
+result/findings/VULN-20261123-001/report.md
+result/findings/cors-credentialed-reflection.md
+result/inventory/endpoints.md
+result/inventory/javascript.md
+result/inventory/listeners.md
+result/inventory/routes.md
+result/inventory/sinks.md
+result/logs/agent-exit-code.txt
+result/logs/agent-watchdog.txt
+result/logs/auto-restart-requested.txt
+result/logs/checkpoint-validation.txt
+result/logs/client-side.log
+result/logs/diagnostics-index.txt
+result/logs/opencode-reinstall-20261110T152046Z.log
+result/logs/opencode-reinstall-20261110T160158Z.log
+result/logs/opencode-reinstall-20261120T071003Z.log
+result/logs/opencode-reinstall-20261120T200804Z.log
+result/logs/opencode-reinstall-20261121T070545Z.log
+result/logs/opencode-reinstall-20261123T074159Z.log
+result/logs/opencode-reinstall-20261125T083604Z.log
+result/logs/opencode.log
+result/logs/server-side.log
+result/logs/session.md
+result/logs/target-state.txt
+result/logs/targets.sha256
+result/logs/targets.used.txt
+result/out-of-scope.txt
+result/progress.md
+result/scope.md
+result/server-side/account.ui.com/api-inventory.md
+result/server-side/account.ui.com/session10-ledger.md
+result/server-side/account.ui.com/session16-ledger.md
+result/server-side/account.ui.com/session17-ledger.md
+result/server-side/account.ui.com/session18-ledger.md
+result/server-side/account.ui.com/session19-ledger.md
+result/server-side/account.ui.com/session23-ledger.md
+result/server-side/account.ui.com/session24-ledger.md
+result/server-side/account.ui.com/session25-ledger.md
+result/server-side/account.ui.com/session26-ledger.md
+result/server-side/account.ui.com/session27-ledger.md
+result/server-side/account.ui.com/session28-ledger.md
+result/server-side/cloudaccess.svc.ui.com/confirm-invitation.md
+result/testing-inventory.json
+result/unresolved.md
+skills/.gitkeep
+skills/AGENT.md
+skills/client-side-skill.md
+skills/server-side-skill.md
+[0m
+[0m$ [0mgit status --short && git log --oneline -5
+M result/logs/opencode.log
+ M result/logs/target-state.txt
+670b449 scan: results 2026-11-25T08:38:53Z
+8ce8475 scan: results 2026-11-24T22:20:36Z
+d0576a4 scan: results 2026-11-24T09:50:45Z
+1512513 scan: results 2026-11-23T23:50:14Z
+1fc32bd scan: results 2026-11-23T07:58:57Z
+[0m
+[0m→ [0mRead skills/AGENT.md
+[0m→ [0mRead result/SUMMARY.md
+[0m→ [0mRead result/progress.md
+[0m→ [0mRead result/scope.md
+[0m
+[0m$ [0mfind data creds -maxdepth 2 -type f -print -exec sh -c 'echo "----- $1"; sed -n "1,160p" "$1"' _ {} \;
+data/.gitkeep
+----- data/.gitkeep
+data/targets.txt
+----- data/targets.txt
+Target:
+ui.com
+
+
+
+For this domain First discover all intresting and unique UI routes and API endpoints. 
+
+After discovering all interesting UI routes using Chrome MCP, visit each route one by one. Wait 5–10 seconds on each route to ensure that all JavaScript has fully loaded before starting the testing process.
+
+Test both client-side and server-side bugs for each route.
+
+Important: Follow a strict one-by-one testing process:
+
+Visit the first UI route.
+Wait 5–10 seconds for JavaScript to load completely.
+Perform complete client-side and server-side security testing on that single route.
+Document all findings for that route.
+Only after completing all testing and documentation for the current route, move on to the next route.
+Repeat this process until all discovered UI routes have been tested.
+
+Progress Reporting:
+
+Maintain a progress report showing:
+
+Total number of UI routes discovered.
+Number of UI routes fully tested.
+Number of UI routes not yet tested.
+Which routes have been fully tested.
+Which routes are still pending.
+
+This progress report will help agents in other sessions understand exactly what has already been tested and what needs to be tested next, preventing duplicate work.
+
+Testing Guidelines:
+
+Before testing each UI route, read the client-side .md file and server-side .md file. Follow their instructions and testing methodologies exactly.
+
+After fully testing each individual route, create a detailed report containing:
+
+1. Client-Side Findings
+
+Interesting source and sink locations discovered.
+Relevant file paths and line numbers.
+Potential vulnerabilities and their testing status.
+Any confirmed client-side bugs.
+
+2. Server-Side Findings
+
+APIs and endpoints discovered.
+Relevant request and response details.
+APIs tested successfully.
+Potential vulnerabilities and their testing status.
+Any confirmed server-side bugs.
+
+3. Route Completion Status
+
+Route URL.
+Client-side testing status.
+Server-side testing status.
+Findings and observations.
+Final completion status.
+
+Do not mark a route as fully tested until both client-side and server-side testing are complete and the findings have been documented.
+
+Keep the progress report updated after completing every route so that another agent or session can seamlessly continue from where the previous session stopped.
+
+Do not ask me any questions. Make reasonable decisions independently, think critically, and provide answers using the mindset of a top bug bounty hunter.
+First, create two test accounts on this target subdomain and save their credentials in a file for testing purposes.
+Try all reasonable approaches. However, if you are still unable to create accounts on this target subdomain, test only unauthenticated endpoints for potential vulnerabilities.
+Approach every question with the mindset of a top bug bounty hunter, focusing on thorough investigation, creative thinking, and practical exploitation within the authorized scope.
+
+Final Goal: Identify valid, impactful, and reportable security vulnerabilities. 
+
+Important note:
+If you found any confirmed vuln then
+
+Send direct discord notification on:
+```
+https://discord.com/api/webhooks/1565069909266927626/PFr7RwwOdMGwjT2U26NhAPBHoTWD4X0boLyBciSfQNkFHTnKD_J9TSP394nto45RFz-v
+```
+creds/.gitkeep
+----- creds/.gitkeep
+creds/README.md
+----- creds/README.md
+# creds/
+
+This public repository intentionally contains disposable test credentials.
+
+- `test-account.txt` — public test login for authorized targets.
+
+Test-account emails, passwords, cookies, and tokens may appear in `result/`
+reports, logs, and evidence. They are disposable and intentionally public.
+
+Never add real, valuable, or third-party credentials to this directory. If real
+credentials are ever needed, use GitHub Actions secrets and do not commit them.
+creds/test-account.txt
+----- creds/test-account.txt
+Email service provider 
+https://maildrop.cc/inbox/?mailbox=tan.tiger5564
+
+Target 
+https://account.ui.com/login
+
+Test Account A
+tan.tiger5564@maildrop.cc
+Acd3423@#345
+
+Test Account B
+overrated.chinchilla337@maildrop.cc
+Acd3423@#345
+
+note: using phone device no need to feel CAPTCHA without CAPTCHA we can login in phone
+[0m
+[0m$ [0msed -n '783,1000p' result/progress.md; printf '\n=== target-state ===\n'; cat result/logs/target-state.txt; printf '\n=== session.md ===\n'; cat result/logs/session.md; printf '\n=== checkpoint-validation ===\n'; cat result/logs/checkpoint-validation.txt; printf '\n=== exit/watchdog ===\n'; cat result/logs/agent-exit-code.txt result/logs/agent-watchdog.txt result/logs/auto-restart-requested.txt
+...output truncated...
+
+Full output saved to: /home/runner/.local/share/opencode/tool-output/tool_211e27fae001wN55gsy981G0Bq
+
+decision=preserved
+---
+run_id=44040401507
+event=schedule
+timestamp=2026-11-17T07:40:04Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44172538463
+event=schedule
+timestamp=2026-11-17T20:45:18Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44389993020
+event=schedule
+timestamp=2026-11-18T20:21:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44476502964
+event=schedule
+timestamp=2026-11-19T07:03:05Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44608386930
+event=schedule
+timestamp=2026-11-19T20:25:10Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44691116563
+event=schedule
+timestamp=2026-11-20T06:55:16Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44693276852
+event=workflow_dispatch
+timestamp=2026-11-20T07:13:16Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44806658644
+event=schedule
+timestamp=2026-11-20T19:56:27Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44808958569
+event=workflow_dispatch
+timestamp=2026-11-20T20:11:12Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44877402800
+event=schedule
+timestamp=2026-11-21T06:50:28Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44938664076
+event=schedule
+timestamp=2026-11-21T19:01:52Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44993390446
+event=schedule
+timestamp=2026-11-22T06:22:28Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45129527345
+event=schedule
+timestamp=2026-11-23T07:14:20Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45133306377
+event=workflow_dispatch
+timestamp=2026-11-23T07:45:09Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45291357082
+event=schedule
+timestamp=2026-11-23T23:44:46Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45366850654
+event=schedule
+timestamp=2026-11-24T09:37:19Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45573672108
+event=schedule
+timestamp=2026-11-25T08:08:57Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45578135995
+event=workflow_dispatch
+timestamp=2026-11-25T08:40:02Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+
+=== session.md ===
+# Session Log
+
+## Session 5 — run 42968379409 (scheduled, preserved)
+- Start (UTC): 2026-11-11T05:51:09Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only), in-scope components: ui.com apex, www.ui.com, account.ui.com, sso.ui.com APIs, account.svc.ui.com, cloudaccess.svc.ui.com
+- Environment: GitHub Actions Linux runner; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP connected
+- Tools: opencode, curl, git, node 22, npx, python3, chromium/google-chrome
+- Resume decision: preserved (target hash unchanged) — continuing prior sessions' inventory
+- Prior coverage: account.ui.com (37 routes, 21 done), sso.ui.com APIs, account.svc.ui.com
+- This session focus: untested in-scope surface (ui.com apex / www.ui.com) + remaining partial routes; dedupe against result/testing-inventory.json
+
+## Session 5 result
+- End (UTC): 2026-11-11T06:00Z
+- No high-impact (XSS/CSTI/IDOR/BAC/open-redirect) vulnerability confirmed.
+- New in-scope route reviewed: www.ui.com (no attacker-controlled flow).
+- Deeper account.ui.com bundle audit: Zendesk html_body renderer is unsanitized but
+  own-ticket scoped (VULN-20261111-001, Unresolved/self-XSS).
+- confirmed-vuln.txt unchanged (comments only); no Discord notification sent.
+- Large prior-session JS bundle preserved; only sanitized snippets added this session.
+
+## Session 6 — run 43034033571 (scheduled, preserved)
+- Start (UTC): 2026-11-11T14:02:45Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank page present)
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3 3.14.4, google-chrome-stable
+- Resume decision: preserved (target hash unchanged) — continue untested/partial routes only
+- Prior coverage: account.ui.com (37 routes; 21 done), www.ui.com, sso/account.svc APIs
+
+## Session 6 result
+- End (UTC): 2026-11-11T14:32Z
+- No high-impact vulnerability confirmed; confirmed-vuln.txt unchanged.
+- Exhausted remaining reachable auth edges: login-token API, pre-MFA authorization,
+  cross-account OTP, JWT HS256 key confusion, change-email gating, account deletion L2.
+- Zendesk ticket-create remains rate-limited (B reset ~15:19Z, A ~15:24Z); comment
+  endpoint still rejects headless reCAPTCHA tokens. Stored-XSS test must resume after
+  the reset with a fresh account or valid reCAPTCHA score.
+- No Discord notification sent.
+
+## Session 7 — run 43127366314 (scheduled, preserved)
+- Start (UTC): 2026-11-12T00:28:32Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3, google-chrome-stable/chromium
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested Zendesk search/user endpoints, passwordless/login, legal,
+  password-strength, chat messaging JWT, idp login-result; re-check stored-XSS delivery paths
+
+## Session 7 result
+- End (UTC): 2026-11-12T00:52Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- Zendesk: `search_tickets`/`search_ccd` require `x-captcha-token` (blocked); `requester`
+  mass assignment ignored (ticket 6138711 kept A's requester_id); list query-param IDOR
+  ignored; VULN-20261111-001 re-tested and closed as Not Vulnerable (Zendesk escapes
+  user HTML in `html_body`).
+- sso: legal/account-chooser/password-strength/roles/self re-checked; IDOR/2FA-reset
+  negative; `/idp/login-result` requires server-issued state (`STATE_MISSING`).
+- New in-scope surface: wildcard `*.ui.com` -> "UniFi Site Manager" SPA. Audited bundles
+  (`/tmp/unifi`): release-notes `dangerouslySetInnerHTML` only; no app `innerHTML`;
+  postMessage bridge validates `.ui.com` origin; no DOM XSS/open redirect.
+- Confirmed `cloudaccess.svc.ui.com/create-credentials` mints AWS STS credentials and
+  credentialed CORS reflects any `*.ui.com` origin (demonstrated in-browser from
+  `https://evil.ui.com`). Impact Unresolved pending attacker-controlled `*.ui.com`
+  content; documented in `findings/cors-credentialed-reflection.md`. Not a
+  confirmed-vuln class.
+- No Discord notification sent.
+
+## Session 8 — run 43492795808 (scheduled, preserved)
+- Start (UTC): 2026-11-13T19:31:00Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable
+- Tools: opencode 1.19.5, curl, git, node v22.23.4, npx, python3 3.14.4, google-chrome-stable
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested account.svc/sso API edges (login-token, passwordless,
+  settings mass-assignment, account-chooser, cloudaccess), cloudaccess CORS impact,
+  and any remaining partial routes; dedupe against result/testing-inventory.json
+
+## Session 8 result
+- End (UTC): 2026-11-13T19:41Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- New unreached API discovered in the SPA paths config and probed unauthenticated:
+  `POST /api/sso/v1/passwordless/options` (body `{user}` required) and
+  `POST /api/sso/v1/passwordless/login` (credential payload required). Both returned
+  `429 RATE_LIMITED` (`retry_after:0`) even with a schema-valid body; no bypass/brute
+  force attempted per rate-limit policy. No call site in the SPA bundle (config-only).
+  Recorded as blocked in testing-inventory.
+- account.svc.ui.com proxy: unauthenticated `/zendesk/user`, `/zendesk/tickets`,
+  `/zendesk/tickets/closed`, `/zendesk/comment` all `401 UNAUTHORIZED`; path-traversal
+  and encoding variants (`..`, `%2e%2e`, `..%2f`, `..;/`, `%00`, `//`) produced no auth
+  bypass (401/400/404 only).
+- `GET /api/sso/v1/legal` is a paramless GET returning revision strings; no reflection.
+- Read-only checks: `account-cdn.svc.ui.com` bucket root and `?list-type=2` return
+  `403 AccessDenied` (not world-listable); recorded but account-cdn remains out of scope.
+  `secure-uploads.ui.com` is a SendSafely instance (301 -> `/secure/home/`, nginx);
+  third-party service, observed only.
+- CORS observation unchanged: only real `https://*.ui.com` origins reflected; no
+  attacker-controlled `*.ui.com` content found. Unresolved, not a confirmed-vuln class.
+- No Discord notification sent.
+
+## Session 9 — run 43564092459 (scheduled, preserved)
+- Start (UTC): 2026-11-14T06:00:00Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome 157 headless at 127.0.0.1:9222; chrome-devtools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.4, npx, python3, google-chrome-stable
+- Resume decision: preserved — continue untested/partial surface only
+- Focus this session: untested account.svc/sso endpoints (zendesk_user, /zendesk/user, ccd),
+  partial routes (billing/subscriptions/suspicious-confirm), and any new in-scope surface;
+  dedupe against result/testing-inventory.json
+
+## Session 9 result
+- End (UTC): 2026-11-14T06:20Z
+- No new confirmed high-impact vulnerability; confirmed-vuln.txt unchanged.
+- New Site Manager paths config exposed SSO routes: `/api/sso/v1/jwt/token`,
+  `/api/sso/v1/user/{userId}/address`, `/api/sso/v1/user/{userId}/console_groups`.
+- `GET /api/sso/v1/jwt/token` mints an HS512 JWT (`uuid`, `is_verified`, `exp`,
+  `ui_session_id`) for the authenticated user. Edge WAF returns HTML 403 unless a
+  browser UA is sent (same for other sso GETs). `?redirect=` triggers 302 to
+  `https://sso.ubnt.com/api/sso/v1/jwt/token/login/<jwt>?redirect=<target>`; redirect
+  validated to `*.ui.com` only (`evil.com`, `//evil.com`, `javascript:`, `/\evil.com`,
+  `%2F%2Fevil.com` -> no redirect). Second hop on sso.ubnt.com returns 404.
+- `GET /api/sso/v1/user/{uuid}` / `/address` / `/console_groups` and POST `/address`
+  `/console_groups` -> `403 mismatching UUID` for any uuid other than the session user;
+  POST `/address` with body `user=<other uuid>` still writes to self (user ignored).
+  No IDOR/mass-assignment.
+- `GET /api/sso/v1/account-chooser?<anyparam>` -> 200 `{"accounts":[]}` for the test
+  account (paramless GET hits edge 403; POST -> 405). Rate-limited (429) after several
+  requests. Empty saved-account list, no disclosure.
+- Re-confirmed Zendesk ticket renderer parses only `html_body` via html-react-parser
+  (already-closed VULN-20261111-001); no other ticket field reaches the parser.
+
+## Session 10 — run 43599586173 (scheduled, preserved)
+- Start (UTC): 2026-11-14T13:25:15Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target scope: ui.com (domain-only); continuing preserved inventory (target hash unchanged)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank); Chrome headless at 127.0.0.1:9222
+- Tools: opencode 1.19.5, curl 8.18.0, git 2.56.1, node v22.23.4, npx 10.9.9, python3 3.14.4
+- Resume decision: preserved — continue untested/partial surface only
+- New observation: wildcard `*.ui.com` now 302-redirects unauthenticated requests to
+  `account.ui.com/login?redirect=https://<sub>.ui.com/` (previously served the fixed
+  Site Manager SPA). Re-checking redirect handling and the CORS trust boundary.
+- Focus this session: remaining untested SSO self-service endpoints (settings, 2fa
+  backup/reset, login level refresh, email verify, picture), suspicious-confirm flow,
+  and the wildcard-subdomain redirect behavior; dedupe against testing-inventory.json
+
+## Session 10 result
+- End (UTC): 2026-11-14T13:45Z
+- No new confirmed high-impact vulnerability; `confirmed-vuln.txt` unchanged; no Discord
+  notification. One new Unresolved candidate: VULN-20261114-001.
+- Auth/MFA: logged in as Account A (maildrop OTP), MFA verified again. Created a pre-MFA
+  `UBIC_2FA` jar and confirmed it cannot be used as `UBIC_AUTH` (401). No MFA bypass.
+- `PATCH /api/sso/v1/user/self/settings` works (PUT/POST -> 405). `passwordless_enabled`
+  persists (restored to true); `role`, `is_admin`, `uuid`, `suspicious_detection`,
+  `email`, `username` are ignored — no mass assignment.
+- Assurance level: `GET /user/self/login/level` -> `{level,time_left_seconds}`;
+  `POST .../level {password}` re-auths to L2 (password only, by design). `.../level/refresh`
+  at L2 -> 200 (extends to 1800s), at genuine L1 -> `499 L2_REQUIRED`, pre-MFA -> 401.
+  `DELETE .../level` returns `{level:1}` but is a NO-OP on the token (corrected prior note).
+- Email change: `POST /user/self/email/verify/send {email}` -> 204 and sends a
+  confirmation code to the new address; an address already used by another account ->
+  400 "must be unique". Confirmation route not found (all probes 404).
+- `POST /user/self/zendesk_user` -> 200 empty; body `email`/`name` ignored; the
+  `account.svc.ui.com/zendesk/user` email is unchanged (self-scoped).
+- `POST /user/self/2fa/backup {}` at L2 -> 201 and rotated the 10 backup codes
+  (VULN-20261110-003, informational; requires L2). `POST /user/self/mfa` and
+  `/user/self/roles` -> 405.
+- `POST /suspicious/confirm/inspect` -> 400 `confirm_token` required (emailed token;
+  blocked).
+- Wildcard `*.ui.com`: unauthenticated -> 302 to
+  `account.ui.com/login?redirect=https://<sub>.ui.com/`; authenticated -> 200 fixed
+  "UniFi Site Manager" SPA from S3. CORS re-check: only real `*.ui.com` https origins
+  are reflected with credentials; `null`, trailing-dot, port, `evilui.com`,
+  `ui.com.evil.com`, percent-encoded all rejected. Uppercase origin reflection is not
+  exploitable (browsers send lowercase Origin).
+- Site Manager SPA audit (`/tmp/unifi10`, 13 MB): no new app-level XSS sink (release-notes
+  `dangerouslySetInnerHTML` is API-sourced; `innerHTML` only in libraries; no
+  `eval`/`document.write`). Deep-link invite routes read `?role=` and forward it into
+  `POST cloudaccess.svc.ui.com/confirm-invitation` body — candidate VULN-20261114-001
+  (Unresolved; test account has no invitation, bogus device -> DEVICE_OFFLINE).
+- Solved SigV4 access to `cloudaccess.svc.ui.com` via `POST /create-credentials` +
+  botocore signing: `/api/v1/hosts`, `/devices`, `/sites` and `/invitations?type=all`
+  all return empty for the no-console test account. No IDOR reachable.
+
+## Session 11 (run 43647019119 — continuation)
+- Start (UTC): 2026-11-14T22:15Z
+- Target: `ui.com` (domain-only). Resume state decision `preserved`
+  (target_hash `3353d9c6...933c8a`, unchanged since Session 1 reset).
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Environment: GitHub Actions Linux runner; Chrome 157.0.8103.78 headless at
+  `127.0.0.1:9222`; Chrome DevTools MCP connected (`list_pages` OK).
+- Tool versions: curl 8.18.0, git, node v22.23.4, npx, python3 3.14.4,
+  google-chrome-stable / chromium present.
+- Connectivity: `account.ui.com/login` 200, `www.ui.com/` 200, `sso.ui.com/` 404
+  (root; APIs respond).
+- Prior state loaded: SUMMARY.md, scope.md, progress.md, testing-inventory.json,
+  inventory/*, findings/*, unresolved.md, out-of-scope.txt. 38 routes recorded;
+  no confirmed high-impact findings; `confirmed-vuln.txt` has no entries.
+- Plan: continue with untested/newly discovered in-scope UI routes (focus on
+  `www.ui.com` marketing routes not yet reviewed plus remaining `account.ui.com`
+  edges), one route at a time, client-side then server-side.
+
+### Session 11 results
+- `www.ui.com` served a refreshed bundle `index-Dyxt5MIq.js` (934 KB); 87 chunks
+  downloaded to `/tmp/ui11/all/` and swept with the client-side source/sink regexes.
+- Marketing routes reviewed (read-only + harmless markers, no state change):
+  - `/download?product_line=...` — value not reflected in HTML/DOM/network.
+  - `/download/releases/:slug`, `/download/software/:slug` — slug only reaches the
+    `Head` component; `Head-CU3ir911.js` renders React `<title>/<meta>` (no
+    `innerHTML`), and the canonical URL is React-escaped. No injection.
+  - `/download/unifi/download-started?link=...` — `link` requires `https:` and an
+    exact hostname in `[dl.ubnt.com, dl.ui.com, fw-download.ubnt.com]`; external and
+    `javascript:` values are stripped; no redirect.
+  - `SiteSettingsContext` `?s=`/`?l=` — validated against store/language enum maps,
+    then stripped via router `replace`; no open redirect. `appview=true` only
+    toggles the embedded layout.
+  - `AuthContext` login builds `account.ui.com/login?redirect=https://www.ui.com/<path>`
+    from `window.origin` (host fixed) and the account SPA re-validates via `AC()`
+    (last-two-label ∈ `ui.com|ubnt.com|uisp.com`, http/https). No open redirect.
+    `GOOGLE_API_KEY` is a public reCAPTCHA v3 site key.
+  - All app-level `dangerouslySetInnerHTML` in `www.ui.com` chunks are static i18n
+    menu descriptions (`t(e.description)`), not URL/API data.
+  - `www.ui.com/api/*` (`/api/geoip`, `/api/sso/v1/user/self`, ...) are SPA 404
+    fallbacks — no same-origin proxy/SSRF.
+- `download.svc.ui.com` (backend of the in-scope `/download` route; a `*.svc.ui.com`
+  host recorded out-of-scope, observed only):
+  - Public catalog JSON only. Slug probes (`'`, `"`, traversal, wildcard) all
+    `404` with no error diff; `%00` -> `400` (CloudFront);
+    `page=999999999999999999999` -> `500` empty body (error handling only, not
+    reportable); `POST /v1/downloads/search {"search":"unifi"}` -> `204`.
+- `activate.ui.com` (newly observed `ui.com` host; static S3 SPA `/assets/index-1CNh1WqS.js`):
+  - `account.ui.com/activate` is a fixed redirect: `window.location.replace(
+    "https://activate.ui.com")` (no user-controlled target).
+  - SPA returns 200 for all paths; `serial|code|token|redirect|next` query/path
+    markers are not reflected (React SPA).
+  - Device-login flow: user enters a 5-char device code -> `POST
+    sso.ui.com/api/sso/v1/user/self/token/setup {token}` returns `device_name` ->
+    `POST .../token/login {token}` approves. Both require an authenticated session
+    (unauthenticated -> `401`).
+  - CORS on both token endpoints reflects any `*.ui.com` `Origin` (e.g.
+    `https://evil.ui.com`) with `Access-Control-Allow-Credentials: true`; this
+    extends the known credentialed-CORS issue to the device-login flow. Remains
+    Unresolved: still requires attacker-controlled `*.ui.com` content. No
+    authenticated brute-force/rate-limit testing performed (consent-flow direction
+    limits impact; avoid account lockout).
+- New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
+  Discord notification sent.
+
+## Session 12 — run_id=43683615848, started 2026-11-15T06:02:41Z
+- Event: schedule; decision=preserved (target hash 3353d9c6...733c8a unchanged)
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Environment: Linux runner; Chrome 157.0.8103.78 headless via chrome-devtools MCP (port 9222)
+- Tool versions: opencode 1.19.5, node v22.23.4, python3 3.14.4, curl/jq present
+- Scope: ui.com domain (focus account.ui.com, www.ui.com, sso.ui.com, unifi.ui.com)
+- Resume: continuing from Session 11; no open high-impact findings.
+
+### Session 12 results
+- OTP mail delivery to the maildrop inbox failed (A last mail 2026-11-14T13:29:26Z;
+  B none). `/2fa/email` resends returned 200 with fresh `otp_prefix` but no mail, so
+  fresh interactive login is blocked. No status change on the target.
+- Recovered still-valid 30-day `UBIC_AUTH` JWTs for A and B from
+  `result/logs/opencode.log` (grep `UBIC_AUTH=`); verified `GET
+  /api/sso/v1/user/self` -> 200. Expiries ~2026-12-11..14. Raw token values were not
+  written to any new file.
+- Upgraded A/B L1 -> L2 with password-only
+  `POST /api/sso/v1/user/self/login/level {"password":...}` -> `{level:2,
+  time_left_seconds:1800}` and a new `UBIC_AUTH` cookie (old one stays L1);
+  `/tmp/A2.jar`, `/tmp/B2.jar`, re-run to extend. Documented behavior, not a bypass.
+- L2 authorization matrix (non-destructive): own `/user/self`, `sessions`,
+  `trusted_devices`, `activity`, `addresses`, `mfa` (metadata), `settings` -> 200;
+  cross-account UUID swaps -> 403 `mismatching UUID`; `?uuid=`/`?user=` params
+  ignored (own data). `PATCH settings` still ignores privilege fields.
+- Zendesk: own comments 200; cross-account A<->B `GET /zendesk/comments/{ticket}`
+  -> 403 `FORBIDDEN`. No ticket IDOR.
+- Pre-MFA `UBIC_2FA` matrix: `/user/self/mfa` GET and TOTP/email add/remove ->
+  401 `is not allowed`; `cloudaccess /create-credentials` -> 401. Only OTP send is
+  allowed. `/account-chooser` returns caller's own account only (by design).
+- Browser route completion with injected L2 cookie: `/billing` loads (empty;
+  `billing.svc /api/v2/customers/self/...` 404 `Customer not found`, `/products`
+  200), `/invoices`, `/payments`, `/subscriptions` redirect to `/billing`,
+  `/backups` renders empty, `/profile` -> `/account`. `billing.svc.ui.com` remains
+  outside the approved component scope; calls were UI-observed only.
+- Account SPA bundle unchanged (`index-BAUIMHQa.js`, sha256
+  `29983e5e6456bd59b9c4ecbf8283cecf80afca76bbed01b48be19b092855c18a`).
+- Wildcard `unifi.ui.com` Site Manager SPA is a new build (index last-modified
+  2026-11-12; 15 chunks to `/tmp/unifi2/`). Re-audited: only app-level
+  `dangerouslySetInnerHTML` = release-notes; bridge requires origin hostname
+  `.endsWith(".ui.com")` and `host === "unifi"` for `navigation.requested`; URL
+  builder normalizes host so backslash/path tricks stay same-host. No new sink.
+- Route tally updated to 22 done / 0 partial / 15 blocked (37 account routes);
+  blocked reasons are missing billing data, emailed tokens, attestation/passkey, or
+  server-issued state.
+- New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
+  Discord notification sent.
+
+## Session 13 — run 43814022276, started 2026-11-16T06:02:20Z
+- Event: schedule; decision=preserved (target hash `3353d9c6...733c8a` unchanged)
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Environment: Linux runner; Chrome via chrome-devtools MCP; target bundles unchanged
+- Scope: `account.ui.com`, `sso.ui.com`, `account.svc.ui.com`,
+  `cloudaccess.svc.ui.com`; `www.ui.com`/`activate.ui.com` prior results reused
+- Resume: continuing from Session 12; no open high-impact findings.
+
+### Session 13 results
+- Maildrop delivery recovered. A fresh interactive login of Account A succeeded via
+  mobile-Safari UA (isolated context): password -> `499` MFA challenge -> email OTP
+  `KK947859` -> `/login/2fa` 200 -> `UBIC_AUTH` cookie (`SameSite=lax`, HttpOnly,
+  `Domain=.ui.com`, 30 days). Trust-device prompt shown; chose "Not now".
+- The `499` login response contains only `user.id` + `default_mfa` (no
+  `email_changeable`); this is the normal MFA challenge, not a suspicious-login state.
+  A new mobile device/UAs did **not** trigger a suspicious-login email or CAPTCHA.
+- `GET /api/sso/v1/account-chooser` returns `200` with an empty body for both A and B;
+  no saved accounts, no IDOR.
+- `POST /api/sso/v1/jwt/token` now returns `404` (Allow: GET, OPTIONS) while still
+  setting a fresh `UBIC_AUTH` cookie; the prior open-redirect test is no longer
+  reproducible. Cookie claims show `L2` is a last-2FA timestamp, not an expiry.
+- Legacy email-change path: `POST /api/sso/v1/legacy/user/self/email/send` with a
+  full `UBIC_AUTH` cookie and `{email,password}` -> `403 AUTHENTICATION_FAILED`
+  (wrong-password shape); with a fresh pre-MFA `UBIC_2FA` cookie ->
+  `403 PERMISSION_DENIED`. The UI gates it on `email_changeable`, which is only set
+  on a login `499` response; A's response lacks the flag, so the route is unreachable
+  and the endpoint is not a standalone ATO primitive.
+- Profile email change (new API): `POST /api/sso/v1/user/self/email/verify/send`
+  with an authenticated session and `{email}` -> `204` and sends a 6-digit code to
+  the new address (tested `opencode-s13@maildrop.cc`; code `926854`, 10 min).
+  Confirmation is `PUT /api/sso/v1/user/self` with
+  `{email,email_change_verification_code,create_mfa}`.
+  - Unique email enforced at request time: B's email -> `400 This field must be
+    unique`.
+  - Code is bound to the requested address: using B's email at confirm with a code
+    sent to `opencode-s13` -> `400 Email change request not found`.
+  - Pre-MFA `UBIC_2FA` -> `401` for send and `PUT`.
+  - The flow is session-only (no password re-auth), but requires control of the new
+    mailbox; `UBIC_AUTH` is `SameSite=lax`, so cross-site POST CSRF does not carry it.
+    Not a confirmed high-impact bug.
+- Profile mass assignment / IDOR: `PUT /api/sso/v1/user/self` with `uuid: B` still
+  updated only A (`first_name`); B unchanged (`404`/own data). Restored A's
+  `first_name` to `OpenCodeTest`. No BAC/IDOR.
+- Early-access roles: `POST /api/sso/v1/user/{uuid}/roles/beta {}` is self-service:
+  own UUID -> `204` (adds fixed `Beta Testers`); B/random UUID -> `403 mismatching
+  UUID`; body `role`/`roles` values are ignored (fixed role, no arbitrary assignment).
+  A now carries `Beta Testers` as a test artifact; low impact, no privilege escalation.
+- MFA cross-account IDOR: A session on B's email authenticator
+  (`a646df96-...`) `GET`/`PUT`/`POST /mfa/email/{id}` -> `405`;
+  `/mfa/email/{id}/send` -> `404 No EmailAuthenticator matches`; B's TOTP
+  `PUT /mfa/totp/{id}` -> `404 No TOTPAuthenticator matches`. Ownership enforced.
+- Zendesk: A's ticket still returns (`6138711`); B -> A `GET /zendesk/comments/6138711`
+  -> `403 FORBIDDEN`, `/zendesk/tickets/6138711` -> `404`; `search_tickets` remains
+  reCAPTCHA-gated (`400`). No ticket IDOR.
+- Client-side re-audit: `account.js` unchanged (`29983e5e...55c18a`); `window.open`
+  sinks (`Bw` external links, consent popup, `_me`) only consume fixed/internal or
+  server IdP URLs; Site Manager `account-bridge` trusts `*.ui.com` origins but
+  `navigation.requested` validates a single-slash path and URL construction keeps
+  the host; no attacker-controlled source found.
+- Route tally reconciliation: `testing-inventory.json` has 45 routes = 37
+  `account.ui.com` + 8 `www.ui.com`/`unifi.ui.com`/`activate.ui.com` routes;
+  status 30 done / 15 blocked. `progress.md`'s "37 account routes" is the
+  account-ui subset and is consistent with the inventory.
+- New confirmed high-impact findings: none. `confirmed-vuln.txt` unchanged; no
+  Discord notification sent.
+
+### Session 14 — 2026-11-17 (run continuing, 07:54Z)
+- Account bundle changed: `index-CYDY7PBp.js` (7,150,439 B, sha256
+  `14c9788ebdf32e9a2d9763821836589c4703e5910a2aade9f5e55ffce2d14a1b`) now served
+  instead of `index-BAUIMHQa.js`; same 99 `/api/*` paths and 42 route paths.
+- New bundle paths: `/mfa/{type}/{id}/verify`, `/mfa/{type}/{id}/send`,
+  `/mfa/push/{id}/poll-setup`, `/mfa/push/poll-login`, `/mfa/webauthn/{options,login}`,
+  `/2fa/reset`, `/chat/messaging/jwt`. No new app-level DOM sink: `dangerouslySetInnerHTML`
+  remains static i18n menu text (www) and release-notes blocks; `.innerHTML` are library
+  code; postMessage bridge still validates `*.ui.com` and keeps `targetOrigin` at the
+  current origin for the MSP result page.
+- New endpoint checks: pre-MFA email `/send` -> `204` (own), email `/verify` -> `401`;
+  L1 own email `/verify` -> `400` (`oneTimePassword` required), `POST /2fa/backup` -> `499
+  L2_REQUIRED`; L2 cross-account B email/TOTP `/verify`, `/send`, `DELETE` -> `404`;
+  `/2fa/reset` -> `404`; `POST /chat/messaging/jwt` ignores body `email`/`external_id`/
+  `user_id` and binds the JWT to the session (`401` unauth).
+- Fresh login `499` body still lacks `email_changeable`; authenticator metadata unchanged.
+- Site Manager `main-0..7` audited: bridge origin check `.endsWith(".ui.com")` and
+  `navigation.requested` requires `host === "unifi"` plus a single-slash path; no new sink.
+- Cloudaccess `hosts`/`sites`/`archived-backups`/`invitations`/`colocated-hosts` return
+  `200` with empty collections for A; no object IDs for IDOR testing.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent.
+- Reset/host-injection probe: `POST /api/sso/v1/password/{email}` now returns
+  `400 VALIDATION_ERROR` listing `captcha`, `_ubiquiti_private_key`, and
+  `apple_devicecheck_token`; a score-key token yields `403
+  CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`, and the forced challenge remains unsolved
+  (no automated CAPTCHA solving). Password-reset email link/host-header poisoning
+  is therefore blocked by reCAPTCHA, not tested.
+- Zendesk cross-account search still gated: search requires header
+  `x-captcha-token`; B ticket creation returned `429 RATE_LIMITED`, so no fresh
+  B ticket marker was available. `search_tickets` remains dead UI code and
+  untested for cross-tenant scope.
+- Maildrop GraphQL confirmed working (`POST https://api.maildrop.cc/graphql`),
+  but both inboxes were empty at test time; no email-token flows could resume.
+
+### Session 15 — 2026-11-17 (run continuing, 20:46Z)
+- Preflight OK: opencode/curl/git/node/npx/python3 + Chrome 158 at 127.0.0.1:9222; MCP tools live.
+- Continuation (target hash 3353d9c6... unchanged, decision=preserved). Read SUMMARY,
+  scope, progress, inventory, findings, unresolved.
+- New asset observed: `www.ui.com` now serves `/microsite/static/index-BfxHSOgp.js`
+  (previous Session 11 bundle was `index-Dyxt5MIq.js`). Auditing the changed bundle.
+- Bundle/chunk audit completed for the changed `www.ui.com` build:
+  `/microsite/static/index-BfxHSOgp.js` (934,244 B, sha256
+  `0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9`) with 187
+  chunk refs; downloaded 156 + 99 route chunks under `/tmp/ui15/all`, `/tmp/ui15/all2`.
+- `DownloadStarted-C7jLKP1G.js`: the `link` param is stored only if
+  `I(new URL(link, origin).hostname)` is one of `dl.ubnt.com`, `dl.ui.com`,
+  `fw-download.ubnt.com`; the auto-clicked anchor then uses `F(link)` which
+  additionally requires `protocol === "https:"`. `javascript:`, `//host`, and
+  external hosts are rejected; the `v` version only interpolates into a fixed
+  `https://community.ui.com/releases/r/...` path. No open redirect / DOM XSS.
+- Other `dangerouslySetInnerHTML` chunks (`Landing`, `TrustCenter`, `ManagedVoIP`,
+  `ProfessionalIntegrators`, `UniFiPartnerHub`, `Ultra`, `SiteSupport`,
+  `BecomeATrainerApplication`) render only i18n strings, static config data, or
+  static trainer objects; `Landing` hash parser is
+  `Xe = e => e.replace(/^#/,'') === 'partners' ? 1 : 0`. No attacker-controlled source.
+- `BecomeATrainerApplication` posts a CSRF+reCAPTCHA form (client site keys) and
+  references `direct.svc.ui.com/public/training-events`; `direct.svc` is outside the
+  approved component list, so UI-observed only. No reflection/sink.
+- Account bundle re-audit: login `redirect` uses `iS` (host suffix must be `ui.com`;
+  protocol http/https); `innerRedirect` uses `sS` (must start `/`, not `//`, no `\`,
+  and match an app path constant). No open redirect / `javascript:` sink.
+  The `?org=` param flows only into `billing.svc.ui.com` subscription paths
+  (outside approved components).
+- Endpoint checks: `POST https://sso.ui.com/api/sso/v1/user/self/zendesk_user` ->
+  `200` empty (body `external_id`/`email`/`role` ignored, matching account.svc).
+  `resendVerificationEmail` (`/api/sso/v1/verify`) is config-only with no call site;
+  `POST /api/sso/v1/verify/email/<A>` -> `405 METHOD_NOT_ALLOWED`.
+  `POST https://account.svc.ui.com/zendesk/ticket` -> `400 BAD_REQUEST` (validation/
+  captcha gate) and a follow-up -> `429 RATE_LIMITED`; stopped to respect limits.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent. Unresolved items remain: credentialed CORS (needs an
+  attacker-controlled `*.ui.com` origin) and invite `?role=` (no pending invitation).
+
+### Session 16 — 2026-11-18 (run continuing, 20:21Z)
+- Preflight OK: cwd repo root; opencode/curl/git/node/npx/python3 + Chrome 158 at
+  127.0.0.1:9222; MCP tools live (`list_pages` -> about:blank).
+- Continuation (target hash `3353d9c6...` unchanged, decision=preserved). Read
+  SUMMARY, scope, progress, inventory, findings, unresolved, both skill files.
+- Bundle refresh: `account.ui.com` `index-CYDY7PBp.js` unchanged (sha256
+  `14c9788e...2d14a1b`, 7,150,439 B); `www.ui.com` `index-BfxHSOgp.js` unchanged
+  (`0722ab3b...eae58f9`); Site Manager rotated to `main-0.2678141fb293ea0d.js`
+  (`5bccf419...3993a1b`) etc.; `activate.ui.com` unchanged (`index-1CNh1WqS.js`).
+- Recovered still-valid A/B `UBIC_AUTH` JWTs from `result/logs/opencode.log`
+  (A `7c5aab2b...`, B `d8946fad...`; exp ~2026-12-15); `GET /user/self` 200 for both.
+- New endpoint results: `GET /user/self/roles` 200 (fixed beta role list, both
+  accounts); `POST` 405. `POST /address/validator` is **unauthenticated**: valid US
+  address -> 204; missing/invalid fields -> 400; CORS reflects `*.ui.com` (known
+  class). `POST /v2/user/self/mfa/email/{id}/send`: own 200, cross-account 404,
+  unauth 401.
+- Mass assignment on `PUT /user/self`: `scopes`, `account_type`, `is_staff`,
+  `groups`, `mfa_required`, `is_superadmin` return 204 but do not persist;
+  `session_ttl_seconds` -> `499 L2_REQUIRED`. Rate limiting (`429`, retry_after 0)
+  observed; no brute force.
+- Site Manager new build re-audit: account bridge origin `.endsWith(".ui.com")`
+  with reporter/version/Zod validation; `?from=uid` portal host constrained to
+  `${domain}${fixedSuffix}`; `?link=` only stored in localStorage; `appview`
+  boolean; `debug-crossorigin`/`debug-search` enum/regex validated. No new sink.
+- No new confirmed high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification sent. Evidence: `result/server-side/account.ui.com/session16-ledger.md`
+  and `result/server-side/account.ui.com/traffic/session16-*.txt`.
+
+## Session 17 — 2026-11-19T07:03Z (continuation, preserved)
+- Start (UTC): 2026-11-19T07:03:37Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.4, npx, python3, google-chrome-stable
+- Resume: read SUMMARY/scope/progress/inventory/findings/unresolved + both skills
+- Focus: bundle refresh diff, any new/untested endpoint, remaining Unresolved candidates
+- End (UTC): 2026-11-19T07:12Z
+- Bundles unchanged (account/www/activate); no new code.
+- Tested new surface: passwordless options/login (no bypass, rate-limited),
+  zendesk tickets/ccd + comments query param, chat/queue POST/GET/DELETE
+  (session-bound, body userId ignored), account.svc CORS strict.
+- Unresolved: support-file consoleID IDOR (no device IDs).
+- No high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+
+## Session 20 — 2026-11-20T19:56Z (continuation, preserved)
+- Start (UTC): 2026-11-20T19:56:59Z
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome/158 DevTools MCP live at 127.0.0.1:9222
+- Tools: opencode, curl, git, node v22.23.5, npx, python3, chrome
+- Resume: read AGENT.md, both skills, SUMMARY/scope/progress/inventory/findings/unresolved
+- Observation: `account.ui.com` bundle still `index-DUlTrD1u.js`; `activate.ui.com` unchanged;
+  **`www.ui.com` rebuilt as a Next.js/Turbopack app** (new attack surface, was static microsite).
+
+## Session 21 — 2026-11-20T20:15Z (continuation, preserved)
+- Start (UTC): 2026-11-20T20:15Z (resumed after Session 20 watchdog stop)
+- Agent: opencode / deepseek-v4.1-flash-free
+- Target: ui.com (domain-only), target_hash 3353d9c6... unchanged (decision=preserved)
+- Environment: GitHub Actions Linux; Chrome DevTools MCP reachable (about:blank)
+- Tools: opencode, curl, git, node v22.23.5, npx, python3, chrome
+- Focus: new `www.ui.com` Next.js/Turbopack (App Router) attack surface.
+- Extracted route table from `03lc1g5u1-quw.js`; dynamic routes are
+  `/download/[productFamily]` and `/download/software/[slug]` (plus static unifi pages).
+- Dynamic-route params: raw `"`/`<`/`>`/`</script>` are percent-encoded into the RSC
+  flight payload and `canonical`/`og:url` -> no HTML/JSON-LD breakout (404 page).
+- `/download/unifi` -> 200 (5.5MB); release data from `download.svc` `/v2/downloads`
+  (out of scope); link builder uses server-provided `fileUrl`.
+- Re-confirmed `?link=` allowlist in new chunk `3h4qiliw__8ql.js`: `u()` requires
+  https + hostname ∈ {dl.ubnt.com, dl.ui.com, fw-download.ubnt.com}; `dangerouslySetInnerHTML`
+  only translation strings (`downloadStarted.hero.title`). 6 bypass variants rejected/absent.
+- CVE-2025-29927 `x-middleware-subrequest` payloads: middleware NOT bypassed
+  (`x-middleware-rewrite: /us/en` still returned).
+- Open-redirect probes (`//host`, `%2f%2f`, `?redirect=`) -> 404/inert; no `Location`.
+- No Next.js Server Actions (0 `createServerReference` ids); `/_next/image` 404; source
+  maps 404. Newsletter form -> Mailchimp (out of scope). `/wafflejs` = django-waffle flags (low info).
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- End (UTC): 2026-11-20T20:22Z
+== session start 2026-11-22T06:23:08Z ==
+## Session 23 start 2026-11-22T06:23:08Z (continuation; targets hash unchanged)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Re-verified client-side redirect sinks (xQ/TQ/NS/IS, /switch) — validated.
+- Registration captcha re-test + reCAPTCHA key classification (3 valid site keys,
+  3 invalid). cloudaccess STS role scoped; ucore/devices/hosts/sites empty.
+- Zendesk search caller gated off; B pre-MFA email MFA needs session.
+- Ledger: result/server-side/account.ui.com/session23-ledger.md
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+== session end 2026-11-22T06:31:00Z ==
+== session start 2026-11-23T07:20:00Z ==
+## Session 24 start 2026-11-23T07:20:00Z (continuation; B session recoverable)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Builds unchanged (account.ui.com index-DUlTrD1u.js sha256 a26e5447...).
+- Recovered valid Account B UBIC_AUTH from result/logs/opencode.log (UUID 7c5aab2b-..., exp 1797401599); /user/self -> 200.
+- B password step minted fresh UBIC_2FA; B MFA = email OTP (auth a646df96-...) to B maildrop. Fresh A email-OTP login completed (code 717101).
+- NEW (low, excluded): GET /api/sso/v1/user/{uuid}/picture is unauthenticated (200 avatar / 404 unknown). Sibling routes 401/403. Report result/findings/VULN-20261123-001/.
+- Negative: MFA email-send session-scoped (B session + A auth id -> 404); /login/2fa session-bound (A code under B -> 403, under A -> 200); pre-MFA token rejected on sensitive endpoints; Zendesk comments ownership + reCAPTCHA enforced; header impersonation ignored; NS() redirect validator robust.
+- POST /user/{uuid}/roles/beta uuid-scoped (A->B 403, B own 204). www.ui.com /search/autocomplete/ -> 302 /.
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+== session end 2026-11-23T07:35:00Z ==
+== session start 2026-11-23T07:45:00Z ==
+## Session 25 start 2026-11-23T07:45:00Z (continuation; builds unchanged)
+target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+- Builds unchanged: account.ui.com index-DUlTrD1u.js sha256 a26e5447...; www.ui.com dpl ebfbbf36...
+- Recovered/validated A (testttt12, d8946fad-...) and B (test-account-b, 7c5aab2b-...) sessions (/user/self 200).
+- NEW endpoint GET /api/sso/v1/zendesk_login (not in SPA config): unauth 302 login; auth 302 ubnt.zendesk.com/access/jwt?jwt=<name/email/external_id>; return_to forwarded but Zendesk normalizes -> no open redirect. CORS reflects *.ui.com+ACAC on 302 but JWT only in Location (not readable) => Not Vulnerable.
+- Negative: no JSONP (callback/format/Accept js -> 406/404); shopify_login fixed redirect; path-form /user/{uuid}/address/{id} PUT/DELETE 404; cross-uuid address POST 403; body 'user' override ignored; B->A address 404.
+- Recon: 94 ui.com hosts resolved (no dangling CNAME); blog/community/design/mobility/help NOT in approved list -> observed only, recorded out-of-scope; no attacker-controlled *.ui.com origin.
+- www middleware/cookie/XFH probes inert (200, /us/en rewrite, cookies reset; // paths 404).
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session25-ledger.md
+== session end 2026-11-23T08:05:00Z ==
+
+## Session 26 (2026-11-23T23:44Z UTC) — continuation (run 45291357082, decision=preserved)
+- Working dir: repo root. Target hash 3353d9c6… matches; continuation (not reset).
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq, google-chrome-stable present.
+- Prior state: 47 routes (32 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: verify MCP; recover A/B sessions; hunt remaining in-scope surface (account.svc/sso/cloudaccess);
+  avoid duplicates per testing-inventory.json.
+
+### Session 26 outcome (2026-11-23T23:5xZ)
+- Builds unchanged; A/B sessions validated; A escalated to L2.
+- New checks: password-strength (inert), email header-injection (blocked), bounded SSO
+  discovery (all 404), www Next probes (no optimizer; /api -> store out of scope),
+  runtime redirect checks (no open redirect / no javascript: exec), account-frame
+  postMessage bridge re-audit (Not Vulnerable), Site Manager unaudited chunks (no exploit).
+- No new confirmed high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session26-ledger.md
+== session end 2026-11-23T23:58:00Z ==
+
+## Session 27 — 2026-11-24T09:37Z (continuation, decision=preserved)
+- Start: 2026-11-24T09:37:52Z (run 45366850654, event=schedule, decision=preserved)
+- Target: ui.com (domain-only); in-scope components: www/account/sso + observed svc hosts per scope.md
+- Agent/model: opencode / deepseek-v4.1-flash-free
+- Tools: opencode, curl, git, node 22.23.5, npx, python3, jq; Chrome DevTools MCP available (about:blank)
+- Mode: continuation of Session 26; reading preserved inventory/findings first.
+
+### Session 27 outcome (2026-11-24T09:5xZ)
+- www.ui.com redeployed (`dpl=6f710854…`, Next.js 16.4.6 + Turbopack, patched); account
+  bundle + Site Manager unchanged.
+- www chunk audit clean (no dynamic sink; strict link allowlist; no Server Actions).
+- New negatives: device-token setup/login (generic 404, no oracle/rate-limit); username change
+  gated by 499 L2_REQUIRED; sso cache-deception inert; www XFH/og:url + open-redirect probes
+  inert; wildcard 302 not an external redirect.
+- No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session27-ledger.md
+== session end 2026-11-24T09:58:00Z ==
+
+## Session 28 — 2026-11-25T08:10Z (continuation, decision=preserved, run 45573672108)
+- Start: 2026-11-25T08:10:00Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope components www/account/sso + observed svc hosts per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: curl, git, node, npx, python3, jq, Chrome DevTools MCP (about:blank) present.
+- Prior state: 47 routes (32 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff current builds/JS vs inventory; extract any new API paths; test delta; do not repeat.
+
+### Session 28 outcome (2026-11-25T08:3xZ)
+- Verified MCP + connectivity; recovered/validated A and B L1 test sessions.
+- account bundle = dependency bump (no API/sink/validator change); www redeployed.
+- New www route `/identity/qrcode/desktop/bt_pairing` tested -> static, Not Vulnerable.
+- New endpoints `/user/self/device` (GET/POST) tested -> self-scoped, Not Vulnerable.
+- Passive DNS 50 hosts -> no dangling CNAME (CORS stays blocked); new hosts recorded OOS.
+- 48 routes (33 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt
+  unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session28-ledger.md
+== session end 2026-11-25T08:35:00Z ==
+
+=== checkpoint-validation ===
+VULN-20261110-001: confirmed report has no severity
+VULN-20261110-002: confirmed report has no severity
+VULN-20261110-004: confirmed report has no severity
+VULN-20261123-001: confirmed report has no severity
+
+=== exit/watchdog ===
+2026-11-10T15:20:46Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-10T15:23:11Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-10T16:01:58Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-10T16:04:24Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-10T16:16:22Z attempt=1 status=0 recovery=0
+2026-11-10T23:52:29Z attempt=1 status=0 recovery=0
+2026-11-11T05:59:24Z attempt=1 status=0 recovery=0
+2026-11-11T14:31:08Z attempt=1 status=0 recovery=0
+2026-11-12T00:49:41Z attempt=1 status=0 recovery=0
+2026-11-13T19:41:05Z attempt=1 status=0 recovery=0
+2026-11-14T06:10:32Z attempt=1 status=0 recovery=0
+2026-11-14T13:47:36Z attempt=1 status=0 recovery=0
+2026-11-14T22:26:18Z attempt=1 status=0 recovery=0
+2026-11-15T06:23:56Z attempt=1 status=0 recovery=0
+2026-11-16T06:21:48Z attempt=1 status=0 recovery=0
+2026-11-17T08:03:10Z attempt=1 status=0 recovery=0
+2026-11-17T20:53:42Z attempt=1 status=0 recovery=0
+2026-11-18T20:29:55Z attempt=1 status=0 recovery=0
+2026-11-19T07:10:52Z attempt=1 status=0 recovery=0
+2026-11-19T20:25:55Z attempt=1 status=0 recovery=0
+2026-11-20T07:10:03Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-20T07:12:28Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-20T07:31:20Z attempt=1 status=0 recovery=0
+2026-11-20T20:08:04Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-20T20:10:28Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-20T20:16:26Z attempt=1 status=0 recovery=0
+2026-11-21T07:05:45Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-21T07:08:10Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-21T19:15:38Z attempt=1 status=0 recovery=0
+2026-11-22T06:34:22Z attempt=1 status=0 recovery=0
+2026-11-23T07:41:59Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-23T07:44:23Z attempt=1 status=124 watchdog=true recovery=1
+2026-11-23T07:58:54Z attempt=1 status=0 recovery=0
+2026-11-23T23:50:11Z attempt=1 status=0 recovery=0
+2026-11-24T09:50:43Z attempt=1 status=0 recovery=0
+2026-11-25T08:36:04Z attempt=3 status=124 watchdog=true recovery=0
+2026-11-25T08:38:49Z attempt=1 status=124 watchdog=true recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-10T15:20:46Z
+last_log_bytes=273667
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-10T15:23:11Z
+last_log_bytes=274014
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-10T16:01:58Z
+last_log_bytes=980525
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-10T16:04:24Z
+last_log_bytes=980872
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-20T07:10:03Z
+last_log_bytes=8250729
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-20T07:12:28Z
+last_log_bytes=8251077
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-20T20:08:04Z
+last_log_bytes=8897945
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-20T20:10:28Z
+last_log_bytes=8898293
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-21T07:05:45Z
+last_log_bytes=9439289
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-21T07:08:10Z
+last_log_bytes=9439637
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-23T07:41:59Z
+last_log_bytes=10354689
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-23T07:44:23Z
+last_log_bytes=10355038
+attempts=1
+recovery=1
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-25T08:36:04Z
+last_log_bytes=11364782
+attempts=3
+recovery=0
+watchdog_terminated=true
+watchdog_terminated_at=2026-11-25T08:38:49Z
+last_log_bytes=11383836
+attempts=1
+recovery=1
+time=2026-11-25T08:38:49Z
+reason=no output for 120s after OpenCode reinstall
+run_id=45573672108
+[0m
+[0m$ [0mcat result/inventory/routes.md; printf '\n=== ENDPOINTS ===\n'; cat result/inventory/endpoints.md
+# Route Inventory — account.ui.com (SPA)
+
+Discovered from route config in `assets/index-BAUIMHQa.js`.
+
+| # | Route | Auth | Status | Notes |
+|---|-------|------|--------|-------|
+| 1 | /login | no | done | login email+password; 2FA; rate limit |
+| 2 | /login/mfa | partial | done | email OTP accepted |
+| 3 | /login/change-email | partial | done | legacy self-scoped email change |
+| 4 | /login/change-email/confirm | partial | blocked | email_changeable absent; confirm not exposed |
+| 5 | /login/create-passkey | partial | blocked | no registered passkeys; webauthn options -> not found |
+| 6 | /login/trust-device | partial | done | device registration (204); trusted-device TTL 1y |
+| 7 | /register | no | blocked | POST /api/sso/v2/users needs private-key+captcha+devicecheck attestation |
+| 8 | /verify | no | blocked | verification id is emailed request id; auth user -> / |
+| 9 | /verify/verification-code/:uuid | no | blocked | uuid= user/zero/1 -> 404; needs emailed request id |
+| 10 | /reset-password | no | blocked | reCAPTCHA + anti-bot required |
+| 11 | /reset-password/password-reset-uuid/:uuid | no | done | needs emailed reset id; user uuid -> 404 |
+| 12 | /account | yes | done | self profile; mass-assignment ignored |
+| 13 | /profile | yes | done | client-side redirect to `/account` |
+| 14 | /security | yes | done | MFA/sessions/devices/addresses; IDOR protected |
+| 15 | /security/suspicious/confirm | yes | blocked | inspect/confirm need emailed confirm_token |
+| 16 | /billing | yes | blocked | L2 UI loads; billing.svc 404 Customer not found; billing.svc outside approved scope |
+| 17 | /billing/:orgId | yes | blocked | no billing org on test account |
+| 18 | /invoices | yes | done | L2: redirects to /billing (empty) |
+| 19 | /invoices/:invoiceId | yes | blocked | no invoice ids (no billing customer) |
+| 20 | /payments | yes | done | L2: redirects to /billing; no payment methods |
+| 21 | /payments/3ds | yes | blocked | no payment/3DS flow without billing customer |
+| 22 | /subscriptions | yes | done | L2: redirects to /billing (empty) |
+| 23 | /subscriptions/:service | yes | blocked | no subscriptions on test account |
+| 24 | /subscriptions/cloud-storage/subscribe | yes | blocked | no subscription context; no purchase path exercised |
+| 25 | /subscriptions/site-support/subscribe | yes | blocked | feature flag allowSiteSupportSubscribe=false |
+| 26 | /requests | yes | done | Zendesk own tickets only |
+| 27 | /requests/:ticketId | yes | done | cross-account comments 403 |
+| 28 | /supportform | yes | done | client-side redirect to `/requests` |
+| 29 | /supportform-uisp | yes | done | redirect to `/requests` with `isUISPForm` state |
+| 30 | /supportform-umr | yes | done | redirect to `/requests` |
+| 31 | /mysupport | yes | done | client-side redirect to `/requests` |
+| 32 | /backups | yes | done | L2: page renders; no backups; cloudaccess hosts/backups empty |
+| 33 | /switch | yes | done | logout + login_hint; redirect AC()-validated |
+| 34 | /activate | no | done | fixed client-side redirect to `https://activate.ui.com` (no user-controlled target) |
+| 35 | /logout | yes | done | GET logout clears `.ui.com` auth cookies (VULN-20261110-004, low) |
+| 36 | /idp/login-result | no | blocked | POST needs server-issued state (STATE_MISSING) |
+| 37 | /msp/idp/setup-result | no | done | postMessage targetOrigin = window.location.origin |
+
+## unifi.ui.com (Site Manager SPA, wildcard `*.ui.com`) — Session 10
+| # | Route | Auth | Status | Notes |
+|---|-------|------|--------|-------|
+| U1 | /invite/:verificationToken?/:hostId? | yes | done | `?role=` (admin\|owner) forwarded to `confirm-invitation`; VULN-20261114-001 (Unresolved) |
+| U2 | /invite-network-server/:verificationToken?/:hostId? | yes | done | same deep-link role flow |
+| U3 | /create-cloud-console | yes | pending | not created (would provision real infra) |
+| U4 | /consoles, /network-servers, /vantage-points, /iam, /invitations/organizations | yes | done | SPA routes; API access via SigV4, empty for test account |
+
+## www.ui.com marketing microsite (Session 11 refresh) — bundle `index-Dyxt5MIq.js`
+| Route | Status | Notes |
+|-------|--------|-------|
+| `/download` (+ `?product_line=`) | done | param inert (no reflection) |
+| `/download/releases/:slug` | done | slug only into React `<Head>` (escaped `<meta>`); no injection |
+| `/download/software/:slug` | done | same as above |
+| `/download/:productGroupId` | done | static |
+| `/download/unifi/download-started` (+ `?link=`) | done | `link` requires https + host allowlist `dl.ubnt.com/dl.ui.com/fw-download.ubnt.com`; stripped otherwise |
+| `/` and static pages (`?s=`,`?l=`,`appview=`) | done | store/language enum-validated then stripped; no open redirect |
+
+## activate.ui.com (newly observed `ui.com` host; S3 SPA `index-1CNh1WqS.js`) — Session 11
+| Item | Status | Notes |
+|------|--------|-------|
+| `/` + arbitrary paths | done | 200 SPA fallback; `serial/code/token/redirect/next` markers not reflected |
+| Device-login code entry | observed | `POST sso.ui.com/api/sso/v1/user/self/token/setup` -> `device_name`, then `/token/login`; auth required |
+| CORS on token endpoints | observed | reflects any `*.ui.com` Origin with credentials (known CORS class, Unresolved) |
+
+## www.ui.com Next.js/Turbopack rebuild (Session 21) — App Router on Vercel
+| Item | Status | Notes |
+|------|--------|-------|
+| `/` + static routes (`/us/en/...`) | done | middleware rewrites to `/us/en`; no user-input sinks |
+| `/download/[productFamily]` | done | unknown -> 404; param percent-encoded in RSC payload + `canonical`/`og:url`; no breakout |
+| `/download/software/[slug]` | done | same encoding; no HTML/JSON-LD injection |
+| `/download/unifi` | done | 200 (5.5MB); data from `download.svc` `/v2/downloads` (out of scope) |
+| `/download/unifi/download-started` (`?link=`) | done | allowlist re-confirmed in chunk `3h4qiliw__8ql.js` (https + dl.ubnt.com/dl.ui.com/fw-download.ubnt.com) |
+| `x-middleware-subrequest` (CVE-2025-29927) | done | payloads ineffective; middleware still rewrites `/us/en` |
+| Open-redirect probes (`//`, `%2f%2f`, `?redirect=`) | done | 404/inert, no `Location` |
+| Next.js Server Actions | done | none present (0 `createServerReference` ids) |
+
+## www.ui.com Next.js redeploy (Session 28) — dpl `cf2ef489…`
+| Route | Status | Notes |
+|-------|--------|-------|
+| `/identity/qrcode/desktop/bt_pairing` | done | marketing/static "UniFi Endpoint" page; no query/path source reflected; `?code`/`?token` inert; sibling unknown subpaths + `/identity` 302 -> `/endpoint`. No sink. |
+| `/ui-care`, `/ultra`, `/endpoint`, `/cloud-storage` (+ other static marketing routes in `02aqcd17vx73t.js`) | done | static marketing pages; static-config links only |
+
+=== ENDPOINTS ===
+# Endpoint Inventory
+
+Bases: `https://sso.ui.com` (SSO), `https://account.svc.ui.com` (account BE),
+`https://fabric.svc.ui.com` (MSP), `https://billing.svc.ui.com`, `https://enterprise.svc.ui.com`.
+All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, SameSite=Lax).
+
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/login/email | sso | no | 200 | login method discovery (user enum) |
+| POST | /api/sso/v1/login | sso | no | 200 | password login -> 2FA challenge |
+| POST | /api/sso/v1/login/2fa | sso | partial | 200 | email OTP accepted |
+| POST | /api/sso/v1/logout | sso | yes | 200 | |
+| GET | /api/sso/v1/user/self?settings=true&include=tenant | sso | yes | 200 | full self profile |
+| PUT | /api/sso/v1/user/self | sso | yes | 204/400 | `role/roles/is_admin/permissions/accounts` ignored; `email` -> 400 |
+| GET | /api/sso/v1/user/self/activity | sso | yes | 200 | self only; `?uuid=B` ignored |
+| GET/DELETE | /api/sso/v1/user/self/sessions | sso | yes | 200/404 | other user's session id -> 404 |
+| GET/POST/DELETE | /api/sso/v1/user/self/trusted_devices | sso | yes | 200/204 | other user's device delete -> 204 no-op |
+| GET | /api/sso/v1/user/self/mfa | sso | yes | 200 | lists authenticator ids |
+| GET/PUT | /api/sso/v1/user/self/mfa/email/{id} | sso | yes | 405 | method not allowed |
+| DELETE | /api/sso/v1/user/self/mfa/email/{id} | sso | yes | 404 | other user's id -> not found |
+| POST | /api/sso/v2/user/self/mfa/email/{id}/send | sso | yes | 404 | other user's id -> No EmailAuthenticator |
+| GET | /api/sso/v1/user/self/roles | sso | yes | 200 | beta roles list |
+| POST | /api/sso/v1/user/{uuid}/roles/beta | sso | yes | 403 | `mismatching UUID` for other user |
+| GET/POST | /api/sso/v1/user/self/addresses | sso | yes | 200/201 | `user` field ignored on create |
+| PUT/DELETE | /api/sso/v1/user/self/addresses/{id} | sso | yes | 405/404 | other user's address protected |
+| POST | /api/sso/v1/address/validator | sso | yes | 200 | address validation |
+| POST | /api/sso/v1/user/self/token/setup | sso | yes | 400 | requires client-supplied `token` |
+| POST | /api/sso/v1/user/self/token/login | sso | ? | - | not tested (no token) |
+| POST | /api/sso/v1/passwordless/options | sso | no | 200 | WebAuthn challenge, `allowCredentials:[]` |
+| POST | /api/sso/v1/suspicious/confirm/inspect | sso | yes | 400 | requires `confirm_token` |
+| POST | /api/sso/v1/password/{user} | sso | no | 400 | requires `_ubiquiti_private_key`, `captcha`, `apple_devicecheck_token` |
+| PUT | /api/sso/v1/verify/password/{uuid} | sso | no | 404 | body `{password}`; user uuid is not the reset token |
+| POST | /api/sso/v2/users | sso | no | 403 | `CHALLENGE_RECAPTCHA_TOKEN_REQUIRED` |
+| GET | /api/sso/v1/user/self/zendesk_user | sso | yes | 405 | |
+| POST | /api/sso/v1/user/self/zendesk_user | account | yes | - | not tested |
+| GET | /api/sso/v1/account-chooser | sso | yes | - | not tested |
+| POST | /zendesk/user | account | yes | - | not tested |
+| POST | /zendesk/ticket | account | yes | 201 | created ticket id 6133375 (test-owned, closed) |
+| GET | /zendesk/tickets | account | yes | 200 | own tickets only |
+| GET | /zendesk/tickets/closed | account | yes | 200 | |
+| GET | /zendesk/tickets/ccd | account | yes | - | |
+| GET | /zendesk/comments/{id} | account | yes | 403 | other user's ticket -> `FORBIDDEN` |
+| POST | /zendesk/comment/{ticketId} | account | yes | 400 | requires `x-captcha-token` |
+| PUT | /zendesk/ticket/{ticketId}/close | account | yes | 403 | other user's ticket |
+| GET | /api/fabrics/base/msp/v1/msp | fabric | yes | 403 | `no_msp_membership` |
+| GET | /api/fabrics/base/msp/v1/msp/idp-enforcement | fabric | yes | 405 | GET not allowed |
+| GET | /api/fabrics/base/msp/v2/idp/directory/groups | fabric | yes | 403 | `no_msp_membership` |
+| GET | /api/v2/customers/self | billing | yes | 404 | `Customer not found` |
+| GET | /api/v2/customers/self/subscriptions | billing | yes | 404 | `Customer not found` |
+| GET | /api/v2/products | billing | yes | 200 | public product list |
+| GET | /api/v1/organizations | enterprise | yes | 200 | `{"data":[]}` |
+| GET | /api/v1/devices/integrations/ssoa | cap | yes | 200 | empty collection |
+| GET | /api/v1/users/integrations/ssoa/subscriptions | umr | yes | 200 | empty collection |
+| GET | /api/v1/esim/devices | u5g-api | yes | 200 | empty collection |
+
+## CORS observations
+- `sso.ui.com` reflects any `Origin` whose host ends in `.ui.com` (e.g. `https://evil.ui.com`,
+  `https://community.ui.com`, `https://store.ui.com`) and sets
+  `Access-Control-Allow-Credentials: true`; preflight allows PUT/POST/PATCH/DELETE and
+  `content-type`, `max-age=600`, `vary: origin`.
+- Non-`ui.com` origins (`https://evil.com`, `null`, `https://account.ui.com.evil.com`) receive
+  no `Access-Control-Allow-Origin`.
+- `account.svc.ui.com` returns 403 for origins other than `https://account.ui.com`.
+- Requires an attacker-controlled `*.ui.com` origin to be exploitable; no such origin identified.
+
+## Session 9 additions (Site Manager paths config)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/jwt/token | sso | yes | 200 | HS512 JWT (uuid, is_verified, exp, ui_session_id); edge WAF needs browser UA |
+| GET | /api/sso/v1/jwt/token?redirect=`<url>` | sso | yes | 302/200 | 302 only for `http(s)://*.ui.com`; -> `sso.ubnt.com/.../login/<jwt>?redirect=...` (ubnt hop 404). No external/relative/javascript redirect |
+| GET | /api/sso/v1/user/{uuid} | sso | yes | 200/403 | self only; other uuid -> `mismatching UUID` |
+| GET/POST | /api/sso/v1/user/{uuid}/address | sso | yes | 200/201/403 | self only; body `user` ignored on POST |
+| GET/POST | /api/sso/v1/user/{uuid}/console_groups | sso | yes | 200/400/403 | self only; POST needs name+consoles |
+| GET | /api/sso/v1/account-chooser?<param> | sso | yes | 200 | `{"accounts":[]}`; paramless GET -> edge 403; POST -> 405; rate-limited |
+| POST | /api/sso/v1/user/self/token/login | sso | yes | 404 | no longer present |
+| POST | /api/sso/v1/user/self/token/setup | sso | yes | 404 | no longer present |
+
+## Session 10 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| PATCH | /api/sso/v1/user/self/settings | sso | yes | 200 | `passwordless_enabled` persists; privilege fields (role/is_admin/uuid/email/username) ignored; PUT/POST 405 |
+| GET | /api/sso/v1/user/self/login/level | sso | yes | 200 | `{level,time_left_seconds}` |
+| POST | /api/sso/v1/user/self/login/level | sso | yes | 200/499 | `{password}` re-auth to L2 (password only by design) |
+| POST | /api/sso/v1/user/self/login/level/refresh | sso | yes | 200/499/401 | 200 extends at L2; L1 -> 499 L2_REQUIRED; pre-MFA 401 |
+| DELETE | /api/sso/v1/user/self/login/level | sso | yes | 200 | returns `{level:1}` but is a no-op on the token |
+| POST | /api/sso/v1/user/self/email/verify/send | sso | yes | 204/400 | sends confirmation code to new address; used address -> 400 unique |
+| POST | /api/sso/v1/user/self/zendesk_user | sso | yes | 200 | empty; body ignored; account.svc Zendesk email unchanged |
+| POST | /api/sso/v1/suspicious/confirm/inspect | sso | yes | 400 | requires emailed `confirm_token` |
+| POST | /create-credentials | cloudaccess | cookie | 200 | mints AWS STS creds (us-west-2) for SigV4; CORS primitive |
+| GET | /invitations?type=all | cloudaccess | SigV4 | 200 | `[]` for test account; `/api/v1/invitations` is 404 |
+| POST | /confirm-invitation | cloudaccess | SigV4 | 400 | body `{deviceId,verificationToken,role}`; bogus device -> DEVICE_OFFLINE; role client-controlled (VULN-20261114-001) |
+| GET | /api/v1/hosts | cloudaccess | SigV4 | 200 | `{"data":[],"nextToken":null}` |
+| GET | /devices | cloudaccess | SigV4 | 200 | `[]` |
+| GET | /sites | cloudaccess | SigV4 | 200 | `{"sites":[],"nextToken":null}` |
+
+## Session 12 additions (L2 authenticated, recovered session)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/account-chooser | sso | UBIC_2FA | 200 | pre-MFA returns caller's own `{opaque_id,username,email,picture_url,remembered_at}`; by design, informational |
+| GET | /api/sso/v1/user/self/mfa | sso | UBIC_2FA | 401 | `is not allowed` pre-MFA; L2 -> 200 authenticator metadata (no secrets) |
+| POST | /api/sso/v1/user/self/mfa/totp | sso | UBIC_2FA | 401 | pre-MFA denied; not exercised at L2 (would alter account MFA) |
+| POST | /api/sso/v1/user/self/mfa/email | sso | UBIC_2FA | 401 | pre-MFA denied |
+| DELETE | /api/sso/v1/user/self/mfa/email/{id} | sso | UBIC_2FA | 401 | pre-MFA denied |
+| POST | /create-credentials | cloudaccess | UBIC_2FA | 401 | pre-MFA cannot mint STS credentials |
+| POST | /api/sso/v1/user/self/login/level | sso | L1 | 200 | `{password}` -> `{level:2,time_left_seconds:1800}` + new UBIC_AUTH; documented password-only L2 |
+| GET | /api/sso/v1/user/self/{sessions,trusted_devices,activity,addresses} | sso | L2 | 200 | own data only |
+| GET | /api/sso/v1/user/{uuid}/{address,console_groups} | sso | L2 | 403 | other account -> `mismatching UUID` |
+| GET/POST | /api/sso/v1/user/{uuid}[/address]?uuid=...&user=... | sso | L2 | 200/403 | params ignored; own data or 403 |
+| GET | /zendesk/comments/{ticket} | account | L2 | 200/403 | own 200; cross-account A<->B 403 `FORBIDDEN` |
+| GET | /api/v2/customers/self[/subscriptions] | billing | L2 | 404 | `Customer not found`; host outside approved component scope, UI-observed only |
+| GET | /api/v2/products | billing | L2 | 200 | public product list (UI-observed) |
+| POST | /api/sso/v1/user/self/mfa/email/{id}/verify | sso | UBIC_2FA/L1 | 401/400 | pre-MFA denied; L1 body `oneTimePassword`; cross-account -> 404 |
+| POST | /api/sso/v1/user/self/mfa/email/{id}/send | sso | UBIC_2FA/L1 | 204/404 | own 204; cross-account 404 |
+| POST | /api/sso/v1/user/self/mfa/totp | sso | L1 | 499 | `L2_REQUIRED` |
+| POST/DELETE | /api/sso/v1/user/self/mfa/{totp,email}/{id} | sso | L2 | 404/405 | cross-account B ids -> 404; PATCH -> 405 |
+| POST | /api/sso/v1/user/self/mfa/totp/{id}/verify | sso | L2 | 404 | cross-account B totp -> 404 |
+| GET | /api/sso/v1/user/self/mfa/push/poll-login | sso | L1 | 400 | `Invalid session` without login push |
+| GET | /api/sso/v1/user/self/mfa/push/{id}/poll-setup | sso | L1 | 404 | missing/expired setup id |
+| POST | /api/sso/v1/user/self/2fa/reset | sso | L1/L2 | 404 | no route |
+| POST | /api/sso/v1/user/self/2fa/backup | sso | L1/L2 | 499/201 | L1 -> `L2_REQUIRED`; L2 -> new codes |
+| POST | /chat/messaging/jwt | account | L1 | 200/401 | binds JWT to session; body `email/external_id/user_id` ignored; unauth 401 |
+
+## Session 15 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/user/self/zendesk_user | sso | L2 | 200 | empty; body `external_id`/`email`/`role` ignored |
+| POST | /api/sso/v1/verify/email/{email} | sso | no | 405 | `resendVerificationEmail` is config-only (no call site) |
+| POST | /zendesk/user | account | L2 | 200 | body `external_id`/`email`/`role`/`id` ignored, no persistence |
+| POST | /zendesk/ticket | account | L2 | 400/429 | baseline `BAD_REQUEST`; follow-up `RATE_LIMITED`; creation input/captcha-gated |
+
+## Session 16 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/user/self/roles | sso | L1 | 200 | fixed beta role list for A and B (not privilege-bearing) |
+| POST | /api/sso/v1/user/self/roles | sso | L1 | 405 | `METHOD_NOT_ALLOWED`; roles not client-writable here |
+| POST | /api/sso/v1/address/validator | sso | none | 204/400 | unauthenticated address validation; field errors only; CORS reflects `*.ui.com` (known class) |
+| POST | /api/sso/v2/user/self/mfa/email/{id}/send | sso | L1 | 200/404/401 | own 200 + `otp_prefix`; cross-account 404; unauth 401 |
+| PUT | /api/sso/v1/user/self | sso | L1 | 204/499 | `scopes`/`account_type`/`is_staff`/`groups`/`mfa_required`/`is_superadmin` not persisted; `session_ttl_seconds` -> `L2_REQUIRED` |
+
+## Session 17 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/passwordless/options | sso | none | 200 | `{user}` -> WebAuthn `publicKeyCredentialRequestOptions` (`rpId: ui.com`, `allowCredentials: []`); no user-existence oracle; unknown user hits shared 429 |
+| POST | /api/sso/v1/passwordless/login | sso | none | 400/429 | `{}` -> 400 `Invalid credential payload`; malformed credential structs -> 400; schema-valid attempts -> 429 RATE_LIMITED |
+| GET | /zendesk/tickets/ccd | account | L1 | 200 | `{"tickets":[],"totalTickets":0}` for A/B; no data |
+| GET | /zendesk/comments?ticket_id={id} | account | L1 | 404 | query-param form not supported; path form remains owner-checked (`403` cross-account) |
+| GET | /chat/queue | account | L1 | 404/200 | session-bound queue position; 404 when not queued |
+| POST | /chat/queue | account | L1 | 201 | body `{userId,department}`; `userId` is optional and ignored (missing -> 201); queue/JWT remain the session user's; arbitrary `department` echoed in `queueInfo` |
+| DELETE | /chat/queue | account | L1 | 204 | removes own session queue entry |
+| OPTIONS | /chat/queue | account | none | 403 | `Origin: https://evil.ui.com` rejected (account.svc CORS strict) |
+
+## Session 25 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/zendesk_login | sso | none/A | 302 | NEW (not in SPA config). unauth -> `account.ui.com/login`; auth -> `ubnt.zendesk.com/access/jwt?jwt=<name/email/external_id>`. `return_to` forwarded but Zendesk normalizes -> `help.ui.com/hc`; no open redirect. CORS reflects `*.ui.com`+`ACAC:true` on 302, JWT only in `Location` (not readable) -> Not Vulnerable |
+| GET | /api/sso/v1/shopify_login | sso | none | 302 | `redirect`/`return_to`/`shop`/`//`/`javascript:` ignored; fixed `account.ui.com/login?shopify=true&region=us` -> Not Vulnerable |
+| GET | /api/sso/v1/user/self?callback=/jsonp=/format= | sso | A | 406/404 | no JSONP; `Accept: application/javascript` -> `406 NOT_ACCEPTABLE` |
+| PUT/DELETE | /api/sso/v1/user/{uuid}/address/{id} | sso | A/B | 404 | path-form route unsupported (HTML 404); no BOLA via this path |
+| POST | /api/sso/v1/user/{uuid}/address | sso | A | 403 | A -> `/user/{B}/address` = `mismatching UUID` (uuid enforced) |
+| POST | /api/sso/v1/user/self/addresses `{user:B}` | sso | A | 201 | created for caller A; body `user` ignored (no owner mass-assignment) |
+| PUT/DELETE | /api/sso/v1/user/self/addresses/{id} | sso | B | 404 | B -> A's address `No SSOAddress matches` -> Not Vulnerable |
+| GET | https://www.ui.com/ (hostile cookies/XFH/XFP/`//`) | www | none | 200/404 | middleware rewrite `/us/en`, cookies reset EN/US; `//`/`%2f%2f` -> 404; no redirect/poisoning |
+
+## Session 26 additions
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /api/sso/v1/password-strength | sso | none | 200 | zxcvbn score/warning only; input not reflected -> Not Vulnerable |
+| POST | /api/sso/v2/password-strength | sso | none | 400 | returns policy `required` fields; input not reflected -> Not Vulnerable |
+| POST | /api/sso/v1/user/self/email/verify/send `{email}` | sso | L2 | 204/400 | benign 204; CRLF -> 400 PARSE_ERROR; `%0d%0a` -> 400 invalid email; case-insensitive uniqueness -> no header injection / ATO |
+| GET | /api/sso/v1/{health,version,config,csrf,user/self/*,admin,me,...} (20 paths) | sso | L2 | 404 | bounded discovery; no undocumented endpoints |
+| GET | https://www.ui.com/_next/image | www | none | 404 | image optimizer disabled |
+| GET | https://www.ui.com/api/* | www | none | 301 | redirects to store.ui.com (out-of-scope commerce host) |
+| — | account-frame postMessage bridge (`Rw`/`Gge`/`Wge`/`kw`, Megaphone `$$`, popup `lIt`) | account | — | — | outbound PII gated by https+`NS()` allowlist (or `'*'` non-prod only); inbound `source===parent`+`kw(origin)`; popup targetOrigin=self -> Not Vulnerable |
+
+## Session 28 additions (authenticated A L1, new build)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/user/self/device | sso | A L1 | 404 | route absent for GET; OPTIONS allows GET, POST |
+| POST | /api/sso/v1/user/self/device | sso | A L1 | 400 | `{}` -> `DEVICE_ID_REQUIRED`; `{device_id}` -> `DEVICE_INFO_NOT_FOUND`; requires server-known device id; self-scoped |
+| POST | /api/sso/v1/user/self/device | sso | unauth | 403 | not accessible unauthenticated |
+| GET | /api/sso/v1/user/self/sessions | sso | A L1 | 200 | own sessions only; device_id null |
+| GET | /api/sso/v1/user/self/trusted_devices | sso | A L1 | 200 | `[]` |
+[0m
+[0m$ [0mcat result/unresolved.md; printf '\n=== confirmed ===\n'; cat result/confirmed-vuln.txt; printf '\n=== out of scope ===\n'; cat result/out-of-scope.txt; printf '\n=== latest ledger ===\n'; cat result/server-side/account.ui.com/session28-ledger.md
+# Unresolved items
+
+## 1. Credentialed CORS on sso.ui.com / cloudaccess.svc.ui.com
+- `sso.ui.com` reflects any `https://*.ui.com` Origin with
+  `Access-Control-Allow-Credentials: true`; preflight allows write methods.
+- Session 5 re-test: `https://ui.com.evil.com`, `https://account.ui.com.evil.com`,
+  `https://notui.com`, `http://evil.ui.com`, and `null` are all rejected. Only real
+  `*.ui.com` https origins are reflected.
+- Exploitability still requires an attacker-controlled `*.ui.com` origin (stored
+  HTML/JS, writable bucket, or subdomain takeover). Wildcard `*.ui.com` currently
+  serves a fixed SPA. No such origin found.
+- Session 16 adds the unauthenticated `POST /api/sso/v1/address/validator` to the
+  same reflection set (OPTIONS/preflight reflects any `https://*.ui.com` Origin
+  with credentials); still needs an attacker-controlled `*.ui.com` origin.
+- Session 22 re-confirmed the reflection (`https://evil.ui.com`, `https://ui.com`,
+  `https://a.b.ui.com` -> `ACAC:true`; `http`, `evilui.com`, `ui.com.evil.com`,
+  trailing-dot, `:8443`, `null`, non-`ui.com` rejected) and surveyed 21 non-`svc`
+  `*.ui.com` CNAMEs (`ir`->investis, `secure-uploads`->SendSafely, `status`->Statuspage,
+  `unifi.dev/stg`->CloudFront 403, `unifi.df` no record). Still no attacker-controlled
+  `*.ui.com` origin.
+- Detail: `result/findings/cors-credentialed-reflection.md`.
+- Session 25: passive recon (94 hosts) again found no dangling/claimable `*.ui.com`
+  CNAME (JFrog `artifacts`, Zendesk `help`, SendSafely `secure-uploads`, Statuspage
+  `status`, CloudFront `unifi` all owned). Non-approved hosts (`blog/community/design/
+  mobility/help.ui.com`) were only read/classified and are recorded in
+  `out-of-scope.txt`. The CORS item therefore remains **blocked**, not exploitable.
+
+## 2. Zendesk comment HTML renderer (VULN-20261111-001)
+- `account.ui.com` renders Zendesk `html_body` via `html-react-parser` with no
+  client-side sanitizer.
+- Cross-account comment access is 403 and tickets are own-scoped, so only self-XSS was
+  reachable. Server-side (Zendesk) sanitization was not bypass-tested.
+- Detail: `result/findings/VULN-20261111-001/report.md`.
+
+## 3. Authenticated-only routes with no test data
+- Billing / invoices / payments / subscriptions were revisited at L2 in Session 12:
+  the UI loads, but `billing.svc.ui.com` returns `404 Customer not found` and that
+  host is outside the approved component list, so only UI-observed calls were made.
+  `/invoices`, `/payments`, `/subscriptions` redirect to `/billing`.
+- MSP IdP and passkey routes remain blocked: no MSP membership, no registered
+  passkeys.
+
+## 4. Account creation
+- `POST /api/sso/v2/users` requires a reCAPTCHA token; the two test accounts in
+  `creds/test-account.txt` were used instead. No brute force attempted (policy).
+
+## 5. Passwordless login API (Session 8)
+- `POST /api/sso/v1/passwordless/options` (`{user}`) and
+  `POST /api/sso/v1/passwordless/login` (credential payload) exist and validate input,
+  but both returned `429 RATE_LIMITED` (`retry_after:0`) with schema-valid bodies.
+- No call site in the SPA bundle (config-only). Not retried repeatedly to respect the
+  documented login rate limits; flow remains untested.
+
+## 6. Invite deep-link `role` forwarded to confirm-invitation (VULN-20261114-001)
+- `/invite/:verificationToken?/:hostId?` and `/invite-network-server/...` read `?role=`
+  (parser allows `admin`|`owner`) and send `{deviceId,verificationToken,role}` to
+  `POST https://cloudaccess.svc.ui.com/confirm-invitation`.
+- If the server uses this client value instead of the role stored on the invitation,
+  an invitee can escalate to `owner`. Unverified: test accounts have no pending
+  invitation and creating a console/invitation is outside policy. Bogus-device probes
+  returned `DEVICE_OFFLINE` regardless of role.
+- Detail: `result/findings/VULN-20261114-001/report.md`.
+
+## 7. Device-login token endpoints + credentialed CORS (Session 11)
+- `activate.ui.com` (S3 SPA) implements a device-code login: user enters a 5-char code,
+  `POST https://sso.ui.com/api/sso/v1/user/self/token/setup {token}` returns
+  `device_name`, then `POST .../token/login {token}` approves the device.
+- Both endpoints require an authenticated session (unauthenticated -> `401`) and use
+  `withCredentials`. Preflight reflects any `https://*.ui.com` Origin with
+  `Access-Control-Allow-Credentials: true`, extending the credentialed-CORS issue
+  (item 1) to the device-login flow. Still not exploitable without attacker-controlled
+  `*.ui.com` content.
+- Code space / rate limiting not tested (would need authenticated requests and risks
+  account lockout). Device-code consent phishing is inherent to the flow (device name is
+  shown only after approval), not counted as a vulnerability.
+
+## 8. Clickjacking allowlist on account.ui.com (Session 11)
+- `account.ui.com` CSP `frame-ancestors 'self' *.ui.com uic.uidev.tools *.uic.uidev.tools`
+  (XFO `SAMEORIGIN` is overridden by CSP in modern browsers). Any `*.ui.com` subdomain
+  can therefore frame the account portal.
+- Not exploitable as-is: wildcard `*.ui.com` serves a fixed SPA and no attacker-controlled
+  `*.ui.com` content was found (same prerequisite as the CORS item).
+- `uic.uidev.tools` is a third-party domain resolving to CloudFront (`52.85.193.0/24`) and
+  currently returns `403`; `uidev.tools` has no A record. Observed only (out of scope).
+  No takeover was demonstrated (CloudFront alternate-domain takeover requires ACM/DNS
+  control).
+
+## 9. Test-account session/MFA operational blockers (updated Session 19)
+- OTP delivery recovered. A full mobile-UA login of Account A succeeded
+  (password -> `499` MFA -> email OTP -> `/login/2fa` 200 -> `UBIC_AUTH`); maildrop
+  now receives MFA and email-change codes again. Fresh interactive login works for A.
+- Session 19 made OTP retrieval reproducible without a browser:
+  `POST https://api.maildrop.cc/graphql` with
+  `{"query":"query { inbox(mailbox:\"tan.tiger5564\") { id subject date } }"}`
+  and `message(mailbox:\"tan.tiger5564\", id:\"<id>\"){ html }`. Login with
+  `remember_me:true` also sets an HttpOnly `ACCOUNT_CHOOSER` cookie (Domain
+  `sso.ui.com`, SameSite=Strict); `GET /account-chooser` is cookie-scoped and
+  `DELETE /account-chooser/{opaque_id}` is an idempotent no-op across accounts
+  (not an IDOR).
+- The login `499` body still lacks `email_changeable`, so `/login/change-email` and
+  the legacy `POST /legacy/user/self/email/send` endpoint remain unreachable
+  (`403`). The current profile email-change flow is reachable with a session but
+  sends a code to the new mailbox and binds confirmation to that address; it is not
+  an ATO primitive. The pending test change to `opencode-s13@maildrop.cc` was not
+  confirmed and its 10-minute code has expired.
+- **Session 24:** B's full session is recoverable and B's MFA is email OTP to B's
+  maildrop (`overrated.chinchilla337`), not TOTP. A still-valid B `UBIC_AUTH` was
+  recovered from `result/logs/opencode.log` and validated (`/user/self` 200); a fresh
+  B `UBIC_2FA` is mintable via the password step. See item 12.
+- A self-enrolled in early access (`Beta Testers`) while testing
+  `POST /user/{uuid}/roles/beta`; the endpoint only adds this fixed role and rejects
+  other UUIDs. This is a test artifact, not a privilege escalation.
+
+## 10. Support-file helper consoleID IDOR (Session 17)
+- The account SPA's Ada support handoff calls
+  `POST https://cloudaccess.svc.ui.com/devices/{consoleID}/support-files` (and a
+  cap/umr equivalent) with `consoleID` taken from chat `user_data`, returning a
+  `download_url`.
+- Not testable: A/B have no cloudaccess hosts/devices/consoles (`/devices`,
+  `/api/v1/hosts`, `/sites` all empty), and guessing/enumerating real device IDs is
+  prohibited. Cross-tenant ownership of this endpoint remains **Unresolved**.
+- `POST /chat/queue {userId,department}` was tested and is session-bound (body
+  `userId` optional/ignored); no cross-account impact. Arbitrary `department` is
+  stored in the queue but no in-scope HTML sink renders it.
+
+## 11. Legacy www.ui.com profile HTML injection (self-XSS, Session 22)
+- Legacy `main.min.js` `constructUserPopup()` injects `picture` via
+  `.html('<img src="'+picture+'">')` and `first_name`/`last_name`/`email` via
+  jQuery `.append()` using the `/user/self` response (cached in `localStorage`).
+- Only the caller's own data is rendered, so it is self-XSS with no cross-user
+  delivery found; excluded per policy. The Site Manager has no equivalent sink
+  (only Release Notes uses `dangerouslySetInnerHTML`).
+
+## 12. Zendesk search + second-account MFA (Session 23 status)
+- `POST https://account.svc.ui.com/zendesk/search_tickets` / `search_ccd`
+  (`{query,status}`, header `x-captcha-token`) exist in the bundle, but the caller
+  is gated by `allowBillingSearch:false` and `/requests` redirects to `/`; no
+  in-bundle invocation path. Cross-account IDOR remains **Unresolved** (needs a
+  cross-account ticket plus a valid `x-captcha-token`).
+- **Session 24 (resolved):** B's second-account session is now available. A valid B
+  full-session `UBIC_AUTH` was recovered from `result/logs/opencode.log` and
+  re-validated (`/user/self` 200). The earlier "`sendEmailV2` needs a full session"
+  conclusion was wrong: with B's fresh pre-MFA `UBIC_2FA` token, `POST
+  /api/sso/v2/user/self/mfa/email/{id}/send` returns `200` and emails an OTP (B MFA is
+  email, authenticator `a646df96-...`), and `/login/2fa` completes the login. B does
+  **not** use TOTP.
+- The MFA flow is session/user-bound: B pre-MFA + A's authenticator id → `404`; a
+  fresh A OTP under B's pre-MFA → `403 INVALID_CREDENTIAL` (same code under A → `200`).
+  No cross-user OTP routing or MFA bypass. Pre-MFA tokens are rejected on sensitive
+  endpoints (`/user/self`, `/addresses`, `/activity` 401; `/settings`, `/sessions`
+  403; `/2fa/backup` 401), and `/2fa/backup` with a full token → `499 L2_REQUIRED`.
+- Zendesk cross-account ticket **read** is Not Vulnerable for a known ticket id:
+  `GET /zendesk/comments/{id}` → own `200`, other user `403 FORBIDDEN`, unauth `401`.
+  Ticket comment **write** requires a valid reCAPTCHA (`400` absent / `403` invalid)
+  before the ownership check, so no write IDOR is reachable; search-based IDOR remains
+  Unresolved (captcha-gated, no caller).
+- Registration bot score still blocks `POST /api/sso/v2/users` with the valid
+  `score` site key (`CHALLENGE_RECAPTCHA_TOKEN_REQUIRED`); no new account minted.
+
+## 13. Unauthenticated avatar lookup by UUID (Session 24, excluded)
+- `GET https://sso.ui.com/api/sso/v1/user/{uuid}/picture` is reachable **without
+  authentication** and returns the avatar URL for a valid account UUID
+  (`200 {"picture":"https://account-cdn.svc.ui.com/<image-id>"}`) or `404 "No SSOUser
+  matches the given query."` for an unknown UUID. All sibling user-scoped routes and
+  writes are properly `401`/`403` (`mismatching UUID`), and query expansion
+  (`?include=`, `?expand=`, `?full=`) does not add fields; a 28-name unauth subresource
+  sweep found no other unauthenticated subresource.
+- Impact is limited to a public CDN avatar URL plus a UUID-existence oracle; UUIDs are
+  random v4 and not enumerable from an email/username, and no other PII or write is
+  exposed. Documented and **excluded** from `confirmed-vuln.txt` per AGENT.md §9.
+- Detail: `result/findings/VULN-20261123-001/report.md`.
+
+## 14. `zendesk_login` return_to / CORS + JSONP probe (Session 25, Not Vulnerable)
+- `GET https://sso.ui.com/api/sso/v1/zendesk_login` is a real server-side endpoint
+  (not referenced in the SPA config; reached via the help-center SSO hop). Unauth →
+  `302 account.ui.com/login`; authenticated → `302 ubnt.zendesk.com/access/jwt?jwt=<HS256>`
+  carrying name/email/external_id. `return_to` is forwarded verbatim by sso, but the
+  Zendesk hop normalizes it to `https://help.ui.com/hc`, so no open redirect and no
+  `javascript:` execution.
+- The `302` reflects `Origin: https://evil.ui.com` with `ACAC:true` (same known CORS
+  class), but the JWT exists only in `Location`: `fetch(...,{redirect:'manual'})` yields
+  an opaque redirect and `redirect:'follow'` lands on non-CORS Zendesk/help hosts, so the
+  JWT is **not readable**. No chain to token theft.
+- No JSONP: `callback`/`jsonp`/`format=jsonp|javascript` and
+  `Accept: application/javascript` → `406 NOT_ACCEPTABLE` / `404`.
+- `GET /api/sso/v1/shopify_login` re-confirmed fixed redirect (all params ignored).
+- Address BOLA re-test: path-form `PUT/DELETE /user/{uuid}/address/{id}` → `404`;
+  cross-uuid `POST /user/{B}/address` → `403 mismatching UUID`; body `user` override
+  ignored; B modifying A's address → `404`. Test addresses cleaned up.
+- Evidence: `result/server-side/account.ui.com/traffic/session25-zendesk-login-cors-jsonp.txt`.
+
+## 15. Session 26 re-checks (no new unresolved risk; one mechanism documented safe)
+- **Account-frame / postMessage bridge (Not Vulnerable, newly documented):** the account
+  SPA names a framed instance `account-frame-<rand>` and stores state under a
+  `window.name`-derived sessionStorage key. Its outbound emitter `Rw()` posts to
+  `window.parent` with `targetOrigin = Gge()`, which is `'*'` **only** in non-`prd` builds
+  and otherwise the `ancestorOrigins[0]`/`document.referrer` origin **only if** `kw()`
+  passes (`https://` + host last-two-labels ∈ ui.com/ubnt.com/uisp.com). PII events
+  (`sso.account.changed`) therefore cannot reach an attacker origin. Inbound Megaphone
+  listener requires `event.source === window.parent` and `kw(event.origin)` (Zod-parsed);
+  the SSO popup result handler posts with `targetOrigin = window.location.origin`. No
+  authorization bypass or data leak found.
+- **Email-change header injection / canonicalization (Not Vulnerable):**
+  `POST /user/self/email/verify/send` rejects CR/LF (JSON parse error for raw CRLF; invalid
+  email for `%0d%0a`), uniqueness is case-insensitive (`TAN.TIGER5564@...` -> unique), and
+  the change stays pending until confirmed. A's email remained `tan.tiger5564@maildrop.cc`.
+  (`s26probe1@maildrop.cc` was submitted as a code target but not confirmed.)
+- **Bounded SSO endpoint discovery:** 20 plausible GET paths (`health`, `version`,
+  `config`, `csrf`, `user/self/{email,username,phone,tenant,organizations,apps,api_keys,
+  export,invitations,members,permissions}`, `invitations`, `organizations`, `users`,
+  `admin`, `me`) all returned `404`; the documented inventory is complete for the SSO host.
+- **Site Manager unaudited chunks (main-2..6, numeric):** user-sync `BroadcastChannel`
+  (`user-change`/`logout`/`ws-changes`) is same-origin only; invite acceptance forwards
+  `e.data.role`/`verificationToken` to `confirm-invitation` — the known
+  **VULN-20261114-001**, still Unresolved (no valid pending invitation on A/B); the
+  `Swai-Request-From-ServiceWorker` proxy is invoked by a same-origin service worker /
+  message port, not an attacker-reachable cross-origin channel.
+- `www.ui.com/_next/image` -> `404`; `www.ui.com/api/*` -> `301` to `store.ui.com`
+  (out-of-scope commerce host; not tested).
+
+=== confirmed ===
+# Confirmed vulnerabilities only.
+# Do not add speculative issues, status codes, reflected strings, or accepted-but-inert fields.
+# Entry format: see skills/AGENT.md, Section 9.
+
+=== out of scope ===
+# Out-of-scope assets observed (not tested)
+
+This file records assets discovered during in-scope testing that were NOT tested, per
+AGENT.md §2/§6. Scope is the ui.com domain and its explicitly approved components
+(ui.com, www.ui.com, account.ui.com, sso.ui.com, account.svc.ui.com,
+cloudaccess.svc.ui.com). Everything below is either a different registrable domain or a
+third-party service.
+
+## Third-party origins loaded by www.ui.com / account.ui.com
+- cdn.cookielaw.org, geolocation.onetrust.com (OneTrust consent)
+- www.googletagmanager.com, www.google-analytics.com (GTM/GA)
+- static.hotjar.com (Hotjar)
+- dev.visualwebsiteoptimizer.com (VWO)
+- www.redditstatic.com, pixel-config.reddit.com, alb.reddit.com (Reddit pixel)
+- js.stripe.com, m.stripe.network (Stripe)
+- static.ada.support (Ada chat)
+- images.svc.ui.com (image CDN; only static images requested)
+
+## Other ui.com infrastructure (not in the approved component list)
+- `*.svc.ui.com` services other than account.svc/cloudaccess.svc, e.g.
+  fabric.svc, billing.svc, enterprise.svc, lte-api.svc, u5g-api.svc, megaphone.svc,
+  geo.svc, images.svc, direct.svc, feedback.svc, account-cdn.svc
+- `*.store.ui.com` / `store.ui.com` (Shopify storefront; separate commerce system)
+- `*.ubnt.com`, `uisp.com`, `amplifi.com`, `unifi.com` and other non-ui.com domains
+- 1,569 `ui.com` subdomains from certificate-transparency enumeration, dominated by
+  `<uuid>.unifi-hosting[.stg|.dev].ui.com`. Passive enumeration only; no DNS brute force
+  or host probing was performed (would be broad/out-of-scope and risk disruptive testing).
+
+### Session 25 — `ui.com` hosts observed via passive recon (NOT in approved list; not tested)
+- `blog.ui.com` and `*.blog.ui.com` (Next.js/Vite blogs; wildcard TLS cert fails for
+  arbitrary labels), `community.ui.com` (Vite SPA), `design.ui.com` (SPA), `mobility.ui.com`,
+  `help.ui.com` / `*.help.ui.com` (Zendesk), `api.ui.com`, `billing-admin.ui.com`,
+  `alpha.ui.com`, and other `<sub>.ui.com` labels returned by hackertarget/rapiddns/bundle refs.
+  These are outside the explicitly approved component list; only read-only HTTP/DNS was used
+  to classify them (no auth, no writes, no fuzzing). No dangling/claimable CNAME was found
+  (JFrog `artifacts`, Zendesk `help`, SendSafely `secure-uploads`, Statuspage `status`,
+  CloudFront `unifi`).
+
+## Notes
+- The existing `sso.ui.com` credentialed-CORS observation would only become exploitable
+  if an attacker could control content on some `*.ui.com` origin. No such origin was
+  found; wildcard `*.ui.com` serves a fixed SPA. See
+  `result/findings/cors-credentialed-reflection.md`.
+
+### Session 28 — `ui.com` hosts observed via passive recon (NOT tested; not in approved list)
+- Newly observed non-approved labels: `alpha.ui.com`, `*.uid.alpha.ui.com`
+  (`api-gw`, `api-gw3`, `cloud`, `core-config-*`, `config-*`, `login`, `portal`),
+  `billing-admin.ui.com`, `accout.ui.com` (typo), `airlink-be.ui.com`,
+  `cell0.ui.com`–`cell3.ui.com`, `chakra.ui.com`, `2funifi.ui.com`, `callhome.ui.com`,
+  `brand-trust.ui.com`. Only DNS/HTTP classification performed; no auth, no writes.
+- `images.svc.ui.com` image proxy (used by www `<img>` via `?u=<https://ui.com/...>`)
+  is a `*.svc` host outside the approved component list; not tested.
+- CNAME survey of 50 hosts: all point to owned AWS ELB / CloudFront / JFrog; no
+  dangling/claimable target found.
+
+=== latest ledger ===
+# Session 28 server-side ledger (2026-11-25)
+
+Continuation. Prior state: 47 routes (32 done / 15 blocked); `confirmed-vuln.txt` empty.
+Build deltas found this session:
+- `account.ui.com` bundle rotated `index-DUlTrD1u.js` (a26e5447…) ->
+  `index-YVfMK5j0.js` sha256 `5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa`
+  (6,961,507 B). 99 API paths and sink counts identical (dangerouslySetInnerHTML 18,
+  .innerHTML= 16, eval 0, new Function 0, document.write 0). Redirect validator logic
+  identical (`[ubnt.com,ui.com,uisp.com]` + http/https only). Only added strings:
+  Sentry SDK 11.x error messages + inline passkey/browser SVG assets -> dependency bump.
+- `www.ui.com` redeployed `dpl=cf2ef4894382a44b88f852eabec10b8a61099721` (was
+  `6f710854…`). New marketing route `/identity/qrcode/desktop/bt_pairing` (static; no
+  input sink). Download `link` allowlist and `appview` handling unchanged.
+
+Endpoint tests (Account A L1, test-owned):
+| Method | Path | Auth | Result |
+|--------|------|------|--------|
+| GET | `/api/sso/v1/user/self/device` | A L1 | `404` |
+| OPTIONS | `/api/sso/v1/user/self/device` | A L1 | `403`; `Allow: GET, POST, HEAD, OPTIONS` |
+| GET | `/api/sso/v1/user/self/device` | unauth | `403` |
+| POST `{}` | `/api/sso/v1/user/self/device` | A L1 | `400 {"error":"DEVICE_ID_REQUIRED"}` |
+| POST `{device_id}` | `/api/sso/v1/user/self/device` | A L1 | `400 {"error":"DEVICE_INFO_NOT_FOUND"}` |
+| POST `{}` | `/api/sso/v1/user/self/device` | unauth | `403` |
+| GET | `/api/sso/v1/user/self/sessions` | A L1 | `200` (own sessions only; device_id null) |
+| GET | `/api/sso/v1/user/self/trusted_devices` | A L1 | `200 []` |
+
+Result: `/user/self/device` is self-scoped and requires a server-known `device_id`
+(populated during login); no object is created with an arbitrary id and no cross-account
+surface was reachable. **Not Vulnerable** (no persisted/security-relevant change).
+
+DNS recon (passive, 50 hosts): all resolve to AWS/CloudFront/JFrog-owned infrastructure.
+No dangling/claimable CNAME -> the `sso.ui.com` credentialed-CORS primitive remains
+blocked (needs attacker-controlled `*.ui.com` origin). Newly observed non-approved hosts
+(`alpha.ui.com`, `*.uid.alpha.ui.com`, `billing-admin.ui.com`, `accout.ui.com`,
+`airlink-be.ui.com`, `cell0-3.ui.com`) were only DNS-resolved/classified and are recorded
+in `result/out-of-scope.txt`; they were not tested (not in the approved component list).
+
+No confirmed high-impact finding. No Discord notification (notification bar not met).
+[0m
+
+WATCHDOG: no agent output for 120s; terminating attempt 3.
+WATCHDOG: time=2026-11-25T08:48:34Z log_bytes=11500308
+WATCHDOG: reinstalling OpenCode after exhausted attempts; recovery 1/1
+OpenCode reinstalled; restarting testing from preserved result/ state.
+
+===== AGENT ATTEMPT 1/1 (recovery 1/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+[0m$ [0mls -la && echo "---SKILLS---" && ls -la skills/ 2>/dev/null && echo "---RESULT---" && ls -la result/ 2>/dev/null
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 .
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 ..
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:45 .git
+drwxr-xr-x  3 runner runner 4096 Nov 25 08:39 .github
+-rw-r--r--  1 runner runner  355 Nov 25 08:39 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 creds
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 data
+-rw-r--r--  1 runner runner  332 Nov 25 08:40 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 25 08:39 result
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 skills
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 tools
+drwxr-xr-x 17 runner runner 4096 Nov 25 08:39 vulnebleti
+---SKILLS---
+total 76
+drwxr-xr-x  2 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner  4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner     0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 35029 Nov 25 08:39 AGENT.md
+-rw-r--r--  1 runner runner 11864 Nov 25 08:39 client-side-skill.md
+-rw-r--r--  1 runner runner 16677 Nov 25 08:39 server-side-skill.md
+---RESULT---
+total 184
+drwxr-xr-x  7 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner  4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner     0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 34630 Nov 25 08:39 SUMMARY.md
+drwxr-xr-x  5 runner runner  4096 Nov 25 08:39 client-side
+-rw-r--r--  1 runner runner   178 Nov 25 08:39 confirmed-vuln.txt
+drwxr-xr-x  9 runner runner  4096 Nov 25 08:39 findings
+drwxr-xr-x  2 runner runner  4096 Nov 25 08:39 inventory
+drwxr-xr-x  3 runner runner  4096 Nov 25 08:48 logs
+-rw-r--r--  1 runner runner  3394 Nov 25 08:39 out-of-scope.txt
+-rw-r--r--  1 runner runner 52528 Nov 25 08:39 progress.md
+-rw-r--r--  1 runner runner  2839 Nov 25 08:39 scope.md
+drwxr-xr-x  4 runner runner  4096 Nov 25 08:39 server-side
+-rw-r--r--  1 runner runner 40581 Nov 25 08:39 testing-inventory.json
+-rw-r--r--  1 runner runner 15102 Nov 25 08:39 unresolved.md
+[0m
+[0m→ [0mRead skills/AGENT.md
+[0m→ [0mRead result/confirmed-vuln.txt
+[0m→ [0mRead result/scope.md
+[0m
+[0m$ [0mls -la result/inventory/ result/findings/ result/logs/ && echo "---GIT LOG---" && git log --oneline -15 && echo "---STATUS---" && git status
+result/findings/:
+total 44
+drwxr-xr-x 9 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 7 runner runner 4096 Nov 25 08:39 ..
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261110-001
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261110-002
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261110-003
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261110-004
+drwxr-xr-x 4 runner runner 4096 Nov 25 08:39 VULN-20261111-001
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261114-001
+drwxr-xr-x 3 runner runner 4096 Nov 25 08:39 VULN-20261123-001
+-rw-r--r-- 1 runner runner 4936 Nov 25 08:39 cors-credentialed-reflection.md
+
+result/inventory/:
+total 48
+drwxr-xr-x 2 runner runner  4096 Nov 25 08:39 .
+drwxr-xr-x 7 runner runner  4096 Nov 25 08:39 ..
+-rw-r--r-- 1 runner runner 17106 Nov 25 08:39 endpoints.md
+-rw-r--r-- 1 runner runner  3594 Nov 25 08:39 javascript.md
+-rw-r--r-- 1 runner runner   866 Nov 25 08:39 listeners.md
+-rw-r--r-- 1 runner runner  6762 Nov 25 08:39 routes.md
+-rw-r--r-- 1 runner runner   762 Nov 25 08:39 sinks.md
+
+result/logs/:
+total 11372
+drwxr-xr-x  3 runner runner     4096 Nov 25 08:48 .
+drwxr-xr-x  7 runner runner     4096 Nov 25 08:39 ..
+-rw-r--r--  1 runner runner     2178 Nov 25 08:48 agent-exit-code.txt
+-rw-r--r--  1 runner runner     1711 Nov 25 08:48 agent-watchdog.txt
+-rw-r--r--  1 runner runner       96 Nov 25 08:39 auto-restart-requested.txt
+-rw-r--r--  1 runner runner      208 Nov 25 08:39 checkpoint-validation.txt
+-rw-r--r--  1 runner runner     2029 Nov 25 08:39 client-side.log
+-rw-r--r--  1 runner runner     6683 Nov 25 08:39 diagnostics-index.txt
+drwxr-xr-x 34 runner runner     4096 Nov 25 08:39 opencode
+-rw-r--r--  1 runner runner     1212 Nov 25 08:39 opencode-reinstall-20261110T152046Z.log
+-rw-r--r--  1 runner runner     1532 Nov 25 08:39 opencode-reinstall-20261110T160158Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261120T071003Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261120T200804Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261121T070545Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:39 opencode-reinstall-20261123T074159Z.log
+-rw-r--r--  1 runner runner     1052 Nov 25 08:39 opencode-reinstall-20261125T083604Z.log
+-rw-r--r--  1 runner runner     1132 Nov 25 08:48 opencode-reinstall-20261125T084841Z.log
+-rw-r--r--  1 runner runner 11502771 Nov 25 08:49 opencode.log
+-rw-r--r--  1 runner runner     2162 Nov 25 08:39 server-side.log
+-rw-r--r--  1 runner runner    42644 Nov 25 08:39 session.md
+-rw-r--r--  1 runner runner     7614 Nov 25 08:40 target-state.txt
+-rw-r--r--  1 runner runner       65 Nov 25 08:40 targets.sha256
+-rw-r--r--  1 runner runner     3238 Nov 25 08:40 targets.used.txt
+---GIT LOG---
+670b449 scan: results 2026-11-25T08:38:53Z
+8ce8475 scan: results 2026-11-24T22:20:36Z
+d0576a4 scan: results 2026-11-24T09:50:45Z
+1512513 scan: results 2026-11-23T23:50:14Z
+1fc32bd scan: results 2026-11-23T07:58:57Z
+7c88a4c scan: results 2026-11-23T07:44:26Z
+061b996 scan: results 2026-11-22T19:28:53Z
+43d629c scan: results 2026-11-22T06:34:24Z
+50b1c5a scan: results 2026-11-21T19:15:39Z
+3b27c64 scan: results 2026-11-21T07:08:12Z
+63f1c87 scan: results 2026-11-20T20:16:29Z
+7be2b40 scan: results 2026-11-20T20:10:31Z
+a78c49e scan: results 2026-11-20T07:31:23Z
+898bdf5 scan: results 2026-11-20T07:12:31Z
+987baea scan: results 2026-11-19T20:25:57Z
+---STATUS---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   result/logs/agent-exit-code.txt
+	modified:   result/logs/agent-watchdog.txt
+	modified:   result/logs/opencode.log
+	modified:   result/logs/target-state.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	result/logs/opencode-reinstall-20261125T084841Z.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mecho "===DATA==="; ls -la data creds; echo "===TARGETS==="; cat data/targets.txt; echo "===CREDS==="; for f in creds/*; do echo "--- $f ---"; cat "$f"; done
+===DATA===
+creds:
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner    0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner  466 Nov 25 08:39 README.md
+-rw-r--r--  1 runner runner  320 Nov 25 08:39 test-account.txt
+
+data:
+total 12
+drwxr-xr-x  2 runner runner 4096 Nov 25 08:39 .
+drwxr-xr-x 10 runner runner 4096 Nov 25 08:40 ..
+-rw-r--r--  1 runner runner    0 Nov 25 08:39 .gitkeep
+-rw-r--r--  1 runner runner 3238 Nov 25 08:40 targets.txt
+===TARGETS===
+Target:
+ui.com
+
+
+
+For this domain First discover all intresting and unique UI routes and API endpoints. 
+
+After discovering all interesting UI routes using Chrome MCP, visit each route one by one. Wait 5–10 seconds on each route to ensure that all JavaScript has fully loaded before starting the testing process.
+
+Test both client-side and server-side bugs for each route.
+
+Important: Follow a strict one-by-one testing process:
+
+Visit the first UI route.
+Wait 5–10 seconds for JavaScript to load completely.
+Perform complete client-side and server-side security testing on that single route.
+Document all findings for that route.
+Only after completing all testing and documentation for the current route, move on to the next route.
+Repeat this process until all discovered UI routes have been tested.
+
+Progress Reporting:
+
+Maintain a progress report showing:
+
+Total number of UI routes discovered.
+Number of UI routes fully tested.
+Number of UI routes not yet tested.
+Which routes have been fully tested.
+Which routes are still pending.
+
+This progress report will help agents in other sessions understand exactly what has already been tested and what needs to be tested next, preventing duplicate work.
+
+Testing Guidelines:
+
+Before testing each UI route, read the client-side .md file and server-side .md file. Follow their instructions and testing methodologies exactly.
+
+After fully testing each individual route, create a detailed report containing:
+
+1. Client-Side Findings
+
+Interesting source and sink locations discovered.
+Relevant file paths and line numbers.
+Potential vulnerabilities and their testing status.
+Any confirmed client-side bugs.
+
+2. Server-Side Findings
+
+APIs and endpoints discovered.
+Relevant request and response details.
+APIs tested successfully.
+Potential vulnerabilities and their testing status.
+Any confirmed server-side bugs.
+
+3. Route Completion Status
+
+Route URL.
+Client-side testing status.
+Server-side testing status.
+Findings and observations.
+Final completion status.
+
+Do not mark a route as fully tested until both client-side and server-side testing are complete and the findings have been documented.
+
+Keep the progress report updated after completing every route so that another agent or session can seamlessly continue from where the previous session stopped.
+
+Do not ask me any questions. Make reasonable decisions independently, think critically, and provide answers using the mindset of a top bug bounty hunter.
+First, create two test accounts on this target subdomain and save their credentials in a file for testing purposes.
+Try all reasonable approaches. However, if you are still unable to create accounts on this target subdomain, test only unauthenticated endpoints for potential vulnerabilities.
+Approach every question with the mindset of a top bug bounty hunter, focusing on thorough investigation, creative thinking, and practical exploitation within the authorized scope.
+
+Final Goal: Identify valid, impactful, and reportable security vulnerabilities. 
+
+Important note:
+If you found any confirmed vuln then
+
+Send direct discord notification on:
+```
+https://discord.com/api/webhooks/1565069909266927626/PFr7RwwOdMGwjT2U26NhAPBHoTWD4X0boLyBciSfQNkFHTnKD_J9TSP394nto45RFz-v
+```
+===CREDS===
+--- creds/README.md ---
+# creds/
+
+This public repository intentionally contains disposable test credentials.
+
+- `test-account.txt` — public test login for authorized targets.
+
+Test-account emails, passwords, cookies, and tokens may appear in `result/`
+reports, logs, and evidence. They are disposable and intentionally public.
+
+Never add real, valuable, or third-party credentials to this directory. If real
+credentials are ever needed, use GitHub Actions secrets and do not commit them.
+--- creds/test-account.txt ---
+Email service provider 
+https://maildrop.cc/inbox/?mailbox=tan.tiger5564
+
+Target 
+https://account.ui.com/login
+
+Test Account A
+tan.tiger5564@maildrop.cc
+Acd3423@#345
+
+Test Account B
+overrated.chinchilla337@maildrop.cc
+Acd3423@#345
+
+note: using phone device no need to feel CAPTCHA without CAPTCHA we can login in phone
+[0m
+[0m→ [0mRead result/progress.md
+
+WATCHDOG: no agent output for 120s; terminating attempt 1.
+WATCHDOG: time=2026-11-25T08:51:18Z log_bytes=11511856
