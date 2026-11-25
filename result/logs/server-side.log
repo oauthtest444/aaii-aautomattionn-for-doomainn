@@ -15,3 +15,4 @@
 [2026-11-19T07:08Z] zendesk/tickets/ccd empty A/B; comments?ticket_id 404.
 [2026-11-19T07:09Z] chat/queue: POST 201, GET own queueInfo, DELETE 204; body userId optional/ignored; cross-user userId does not queue B; messaging JWT still A; account.svc CORS strict (evil.ui.com -> 403). Not Vulnerable.
 [2026-11-19T07:10Z] Support-files consoleID IDOR unresolved (no device IDs). No high-impact finding.
+[2026-11-25T08:25:27Z] Session 28 server-side: /user/self/device GET/POST tested (DEVICE_ID_REQUIRED/DEVICE_INFO_NOT_FOUND; self-scoped, Not Vulnerable); passive DNS no dangling CNAME -> CORS still blocked; no Discord.

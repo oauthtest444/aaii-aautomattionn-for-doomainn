@@ -581,3 +581,22 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - No new high-impact finding; confirmed-vuln.txt unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session27-ledger.md
 == session end 2026-11-24T09:58:00Z ==
+
+## Session 28 — 2026-11-25T08:10Z (continuation, decision=preserved, run 45573672108)
+- Start: 2026-11-25T08:10:00Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope components www/account/sso + observed svc hosts per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: curl, git, node, npx, python3, jq, Chrome DevTools MCP (about:blank) present.
+- Prior state: 47 routes (32 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff current builds/JS vs inventory; extract any new API paths; test delta; do not repeat.
+
+### Session 28 outcome (2026-11-25T08:3xZ)
+- Verified MCP + connectivity; recovered/validated A and B L1 test sessions.
+- account bundle = dependency bump (no API/sink/validator change); www redeployed.
+- New www route `/identity/qrcode/desktop/bt_pairing` tested -> static, Not Vulnerable.
+- New endpoints `/user/self/device` (GET/POST) tested -> self-scoped, Not Vulnerable.
+- Passive DNS 50 hosts -> no dangling CNAME (CORS stays blocked); new hosts recorded OOS.
+- 48 routes (33 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt
+  unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session28-ledger.md
+== session end 2026-11-25T08:35:00Z ==

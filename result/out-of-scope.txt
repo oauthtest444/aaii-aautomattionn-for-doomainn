@@ -41,3 +41,14 @@ third-party service.
   if an attacker could control content on some `*.ui.com` origin. No such origin was
   found; wildcard `*.ui.com` serves a fixed SPA. See
   `result/findings/cors-credentialed-reflection.md`.
+
+### Session 28 — `ui.com` hosts observed via passive recon (NOT tested; not in approved list)
+- Newly observed non-approved labels: `alpha.ui.com`, `*.uid.alpha.ui.com`
+  (`api-gw`, `api-gw3`, `cloud`, `core-config-*`, `config-*`, `login`, `portal`),
+  `billing-admin.ui.com`, `accout.ui.com` (typo), `airlink-be.ui.com`,
+  `cell0.ui.com`–`cell3.ui.com`, `chakra.ui.com`, `2funifi.ui.com`, `callhome.ui.com`,
+  `brand-trust.ui.com`. Only DNS/HTTP classification performed; no auth, no writes.
+- `images.svc.ui.com` image proxy (used by www `<img>` via `?u=<https://ui.com/...>`)
+  is a `*.svc` host outside the approved component list; not tested.
+- CNAME survey of 50 hosts: all point to owned AWS ELB / CloudFront / JFrog; no
+  dangling/claimable target found.

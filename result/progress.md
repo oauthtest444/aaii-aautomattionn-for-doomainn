@@ -781,3 +781,21 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session27-ledger.md`;
   evidence `result/server-side/account.ui.com/traffic/session27-www-sso-account.txt`.
+
+## Session 28 (2026-11-25T08:10Z) — new builds audited; new www route + device endpoint
+- Build deltas: `account.ui.com` `index-YVfMK5j0.js` (sha256 `5cb23f64…`, 6,961,507 B;
+  dependency bump only — 99 API paths/sinks/redirect-validator identical to
+  `index-DUlTrD1u.js`); `www.ui.com` redeployed `dpl=cf2ef489…`.
+- New www route tested: `/identity/qrcode/desktop/bt_pairing` (static marketing page,
+  no reflected source/sink; unknown subpaths -> `/endpoint`). Download `link` allowlist
+  unchanged. Client-side: Clean.
+- New endpoint tested: `GET/POST /api/sso/v1/user/self/device` -> 404 / `400
+  DEVICE_ID_REQUIRED` then `DEVICE_INFO_NOT_FOUND`; unauth 403; self-scoped.
+  Server-side: Not Vulnerable.
+- Passive DNS recon (50 hosts): all AWS/CloudFront/JFrog-owned; no dangling CNAME, so the
+  credentialed-CORS primitive remains blocked. New non-approved hosts recorded in
+  `out-of-scope.txt` (not tested).
+- Status: **48 routes = 38 account-ui + 10 www/unifi/activate (33 done / 15 blocked)**.
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session28-ledger.md`;
+  new-route report: `result/client-side/www.ui.com/identity-qrcode-desktop-bt_pairing/route-report.md`.

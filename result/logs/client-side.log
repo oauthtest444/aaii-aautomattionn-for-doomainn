@@ -11,3 +11,4 @@
 [2026-11-18T20:25Z] www index-BfxHSOgp.js (0722ab3b...) unchanged; no URL-driven DOM source/sink
 [2026-11-19T07:05Z] Session 17: account/www/activate bundles unchanged; re-checked redirect validators iS (registrable-domain allowlist via last-two-labels) and sS (single-slash app-path allowlist) -> no open redirect; www `vg` external redirects consume static `Ke` config only.
 [2026-11-19T07:09Z] chat/queue department rendered only via textContent; no in-scope HTML sink. No new client-side finding.
+[2026-11-25T08:25:27Z] Session 28 client-side: account bundle dep-bump; www redeploy new route /identity/qrcode/desktop/bt_pairing clean (static, no source/sink); no Discord.

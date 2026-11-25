@@ -457,3 +457,28 @@
 - Route ledger unchanged: 47 routes (32 done / 15 blocked). No new confirmed high-impact finding;
   `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
   `result/server-side/account.ui.com/session27-ledger.md`.
+
+## Session 28 (2026-11-25T08:10Z; continuation, decision=preserved)
+- **Build deltas:** `account.ui.com` rotated to `index-YVfMK5j0.js` (6,961,507 B,
+  sha256 `5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa`). API paths
+  (99) and sink counts identical to `index-DUlTrD1u.js`; redirect validator
+  (`[ubnt.com,ui.com,uisp.com]` + http/https) byte-identical; added strings are only
+  Sentry 11.x messages + inline passkey SVG assets → dependency bump. `www.ui.com`
+  redeployed `dpl=cf2ef489…`.
+- **New www route** `/identity/qrcode/desktop/bt_pairing` (in `02aqcd17vx73t.js` route
+  allowlist) tested: static marketing "UniFi Endpoint" page; `?code`/`?token`/path markers
+  not reflected; `/identity` and unknown subpaths 302 → `/endpoint`; no app-level
+  `dangerouslySetInnerHTML` from URL/API; www message handlers are axios internals;
+  download `link` allowlist unchanged. **Not Vulnerable.**
+- **New authenticated endpoint** `GET/POST /api/sso/v1/user/self/device`: GET 404,
+  OPTIONS allows GET/POST, unauth 403; `POST {}` → `400 DEVICE_ID_REQUIRED`,
+  `POST {device_id}` → `400 DEVICE_INFO_NOT_FOUND` (needs a server-known device id).
+  Self-scoped, no object created, no cross-account surface → **Not Vulnerable**.
+- **Recon:** passive DNS of 50 hosts — all owned AWS ELB/CloudFront/JFrog; no
+  dangling/claimable CNAME. New non-approved labels (`alpha`, `*.uid.alpha`,
+  `billing-admin`, `accout`, `airlink-be`, `cell0-3`) recorded in `out-of-scope.txt`
+  and not tested. Credentialed-CORS on sso/cloudaccess remains **blocked** (still no
+  attacker-controlled `*.ui.com` origin).
+- Route ledger now **48 routes (38 account-ui + 10 www/unifi/activate), 33 done /
+  15 blocked**. No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord
+  notification. Ledger: `result/server-side/account.ui.com/session28-ledger.md`.

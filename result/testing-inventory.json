@@ -290,6 +290,12 @@
       "status": "done",
       "javascript": [],
       "notes": "Session 11: S3 SPA index-1CNh1WqS.js; all paths 200; serial/code/token/redirect/next not reflected"
+    },
+    {
+      "url": "https://www.ui.com/identity/qrcode/desktop/bt_pairing",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 28 new www route (dpl cf2ef489...): static marketing 'UniFi Endpoint' page; ?code/?token and path markers not reflected; /identity and unknown subpaths 302 -> /endpoint; no source-to-sink flow"
     }
   ],
   "javascript": [
@@ -358,6 +364,12 @@
       "sha256": "a26e5447814525949b83fe3e5b39dde4d2145fddfad86f6fd96596782b680f5c",
       "tested": true,
       "notes": "Session 18/19 current build (6,941,256 B): 98 API paths / 42 routes identical to index-CYDY7PBp.js; sinks unchanged (dangerouslySetInnerHTML 18, .innerHTML= 16, eval 0, new Function 0, document.write 0); build/dependency refresh only"
+    },
+    {
+      "url": "https://account.ui.com/assets/index-YVfMK5j0.js",
+      "sha256": "5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa",
+      "tested": true,
+      "notes": "Session 28 current build (6,961,507 B): 99 API paths + sink counts identical to index-DUlTrD1u.js; redirect validator identical (ubnt.com/ui.com/uisp.com + http/https); additions are Sentry 11.x messages + inline passkey SVG assets (dependency bump)"
     }
   ],
   "flows": [
@@ -398,6 +410,14 @@
       "status": "not-vulnerable",
       "evidence": "result/server-side/account.ui.com/traffic/session26-newcover.txt",
       "notes": "targetOrigin Gge()='*' only in non-prd builds; prod requires https + NS() host allowlist (ui.com/ubnt.com/uisp.com). Inbound Megaphone $$ requires source===parent + kw(origin)+Zod. Popup lIt uses targetOrigin=self. No PII leak/authorization bypass. Session 26."
+    },
+    {
+      "source": "www identity bt_pairing path/query markers",
+      "sink": "none (no reflection/sink)",
+      "file": "www _next chunks 02aqcd17vx73t.js / 0w9snb1cuo60k.js",
+      "status": "not-vulnerable",
+      "evidence": "result/client-side/www.ui.com/identity-qrcode-desktop-bt_pairing/route-report.md",
+      "notes": "Session 28: only appview query param consumed on www (inert); markers not reflected; postMessage handlers are axios internals"
     }
   ],
   "endpoints": [

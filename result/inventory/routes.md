@@ -78,3 +78,9 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 | `x-middleware-subrequest` (CVE-2025-29927) | done | payloads ineffective; middleware still rewrites `/us/en` |
 | Open-redirect probes (`//`, `%2f%2f`, `?redirect=`) | done | 404/inert, no `Location` |
 | Next.js Server Actions | done | none present (0 `createServerReference` ids) |
+
+## www.ui.com Next.js redeploy (Session 28) — dpl `cf2ef489…`
+| Route | Status | Notes |
+|-------|--------|-------|
+| `/identity/qrcode/desktop/bt_pairing` | done | marketing/static "UniFi Endpoint" page; no query/path source reflected; `?code`/`?token` inert; sibling unknown subpaths + `/identity` 302 -> `/endpoint`. No sink. |
+| `/ui-care`, `/ultra`, `/endpoint`, `/cloud-storage` (+ other static marketing routes in `02aqcd17vx73t.js`) | done | static marketing pages; static-config links only |

@@ -171,3 +171,12 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | GET | https://www.ui.com/_next/image | www | none | 404 | image optimizer disabled |
 | GET | https://www.ui.com/api/* | www | none | 301 | redirects to store.ui.com (out-of-scope commerce host) |
 | — | account-frame postMessage bridge (`Rw`/`Gge`/`Wge`/`kw`, Megaphone `$$`, popup `lIt`) | account | — | — | outbound PII gated by https+`NS()` allowlist (or `'*'` non-prod only); inbound `source===parent`+`kw(origin)`; popup targetOrigin=self -> Not Vulnerable |
+
+## Session 28 additions (authenticated A L1, new build)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /api/sso/v1/user/self/device | sso | A L1 | 404 | route absent for GET; OPTIONS allows GET, POST |
+| POST | /api/sso/v1/user/self/device | sso | A L1 | 400 | `{}` -> `DEVICE_ID_REQUIRED`; `{device_id}` -> `DEVICE_INFO_NOT_FOUND`; requires server-known device id; self-scoped |
+| POST | /api/sso/v1/user/self/device | sso | unauth | 403 | not accessible unauthenticated |
+| GET | /api/sso/v1/user/self/sessions | sso | A L1 | 200 | own sessions only; device_id null |
+| GET | /api/sso/v1/user/self/trusted_devices | sso | A L1 | 200 | `[]` |
