@@ -621,3 +621,23 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
   unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session29-ledger.md
 == session end 2026-11-25T09:15:00Z ==
+
+## Session 30 — 2026-11-26T07:57Z (continuation, decision=preserved, run 45779124357)
+- Start: 2026-11-26T07:57:24Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope components www/account/sso + observed svc hosts per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: opencode, curl, git, node, npx, python3, google-chrome-stable; Chrome DevTools MCP connected (about:blank).
+- Prior state: 48 routes (33 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff current builds/JS vs inventory; test any delta; resume remaining in-scope surface; do not repeat.
+
+### Session 30 outcome (2026-11-26T08:0xZ)
+- Verified MCP + connectivity; fresh A email-OTP login; injected .ui.com session into Chrome.
+- New account bundle `index-CGj0vhTX.js` (CyberSecure feature); new route
+  `/subscriptions/cyber-secure/subscribe` tested -> Not Vulnerable client-side; sensitive
+  calls on out-of-scope svc hosts. New in-scope cloudaccess `/api/v1/sites` -> 200 empty.
+- www redeployed; `?link=` inert. unifi redeployed; API paths unchanged; new pseudonym-sweep
+  chunk harmless; new IAM/MSP/account routes render empty state.
+- 53 routes (38 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt unchanged;
+  no Discord notification.
+- Ledger: result/server-side/account.ui.com/session30-ledger.md
+== session end 2026-11-26T08:10:00Z ==

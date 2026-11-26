@@ -1,0 +1,33 @@
+# Session 30 — build delta + CyberSecure route evidence
+# generated 2026-11-26T08:04:15Z
+
+## account.ui.com bundle
+old: https://account.ui.com/assets/index-YVfMK5j0.js sha256 5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa (6961507 B)
+new: https://account.ui.com/assets/index-CGj0vhTX.js sha256 970b5e85d8ffc487ace4411370a024fb8f7fa696ecea35157d26f417dd9c7375 (7278468 B)
+
+## API path delta (new bundle vs old)
+/api/v1/sites                 -> cloudaccess.svc.ui.com (IN SCOPE)
+/api/v2/invoices/preview      -> ips.svc.ui.com / billing.svc.ui.com (OUT OF SCOPE)
+/api/v2/licenses/validate     -> ips.svc.ui.com (OUT OF SCOPE)
+/api/v2/subscribe/rule_set_pro -> ips.svc.ui.com (OUT OF SCOPE)
+/api/v2/subscribe/rule_set_pro/plans -> ips.svc.ui.com (OUT OF SCOPE)
+/api/v2/subscriptions/devices -> ips.svc.ui.com (OUT OF SCOPE)
+
+## new UI route
+GET https://account.ui.com/subscriptions/cyber-secure/subscribe?gateway_hardware_id=PMTRACE123&org=PMORG123&open=abc
+unauth -> 302 https://account.ui.com/login?innerRedirect=%2Fsubscriptions%2Fcyber-secure%2Fsubscribe%3F... (encoded)
+auth A -> 200 SPA; renders 'Gateway not available'; params not reflected in DOM
+
+## in-scope cloudaccess /api/v1/sites (auth A via browser app, SigV4)
+GET https://cloudaccess.svc.ui.com/api/v1/sites?includeStatistics=true -> 200 {"data":[],"nextToken":null}
+
+## unauth probes (no AWS SigV4)
+GET https://cloudaccess.svc.ui.com/api/v1/sites?includeStatistics=true
+  -> HTTP 403
+{"message":"Missing Authentication Token"}
+GET https://cloudaccess.svc.ui.com/sites
+  -> HTTP 403
+{"message":"Missing Authentication Token"}
+--- also with A cookie (no SigV4) ---
+  GET /api/v1/sites (A cookie, no SigV4) -> HTTP 403
+{"message":"Missing Authentication Token"}

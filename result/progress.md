@@ -823,3 +823,28 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session29-ledger.md`;
   evidence `result/server-side/account.ui.com/traffic/session29-discovery-authz.txt`.
+
+## Session 30 (2026-11-26T07:57Z) — new builds; new CyberSecure route, no status change on old routes
+- Build deltas: `account.ui.com` rotated to `assets/index-CGj0vhTX.js` (7,278,468 B,
+  sha256 `970b5e85…7375`; +317 KB, adds CyberSecure feature); `www.ui.com` redeployed
+  `dpl=e1f4c3c34668db11c8c0f1d5e0bd0c3e76f6ce60`; `unifi.ui.com` new Site Manager bundles
+  + new `chunk-resolve-legacy-pseudonym-sweep`.
+- **New account route tested:** `/subscriptions/cyber-secure/subscribe`
+  (`gateway_hardware_id`/`host_id`/`org`/`open`/`payment_intent`). Unauth → `302` login
+  `innerRedirect` (encoded); auth A → "Gateway not available". No app DOM reflection/sink;
+  only third-party Stripe iframe `#url`. Client-side **Not Vulnerable**. Sensitive calls
+  (`ips.svc`, `enterprise.svc`, `billing.svc`) are out of scope.
+- **New in-scope endpoint:** `GET cloudaccess.svc /api/v1/sites?includeStatistics=true` →
+  `200 {"data":[]}` (A has no sites); unauth/no-SigV4 → `403 Missing Authentication Token`.
+  **Not Vulnerable.**
+- **New unifi routes** (`/iam/roles`, `/iam/all-sites`, `/iam/roles/:roleId`, `/iam/roles/new`,
+  `/msp`, `/msp/customers`, `/msp/team`, `/account/info`, `/orgsettings`,
+  `/consoles/:hostId/devices`) render empty Site Manager state (no org/MSP); API 403.
+  Bundle API path set unchanged (239); new pseudonym-sweep chunk has no user input.
+- **www new deploy:** `?link=` on `/download/unifi/download-started` still stripped/ignored
+  (no redirect, no evil href); no new query source/sink in 36 initial chunks.
+- Status: **53 routes (38 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session30-ledger.md`;
+  client route report: `result/client-side/account.ui.com/subscriptions-cyber-secure-subscribe/route-report.md`;
+  evidence: `result/server-side/account.ui.com/traffic/session30-cybersecure-delta.txt`.

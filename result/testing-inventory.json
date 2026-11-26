@@ -296,6 +296,46 @@
       "status": "done",
       "javascript": [],
       "notes": "Session 28 new www route (dpl cf2ef489...): static marketing 'UniFi Endpoint' page; ?code/?token and path markers not reflected; /identity and unknown subpaths 302 -> /endpoint; no source-to-sink flow"
+    },
+    {
+      "url": "https://account.ui.com/subscriptions/cyber-secure/subscribe",
+      "status": "done",
+      "javascript": [
+        "https://account.ui.com/assets/index-CGj0vhTX.js"
+      ],
+      "notes": "Session 30: new CyberSecure subscribe route (feature flag allowCyberSecureSubscribe). Reads gateway_hardware_id/host_id/org/open/payment_intent; no DOM reflection/sink; device ownership checked client-side; sensitive calls go to ips.svc/enterprise.svc (out of scope). Not Vulnerable client-side; server-side Out of Scope."
+    },
+    {
+      "url": "https://unifi.ui.com/iam/roles",
+      "status": "done",
+      "javascript": [
+        "https://unifi.ui.com/main-0.b06362b80fbfc61f.js"
+      ],
+      "notes": "Session 30: route allowlist adds /iam/roles, /iam/roles/:roleId, /iam/roles/new, /iam/all-sites; A has no org/MSP -> 'Get started with UniFi' empty state; MSP API 403. Not Vulnerable (no data)."
+    },
+    {
+      "url": "https://unifi.ui.com/orgsettings",
+      "status": "done",
+      "javascript": [
+        "https://unifi.ui.com/main-0.b06362b80fbfc61f.js"
+      ],
+      "notes": "Session 30: renders empty Site Manager state for A (no org). Not Vulnerable."
+    },
+    {
+      "url": "https://unifi.ui.com/msp/customers",
+      "status": "done",
+      "javascript": [
+        "https://unifi.ui.com/main-7.8d401a13358c5b3e.js"
+      ],
+      "notes": "Session 30: route allowlist /msp, /msp/customers, /msp/team; no MSP membership (fabric.svc 403 no_msp_membership); empty state. Not Vulnerable."
+    },
+    {
+      "url": "https://unifi.ui.com/account/info",
+      "status": "done",
+      "javascript": [
+        "https://unifi.ui.com/main-7.8d401a13358c5b3e.js"
+      ],
+      "notes": "Session 30: route allowlist /account/info; self account info only. Not Vulnerable."
     }
   ],
   "javascript": [
@@ -370,6 +410,31 @@
       "sha256": "5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa",
       "tested": true,
       "notes": "Session 28 current build (6,961,507 B): 99 API paths + sink counts identical to index-DUlTrD1u.js; redirect validator identical (ubnt.com/ui.com/uisp.com + http/https); additions are Sentry 11.x messages + inline passkey SVG assets (dependency bump)"
+    },
+    {
+      "url": "https://account.ui.com/assets/index-CGj0vhTX.js",
+      "sha256": "970b5e85d8ffc487ace4411370a024fb8f7fa696ecea35157d26f417dd9c7375",
+      "tested": true
+    },
+    {
+      "url": "https://unifi.ui.com/main-0.b06362b80fbfc61f.js",
+      "sha256": "d2ea5d543f196b3834a8ab78d33ff8418a9b6aa761ee3518e985e41defc5d048",
+      "tested": true
+    },
+    {
+      "url": "https://unifi.ui.com/main-7.8d401a13358c5b3e.js",
+      "sha256": "43cafdad00fb552b476909e0f65faecece40dc65aa3c88cbeb450be7c5c0658a",
+      "tested": true
+    },
+    {
+      "url": "https://unifi.ui.com/runtime.393f084b414f2652.js",
+      "sha256": "275eb2e0bcaa4907e42e50bff399efdbdd8d6d272d343962172fe767be2ebcae",
+      "tested": true
+    },
+    {
+      "url": "https://unifi.ui.com/chunk-resolve-legacy-pseudonym-sweep.e88f3e91.js",
+      "sha256": "aa64d07ba8582fd1effc96b470667a4cf345cb2ee693a5f064f41c16d763ba87",
+      "tested": true
     }
   ],
   "flows": [
@@ -996,6 +1061,17 @@
       "url": "https://sso.ui.com/api/sso/v1/user/{uuid}/picture",
       "auth": false,
       "observations": "Session 29: unauth GET 200 public avatar URL (known excluded low); PUT/PATCH 405; DELETE/POST 401; no unauth write. Not Vulnerable."
+    },
+    {
+      "method": "GET",
+      "path": "https://cloudaccess.svc.ui.com/api/v1/sites",
+      "auth": "SigV4 (account A)",
+      "variants": [
+        "includeStatistics=true",
+        "no-sigv4:403"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 30: new bundle path sitesV1; 200 empty list for A; unauth/no-SigV4 -> 403 Missing Authentication Token. No object ids."
     }
   ],
   "listeners": [

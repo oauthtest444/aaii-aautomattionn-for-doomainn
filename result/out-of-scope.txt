@@ -64,3 +64,22 @@ third-party service.
   Only DNS/HTTP classification performed; no auth, no writes, no fuzzing.
 - No dangling/claimable CNAME and no attacker-controlled `*.ui.com` origin found, so
   the credentialed-CORS observation remains blocked.
+
+### Session 30 — new service hosts referenced by the new account bundle (NOT tested)
+- The Session-30 `account.ui.com` bundle (`index-CGj0vhTX.js`) adds a CyberSecure
+  subscription flow whose endpoints are on service hosts outside the approved component
+  list. Observed only (no auth calls made to confirm them beyond what the in-scope UI
+  triggered):
+  - `https://ips.svc.ui.com` — `/api/v2/subscribe/rule_set_pro`, `/api/v2/subscribe/rule_set_pro/plans`,
+    `/api/v2/invoices/preview`, `/api/v2/licenses/validate`, `/api/v2/subscriptions/devices`,
+    `/api/v2/subscribe` (cancel), `/api/v2/subscriptions/{stripeSubscriptionId}/transfer`.
+  - `https://enterprise.svc.ui.com` — `/api/v1/organizations`, `/api/v1/organizations/{orgId}/billing/v2/...`.
+    The UI let the client set `org` from the URL; the server rejected a marker with
+    `400 invalid_organization_id`. Cross-org testing was not performed (no second org; would
+    require out-of-scope host testing and real identifiers).
+  - `https://billing.svc.ui.com` — `/api/v2/products`, invoice/customer endpoints (already
+    out of scope in prior sessions).
+- `https://umr.svc.ui.com`, `https://cap.svc.ui.com`, `https://ues.svc.ui.com`,
+  `https://fabric.svc.ui.com`, `https://geo.svc.ui.com`, `https://feedback.svc.ui.com`,
+  `https://megaphone.svc.ui.com`, `https://account-cdn.svc.ui.com` — referenced by the SPA,
+  not approved components; not tested.

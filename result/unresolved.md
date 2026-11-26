@@ -241,3 +241,13 @@
   is a live password-protected Shopify store; `help.ui.com` -> `ubnt.zendesk.com`
   live; `training.ui.com` -> `saas.moonami.com`. The credentialed-CORS item (1)
   therefore remains **blocked**, not exploitable.
+
+## 17. CyberSecure subscribe flow — org-scoped billing (Session 30)
+- New route `/subscriptions/cyber-secure/subscribe` reads `org` from the URL and uses it as
+  `scopeOrgId` for `enterprise.svc.ui.com/api/v1/organizations/{org}/billing/...`.
+  With test account A, `/api/v1/organizations?status=active` is empty and a marker org
+  returns `400 invalid_organization_id`; there is no eligible gateway either.
+- Cannot confirm whether the enterprise billing endpoint enforces org membership without a
+  second org/tenant and without testing `enterprise.svc.ui.com` (outside the approved
+  component list). Marked **Out of Scope / Unresolved**, not a finding.
+- Client-side route is Not Vulnerable (no reflection/sink; Stripe iframe `#url` only).

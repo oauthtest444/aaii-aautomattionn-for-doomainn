@@ -16,3 +16,13 @@
 | https://unifi.ui.com/main-3.3960a4e87c585ec0.js | (unchanged S16 build) | Site Manager sync | yes | Session 26: `BroadcastChannel` user-sync same-origin only |
 | https://account.ui.com/assets/index-YVfMK5j0.js | 5cb23f647dd2ec363085f9c31da9c8d6d7fc64c0d15811f9fb129a97316c7bfa | all account.ui.com | yes | Session 28 current build (6,961,507 B): 99 API paths + sink counts identical to index-DUlTrD1u.js; redirect validator identical (`ubnt.com/ui.com/uisp.com` + http/https); added strings only Sentry 11.x messages + inline passkey SVG assets -> dependency bump |
 | https://www.ui.com/_next/static/chunks/* (36 initial chunks, dpl cf2ef489…) | n/a | www Next.js | yes | Session 28 redeploy: only query source `appview` (inert); message listeners are axios library internals; download allowlist `dl.ubnt.com/dl.ui.com/fw-download.ubnt.com` unchanged |
+
+## Session 30 (2026-11-26) — new builds
+| URL | SHA-256 | Notes |
+|-----|---------|-------|
+| https://account.ui.com/assets/index-CGj0vhTX.js | 970b5e85d8ffc487ace4411370a024fb8f7fa696ecea35157d26f417dd9c7375 | 7,278,468 B; adds CyberSecure (6 API paths on ips/billing, new route); sinks/validator unchanged |
+| https://unifi.ui.com/main-0.b06362b80fbfc61f.js | d2ea5d543f196b3834a8ab78d33ff8418a9b6aa761ee3518e985e41defc5d048 | Site Manager new deploy; API paths unchanged |
+| https://unifi.ui.com/main-7.8d401a13358c5b3e.js | 43cafdad00fb552b476909e0f65faecece40dc65aa3c88cbeb450be7c5c0658a | Site Manager new deploy |
+| https://unifi.ui.com/runtime.393f084b414f2652.js | 275eb2e0bcaa4907e42e50bff399efdbdd8d6d272d343962172fe767be2ebcae | runtime |
+| https://unifi.ui.com/chunk-resolve-legacy-pseudonym-sweep.e88f3e91.js | aa64d07ba8582fd1effc96b470667a4cf345cb2ee693a5f064f41c16d763ba87 | legacy pseudonym IndexedDB/localStorage sweep; no user input |
+| https://www.ui.com/ (Next.js) | dpl=e1f4c3c34668db11c8c0f1d5e0bd0c3e76f6ce60 | 36 initial chunks; no new source/sink; `?link=` inert |

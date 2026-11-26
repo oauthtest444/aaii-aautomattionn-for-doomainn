@@ -84,3 +84,15 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 |-------|--------|-------|
 | `/identity/qrcode/desktop/bt_pairing` | done | marketing/static "UniFi Endpoint" page; no query/path source reflected; `?code`/`?token` inert; sibling unknown subpaths + `/identity` 302 -> `/endpoint`. No sink. |
 | `/ui-care`, `/ultra`, `/endpoint`, `/cloud-storage` (+ other static marketing routes in `02aqcd17vx73t.js`) | done | static marketing pages; static-config links only |
+
+## account.ui.com Session 30 (new build `index-CGj0vhTX.js`)
+| Route | Auth | Status | Notes |
+|-------|------|--------|-------|
+| `/subscriptions/cyber-secure/subscribe` | yes | done | new CyberSecure subscribe route (feature flag on). Reads `gateway_hardware_id`/`host_id`/`org`/`open`/`payment_intent`; no DOM reflection/sink; client-side owned-device check; sensitive calls on `ips.svc`/`enterprise.svc` (out of scope). Client-side Not Vulnerable; server-side Out of Scope. |
+
+## unifi.ui.com Session 30 (new Site Manager deploy)
+| Route | Auth | Status | Notes |
+|-------|------|--------|-------|
+| `/iam/roles`, `/iam/roles/:roleId`, `/iam/roles/new`, `/iam/all-sites` | yes | done | empty "Get started with UniFi" state for A (no org/MSP); MSP API 403 |
+| `/msp`, `/msp/customers`, `/msp/team` | yes | done | no MSP membership (`403 no_msp_membership`); empty state |
+| `/account/info`, `/orgsettings`, `/consoles/:hostId/devices` | yes | done | self/empty state; no user-controlled sink |

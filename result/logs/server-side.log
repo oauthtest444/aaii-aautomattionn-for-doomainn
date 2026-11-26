@@ -16,3 +16,5 @@
 [2026-11-19T07:09Z] chat/queue: POST 201, GET own queueInfo, DELETE 204; body userId optional/ignored; cross-user userId does not queue B; messaging JWT still A; account.svc CORS strict (evil.ui.com -> 403). Not Vulnerable.
 [2026-11-19T07:10Z] Support-files consoleID IDOR unresolved (no device IDs). No high-impact finding.
 [2026-11-25T08:25:27Z] Session 28 server-side: /user/self/device GET/POST tested (DEVICE_ID_REQUIRED/DEVICE_INFO_NOT_FOUND; self-scoped, Not Vulnerable); passive DNS no dangling CNAME -> CORS still blocked; no Discord.
+2026-11-26T08:00Z Session30: account bundle delta adds 6 API paths; 5 on ips/billing.svc (out of scope). In-scope cloudaccess GET /api/v1/sites?includeStatistics=true -> 200 empty (SigV4); unauth/no-SigV4 -> 403 Missing Authentication Token. Not Vulnerable.
+2026-11-26T08:03Z Session30: unifi.ui.com new deploy; API path set unchanged (239); new pseudonym-sweep chunk no user input; /iam/roles + /orgsettings render empty state (no org/MSP). Not Vulnerable.

@@ -504,3 +504,22 @@
 - Route ledger unchanged: 48 routes (33 done / 15 blocked). No new confirmed high-impact
   finding; `confirmed-vuln.txt` unchanged; no Discord notification. Ledger:
   `result/server-side/account.ui.com/session29-ledger.md`.
+
+## Session 30 (2026-11-26T07:57Z; continuation, decision=preserved)
+- **Build deltas:** `account.ui.com` rotated to `assets/index-CGj0vhTX.js` (7,278,468 B,
+  sha256 `970b5e85…7375`; previous `index-YVfMK5j0.js`). 99 → 105 API paths, sink counts
+  identical (18 `dangerouslySetInnerHTML`, 0 `eval`/`Function`). `www.ui.com` redeployed
+  `dpl=e1f4c3c3…`. `unifi.ui.com` new Site Manager bundles + new pseudonym-sweep chunk.
+- **New account route** `/subscriptions/cyber-secure/subscribe`: reads
+  `gateway_hardware_id`/`host_id`/`org`/`open`/`payment_intent`; no app-level reflection or
+  HTML sink (marker check: only Stripe iframe `#url`); client-side owned-device guard;
+  sensitive calls on `ips.svc`/`enterprise.svc` (out of scope). Client-side **Not Vulnerable**.
+- **New in-scope endpoint** `GET cloudaccess.svc /api/v1/sites?includeStatistics=true` →
+  `200 {"data":[]}`; unauth/no-SigV4 → `403`. **Not Vulnerable.**
+- **New unifi routes** (`/iam/roles`, `/iam/all-sites`, `/iam/roles/:roleId`,
+  `/iam/roles/new`, `/msp`, `/msp/customers`, `/msp/team`, `/account/info`, `/orgsettings`,
+  `/consoles/:hostId/devices`) → empty Site Manager state (no org/MSP); API 403.
+- **www new deploy:** `?link=` still stripped; no new source/sink.
+- Route ledger now **53 routes (38 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session30-ledger.md`.
