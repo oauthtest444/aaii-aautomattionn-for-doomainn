@@ -5,8 +5,8 @@
 - Partially tested: 0
 - Blocked: 15 (missing billing customer/org, emailed token, attestation/passkey,
   or server-issued state; see `result/inventory/routes.md`)
-- All-scope `testing-inventory.json`: 45 routes = 37 `account.ui.com` + 8
-  `www.ui.com`/`unifi.ui.com`/`activate.ui.com`; 30 done / 15 blocked.
+- All-scope `testing-inventory.json`: 57 routes = 39 `account.ui.com` + 15
+  `www.ui.com`/`unifi.ui.com`/`activate.ui.com` + 3 legacy www data-request routes; 42 done / 15 blocked (Session 31).
 
 Session 3 run: 42850898064, started 2026-11-10T16:05:19Z.
 Session 4 run: 42920600593, started 2026-11-10T23:09:28Z (scheduled, resume/preserved).
@@ -848,3 +848,10 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Ledger: `result/server-side/account.ui.com/session30-ledger.md`;
   client route report: `result/client-side/account.ui.com/subscriptions-cyber-secure-subscribe/route-report.md`;
   evidence: `result/server-side/account.ui.com/traffic/session30-cybersecure-delta.txt`.
+
+## Session 31 (2026-11-26) — no route-status change beyond 3 new www routes
+- Builds unchanged vs Session 30; fresh sink audit of current Site Manager build found no
+  URL-reachable DOM XSS (single `dangerouslySetInnerHTML` = Zod-validated release notes).
+- Added 3 in-scope www routes as done: `/ccpa-request/`, `/gdpr-request/`,
+  `/global-request/` (static OneTrust-iframe wrappers, no app sink).
+- Ledger: 57 routes (42 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt unchanged.

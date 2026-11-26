@@ -641,3 +641,32 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
   no Discord notification.
 - Ledger: result/server-side/account.ui.com/session30-ledger.md
 == session end 2026-11-26T08:10:00Z ==
+
+## Session 31 — 2026-11-26T21:20Z (continuation, decision=preserved, run 45897387792)
+- Start: 2026-11-26T21:20:27Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope www/account/sso + observed svc hosts per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: opencode, curl, git, node, npx, python3, google-chrome-stable; Chrome DevTools MCP connected (about:blank).
+- Prior state: 53 routes (38 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff current builds/JS vs inventory; test any delta; resume remaining in-scope surface; do not repeat.
+
+### Session 31 outcome (2026-11-26T21:2xZ)
+- Verified MCP + tools; fresh A email-OTP login (OTP 804448) -> UBIC_AUTH; /user/self 200.
+- Builds unchanged vs Session 30: account `index-CGj0vhTX.js` sha256 970b5e85…; Site Manager
+  `main-0.b06362b8…`/`main-7.8d401a…`; activate `index-1CNh1WqS.js`; www chunk `02aqcd17vx73t.js`.
+- Fresh sink audit of the current Site Manager build (not done in S30): 0
+  innerHTML/eval/new Function/document.write/srcdoc/insertAdjacentHTML; single
+  `dangerouslySetInnerHTML` is Zod-validated release notes (server-authored). Redirect/open
+  helpers use fixed accountPortal root or validated internal paths; `navigation.requested`
+  validated. No URL-reachable DOM XSS -> credentialed-CORS chain (needs attacker-controlled
+  `*.ui.com` origin) remains **blocked**, not exploitable.
+- Wildcard `*.ui.com`: unauth -> 302 `account.ui.com/login?redirect=<requested host/path>`
+  (XFH/X-Original-URL ignored; no external redirect); with a session -> fixed Site Manager
+  SPA on any subdomain. No attacker-controlled `*.ui.com` content.
+- www `/ccpa-request/`, `/gdpr-request/`, `/global-request/` are static OneTrust-iframe
+  wrappers (no app sink). www cookie/query redirect probes inert; account XFH/XOU not
+  reflected; sso CSP present, XFO DENY.
+- Route ledger now **57 routes (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session31-ledger.md
+== session end 2026-11-26T21:35:00Z ==

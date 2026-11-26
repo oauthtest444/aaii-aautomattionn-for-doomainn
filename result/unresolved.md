@@ -251,3 +251,17 @@
   second org/tenant and without testing `enterprise.svc.ui.com` (outside the approved
   component list). Marked **Out of Scope / Unresolved**, not a finding.
 - Client-side route is Not Vulnerable (no reflection/sink; Stripe iframe `#url` only).
+
+## 18. Session 31 — credentialed-CORS chain re-verified still blocked
+- Fresh sink audit of the **current** Site Manager build (`main-0.b06362b8…`, `main-7.8d401a…`,
+  runtime; S30 only diffed API paths): 0 `innerHTML`/`eval`/`new Function`/`document.write`/
+  `srcdoc`/`insertAdjacentHTML`; the single `dangerouslySetInnerHTML` is the Zod-validated
+  release-notes component (server-authored HTML). `window.open`/`location.assign` use the
+  fixed `accountPortal.root` or validated internal paths; `navigation.requested` bridge
+  requires `host==="unifi"` + path `/`-prefixed non-`//`. So there is **no URL-reachable DOM
+  XSS** on any `*.ui.com` origin.
+- Wildcard `*.ui.com` now 302s unauthenticated requests to
+  `account.ui.com/login?redirect=<requested host/path>` (XFH/`X-Original-URL` ignored; no
+  external `Location`), and with a session serves the fixed Site Manager SPA on any
+  subdomain (e.g. `evil.ui.com`). It is still **not attacker-controlled content**, so the
+  credentialed-CORS observation (item 1) remains blocked/not exploitable.

@@ -336,6 +336,32 @@
         "https://unifi.ui.com/main-7.8d401a13358c5b3e.js"
       ],
       "notes": "Session 30: route allowlist /account/info; self account info only. Not Vulnerable."
+    },
+    {
+      "url": "https://www.ui.com/ccpa-request/",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 31: legacy microsite page; embeds third-party OneTrust privacy portal iframe (privacyportal.onetrust.com). No app-level source/sink; query/cookie markers inert. Not Vulnerable."
+    },
+    {
+      "url": "https://www.ui.com/gdpr-request/",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 31: same OneTrust iframe wrapper; no app-level source/sink. Not Vulnerable."
+    },
+    {
+      "url": "https://www.ui.com/global-request/",
+      "status": "done",
+      "javascript": [],
+      "notes": "Session 31: same OneTrust iframe wrapper; no app-level source/sink. Not Vulnerable."
+    },
+    {
+      "url": "https://account.ui.com/",
+      "status": "done",
+      "javascript": [
+        "https://account.ui.com/assets/index-CGj0vhTX.js"
+      ],
+      "notes": "Session 31: root index route (component BRt) renders authenticated dashboard widgets; no user-controlled source/sink. Not Vulnerable."
     }
   ],
   "javascript": [
@@ -435,6 +461,12 @@
       "url": "https://unifi.ui.com/chunk-resolve-legacy-pseudonym-sweep.e88f3e91.js",
       "sha256": "aa64d07ba8582fd1effc96b470667a4cf345cb2ee693a5f064f41c16d763ba87",
       "tested": true
+    },
+    {
+      "url": "https://unifi.ui.com/main-0.b06362b80fbfc61f.js (S31 sink re-audit)",
+      "sha256": "d2ea5d543f196b3834a8ab78d33ff8418a9b6aa761ee3518e985e41defc5d048",
+      "tested": true,
+      "notes": "Session 31: fresh sink audit of current Site Manager build (main-0/2..7, runtime). 0 innerHTML/eval/Function/document.write/srcdoc/insertAdjacentHTML; 1 dangerouslySetInnerHTML = Zod-validated release notes (server-authored). Redirect/open helpers use fixed accountPortal root or validated internal paths. No URL-reachable DOM XSS -> CORS chain stays blocked."
     }
   ],
   "flows": [

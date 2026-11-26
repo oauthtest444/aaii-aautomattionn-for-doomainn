@@ -523,3 +523,31 @@
 - Route ledger now **53 routes (38 done / 15 blocked)**. No new high-impact finding;
   `confirmed-vuln.txt` unchanged; no Discord notification.
   Ledger: `result/server-side/account.ui.com/session30-ledger.md`.
+
+## Session 31 (2026-11-26T21:20Z; continuation, decision=preserved)
+- **No build delta:** `account.ui.com` `index-CGj0vhTX.js` sha256 `970b5e85…` (same as S30);
+  Site Manager `main-0.b06362b8…`/`main-7.8d401a…`; activate `index-1CNh1WqS.js`; www
+  chunk `02aqcd17vx73t.js` — identical to Session 30.
+- Fresh A email-OTP login (password → `499` → OTP `804448` → `/login/2fa` `200` →
+  `UBIC_AUTH`); `/user/self` `200`.
+- **Fresh sink audit of the current Site Manager build** (S30 only diffed API paths):
+  main-0/main-2..7/runtime contain 0 `innerHTML`/`eval`/`new Function`/`document.write`/
+  `srcdoc`/`insertAdjacentHTML`; the single `dangerouslySetInnerHTML` is the
+  Zod-validated release-notes component (server-authored HTML). `window.open`/
+  `location.assign` use the fixed `accountPortal.root` or validated internal paths;
+  `navigation.requested` bridge requires host `unifi` + path `/`-prefixed non-`//`.
+  **No URL-reachable DOM XSS**, so the credentialed-CORS item (needs an
+  attacker-controlled `*.ui.com` origin) remains **blocked**, not exploitable.
+- **Wildcard `*.ui.com`:** unauthenticated → `302 account.ui.com/login?redirect=<requested
+  host/path>` (XFH/`X-Original-URL` ignored; `//`-path stays same-host; no external
+  redirect); with a session it serves the fixed Site Manager SPA on any subdomain
+  (`evil.ui.com` included) — still no attacker-controlled content.
+- **New in-scope www routes tested:** `/ccpa-request/`, `/gdpr-request/`, `/global-request/`
+  are static legacy pages embedding a third-party OneTrust privacy-portal iframe; no
+  app-level source/sink. www cookie-driven redirect probes (`store-referer`,
+  `microsite-language`, `country-code-session`) and `?redirect/?next/?s/?l` are inert;
+  `account.ui.com` ignores `X-Forwarded-Host`/`X-Original-URL`/`X-Rewrite-URL`; sso sends a
+  restrictive CSP + `X-Frame-Options: DENY`.
+- Route ledger now **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session31-ledger.md`.

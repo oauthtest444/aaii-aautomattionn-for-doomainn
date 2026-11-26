@@ -96,3 +96,12 @@ Discovered from route config in `assets/index-BAUIMHQa.js`.
 | `/iam/roles`, `/iam/roles/:roleId`, `/iam/roles/new`, `/iam/all-sites` | yes | done | empty "Get started with UniFi" state for A (no org/MSP); MSP API 403 |
 | `/msp`, `/msp/customers`, `/msp/team` | yes | done | no MSP membership (`403 no_msp_membership`); empty state |
 | `/account/info`, `/orgsettings`, `/consoles/:hostId/devices` | yes | done | self/empty state; no user-controlled sink |
+
+## account.ui.com Session 31 (new build audit / route completeness)
+| # | Route | Auth | Status | Notes |
+|---|-------|------|--------|-------|
+| 38b | `/` | yes | done | root index (component `BRt`); authenticated dashboard widgets; no user-controlled source/sink |
+| 38c | `/subscribe` | yes | done | client-side router `WKt`->`UKt`: `?product=cloud-storage|site-support|cyber-secure` -> internal `/subscriptions/*` built with `encodeURIComponent`/`URLSearchParams`; unknown -> `/subscriptions`. No external redirect/sink |
+| 38d | `/ccpa-request/` (www) | no | done | legacy microsite; third-party OneTrust privacy-portal iframe; no app source/sink |
+| 38e | `/gdpr-request/` (www) | no | done | same OneTrust iframe wrapper |
+| 38f | `/global-request/` (www) | no | done | same OneTrust iframe wrapper |
