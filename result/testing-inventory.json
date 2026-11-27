@@ -1104,6 +1104,100 @@
       ],
       "status": "not-vulnerable",
       "notes": "Session 30: new bundle path sitesV1; 200 empty list for A; unauth/no-SigV4 -> 403 Missing Authentication Token. No object ids."
+    },
+    {
+      "method": "GET",
+      "path": "https://account.svc.ui.com/zendesk/tickets/closed",
+      "auth": "session/L1",
+      "variants": [
+        "requester_id ignored",
+        "page=2",
+        "user ignored"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: new bundle path zendeskClosedTickets. A sees only own closed ticket (requester_id 44644434942359); B sees only own (44644404389911). requester_id/user overrides ignored; unauth 401. No BOLA."
+    },
+    {
+      "method": "DELETE",
+      "path": "https://sso.ui.com/api/sso/v1/user/self/sessions/{id}",
+      "auth": "A L2",
+      "variants": [
+        "cross-account session id",
+        "body session_ids/user override"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: A L2 DELETE B session id -> 404 No SessionMetadata; B sessions unchanged. DELETE collection with body B id -> 204 but B session still valid. No IDOR."
+    },
+    {
+      "method": "DELETE",
+      "path": "https://sso.ui.com/api/sso/v1/user/self/trusted_devices/{id}",
+      "auth": "A L2",
+      "variants": [
+        "cross-account device id"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: A L2 DELETE B trusted device -> 404 Not found. Scoped."
+    },
+    {
+      "method": "DELETE",
+      "path": "https://sso.ui.com/api/sso/v1/user/self/mfa/{totp,email}/{id}",
+      "auth": "A L2",
+      "variants": [
+        "cross-account authenticator id"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: A L2 DELETE B totp/email authenticator -> 404 No TOTPAuthenticator/No EmailAuthenticator; B MFA list unchanged. No MFA-removal IDOR."
+    },
+    {
+      "method": "GET/POST/DELETE",
+      "path": "https://sso.ui.com/api/sso/v1/user/{uuid}/picture",
+      "auth": "A L1",
+      "variants": [
+        "cross-account uuid"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: A POST/DELETE B picture -> 403 mismatching UUID; PUT 405. Self POST needs L2 (499). Only unauth GET of public avatar (known excluded low)."
+    },
+    {
+      "method": "POST",
+      "path": "https://sso.ui.com/api/sso/v1/{verify,verify/verification-code,search/email,search/username,password}",
+      "auth": "none",
+      "variants": [
+        "json body"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: these POST bodies -> 404 on sso.ui.com (bundle base is sso.ubnt.com, out of scope); GET /search/email/{email} already documented as existence oracle. No bypass."
+    },
+    {
+      "method": "POST",
+      "path": "https://sso.ui.com/api/sso/v2/users",
+      "auth": "none",
+      "variants": [
+        "register without captcha"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: 400 VALIDATION_ERROR requiring _ubiquiti_private_key + captcha + apple_devicecheck_token. Account creation still blocked; no bypass."
+    },
+    {
+      "method": "POST",
+      "path": "https://sso.ui.com/api/sso/v1/user/self/mfa/webauthn",
+      "auth": "A L2",
+      "variants": [
+        "empty body",
+        "L1 attempt"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: L1 -> 499 L2_REQUIRED (passkey registration cannot be started pre-MFA/L1). L2 empty body creates a 'pending' webauthn authenticator + publicKeyCredentialCreationOptions; pending key not usable for login (options 404 'User or verified keys not found'). Created pending key deleted (204) after test."
+    },
+    {
+      "method": "POST",
+      "path": "https://sso.ui.com/api/sso/v1/user/self/mfa/webauthn/options",
+      "auth": "A L1/L2",
+      "variants": [
+        "no verified keys"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 32: 404 'User or verified keys not found' when no verified passkey; pending registration cannot be used to log in. No MFA bypass."
     }
   ],
   "listeners": [

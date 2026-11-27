@@ -551,3 +551,27 @@
 - Route ledger now **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
   finding; `confirmed-vuln.txt` unchanged; no Discord notification.
   Ledger: `result/server-side/account.ui.com/session31-ledger.md`.
+
+## Session 32 (2026-11-27T08:08Z; continuation, decision=preserved)
+- **No build delta:** account `index-CGj0vhTX.js` sha256 `970b5e85…7375`; Site Manager
+  `main-0.b06362b8…`/`main-7.8d401a…`; www Next.js `dpl=e1f4c3c3…`; activate unchanged.
+- Diffed the bundle's 105 API paths against the 97-endpoint inventory; the extras are almost all
+  on out-of-scope `*.svc.ui.com` hosts. Found one genuinely untested in-scope endpoint:
+  **`GET https://account.svc.ui.com/zendesk/tickets/closed`** (new `zendeskClosedTickets` path).
+- **Zendesk closed tickets — Not Vulnerable:** A returns only A's closed ticket
+  (`requester_id 44644434942359`), B only B's (`44644404389911`); `requester_id`/`user`/`page`
+  overrides are ignored; unauth `401`. No BOLA.
+- Recovered valid A/B sessions; re-escalated A to L2 (30 min). **Cross-account writes all blocked:**
+  `DELETE` B session -> `404 No SessionMetadata`; `DELETE` B trusted device -> `404`; `DELETE`
+  B TOTP/email authenticator -> `404` (B MFA unchanged); `POST/DELETE` B picture -> `403`
+  `mismatching UUID` (`PUT` `405`). No IDOR/BAC.
+- **SSO POST** `verify`, `verify/verification-code`, `search/email`, `search/username`, `password`
+  -> `404` on `sso.ui.com` (bundle base is `sso.ubnt.com`, out of scope); `POST /api/sso/v2/users`
+  still `400` captcha/attestation gate. No server-side HTML reflection on account/sso/activate.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session32-ledger.md`.
+- **Passkey/WebAuthn:** `POST /api/sso/v1/user/self/mfa/webauthn` is L2-gated (L1 -> `499`);
+  an L2 request creates only a `pending` authenticator and `/mfa/webauthn/options` returns
+  `404` (no verified key), so there is no pre-MFA passkey-enrollment MFA bypass. Test key
+  deleted (`204`).

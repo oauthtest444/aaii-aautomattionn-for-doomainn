@@ -196,3 +196,16 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/user/self/login/level/refresh | sso | A L1 | 499 | L2 required; no refresh bypass |
 | GET | /api/sso/v1/user/self?include=roles,permissions,scopes / expand=all | sso | A L1 | 200 | `include=roles` adds fixed beta role names only; `permissions`/`scopes`/`expand` null/unchanged; no secret/PII expansion |
 | GET/PUT/DELETE/PATCH/POST | /api/sso/v1/user/{B uuid}/picture | sso | none | 200/405/401 | unauth GET returns public avatar URL (known excluded low); PUT/PATCH 405; DELETE/POST 401 |
+## Session 32 additions (builds unchanged; untested in-scope endpoints)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| GET | /zendesk/tickets/closed | account.svc | session/L1 | 200 | A -> only A's closed ticket; B -> only B's; `requester_id`/`user`/`page` overrides ignored; unauth 401. No BOLA |
+| DELETE | /api/sso/v1/user/self/sessions/{id} | sso | A L2 | 404 | cross-account B session id -> `No SessionMetadata matches`; body `session_ids`/`user` override no effect |
+| DELETE | /api/sso/v1/user/self/trusted_devices/{id} | sso | A L2 | 404 | cross-account B device -> `Not found` |
+| DELETE | /api/sso/v1/user/self/mfa/{totp,email}/{id} | sso | A L2 | 404 | cross-account B authenticator -> not found; B MFA list unchanged |
+| POST/DELETE | /api/sso/v1/user/{uuid}/picture | sso | A | 403 | cross-account B uuid -> `mismatching UUID`; PUT -> 405 |
+| POST | /api/sso/v2/users | sso | none | 400 | registration still requires `_ubiquiti_private_key` + captcha + apple_devicecheck_token |
+| POST | /api/sso/v1/{verify,verify/verification-code,search/email,search/username,password} | sso | none | 404 | not routed on sso.ui.com (bundle base sso.ubnt.com, out of scope); GET /search/email/{email} remains the documented existence oracle |
+| POST | /api/sso/v1/user/self/mfa/webauthn | sso | A L1 | 499 | passkey registration requires L2 (`L2_REQUIRED`); no pre-MFA/L1 passkey enrollment |
+| POST | /api/sso/v1/user/self/mfa/webauthn | sso | A L2 | 200 | creates `pending` webauthn authenticator + creation options; not usable for login until verified; test key deleted (204) |
+| POST | /api/sso/v1/user/self/mfa/webauthn/options | sso | A | 404 | `User or verified keys not found` when no verified passkey; pending key cannot be used -> no MFA bypass |

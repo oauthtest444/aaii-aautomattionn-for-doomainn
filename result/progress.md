@@ -855,3 +855,21 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
 - Added 3 in-scope www routes as done: `/ccpa-request/`, `/gdpr-request/`,
   `/global-request/` (static OneTrust-iframe wrappers, no app sink).
 - Ledger: 57 routes (42 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt unchanged.
+
+## Session 32 (2026-11-27T08:08Z) — untested in-scope endpoints, all negative
+- Builds unchanged vs Session 31 (account `970b5e85…`; Site Manager `main-0.b06362b8…`;
+  www `dpl=e1f4c3c3…`).
+- Diffed 105 bundle API paths vs inventory; found one untested in-scope endpoint:
+  `GET account.svc /zendesk/tickets/closed`.
+- Zendesk closed tickets: A/B scoped to own tickets; `requester_id`/`user`/`page` ignored;
+  unauth 401. Not Vulnerable.
+- A re-escalated to L2. Cross-account `DELETE` session/trusted-device/MFA -> 404; cross-account
+  picture POST/DELETE -> 403 mismatching UUID. No IDOR/BAC.
+- SSO POST verify/search/password -> 404 on sso.ui.com (bundle base sso.ubnt.com, out of scope);
+  registration still captcha-gated.
+- Passkey/WebAuthn: registration L2-gated (L1 -> 499); L2 creates only a pending key, not
+  usable for login (options 404). No MFA bypass; test key deleted.
+- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session32-ledger.md`;
+  evidence: `result/server-side/account.ui.com/traffic/session32-*.txt`.

@@ -670,3 +670,31 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session31-ledger.md
 == session end 2026-11-26T21:35:00Z ==
+
+## Session 32 — 2026-11-27T07:58Z (continuation, decision=preserved, run 45962134367)
+- Start: 2026-11-27T07:58:51Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope www/account/sso/account.svc/cloudaccess/unifi per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: opencode, curl, git, node, npx, python3, google-chrome-stable; Chrome DevTools MCP connected (about:blank).
+- Prior state: 57 routes (42 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff live builds vs inventory; test genuinely untested in-scope endpoints (Zendesk closed-ticket BOLA, picture/session/trusted-device/MFA cross-account, SSO verify/search), then document.
+
+### Session 32 outcome (2026-11-27T08:1xZ)
+- Builds unchanged vs Session 31: account `index-CGj0vhTX.js` sha256 970b5e85…7375; Site Manager
+  `main-0.b06362b8…`/`main-7.8d401a…`; www Next.js dpl e1f4c3c3…; activate unchanged.
+- Diffed the 105 bundle API paths vs the 97-endpoint inventory. Most extras are on out-of-scope
+  hosts (billing/enterprise/ips/fabric/ues/cap/u5g-api/storage/umr/megaphone `.svc.ui.com`).
+  One genuinely untested in-scope endpoint found: `GET account.svc /zendesk/tickets/closed`.
+- **Zendesk closed tickets (new):** A returns only A's closed ticket, B only B's; `requester_id`,
+  `user`, `page` overrides do not change the caller scope; unauth 401. No BOLA.
+- Recovered valid A/B `UBIC_AUTH` from prior log; re-escalated A to L2 (`login/level`, 30 min).
+- **Cross-account writes (all blocked):** DELETE B session id -> 404 No SessionMetadata;
+  DELETE B trusted device -> 404; DELETE B TOTP/email authenticator -> 404 (B MFA unchanged);
+  POST/DELETE B picture -> 403 "mismatching UUID" (PUT 405). No IDOR/BAC.
+- **SSO POST verify/search/password** bodies -> 404 on sso.ui.com (bundle base is sso.ubnt.com,
+  out of scope); `POST /api/sso/v2/users` still 400 captcha/attestation gate.
+- Server-side HTML reflection markers not present on account/sso/activate; www 404 reflects the
+  URL only inside escaped `content=` meta attributes (already known safe).
+- No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session32-ledger.md
+== session end 2026-11-27T08:15:00Z ==

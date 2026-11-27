@@ -265,3 +265,23 @@
   external `Location`), and with a session serves the fixed Site Manager SPA on any
   subdomain (e.g. `evil.ui.com`). It is still **not attacker-controlled content**, so the
   credentialed-CORS observation (item 1) remains blocked/not exploitable.
+
+## 19. Session 32 — new in-scope endpoint and cross-account write checks (all negative)
+- `GET https://account.svc.ui.com/zendesk/tickets/closed` was the only bundle API path missing
+  from the inventory. It is correctly session-scoped: A sees only A's closed ticket, B only
+  B's; `requester_id`, `user`, and `page` overrides do not widen scope; unauthenticated 401.
+  **Not Vulnerable (no BOLA).**
+- With A escalated to L2, cross-account writes remain blocked: `DELETE` B's session -> 404
+  (`No SessionMetadata matches`), B's trusted device -> 404, B's TOTP/email authenticator ->
+  404 (B MFA unchanged); `POST`/`DELETE` B's picture -> 403 `mismatching UUID` (`PUT` 405).
+- SSO `verify`/`verification-code`/`search`/`password` POST bodies return 404 on `sso.ui.com`
+  because the current bundle's SSO base is `sso.ubnt.com` (out of scope); registration
+  (`/api/sso/v2/users`) still requires the private key + captcha + devicecheck attestation.
+- No server-side HTML reflection of markers on account/sso/activate; `www.ui.com` 404 reflects
+  the URL only inside escaped `content=` meta attributes. The credentialed-CORS item (1)
+  therefore still has no attacker-controlled `*.ui.com` origin and remains **blocked**.
+- **Passkey/WebAuthn (Session 32):** `POST /api/sso/v1/user/self/mfa/webauthn` is L2-gated
+  (L1 -> 499 `L2_REQUIRED`), so a password-only/pre-MFA session cannot enroll a passkey to
+  bypass email OTP. An L2 request creates a `pending` authenticator, but
+  `/mfa/webauthn/options` returns 404 (`User or verified keys not found`) and the pending key
+  is not usable for login. Test key deleted afterwards. Not Vulnerable.

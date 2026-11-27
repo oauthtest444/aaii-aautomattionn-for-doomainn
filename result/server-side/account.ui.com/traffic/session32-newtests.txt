@@ -1,0 +1,48 @@
+# Session 32 evidence — 2026-11-27T08:0xZ (test accounts A/B; UBIC_AUTH not printed)
+
+## GET /zendesk/tickets/closed (A)
+{"tickets":[{"id":"6136591","description":"Harmless automated security test OCEAN-REQTEST-A-1413. Please ignore.","created_at":"2026-11-11T14:12:50Z","updated_at":"2026-11-11T14:13:02Z","subject":"OCEAN-REQTEST-A-1413","status":"Closed","type":"incident","requester_id":"44644434942359","assignee_id":null,"collaborator_ids":[],"is_pending":false}],"totalTickets":1}
+[HTTP 200]
+## GET /zendesk/tickets/closed (B)
+{"tickets":[{"id":"6133375","description":"Automated security testing ticket created by the authorized tester. No action needed; safe to close. This ticket tests cross-account access to ticket read/comment/close endpoints.","created_at":"2026-11-10T15:48:03Z","updated_at":"2026-11-10T15:48:16Z","subject":"OpenCode security test ticket - safe to close","status":"Closed","type":"incident","requester_id":"44644404389911","assignee_id":null,"collaborator_ids":[],"is_pending":false}],"totalTickets":1}
+[HTTP 200]
+## GET /zendesk/tickets/closed?requester_id=<B zendesk id> (A)
+{"tickets":[{"id":"6136591","description":"Harmless automated security test OCEAN-REQTEST-A-1413. Please ignore.","created_at":"2026-11-11T14:12:50Z","updated_at":"2026-11-11T14:13:02Z","subject":"OCEAN-REQTEST-A-1413","status":"Closed","type":"incident","requester_id":"44644434942359","assignee_id":null,"collaborator_ids":[],"is_pending":false}],"totalTickets":1}
+[HTTP 200]
+## unauth GET /zendesk/tickets/closed
+{"code":"UNAUTHORIZED","message":"Failed to authorize request"}
+[HTTP 401]
+## A L2 DELETE B session d206d095
+{"detail":"No SessionMetadata matches the given query.","error":"ERROR"}
+[HTTP 404]
+## A L2 DELETE B trusted device 734b3249
+{"detail":"Not found.","error":"ERROR"}
+[HTTP 404]
+## A L2 DELETE B totp b2657807
+{"detail":"No TOTPAuthenticator matches the given query.","error":"ERROR"}
+[HTTP 404]
+## A L2 DELETE B email a646df96
+{"detail":"No EmailAuthenticator matches the given query.","error":"ERROR"}
+[HTTP 404]
+## A POST B picture
+mismatching UUID
+[HTTP 403]
+## A DELETE B picture
+mismatching UUID
+[HTTP 403]
+## POST /api/sso/v2/users (no captcha)
+{"_ubiquiti_private_key":["Required parameter is missing"],"captcha":["Required parameter is missing"],"apple_devicecheck_token":["Required parameter is missing"],"error":"VALIDATION_ERROR"}
+[HTTP 400]
+## POST /api/sso/v1/verify (sso.ui.com)
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+
+[HTTP 404]
