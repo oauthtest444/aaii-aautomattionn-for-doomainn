@@ -285,3 +285,15 @@
   bypass email OTP. An L2 request creates a `pending` authenticator, but
   `/mfa/webauthn/options` returns 404 (`User or verified keys not found`) and the pending key
   is not usable for login. Test key deleted afterwards. Not Vulnerable.
+
+## 20. Session 33 — new in-scope endpoints tested; one residual unresolved
+- `POST account.svc /chat/messaging/jwt` and `GET/POST account.svc /zendesk/user` are
+  session-derived and ignore all client-supplied identity/role fields; pre-MFA/no-auth
+  denied. Not Vulnerable (see session33 ledger).
+- **Residual Unresolved:** `GET cloudaccess.svc /devices/{deviceId}/application-devices`
+  requires SigV4/STS (`403 Missing Authentication Token` with a cookie) and Account A owns no
+  devices, so a cross-tenant/IDOR test could not be performed. No object was created and no
+  real user identifiers were guessed. Recorded as Unresolved, not a finding.
+- Site Manager same-origin `/api/...` strings are SPA `index.html` fallbacks on
+  `unifi.ui.com`; the real API bases are out-of-scope `*.svc.ui.com` hosts / console
+  `/proxy/` routes, so they are not directly callable in-scope endpoints.

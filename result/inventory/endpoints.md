@@ -209,3 +209,14 @@ All requests used test accounts A/B. Cookies: `UBIC_AUTH` (HttpOnly, `.ui.com`, 
 | POST | /api/sso/v1/user/self/mfa/webauthn | sso | A L1 | 499 | passkey registration requires L2 (`L2_REQUIRED`); no pre-MFA/L1 passkey enrollment |
 | POST | /api/sso/v1/user/self/mfa/webauthn | sso | A L2 | 200 | creates `pending` webauthn authenticator + creation options; not usable for login until verified; test key deleted (204) |
 | POST | /api/sso/v1/user/self/mfa/webauthn/options | sso | A | 404 | `User or verified keys not found` when no verified passkey; pending key cannot be used -> no MFA bypass |
+## Session 33 additions (minifier-only build; previously untested in-scope endpoints)
+| Method | Path | Host | Auth | Status | Result / notes |
+|--------|------|------|------|--------|----------------|
+| POST | /chat/messaging/jwt | account.svc | A | 200 | Mints session-derived HS256 chat JWT (`external_id`=A uuid, `scope:user`). Body/query/header overrides (`external_id`/`externalId`/`user`/`uuid`/`email`/`scope`/`name`/`metadata`/`custom`, `X-User-Id`, `X-Identity-Id`, form body) all ignored; pre-MFA/none 401; GET 404. Not Vulnerable |
+| GET/POST | /zendesk/user | account.svc | A | 200 | Returns only A's linked Zendesk user (`44644434942359`, end-user, external_id A). POST body `name`/`email`(=B)/`external_id`(=B)/`role:admin` ignored; no cross-account link or role change. Not Vulnerable |
+| GET | /zendesk/tickets/ccd | account.svc | A | 200 | `{"tickets":[],"totalTickets":0}`; self-scoped. Not Vulnerable |
+| GET | /zendesk/search_tickets, /zendesk/search_ccd | account.svc | A | 404 | GET not routed (POST + reCAPTCHA-gated, known). Not Vulnerable |
+| GET | /api/sso/v1/account-chooser | sso | A/none | 200 | `{"accounts":[]}` authenticated and unauthenticated; no data leak. Not Vulnerable |
+| GET | /geo | sso | A | 404 | real geo base is `geo.svc.ui.com` (out of scope). Not Vulnerable |
+| GET | /devices/{deviceId}/application-devices | cloudaccess.svc | A/none | 403 | `Missing Authentication Token` (SigV4/STS required; A owns no devices). Unresolved |
+| GET | /api/v2/organizations, /api/v2/user, /api/self/sites, /api/fabrics/.../msp-invitations, /api/v1/site-managers/devices, /api/v1/health, /unifi/fetch-sites-list, /api/users/self, /api/v1/cloud-storage/backup-summaries, /api/v1/devices/signed, /api/v2/customers/self/subscriptions, /api/v2/products/plans, /api/v1/noonlight/pricing-plans | unifi.ui.com | A | 200 HTML | All return the 1,496-byte SPA index.html fallback; real API bases are out-of-scope `*.svc.ui.com` / console `/proxy/`. Not testable in-scope |

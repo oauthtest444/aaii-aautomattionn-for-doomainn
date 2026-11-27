@@ -873,3 +873,22 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session32-ledger.md`;
   evidence: `result/server-side/account.ui.com/traffic/session32-*.txt`.
+
+## Session 33 (2026-11-27T21:00Z) — minifier-only build; untested in-scope endpoints negative
+- Build delta: account `index-D7cQ-F1j.js` (sha256 `f75b4c9c…303a`) vs `index-CGj0vhTX.js`
+  (`970b5e85…`). 116 API path literals and sink counts identical; only minifier variable
+  renames → no new surface. Site Manager (`main-0.b06362b8…`/`main-7.8d401a…`) and www
+  (`dpl=e1f4c3c3…`) unchanged.
+- Fresh A email-OTP login. **`POST account.svc /chat/messaging/jwt`** (new): mints a
+  session-derived HS256 chat JWT; every body/query/header identity override ignored; pre-MFA/
+  none 401; GET 404. Not Vulnerable.
+- **`GET/POST account.svc /zendesk/user`** (POST new): self-scoped create-or-fetch; body
+  `name`/`email`(=B)/`external_id`(=B)/`role:admin` ignored. Not Vulnerable.
+- Negatives: `/zendesk/tickets/ccd` empty; `/zendesk/search_*` GET 404 (POST/captcha-gated);
+  sso `/account-chooser` empty (auth+unauth); sso `/geo` 404; cloudaccess
+  `/devices/{id}/application-devices` 403 (SigV4/STS, no devices). Site Manager same-origin
+  `/api/...` paths are SPA fallback; real bases are out-of-scope `*.svc` / console proxies.
+- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
+  evidence: `result/server-side/account.ui.com/traffic/session33-newtests.txt`.

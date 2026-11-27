@@ -698,3 +698,51 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - No new high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: result/server-side/account.ui.com/session32-ledger.md
 == session end 2026-11-27T08:15:00Z ==
+
+## Session 33 — 2026-11-27T21:00Z (continuation, decision=preserved, run 46067375410)
+- Start: 2026-11-27T21:00:58Z (event=schedule, target_hash 3353d9c6… unchanged).
+- Target: ui.com (domain-only); in-scope www/account/sso/account.svc/cloudaccess/unifi per scope.md.
+- Agent/model: opencode / deepseek-v4.1-flash-free. Env: GitHub Actions Linux runner.
+- Tools verified: opencode, curl, git, node, npx, python3, google-chrome-stable; Chrome DevTools MCP connected (about:blank).
+- Prior state: 57 routes (42 done / 15 blocked), no high-impact confirmed; confirmed-vuln.txt empty.
+- Plan: diff live builds vs Session 32, then test genuinely untested in-scope endpoints
+  (account.svc chat JWT + zendesk user, cloudaccess application-devices, sso account-chooser/geo),
+  then document.
+
+### Session 33 outcome (2026-11-27T21:1xZ)
+- **Build delta:** `account.ui.com` rotated to `assets/index-D7cQ-F1j.js` (7,279,731 B, sha256
+  `f75b4c9c…303a`; previous `index-CGj0vhTX.js` `970b5e85…`). Diff of the two bundles: the
+  116 API path literals are **identical** (no added/removed paths) and sink counts are identical
+  (innerHTML 23, dangerouslySetInnerHTML 18, eval/new Function/document.write/srcdoc/
+  insertAdjacentHTML 0). Only 18/19 added/removed strings, all minifier variable renames and
+  duplicate event-name/class-name churn -> **dependency/minifier rebuild only, no new surface**.
+  `unifi.ui.com` Site Manager bundles (`main-0.b06362b8…`, `main-7.8d401a…`, runtime) and
+  `www.ui.com` Next.js `dpl=e1f4c3c3…` are unchanged from Session 31/32.
+- Fresh A email-OTP login (OTP from maildrop) -> `UBIC_AUTH`; `/user/self` 200.
+- **New in-scope endpoint `POST account.svc /chat/messaging/jwt`** (present in config, never
+  tested): mints a Sendbird-style HS256 chat JWT for the session user
+  (`external_id`=A uuid, `email`=A email, `scope:user`). Body/query/header identity overrides
+  (`external_id`, `externalId`, `user`, `uuid`, `email`, `scope:admin`, `name`, `metadata`,
+  `custom`, `X-User-Id`, `X-Identity-Id`, form-encoded) are **all ignored**; server derives the
+  identity from the session. Pre-MFA/no-auth -> 401; GET -> 404. No mass assignment / identity
+  spoofing / MFA bypass. **Not Vulnerable.**
+- **New in-scope endpoint `GET/POST account.svc /zendesk/user`** (POST never tested): returns
+  only A's linked Zendesk user (`44644434942359`, `end-user`, `external_id`=A uuid). POST body
+  `name`/`email`(=B)/`external_id`(=B uuid)/`role:admin` are **all ignored**; persisted Zendesk
+  user unchanged. **Not Vulnerable (self-scoped, no mass assignment).**
+- `GET account.svc /zendesk/tickets/ccd` -> `{"tickets":[],"totalTickets":0}`; GET
+  `/zendesk/search_tickets` and `/search_ccd` -> 404 (POST/captcha-gated, known).
+  `GET sso.ui.com /api/sso/v1/account-chooser` -> `{"accounts":[]}` both authenticated and
+  unauthenticated (no data leak).
+- `GET cloudaccess.svc /devices/{id}/application-devices` -> 403 `Missing Authentication Token`
+  (requires SigV4/STS; A owns no devices); `GET sso.ui.com /geo` -> 404.
+- Site Manager same-origin `/api/...` paths (`/api/v2/organizations`, `/api/v2/user`,
+  `/api/self/sites`, `/msp-invitations`, `/api/v1/site-managers/devices`, etc.) all return the
+  1,496-byte SPA `index.html` fallback on `unifi.ui.com`; the real API bases are the
+  out-of-scope `*.svc.ui.com` hosts / console proxies, so these are not directly callable
+  in-scope endpoints (no new testable surface).
+- No new route; ledger remains **57 routes (42 done / 15 blocked)**. No new confirmed
+  high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session33-ledger.md
+  Evidence: result/server-side/account.ui.com/traffic/session33-newtests.txt
+== session end 2026-11-27T21:20:00Z ==

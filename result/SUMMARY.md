@@ -575,3 +575,34 @@
   an L2 request creates only a `pending` authenticator and `/mfa/webauthn/options` returns
   `404` (no verified key), so there is no pre-MFA passkey-enrollment MFA bypass. Test key
   deleted (`204`).
+
+## Session 33 (2026-11-27T21:00Z; continuation, decision=preserved)
+- **Build delta:** `account.ui.com` rotated to `assets/index-D7cQ-F1j.js` (7,279,731 B,
+  sha256 `f75b4c9c…303a`; previous `index-CGj0vhTX.js` `970b5e85…`). The two bundles have
+  **identical** 116 API path literals and identical sink counts (innerHTML 23,
+  dangerouslySetInnerHTML 18, eval/new Function/document.write/srcdoc/insertAdjacentHTML 0);
+  only minifier variable renames differ → dependency rebuild, no new surface. `unifi.ui.com`
+  Site Manager bundles (`main-0.b06362b8…`, `main-7.8d401a…`) and `www.ui.com` `dpl=e1f4c3c3…`
+  are unchanged.
+- Fresh A email-OTP login → `UBIC_AUTH`; `/user/self` 200.
+- **New in-scope endpoint `POST account.svc /chat/messaging/jwt`** (config-only, never tested):
+  mints a session-derived HS256 chat JWT (`external_id`=A uuid, `email`=A email, `scope:user`).
+  All body/query/header identity overrides (`external_id`/`externalId`/`user`/`uuid`/`email`/
+  `scope:admin`/`name`/`metadata`/`custom`, `X-User-Id`, `X-Identity-Id`, form-encoded) are
+  ignored; pre-MFA/none → 401; GET → 404. **Not Vulnerable** (no mass assignment / identity
+  spoofing / MFA bypass).
+- **New in-scope endpoint `GET/POST account.svc /zendesk/user`** (POST never tested): returns
+  only A's linked Zendesk user (`44644434942359`, end-user, external_id A uuid). POST body
+  `name`/`email`(=B)/`external_id`(=B)/`role:admin` all ignored; persisted link unchanged.
+  **Not Vulnerable** (self-scoped, no mass assignment).
+- Other negatives: `GET /zendesk/tickets/ccd` empty; `/zendesk/search_tickets`/`search_ccd`
+  GET 404 (POST/captcha-gated); `GET sso /api/sso/v1/account-chooser` `{"accounts":[]}` both
+  auth and unauth; `GET sso /geo` 404 (real base geo.svc, out of scope);
+  `cloudaccess /devices/{id}/application-devices` 403 (SigV4/STS, A owns no devices).
+- Site Manager same-origin `/api/...` strings all return the 1,496-byte SPA `index.html`
+  fallback; the real API bases are out-of-scope `*.svc.ui.com` / console `/proxy/` routes,
+  so they are not directly callable in-scope endpoints.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session33-newtests.txt`.

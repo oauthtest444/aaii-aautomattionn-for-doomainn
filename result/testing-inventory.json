@@ -467,6 +467,12 @@
       "sha256": "d2ea5d543f196b3834a8ab78d33ff8418a9b6aa761ee3518e985e41defc5d048",
       "tested": true,
       "notes": "Session 31: fresh sink audit of current Site Manager build (main-0/2..7, runtime). 0 innerHTML/eval/Function/document.write/srcdoc/insertAdjacentHTML; 1 dangerouslySetInnerHTML = Zod-validated release notes (server-authored). Redirect/open helpers use fixed accountPortal root or validated internal paths. No URL-reachable DOM XSS -> CORS chain stays blocked."
+    },
+    {
+      "url": "https://account.ui.com/assets/index-D7cQ-F1j.js",
+      "sha256": "f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a",
+      "tested": true,
+      "notes": "Session 33 current build (7,279,731 B): 116 API path literals + sink counts identical to index-CGj0vhTX.js; string diff is minifier variable renames only -> dependency rebuild, no new surface."
     }
   ],
   "flows": [
@@ -1198,6 +1204,103 @@
       ],
       "status": "not-vulnerable",
       "notes": "Session 32: 404 'User or verified keys not found' when no verified passkey; pending registration cannot be used to log in. No MFA bypass."
+    },
+    {
+      "method": "POST",
+      "path": "https://account.svc.ui.com/chat/messaging/jwt",
+      "auth": "A L1",
+      "variants": [
+        "baseline",
+        "external_id=B",
+        "externalId=B",
+        "user=B",
+        "uuid=B",
+        "email=B",
+        "scope=admin",
+        "name=marker",
+        "metadata/custom",
+        "query/header overrides",
+        "form-encoded",
+        "pre-MFA/none",
+        "GET"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: mints session-derived HS256 chat JWT (external_id/email/scope:user from session). All body/query/header identity overrides ignored; pre-MFA/none 401; GET 404. No mass assignment/identity spoofing/MFA bypass."
+    },
+    {
+      "method": "GET",
+      "path": "https://account.svc.ui.com/zendesk/user",
+      "auth": "A L1",
+      "variants": [
+        "self"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: returns only A's linked Zendesk user (44644434942359, end-user, external_id A uuid). No cross-account data."
+    },
+    {
+      "method": "POST",
+      "path": "https://account.svc.ui.com/zendesk/user",
+      "auth": "A L1",
+      "variants": [
+        "empty",
+        "name=marker",
+        "email=B",
+        "external_id=B",
+        "role=admin"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: create-or-fetch for session-linked Zendesk user; all body fields ignored; no cross-account link or role change."
+    },
+    {
+      "method": "GET",
+      "path": "https://account.svc.ui.com/zendesk/tickets/ccd",
+      "auth": "A L1",
+      "variants": [
+        "self"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: empty CCD ticket list for A; self-scoped."
+    },
+    {
+      "method": "GET",
+      "path": "https://sso.ui.com/api/sso/v1/account-chooser",
+      "auth": "A L1/none",
+      "variants": [
+        "auth",
+        "unauth"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: {\"accounts\":[]} for both authenticated and unauthenticated; no data leak."
+    },
+    {
+      "method": "GET",
+      "path": "https://sso.ui.com/geo",
+      "auth": "A L1",
+      "variants": [
+        "default"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: 404 on sso.ui.com; real geo base is geo.svc.ui.com (out of scope)."
+    },
+    {
+      "method": "GET",
+      "path": "https://cloudaccess.svc.ui.com/devices/{deviceId}/application-devices",
+      "auth": "A L1/none",
+      "variants": [
+        "random uuid"
+      ],
+      "status": "unresolved",
+      "notes": "Session 33: 403 Missing Authentication Token (SigV4/STS required); A owns no devices, so cross-tenant test not possible."
+    },
+    {
+      "method": "GET",
+      "path": "https://unifi.ui.com/api/* (v2/organizations, v2/user, self/sites, fabrics/.../msp-invitations, v1/site-managers/devices, v1/health, unifi/fetch-sites-list, api/users/self, v1/cloud-storage/backup-summaries, v1/devices/signed, v2/customers/self/subscriptions, v2/products/plans, v1/noonlight/pricing-plans)",
+      "auth": "A L1",
+      "variants": [
+        "same-origin GET"
+      ],
+      "status": "not-vulnerable",
+      "notes": "Session 33: all return the 1,496-byte SPA index.html fallback; real API bases are out-of-scope *.svc.ui.com hosts / console /proxy/ routes."
     }
   ],
   "listeners": [

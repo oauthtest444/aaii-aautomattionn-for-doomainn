@@ -26,3 +26,11 @@
 | https://unifi.ui.com/runtime.393f084b414f2652.js | 275eb2e0bcaa4907e42e50bff399efdbdd8d6d272d343962172fe767be2ebcae | runtime |
 | https://unifi.ui.com/chunk-resolve-legacy-pseudonym-sweep.e88f3e91.js | aa64d07ba8582fd1effc96b470667a4cf345cb2ee693a5f064f41c16d763ba87 | legacy pseudonym IndexedDB/localStorage sweep; no user input |
 | https://www.ui.com/ (Next.js) | dpl=e1f4c3c34668db11c8c0f1d5e0bd0c3e76f6ce60 | 36 initial chunks; no new source/sink; `?link=` inert |
+
+## Session 33 (2026-11-27) — account bundle rebuild
+| URL | SHA-256 | Notes |
+|-----|---------|-------|
+| https://account.ui.com/assets/index-D7cQ-F1j.js | f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a | 7,279,731 B; 116 API path literals and sink counts identical to index-CGj0vhTX.js (innerHTML 23, dangerouslySetInnerHTML 18, eval/new Function/document.write/srcdoc/insertAdjacentHTML 0); string diff is minifier variable renames only -> dependency rebuild, no new surface |
+| https://unifi.ui.com/main-0.b06362b80fbfc61f.js | d2ea5d543f196b3834a8ab78d33ff8418a9b6aa761ee3518e985e41defc5d048 | unchanged from Session 30/31/32 |
+| https://unifi.ui.com/main-7.8d401a13358c5b3e.js | 43cafdad00fb552b476909e0f65faecece40dc65aa3c88cbeb450be7c5c0658a | unchanged |
+| https://www.ui.com/ (Next.js) | dpl=e1f4c3c34668db11c8c0f1d5e0bd0c3e76f6ce60 | unchanged |

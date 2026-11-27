@@ -1,0 +1,101 @@
+Session 33 evidence — 2026-11-27T21:00–21:20Z
+Target: ui.com (in scope: account.ui.com, sso.ui.com, account.svc.ui.com,
+cloudaccess.svc.ui.com, unifi.ui.com, www.ui.com). Test accounts A/B (disposable).
+All requests use test-account sessions only; no real-user data.
+
+====================================================================
+1. BUILD DELTA (account.ui.com)
+====================================================================
+previous: https://account.ui.com/assets/index-CGj0vhTX.js
+  7,278,468 B  sha256 970b5e85d8ffc487ace4411370a024fb8f7fa696ecea35157d26f417dd9c7375
+current:  https://account.ui.com/assets/index-D7cQ-F1j.js
+  7,279,731 B  sha256 f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a
+- API path literals: old 116, new 116, ADDED=[] REMOVED=[] (identical sets)
+- Sinks: innerHTML 23/23, dangerouslySetInnerHTML 18/18, eval 0/0, new Function 0/0,
+  document.write 0/0, srcdoc 0/0, insertAdjacentHTML 0/0
+- String set diff: 18 added / 19 removed, all minifier renames
+  (e.g. `${OSt}`->`${TSt}`, `Ty`->`Sy`, `aw`->`ow`, `class extends sG`->`class extends Aq`)
+  => dependency/minifier rebuild only; no new endpoint, route, or sink.
+- unifi.ui.com unchanged: main-0.b06362b80fbfc61f.js (d2ea5d54…), main-7.8d401a13358c5b3e.js
+  (43cafdad…), runtime.393f084b414f2652.js (275eb2e0…).
+- www.ui.com unchanged: dpl=e1f4c3c34668db11c8c0f1d5e0bd0c3e76f6ce60.
+
+====================================================================
+2. POST https://account.svc.ui.com/chat/messaging/jwt  (A session)
+====================================================================
+Baseline body {} -> HTTP 200
+{"jwt":"<redacted-signature>"}
+Decoded payload:
+{"external_id":"d8946fad-2b8e-4cf0-82c5-5d955b57b829",
+ "email":"tan.tiger5564@maildrop.cc",
+ "email_verified":true,
+ "scope":"user",
+ "name":"OpenCodeTest",
+ "iat":1795813390,"exp":1795816990}
+Header: {"alg":"HS256","typ":"JWT","kid":"app_6a626244535c60baba9067a3"}
+
+Identity/claim override attempts (all returned HTTP 200 with the SAME A-derived claims):
+  {"external_id":"7c5aab2b-e568-40de-a7a5-ec27df1db94b"}   -> A uuid unchanged
+  {"externalId":"7c5aab2b-..."}                             -> A uuid unchanged
+  {"user":"7c5aab2b-..."} / {"uuid":"7c5aab2b-..."}         -> A uuid unchanged
+  {"email":"overrated.chinchilla337@maildrop.cc"}           -> A email unchanged
+  {"scope":"admin"} / {"name":"PWNED_MARKER"}               -> scope=user, name=A unchanged
+  {"metadata":{"role":"admin"},"custom":{"x":1}}            -> no extra claims
+  ?external_id= / ?user= / ?email=                          -> A unchanged
+  headers X-User-Id / X-Identity-Id: B uuid                 -> A unchanged
+  application/x-www-form-urlencoded body                    -> A unchanged
+GET /chat/messaging/jwt -> HTTP 404 {"message":"Not found"}
+POST /chat/messaging/jwt with no/pre-MFA auth -> HTTP 401 {"code":"UNAUTHORIZED",
+  "message":"Failed to authorize request"}
+Verdict: Not Vulnerable — token identity is derived server-side; no mass assignment,
+no identity spoofing, no MFA bypass.
+
+====================================================================
+3. GET/POST https://account.svc.ui.com/zendesk/user  (A session)
+====================================================================
+GET -> HTTP 200
+{"zendeskUser":{"id":"44644434942359","name":"OpenCodeTest",
+ "email":"tan.tiger5564@maildrop.cc","role":"end-user","verified":true,
+ "external_id":"d8946fad-2b8e-4cf0-82c5-5d955b57b829", ...}}
+POST {} -> same A user.
+POST {"name":"ZUSERMARKER123"} -> name unchanged "OpenCodeTest".
+POST {"email":"overrated.chinchilla337@maildrop.cc"} -> email unchanged (A).
+POST {"external_id":"7c5aab2b-e568-40de-a7a5-ec27df1db94b"} -> external_id unchanged (A).
+POST {"role":"admin"} -> role unchanged "end-user".
+Verdict: Not Vulnerable — self-scoped create-or-fetch; body fields ignored; no cross-account
+link, no role escalation.
+
+====================================================================
+4. Other in-scope endpoint probes (A session unless noted)
+====================================================================
+GET https://account.svc.ui.com/zendesk/tickets/ccd -> 200
+  {"tickets":[],"totalTickets":0}
+GET https://account.svc.ui.com/zendesk/search_tickets -> 404 {"message":"Not found"}
+GET https://account.svc.ui.com/zendesk/search_ccd     -> 404 {"message":"Not found"}
+  (both are POST + reCAPTCHA-gated per prior sessions; GET not routed)
+GET https://sso.ui.com/api/sso/v1/account-chooser (A) -> 200 {"accounts":[]}
+GET https://sso.ui.com/api/sso/v1/account-chooser (unauth) -> 200 {"accounts":[]}
+GET https://sso.ui.com/geo -> 404 (real geo base is geo.svc.ui.com, out of scope)
+GET https://cloudaccess.svc.ui.com/devices/00000000-0000-0000-0000-000000000000/
+    application-devices -> 403 {"message":"Missing Authentication Token"} (SigV4/STS needed;
+    A owns no devices)
+
+====================================================================
+5. Site Manager same-origin /api/* probes (A session)
+====================================================================
+GET https://unifi.ui.com/api/v2/organizations
+GET https://unifi.ui.com/api/v2/user
+GET https://unifi.ui.com/api/self/sites
+GET https://unifi.ui.com/api/fabrics/base/msp/v1/users/me/msp-invitations
+GET https://unifi.ui.com/api/v1/site-managers/devices
+GET https://unifi.ui.com/api/v1/health
+GET https://unifi.ui.com/unifi/fetch-sites-list
+GET https://unifi.ui.com/api/users/self
+GET https://unifi.ui.com/api/v1/cloud-storage/backup-summaries
+GET https://unifi.ui.com/api/v1/devices/signed
+GET https://unifi.ui.com/api/v2/customers/self/subscriptions
+GET https://unifi.ui.com/api/v2/products/plans
+GET https://unifi.ui.com/api/v1/noonlight/pricing-plans
+-> every path returns HTTP 200 with the 1,496-byte SPA index.html fallback (text/html).
+   The real API bases are out-of-scope `*.svc.ui.com` hosts or console `/proxy/` routes,
+   so these are not directly callable in-scope endpoints.
