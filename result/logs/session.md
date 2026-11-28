@@ -746,3 +746,36 @@ target: ui.com; model: deepseek-v4.1-flash-free; cwd: /home/runner/work/aaii-aau
 - Ledger: result/server-side/account.ui.com/session33-ledger.md
   Evidence: result/server-side/account.ui.com/traffic/session33-newtests.txt
 == session end 2026-11-27T21:20:00Z ==
+
+## Session 34 start 2026-11-28T07:28:46Z
+- Continuation (decision=preserved, target_hash 3353d9c6...).
+- MCP chrome-devtools: available (list_pages OK).
+- Build check: account.ui.com still `assets/index-D7cQ-F1j.js` (unchanged vs S33).
+  www.ui.com REDEPLOYED `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was e1f4c3c3...).
+  activate.ui.com unchanged `assets/index-1CNh1WqS.js`; unifi.ui.com Site Manager bundles
+  unchanged (`main-0.b06362b8…`, `main-7.8d401a…`, runtime `393f084b…`).
+- www new deploy audited: 36 initial chunks (3.0 MB). Sinks 28 `dangerouslySetInnerHTML`
+  (React/Next internals + static i18n; app route-allowlist chunk `02aqcd17vx73t.js`
+  unchanged), 7 `.innerHTML=` (React setter, GTM, SendSafely, textContent helper); 0
+  insertAdjacentHTML/document.write/eval/new Function/srcdoc. Only app-consumed query
+  param is `appview` (rest are Next RSC internals). No app-level `message` listener.
+  No real Server Actions (single `createServerReference` = RSC runtime definition).
+  `_next/image`/`_next/data`/`/api/` -> 404; 404/slug paths not reflected.
+- Runtime Chrome MCP on `/download/unifi/download-started`: `?link=https://evil.com/s34.zip`
+  and `?link=https://dl.ui.com@evil.com/s34.zip` are stripped (no evil anchor/iframe,
+  `hasEvil:false`); allowlist holds. Client-side: Not Vulnerable.
+- Fresh A + B email-OTP sessions; both `/user/self` 200.
+- `sso /zendesk_login?return_to=https://example.com/x`: sso forwards `return_to` verbatim,
+  but the Zendesk hop 302s to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
+  (normalized); single-use JWT not exposed. `jwt/token?redirect=evil` 200 (no redirect),
+  `shopify_login`/`logout`/`account /login?redirect=` fixed/no redirect. No open redirect.
+- `POST account.svc /zendesk/ticket` mass-assignment variants (`requester_id`=B,
+  `organization_id`, `assignee_id`, `status`, `priority`, `collaborators`) -> `400
+  BAD_REQUEST`; `x-ratelimit-limit: 1` exhausted (reset ~08:46Z). No ticket persisted.
+  **Unresolved (rate-limited)**.
+- `PUT sso /user/self {"picture":...}` -> 204 but `picture` unchanged (server-managed);
+  `{"first_name":"<img ...>"}` -> `429`, unchanged, restored. No mass assignment.
+- Route ledger unchanged **57 routes (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: result/server-side/account.ui.com/session34-ledger.md
+== session end 2026-11-28T07:40:00Z ==

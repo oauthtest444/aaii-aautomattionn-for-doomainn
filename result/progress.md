@@ -892,3 +892,39 @@ No new confirmed high-impact vulnerability. `confirmed-vuln.txt` unchanged.
   `confirmed-vuln.txt` unchanged; no Discord notification.
 - Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
   evidence: `result/server-side/account.ui.com/traffic/session33-newtests.txt`.
+
+## Session 34 (2026-11-28T07:30Z) — continuation; www new deploy, fresh A/B sessions
+- Build deltas: `account.ui.com` unchanged `index-D7cQ-F1j.js` (sha256
+  `f75b4c9c...303a`, same as S33). `www.ui.com` REDEPLOYED
+  `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3...`).
+  `activate.ui.com` unchanged `index-1CNh1WqS.js`.
+- www new deploy: 36 initial chunks audited. Sinks: 28 `dangerouslySetInnerHTML`
+  (React/Next internals + static i18n; app uses same `02aqcd17vx73t.js` route
+  allowlist), 7 `.innerHTML=` (React/GTM/SendSafely internals). Only query params
+  consumed are `appview` + Next RSC internals; no new URL source→sink. Download
+  `?link=` allowlist chunk `3qz-ufud26idy.js` unchanged (https + dl.ubnt.com/
+  dl.ui.com/fw-download.ubnt.com). Client-side: Not Vulnerable.
+- Fresh Account A + Account B sessions established end-to-end (password -> email
+  OTP via Maildrop GraphQL -> `/login/2fa` 200 -> `UBIC_AUTH`); `/user/self` 200 for
+  both. (Tokens not copied into files.)
+- Site Manager (`unifi.ui.com`) bundles unchanged vs S31–S33 (`main-0.b06362b8…`,
+  `main-7.8d401a…`, runtime `393f084b…`).
+- Runtime (Chrome MCP) download `?link=` allowlist on new deploy rejects external
+  (`https://evil.com`), userinfo (`https://dl.ui.com@evil.com`), and `javascript:`
+  values (query stripped, no `evil.com` anchor/iframe). 404/slug paths not reflected;
+  `_next/image`/`_next/data`/`/api/` 404; no real Server Actions (single
+  `createServerReference` = RSC runtime definition, no action IDs).
+- `sso /zendesk_login?return_to=<x>`: sso forwards `return_to` verbatim, but Zendesk
+  normalizes the hop to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
+  (302); single-use JWT not exposed to attacker. No open redirect. `jwt/token`,
+  `shopify_login`, `logout`, `account /login?redirect=` all fixed/no-redirect.
+- Zendesk create mass-assignment variants (`requester_id`=B, `organization_id`,
+  `assignee_id`, `status`, `priority`, `collaborators`) -> `400 BAD_REQUEST`;
+  create quota `x-ratelimit-limit: 1` exhausted (reset ~2026-11-28T08:46Z). No ticket
+  created/persisted. **Unresolved (rate-limited)**, not a finding.
+- `PUT sso /user/self {"picture":"https://example.com/s34.png"}` -> 204 but `picture`
+  unchanged (server-managed). `{"first_name":"<img ...>"}` -> `429`, unchanged;
+  restored. No mass assignment.
+- Status: **57 routes unchanged (42 done / 15 blocked)**. No new high-impact finding;
+  `confirmed-vuln.txt` unchanged; no Discord notification.
+- Ledger: `result/server-side/account.ui.com/session34-ledger.md`.

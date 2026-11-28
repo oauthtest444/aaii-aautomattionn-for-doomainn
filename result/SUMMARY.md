@@ -606,3 +606,32 @@
   finding; `confirmed-vuln.txt` unchanged; no Discord notification.
   Ledger: `result/server-side/account.ui.com/session33-ledger.md`;
   evidence `result/server-side/account.ui.com/traffic/session33-newtests.txt`.
+
+## Session 34 (2026-11-28T07:30Z; continuation, decision=preserved)
+- **Build delta:** `account.ui.com` unchanged `assets/index-D7cQ-F1j.js` (sha256
+  `f75b4c9c…303a`, same as S33). `www.ui.com` **redeployed**
+  `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14` (was `e1f4c3c3…`). `activate.ui.com`
+  unchanged `index-1CNh1WqS.js`; Site Manager (`main-0.b06362b8…`, `main-7.8d401a…`,
+  runtime `393f084b…`) unchanged.
+- **www new deploy audit** (36 initial chunks, 3.0 MB): 28 `dangerouslySetInnerHTML`
+  (React/Next internals + static i18n; app route-allowlist `02aqcd17vx73t.js` unchanged),
+  7 `.innerHTML=` (React setter/GTM/SendSafely/textContent); 0 insertAdjacentHTML/
+  document.write/eval/new Function/srcdoc. Only app-consumed query param is `appview`;
+  no app-level `message` listener; no real Server Actions. `_next/image`, `_next/data`,
+  `/api/` -> 404; 404/slug paths not reflected. Runtime `?link=` allowlist on
+  `/download/unifi/download-started` rejects external/userinfo/`javascript:` values.
+  **Not Vulnerable.**
+- Fresh A + B email-OTP sessions (`/user/self` 200).
+- **`sso /zendesk_login?return_to=<x>`**: sso forwards `return_to` verbatim, but Zendesk
+  normalizes the hop to `help.ui.com/access/return_to?...&return_to=https://help.ui.com/hc`
+  (302); single-use JWT not exposed. `jwt/token`, `shopify_login`, `logout`,
+  `account /login?redirect=` all fixed/no-redirect. **No open redirect.**
+- **Zendesk create mass-assignment** (`requester_id`=B, `organization_id`, `assignee_id`,
+  `status`, `priority`, `collaborators`) -> `400 BAD_REQUEST`; create quota
+  (`x-ratelimit-limit: 1`) exhausted (reset ~08:46Z). No ticket persisted.
+  **Unresolved (rate-limited).**
+- `PUT sso /user/self {"picture":...}` ignored (server-managed); `{"first_name":"<img…>"}`
+  -> `429`, unchanged, restored. No mass assignment.
+- Route ledger unchanged: **57 routes (42 done / 15 blocked)**. No new confirmed high-impact
+  finding; `confirmed-vuln.txt` unchanged; no Discord notification.
+  Ledger: `result/server-side/account.ui.com/session34-ledger.md`.

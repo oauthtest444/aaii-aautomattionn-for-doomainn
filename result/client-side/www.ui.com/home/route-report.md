@@ -19,3 +19,16 @@ Only public/static assets and third-party analytics were loaded. The app calls
 in `result/out-of-scope.txt`.
 
 ## Status: Done (no vulnerability)
+
+## Session 34 re-audit (2026-11-28) — new deploy `dpl=d6fbc335af54cb2739a6c9ebd9f765dc52426e14`
+- Re-deploy of the marketing microsite (previous `dpl=e1f4c3c3…`). Audited the 36
+  initial chunks (3.0 MB): 28 `dangerouslySetInnerHTML` (React/Next internals + static
+  i18n; the app route-allowlist chunk `02aqcd17vx73t.js` is unchanged), 7 `.innerHTML=`
+  (React setter, GTM, SendSafely, textContent helper); 0 insertAdjacentHTML/document.write/
+  eval/new Function/srcdoc. Only app-consumed query param is `appview`; the rest are Next
+  RSC internals. No app-level `message` listener. No real Server Actions.
+- `_next/image`, `_next/data`, `/api/` -> 404; 404 and `/download/software/<slug>` paths
+  are not reflected. Runtime (Chrome MCP) `?link=` allowlist on
+  `/download/unifi/download-started` strips `https://evil.com/…` and
+  `https://dl.ui.com@evil.com/…` (no evil anchor/iframe).
+- Status: **Not Vulnerable** (content/dependency refresh; no new sink).
